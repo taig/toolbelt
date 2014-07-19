@@ -27,8 +27,6 @@ extends	ImageView( context, attributes, style )
 		.mutate()
 		.asInstanceOf[GradientDrawable]
 
-	val size = circle.getIntrinsicWidth
-
 	setBackground( circle )
 	setColor( color )
 
@@ -40,12 +38,6 @@ extends	ImageView( context, attributes, style )
 		circle.setColor( color )
 	}
 
-	def setStrokedColor( color: Color )
-	{
-		setColor( color )
-		circle.setStroke( size / 8, color.darken( 0.25f ) )
-	}
-
 	def isActive = getDrawable != null
 
 	def setActive( active: Boolean ) = setImageDrawable( if( active ) check else null )
@@ -54,5 +46,13 @@ extends	ImageView( context, attributes, style )
 
 	def deactivate() = setActive( false )
 
-	override def onMeasure( widthMeasureSpec: Int, heightMeasureSpec: Int ) = setMeasuredDimension( size, size )
+	def scale( value: Float )
+	{
+		circle.setSize( ( circle.getIntrinsicWidth * value ).toInt, ( circle.getIntrinsicHeight * value ).toInt )
+	}
+
+	override def onMeasure( widthMeasureSpec: Int, heightMeasureSpec: Int ) =
+	{
+		setMeasuredDimension( circle.getIntrinsicWidth, circle.getIntrinsicWidth )
+	}
 }

@@ -2,6 +2,7 @@ package com.taig.android.preference
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.drawable.GradientDrawable
 import android.preference.{DialogPreference, Preference}
 import android.util.{AttributeSet, Log}
 import android.view.{View, ViewGroup}
@@ -35,7 +36,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		super.onBindView( view )
 
 		preview = view.findViewById( R.id.color_picker_preview ).asInstanceOf[ColorCircle]
-		preview.setStrokedColor( color )
+		preview.scale( 0.75f )
 	}
 
 	override def onGetDefaultValue( array: TypedArray, index: Int ): Integer = array.getInt( index, Color.White )
