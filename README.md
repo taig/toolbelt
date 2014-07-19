@@ -1,21 +1,16 @@
-# Switchable Preference Category
+# Android Toolbelt
 *A Scala on Android library*
 
-A custom PreferenceCategory that has an additional Switch to toggle its children
+An Android library project providing essential helpers
 
 **Install**
 
 This project is an Android library project meaning that you have to clone and reference it by yourself.
 
-**Use in xml**
+**Features**
 
-````
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+The source is currently lacking of documentation as it is primary intended for personal use. The library's main features are:
 
-     <com.taig.android.preference.SwitchableCategory
-         android:defaultValue="true"
-				 android:key="my_key"
-			 	 android:title="@string/my_title" />
-
-</PreferenceScreen>
-````
+- Common implicit conversions (`import com.taig.android._`)
+- WallpaperService wrapper to clean up the mess of an API Google is providing
+- Color picker preference
