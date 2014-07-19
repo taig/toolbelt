@@ -19,7 +19,7 @@ extends	ImageView( context, attributes, style )
 
 	lazy val check = context
 		.getResources
-		.getDrawable( R.drawable.color_picker_preference_circle )
+		.getDrawable( R.drawable.color_picker_preference_circle_selected )
 
 	val circle = context
 		.getResources
