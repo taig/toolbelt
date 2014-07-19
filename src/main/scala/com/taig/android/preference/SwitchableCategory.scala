@@ -17,7 +17,7 @@ extends	PreferenceCategory( context, attributes, style )
 
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.preferenceCategoryStyle )
 
-	setWidgetLayoutResource( R.layout.switchable_category_preference_widget )
+	setLayoutResource( R.layout.switchable_category_preference )
 
 	override def onBindView( view: View )
 	{
