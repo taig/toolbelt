@@ -84,7 +84,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 			
 			if( preview != null )
 			{
-				preview.setStrokedColor( color )
+				preview.setColor( color )
 			}
 		}
 	}

@@ -4,13 +4,15 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="wrap_content"
 			  android:orientation="horizontal"
-			  android:paddingBottom="5dp"
+			  android:paddingStart="0dp"
 			  style="?android:attr/listSeparatorTextViewStyle">
 
 	<TextView android:layout_width="0dp"
 			  android:layout_height="wrap_content"
 			  android:layout_weight="1"
-			  android:id="@android:id/title" />
+			  android:background="@null"
+			  android:id="@android:id/title"
+			  style="?android:attr/listSeparatorTextViewStyle" />
 
 	<CheckBox android:layout_width="wrap_content"
 			  android:layout_height="wrap_content"
