@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.service.wallpaper.WallpaperService
 import android.util.Log
 import android.view.{MotionEvent, SurfaceHolder}
+import com.taig.android.Resolution
 import com.taig.android.service.wallpaper.Service.Tag
 import scala.collection.mutable
 
