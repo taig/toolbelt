@@ -34,7 +34,6 @@ extends	ImageView( context, attributes, style )
 
 	def setColor( color: Color )
 	{
-		Log.d( "ASDF", "setColor: " + color )
 		this.color = color
 		circle.setColor( color )
 		invalidate()
