@@ -36,7 +36,13 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		super.onBindView( view )
 
 		preview = view.findViewById( R.id.color_picker_preview ).asInstanceOf[ColorCircle]
+		preview.setColor( color )
 		preview.scale( 0.75f )
+
+		if( !isEnabled )
+		{
+			preview.setVisibility( View.INVISIBLE )
+		}
 	}
 
 	override def onGetDefaultValue( array: TypedArray, index: Int ): Integer = array.getInt( index, Color.White )
@@ -79,13 +85,8 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		{
 			this.color = color
 			persistInt( color )
-			notifyChanged()
 			adapter.getLabel().map( setSummary )
-			
-			if( preview != null )
-			{
-				preview.setColor( color )
-			}
+			notifyChanged()
 		}
 	}
 

@@ -2,7 +2,7 @@ package com.taig.android.view
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.util.AttributeSet
+import android.util.{Log, AttributeSet}
 import android.widget.ImageView
 import com.taig.android.{R, Color}
 
@@ -34,8 +34,10 @@ extends	ImageView( context, attributes, style )
 
 	def setColor( color: Color )
 	{
+		Log.d( "ASDF", "setColor: " + color )
 		this.color = color
 		circle.setColor( color )
+		invalidate()
 	}
 
 	def isActive = getDrawable != null
