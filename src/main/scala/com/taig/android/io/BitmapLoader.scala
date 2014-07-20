@@ -82,7 +82,6 @@ class BitmapLoader( val context: Context )
 		}
 
 		bitmaps.put( Key( resource, target ), Value( bitmap ) )
-		printState()
 		bitmap
 	}
 
@@ -116,7 +115,6 @@ class BitmapLoader( val context: Context )
 			else
 			{
 				cache.users += 1
-				printState()
 				cache.bitmap
 			}
 		} )
@@ -138,8 +136,6 @@ class BitmapLoader( val context: Context )
 				bitmaps.remove( key )
 			}
 		} )
-
-		printState()
 	}
 
 	def release( bitmap: Bitmap )
@@ -158,8 +154,6 @@ class BitmapLoader( val context: Context )
 	{
 		bitmaps.values.foreach( _.bitmap.recycle )
 		bitmaps.clear()
-
-		printState()
 	}
 
 	private def getImageResolution( resource: Int ) =
@@ -183,17 +177,6 @@ class BitmapLoader( val context: Context )
 			sampleSize
 		}
 
-	}
-
-	private def printState()
-	{
-		Log.d( Tag, "BitmapLoader:" )
-		Log.d( Tag, s"${bitmaps.size} Bitmaps cached" )
-
-		bitmaps.foreach
-		{
-			case ( Key( resource, resolution ), Value( _, users ) ) => Log.d( Tag, s" - $resource $resolution ($users users)" )
-		}
 	}
 }
 
