@@ -15,6 +15,6 @@ The source is currently lacking of documentation as it is primary intended for p
 - WallpaperService wrapper to clean up the mess of an API Google is providing
 - Color picker preference
 
-** Screensots**
+**Screenshots**
 
-![Screensots](http://taig.github.io/Android-Toolbelt/1.png)
+![Screenshots](http://taig.github.io/Android-Toolbelt/1.png)
