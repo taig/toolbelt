@@ -5,6 +5,7 @@
 			  android:layout_height="wrap_content"
 			  android:orientation="horizontal"
 			  android:paddingEnd="8dp"
+			  android:paddingLeft="0dp"
 			  android:paddingStart="0dp"
 			  style="?android:attr/listSeparatorTextViewStyle">
 

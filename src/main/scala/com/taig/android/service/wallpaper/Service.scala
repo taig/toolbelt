@@ -16,23 +16,17 @@ abstract class Service extends WallpaperService
 	override def onCreate()
 	{
 		super.onCreate()
-
-		Log.d( Tag, "Service: onCreate" )
 	}
 
 	override def onDestroy()
 	{
 		super.onDestroy()
 
-		Log.d( Tag, "Service: onDestroy" )
-
 		proxies.foreach( _.defuel )
 	}
 
 	override final def onCreateEngine =
 	{
-		Log.d( Tag, "Service: onCreateEngine" )
-
 		new Proxy( load )
 	}
 
@@ -40,8 +34,6 @@ abstract class Service extends WallpaperService
 
 	protected final def inject( load: () => Driver )
 	{
-		Log.d( Tag, "Service: inject" )
-
 		proxies.foreach( _.fuel( load() )  )
 	}
 
@@ -115,16 +107,12 @@ abstract class Service extends WallpaperService
 		{
 			super.onCreate( surfaceHolder )
 
-			Log.d( Tag, "Proxy: onCreate" )
-
 			proxies += this
 		}
 
 		override def onDestroy()
 		{
 			super.onDestroy()
-
-			Log.d( Tag, "Proxy: onDestroy" )
 
 			defuel
 
@@ -135,47 +123,37 @@ abstract class Service extends WallpaperService
 		{
 			super.onVisibilityChanged( visible )
 
-			Log.d( Tag, s"Proxy: onVisibilityChanged( $visible )" )
-
-			driver.map( driver =>
+			driver.foreach( driver => ( visible, state ) match
 			{
-				( visible, state ) match
+				case ( true, State.Init ) =>
 				{
-					case ( true, State.Init ) =>
-					{
-						driver.onCreate( getSurfaceHolder, resolution )
-						driver.onStart()
-						this.state = State.Start
-					}
-					case ( true, State.Create ) =>
-					{
-						driver.onStart()
-						this.state = State.Start
-					}
-					case ( true, State.Stop ) =>
-					{
-						driver.onRestart()
-						driver.onStart()
-						this.state = State.Start
-					}
-					case ( false, State.Start ) =>
-					{
-						driver.onStop()
-						this.state = State.Stop
-					}
-					case ( visible, state ) =>
-					{
-						Log.d( Tag, s"Proxy: No action to perform with visible: $visible, state: $state (${driver.getClass.getSimpleName}, ${driver.id}})" )
-					}
+					driver.onCreate( getSurfaceHolder, resolution )
+					driver.onStart( resolution )
+					this.state = State.Start
 				}
+				case ( true, State.Create ) =>
+				{
+					driver.onStart( resolution )
+					this.state = State.Start
+				}
+				case ( true, State.Stop ) =>
+				{
+					driver.onRestart()
+					driver.onStart( resolution )
+					this.state = State.Start
+				}
+				case ( false, State.Start ) =>
+				{
+					driver.onStop()
+					this.state = State.Stop
+				}
+				case _ => //
 			} )
 		}
 
 		override def onTouchEvent( event: MotionEvent )
 		{
 			super.onTouchEvent( event )
-
-			Log.d( Tag, "Proxy: onTouchEvent" )
 
 			driver.map( _.onTouchEvent( event ) )
 		}
@@ -184,23 +162,17 @@ abstract class Service extends WallpaperService
 		{
 			super.onOffsetsChanged( x, y, xStep, yStep, xPixel, yPixel )
 
-			Log.d( Tag, s"Proxy: onOffsetsChanged( $x, $y, $xStep, $yStep, $xPixel, $yPixel )" )
-
 			driver.map( _.onOffsetsChanged( x, y, xStep, yStep, xPixel, yPixel ) )
 		}
 
 		override def onCommand( action: String, x: Int, y: Int, z: Int, extras: Bundle, resultRequested: Boolean ) =
 		{
-			Log.d( Tag, s"Proxy: onCommand( $action )" )
-
 			driver.map( _.onCommand( action, x, y, z, extras, resultRequested ) ).flatten.orNull
 		}
 
 		override def onDesiredSizeChanged( width: Int, height: Int )
 		{
 			super.onDesiredSizeChanged( width, height )
-
-			Log.d( Tag, s"Proxy: onDesiredSizeChanged( $width, $height )" )
 
 			driver.map( _.onDesiredSizeChanged( width, height ) )
 		}
@@ -209,26 +181,10 @@ abstract class Service extends WallpaperService
 		{
 			super.onSurfaceChanged( surface, format, width, height )
 
-			Log.d( Tag, s"Proxy: onSurfaceChanged( $format, $width, $height )" )
-
 			resolution = Resolution( width, height )
 
 			driver.map( _.onCreate( surface, resolution ) )
 			state = State.Create
-		}
-
-		override def onSurfaceRedrawNeeded( holder: SurfaceHolder )
-		{
-			super.onSurfaceRedrawNeeded( holder )
-
-			Log.d( Tag, "Proxy: onSurfaceRedrawNeeded" )
-		}
-
-		override def onSurfaceCreated( holder: SurfaceHolder )
-		{
-			super.onSurfaceCreated( holder )
-
-			Log.d( Tag, "Proxy: onSurfaceCreated" )
 		}
 
 		override def onSurfaceDestroyed( holder: SurfaceHolder )
@@ -236,8 +192,6 @@ abstract class Service extends WallpaperService
 			super.onSurfaceDestroyed( holder )
 
 			defuel
-
-			Log.d( Tag, "Proxy: onSurfaceDestroyed" )
 		}
 	}
 }

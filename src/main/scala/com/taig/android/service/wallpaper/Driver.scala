@@ -12,61 +12,36 @@ abstract class Driver( val context: Context )
 {
 	private var surface: Option[SurfaceHolder] = None
 
-	private[wallpaper] val id = ( Math.random() * 100 ).toInt
-
 	val touchEvents: Boolean
 
 	val offsetNotifications: Boolean
 
 	def onCreate( surface: SurfaceHolder, resolution: Resolution )
 	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onCreate( $resolution )" )
-
 		this.surface = Some( surface )
 	}
 
-	def onStart()
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onStart" )
-	}
+	def onStart( resolution: Resolution ) {}
 
-	def onRestart()
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onRestart" )
-	}
+	def onRestart() {}
 
-	def onStop()
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onStop" )
-	}
+	def onStop() {}
 
 	def onDestroy()
 	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onDestroy" )
-
 		surface = None
 	}
 
-	def onTouchEvent( event: MotionEvent )
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onTouchEvent" )
-	}
+	def onTouchEvent( event: MotionEvent ) {}
 
-	def onOffsetsChanged( x: Float, y: Float, xStep: Float, yStep: Float, xPixel: Int, yPixel: Int )
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onOffsetsChanged( $x, $y )" )
-	}
+	def onOffsetsChanged( x: Float, y: Float, xStep: Float, yStep: Float, xPixel: Int, yPixel: Int ) {}
 
 	def onCommand( action: String, x: Int, y: Int, z: Int, extras: Bundle, resultRequested: Boolean ): Option[Bundle] =
 	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onCommand( $action )" )
 		None
 	}
 
-	def onDesiredSizeChanged( width: Int, height: Int )
-	{
-		Log.d( Tag, s"${getClass.getSimpleName} ($id): onDesiredSizeChanged( $width, $height )" )
-	}
+	def onDesiredSizeChanged( width: Int, height: Int ) {}
 
 	def draw(): Unit = surface.map( surface =>
 	{

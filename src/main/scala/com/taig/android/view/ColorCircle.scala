@@ -27,7 +27,7 @@ extends	ImageView( context, attributes, style )
 		.mutate()
 		.asInstanceOf[GradientDrawable]
 
-	setBackground( circle )
+	setBackgroundDrawable( circle )
 	setColor( color )
 
 	def getColor = color
