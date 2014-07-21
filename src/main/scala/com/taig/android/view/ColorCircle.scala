@@ -1,7 +1,8 @@
 package com.taig.android.view
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.{Drawable, GradientDrawable}
+import android.os.Build
 import android.util.{Log, AttributeSet}
 import android.widget.ImageView
 import com.taig.android.{R, Color}
@@ -27,8 +28,21 @@ extends	ImageView( context, attributes, style )
 		.mutate()
 		.asInstanceOf[GradientDrawable]
 
-	setBackgroundDrawable( circle )
+	setBackground( circle )
 	setColor( color )
+
+	@SuppressWarnings("deprecation")
+	override def setBackground( background: Drawable )
+	{
+		if( Build.VERSION.SDK_INT >= 16 )
+		{
+			super.setBackground( background )
+		}
+		else
+		{
+			setBackgroundDrawable( background )
+		}
+	}
 
 	def getColor = color
 
