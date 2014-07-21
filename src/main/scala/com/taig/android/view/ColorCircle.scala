@@ -31,7 +31,6 @@ extends	ImageView( context, attributes, style )
 	setBackground( circle )
 	setColor( color )
 
-	@SuppressWarnings("deprecation")
 	override def setBackground( background: Drawable )
 	{
 		if( Build.VERSION.SDK_INT >= 16 )
