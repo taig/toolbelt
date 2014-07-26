@@ -7,7 +7,7 @@ object Build extends android.AutoBuild
 		.settings(
 			name := "android-toolbelt",
 			organization := "com.taig.android",
-			scalaVersion := "2.11.1",
+			scalaVersion := "2.11.2",
 			scalacOptions ++= Seq( "-feature", "-language:implicitConversions" ), 
 			version := "1.0.0"
 		)
