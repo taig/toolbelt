@@ -3,9 +3,9 @@ package com.taig.android.view
 import android.content.Context
 import android.graphics.drawable.{Drawable, GradientDrawable}
 import android.os.Build
-import android.util.{Log, AttributeSet}
+import android.util.AttributeSet
 import android.widget.ImageView
-import com.taig.android.{R, Color}
+import com.taig.android.{Color, R}
 
 class	ColorCircle( context: Context, private var color: Color, attributes: AttributeSet, style: Int )
 extends	ImageView( context, attributes, style )
