@@ -25,10 +25,7 @@ abstract class Service extends WallpaperService
 		proxies.foreach( _.defuel )
 	}
 
-	override final def onCreateEngine =
-	{
-		new Proxy( load )
-	}
+	override final def onCreateEngine = new Proxy( load )
 
 	def load: Driver
 
