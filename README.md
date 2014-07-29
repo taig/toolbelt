@@ -3,6 +3,8 @@
 
 An Android library project providing essential helpers
 
+This library is the foundatation for the [Coyote Buttes Live Wallpaper](https://play.google.com/store/apps/details?id=com.taig.wallpaper.coyote_buttes)
+
 **Install**
 
 This project is an Android library project meaning that you have to clone and reference it by yourself.
