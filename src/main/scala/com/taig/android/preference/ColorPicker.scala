@@ -15,12 +15,11 @@ import scala.collection.mutable
 
 class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) extends DialogPreference( context, attributes, styles )
 {
-	private var preview: ColorCircle = null
+	private var widget: ColorCircle = null
 
 	private var color = Color.White
 
-	private lazy val adapter = new Adapter(
-		context,
+	private val adapter = new Adapter(
 		R.array.color_picker_preference_color_values,
 		color,
 		Some( R.array.color_picker_preference_color_names )
@@ -28,20 +27,23 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.dialogPreferenceStyle )
 
-	setWidgetLayoutResource( R.layout.color_picker_preference_preview )
+	setWidgetLayoutResource( R.layout.color_picker_preference_widget )
 	setDialogLayoutResource( R.layout.color_picker_preference_dialog )
 
 	override def onBindView( view: View )
 	{
 		super.onBindView( view )
 
-		preview = view.findViewById( R.id.color_picker_preview ).asInstanceOf[ColorCircle]
-		preview.setColor( color )
-		preview.scale( 0.75f )
+		widget = view
+			.findViewById( R.id.color_picker_preference_widget )
+			.asInstanceOf[ColorCircle]
+
+		widget.setColor( color )
+		widget.scale( 0.75f )
 
 		if( !isEnabled )
 		{
-			preview.setVisibility( View.INVISIBLE )
+			widget.setVisibility( View.INVISIBLE )
 		}
 	}
 
@@ -90,10 +92,9 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		}
 	}
 
-	private class Adapter( val context: Context, private val colors: Array[Color], private val selection: Color, private val labels: Option[Array[String]] ) extends BaseAdapter
+	private class Adapter( val colors: Array[Color], val selection: Color, val labels: Option[Array[String]] ) extends BaseAdapter
 	{
-		def this( context: Context, colorsResource: Int, selection: Color, labels: Option[Int] = None ) = this(
-			context,
+		def this( colorsResource: Int, selection: Color, labels: Option[Int] = None ) = this(
 			context.getResources.getStringArray( colorsResource ).map( Color.apply ),
 			selection,
 			labels.map( context.getResources.getStringArray )
@@ -101,7 +102,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 		require( colors contains selection, "Selection must be an element of colors" )
 
-		require( labels.map( _.length == colors.length ).getOrElse( true ), "Colors and labels need tohave equal length" )
+		require( labels.map( _.length == colors.length ).getOrElse( true ), "Colors and labels need to have equal length" )
 
 		private val circles = new mutable.HashMap[Int, ColorCircle]()
 		{
