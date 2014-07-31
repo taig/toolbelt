@@ -1,6 +1,7 @@
 package com.taig
 
 import _root_.android.app.SearchManager
+import _root_.android.content.DialogInterface.OnDismissListener
 import _root_.android.content.{SharedPreferences, DialogInterface}
 import _root_.android.preference.Preference
 import _root_.android.preference.Preference.OnPreferenceClickListener
@@ -27,6 +28,11 @@ package object android
 	implicit def `function2 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface, Int ) => Unit ) = new DialogInterface.OnClickListener
 	{
 		override def onClick( dialog: DialogInterface, which: Int ): Unit = f( dialog, which )
+	}
+
+	implicit def `function1 -> Unit -> DialogInterface.OnDismissListener`( f: ( DialogInterface ) => Unit ) = new DialogInterface.OnDismissListener
+	{
+		override def onDismiss( dialog: DialogInterface ): Unit = f( dialog )
 	}
 
 	implicit def `function1 -> Boolean -> Preference.OnPreferenceChangeListener`( f: ( Any ) => Boolean ) = new Preference.OnPreferenceChangeListener
