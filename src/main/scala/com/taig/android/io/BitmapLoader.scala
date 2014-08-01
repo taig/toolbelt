@@ -4,13 +4,13 @@ import android.content.Context
 import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import android.os.Build
 import com.taig.android.Resolution
-import com.taig.android.io.BitmapLoader.{Key, Value}
+import com.taig.android.io.BitmapLoader._
 
 import scala.collection.mutable
 
 class BitmapLoader( val context: Context )
 {
-	private val bitmaps = mutable.Map.empty[Key, Value]
+	private val bitmaps = mutable.Map.empty[Bitmap, Meta]
 
 	/**
 	 * Force to load Bitmap from disk and ignore the cache, however the cache will be updated with the retrieved
@@ -19,10 +19,7 @@ class BitmapLoader( val context: Context )
 	 * @param resource The drawable id to load
 	 * @return The Bitmap object from disk
 	 */
-	def load( resource: Int ): Bitmap =
-	{
-		load( resource, getImageResolution( resource ) )
-	}
+	def load( resource: Int ): Bitmap = load( resource, getImageResolution( resource ) )
 
 	/**
 	 * Force to load Bitmap from disk and ignore the cache, however the cache will be updated with the retrieved
@@ -66,21 +63,26 @@ class BitmapLoader( val context: Context )
 			val x = if( bitmap.getWidth > scaled.width ) ( bitmap.getWidth - scaled.width ) / 2 else 0
 			val y = if( bitmap.getHeight > scaled.height ) ( bitmap.getHeight - scaled.height ) / 2 else 0
 
-			val matrix = new Matrix()
-			matrix.setScale( ratio, ratio )
-
 			bitmap = Bitmap.createBitmap(
 				bitmap,
 				x,
 				y,
 				bitmap.getWidth - 2 * x,
 				bitmap.getHeight - 2 * y,
-				matrix,
+				new Matrix() { setScale( ratio, ratio ) },
 				false
 			)
+
+			bitmaps.put(
+				bitmap,
+				Meta( resource, target, ratio / options.inSampleSize, x * options.inSampleSize, y * options.inSampleSize )
+			)
+		}
+		else
+		{
+			bitmaps.put( bitmap, Meta( resource, target, 1 / options.inSampleSize, 0, 0 ) )
 		}
 
-		bitmaps.put( Key( resource, target ), Value( bitmap ) )
 		bitmap
 	}
 
@@ -100,60 +102,52 @@ class BitmapLoader( val context: Context )
 	 * @param target   The resolution the image will be down-sampled and -scaled to
 	 * @return The Bitmap object from cache or disk
 	 */
-	def get( resource: Int, target: Resolution ): Bitmap =
-	{
-		val key = Key( resource, target )
-
-		bitmaps.get( key ).fold( load( resource, target ) )( cache =>
+	def get( resource: Int, target: Resolution ): Bitmap = bitmaps
+		.find{ case ( _, meta ) => resource == meta.resource && target == meta.resolution }
+		.fold( load( resource, target ) )
 		{
-			if( cache.bitmap.isRecycled )
+			case ( bitmap, meta ) =>
 			{
-				bitmaps.remove( key )
-				get( resource, target )
+				if( bitmap.isRecycled )
+				{
+					bitmaps.remove( bitmap )
+					get( resource, target )
+				}
+				else
+				{
+					meta.users += 1
+					bitmap
+				}
 			}
-			else
-			{
-				cache.users += 1
-				cache.bitmap
-			}
-		} )
-	}
+		}
 
 	def release( resource: Int ): Unit = release( resource, getImageResolution( resource ) )
 
-	def release( resource: Int, resolution: Resolution )
-	{
-		val key = Key( resource, resolution )
-
-		bitmaps.get( key ).map( cache =>
+	def release( resource: Int, resolution: Resolution ): Unit = bitmaps
+		.find{ case ( _, meta ) => resource == meta.resource && resolution == meta.resolution }
+		.map
 		{
-			cache.users -= 1
-
-			if( cache.users == 0 )
+			case ( bitmap, meta ) =>
 			{
-				cache.bitmap.recycle()
-				bitmaps.remove( key )
-			}
-		} )
-	}
-
-	def release( bitmap: Bitmap )
-	{
-		for( ( Key( resource, resolution ), Value( x, _ ) ) <- bitmaps )
-		{
-			if( bitmap == x )
-			{
-				release( resource, resolution )
-				return
+				meta.users -= 1
+				
+				if( meta.users == 0 )
+				{
+					bitmap.recycle()
+					bitmaps.remove( bitmap )
+				}
 			}
 		}
-	}
+
+	def release( bitmap: Bitmap ): Unit = bitmaps.get( bitmap ).map( meta => release( meta.resource, meta.resolution ) )
 
 	def destroy()
 	{
-		bitmaps.values.foreach( _.bitmap.recycle )
+		bitmaps.keys.foreach( _.recycle )
 		bitmaps.clear()
 	}
+
+	def getMeta( bitmap: Bitmap ) = bitmaps.get( bitmap )
 
 	private def getImageResolution( resource: Int ) =
 	{
@@ -175,7 +169,6 @@ class BitmapLoader( val context: Context )
 		{
 			sampleSize
 		}
-
 	}
 }
 
@@ -183,7 +176,5 @@ object BitmapLoader
 {
 	val Tag = classOf[BitmapLoader].getName
 
-	private case class Key( resource: Int, resolution: Resolution )
-
-	private case class Value( bitmap: Bitmap, var users: Int = 1 )
+	case class Meta( resource: Int, resolution: Resolution, scale: Float, offsetX: Int, offsetY: Int, var users: Int = 1 )
 }
