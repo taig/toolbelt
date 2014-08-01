@@ -108,30 +108,24 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 		require( labels.map( _.length == colors.length ).getOrElse( true ), "Colors and labels need to have equal length" )
 
-		private val circles = new mutable.HashMap[Int, ColorCircle]()
+		private val circles: Map[Int, ColorCircle] = colors.zipWithIndex.map(
 		{
-			for( ( color, index ) <- colors.zipWithIndex )
+			case ( color, index ) => ( index, new ColorCircle( context, color )
 			{
-				put( index, new ColorCircle( context, color )
-				{
-					if( color == selection )
-					{
-						activate()
-					}
+				setActive( color == selection )
 
-					setOnClickListener( ( _: View ) =>
+				setOnClickListener( ( _: View ) =>
+				{
+					circles.values.filter( _.isActive ).map( _.deactivate() )
+					activate()
+					Option( getDialog ).foreach( dialog =>
 					{
-						values.filter( _.isActive ).map( _.deactivate() )
-						activate()
-						Option( getDialog ).foreach( dialog =>
-						{
-							onClick( dialog, BUTTON_POSITIVE )
-							dialog.dismiss()
-						} )
+						onClick( dialog, BUTTON_POSITIVE )
+						dialog.dismiss()
 					} )
 				} )
-			}
-		}
+			} )
+		} ).toMap
 
 		override def getCount = colors.length
 
