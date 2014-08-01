@@ -1,6 +1,8 @@
 package com.taig.android.preference
 
-import android.content.Context
+import android.app.AlertDialog.Builder
+import android.content.DialogInterface.BUTTON_POSITIVE
+import android.content.{DialogInterface, Context}
 import android.content.res.TypedArray
 import android.graphics.drawable.GradientDrawable
 import android.preference.{DialogPreference, Preference}
@@ -54,6 +56,13 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		setColor( if( restore ) getPersistedInt( color ) else default.asInstanceOf[Int] )
 	}
 
+	override def onPrepareDialogBuilder( builder: Builder )
+	{
+		super.onPrepareDialogBuilder( builder )
+
+		builder.setPositiveButton( null, null )
+	}
+
 	override def onCreateDialogView() =
 	{
 		val view = super.onCreateDialogView()
@@ -64,11 +73,6 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 			.setAdapter( adapter )
 
 		view
-	}
-
-	override def onDependencyChanged( dependency: Preference, disableDependent: Boolean )
-	{
-		super.onDependencyChanged( dependency, disableDependent )
 	}
 
 	override def onDialogClosed( result: Boolean )
@@ -119,6 +123,11 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 					{
 						values.filter( _.isActive ).map( _.deactivate() )
 						activate()
+						Option( getDialog ).foreach( dialog =>
+						{
+							onClick( dialog, BUTTON_POSITIVE )
+							dialog.dismiss()
+						} )
 					} )
 				} )
 			}
