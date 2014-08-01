@@ -125,18 +125,18 @@ abstract class Service extends WallpaperService
 				case ( true, State.Init ) =>
 				{
 					driver.onCreate( getSurfaceHolder, resolution )
-					driver.onStart( resolution )
+					driver.onStart()
 					this.state = State.Start
 				}
 				case ( true, State.Create ) =>
 				{
-					driver.onStart( resolution )
+					driver.onStart()
 					this.state = State.Start
 				}
 				case ( true, State.Stop ) =>
 				{
 					driver.onRestart()
-					driver.onStart( resolution )
+					driver.onStart()
 					this.state = State.Start
 				}
 				case ( false, State.Start ) =>

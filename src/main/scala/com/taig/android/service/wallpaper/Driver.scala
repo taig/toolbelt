@@ -21,7 +21,7 @@ abstract class Driver( val context: Context )
 		this.surface = Some( surface )
 	}
 
-	def onStart( resolution: Resolution ) {}
+	def onStart() {}
 
 	def onRestart() {}
 
