@@ -19,7 +19,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 	private var color = Color.White
 
-	private val adapter = new Adapter(
+	private lazy val adapter = new Adapter(
 		R.array.color_picker_preference_color_values,
 		color,
 		Some( R.array.color_picker_preference_color_names )
