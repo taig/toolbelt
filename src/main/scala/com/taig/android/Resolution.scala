@@ -6,3 +6,12 @@ case class Resolution( width: Int, height: Int )
 
 	override def toString = s"$width x $height"
 }
+
+object Resolution
+{
+	def apply( resolution: Array[Int] ): Resolution =
+	{
+		require( resolution.length == 2 )
+		apply( resolution( 0 ), resolution( 1 ) )
+	}
+}
