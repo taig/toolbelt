@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string-array name="color_picker_preference_color_names">
+
+		<item>Azurblau</item>
+		<item>Amethystblau</item>
+		<item>Pistazie</item>
+		<item>Sonnenschimmer</item>
+		<item>Korallenrot</item>
+		<item>Pazifikblau</item>
+		<item>Violett</item>
+		<item>Limeade</item>
+		<item>Pizazz</item>
+		<item>Gardisten Rot</item>
+		<item>Weiß</item>
+		<item>Galerie</item>
+		<item>Silber</item>
+		<item>Grau</item>
+		<item>Grubenschacht</item>
+
+	</string-array>
+
+</resources>
