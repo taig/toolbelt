@@ -19,4 +19,7 @@ The source is currently lacking of documentation as it is primary intended for p
 
 **Screenshots**
 
-![Screenshots](http://taig.github.io/Android-Toolbelt/1.png)
+![Screenshot 1](http://taig.github.io/Android-Toolbelt/1.png)
+![Screenshot 2](http://taig.github.io/Android-Toolbelt/2.png)
+![Screenshot 3](http://taig.github.io/Android-Toolbelt/3.png)
+![Screenshot 4](http://taig.github.io/Android-Toolbelt/4.png)
