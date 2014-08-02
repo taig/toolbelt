@@ -2,7 +2,7 @@
 
 <resources>
 
-	<string-array name="color_picker_preference_color_names">
+	<string-array name="color_picker_preference_color_labels">
 
 		<item>Azurblau</item>
 		<item>Amethystblau</item>

@@ -1,33 +1,45 @@
 package com.taig.android.preference
 
 import android.app.AlertDialog.Builder
+import android.content.Context
 import android.content.DialogInterface.BUTTON_POSITIVE
-import android.content.{DialogInterface, Context}
 import android.content.res.TypedArray
-import android.graphics.drawable.GradientDrawable
-import android.preference.{DialogPreference, Preference}
-import android.util.{AttributeSet, Log}
+import android.preference.DialogPreference
+import android.util.AttributeSet
 import android.view.{View, ViewGroup}
 import android.widget.{BaseAdapter, GridView}
 import com.taig.android._
-import com.taig.android.preference.ColorPicker.Tag
 import com.taig.android.view.ColorCircle
 
-import scala.collection.mutable
-
-class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) extends DialogPreference( context, attributes, styles )
+class	ColorPicker( context: Context, attributes: AttributeSet, styles: Int )
+extends	DialogPreference( context, attributes, styles )
 {
 	private var widget: ColorCircle = null
 
-	private var color = Color.White
+	private var colors: Array[Color] = null
 
-	private lazy val adapter = new Adapter(
-		R.array.color_picker_preference_color_values,
-		color,
-		Some( R.array.color_picker_preference_color_names )
-	)
+	private var labels: Array[String] = null
+
+	private var selection = Color.White
+
+	private lazy val adapter = new Adapter()
 
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.dialogPreferenceStyle )
+
+	var array = context.obtainStyledAttributes( attributes, R.styleable.ColorPickerPreference )
+
+	colors = Option( array.getTextArray( R.styleable.ColorPickerPreference_colors ) )
+		.map( _.map( _.toString ) )
+		.getOrElse( context.getResources.getStringArray( R.array.color_picker_preference_color_values ) )
+		.map( Color( _ ) )
+
+	labels = Option( array.getTextArray( R.styleable.ColorPickerPreference_labels ) )
+		.map( _.map( _.toString ) )
+		.getOrElse( context.getResources.getStringArray( R.array.color_picker_preference_color_labels ) )
+
+	array.recycle()
+
+	require( colors.length == labels.length, "Color and label arrays must have equal length" )
 
 	setWidgetLayoutResource( R.layout.color_picker_preference_widget )
 	setDialogLayoutResource( R.layout.color_picker_preference_dialog )
@@ -40,7 +52,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 			.findViewById( R.id.color_picker_preference_widget )
 			.asInstanceOf[ColorCircle]
 
-		widget.setColor( color )
+		widget.setColor( selection )
 		widget.scale( 0.75f )
 
 		if( !isEnabled )
@@ -49,11 +61,11 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 		}
 	}
 
-	override def onGetDefaultValue( array: TypedArray, index: Int ): Integer = array.getInt( index, Color.White )
+	override def onGetDefaultValue( array: TypedArray, index: Int ): Integer = array.getInt( index, selection )
 
 	override def onSetInitialValue( restore: Boolean, default: Any )
 	{
-		setColor( if( restore ) getPersistedInt( color ) else default.asInstanceOf[Int] )
+		setColor( if( restore ) getPersistedInt( selection ) else default.asInstanceOf[Int] )
 	}
 
 	override def onPrepareDialogBuilder( builder: Builder )
@@ -81,7 +93,7 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 		if( result )
 		{
-			setColor( adapter.getColor() )
+			setColor( selection )
 		}
 	}
 
@@ -89,43 +101,31 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 	{
 		if( callChangeListener( color ) )
 		{
-			this.color = color
+			selection = color
 			persistInt( color )
-			adapter.getLabel().map( setSummary )
+			setSummary( labels( colors.indexOf( color ) ) )
 			notifyChanged()
 		}
 	}
 
-	private class Adapter( val colors: Array[Color], val selection: Color, val labels: Option[Array[String]] ) extends BaseAdapter
+	private class Adapter extends BaseAdapter
 	{
-		def this( colorsResource: Int, selection: Color, labels: Option[Int] = None ) = this(
-			context.getResources.getStringArray( colorsResource ).map( Color.apply ),
-			selection,
-			labels.map( context.getResources.getStringArray )
-		)
-
-		require( colors contains selection, "Selection must be an element of colors" )
-
-		require( labels.map( _.length == colors.length ).getOrElse( true ), "Colors and labels need to have equal length" )
-
-		private val circles: Map[Int, ColorCircle] = colors.zipWithIndex.map(
+		private val circles: Array[ColorCircle] = colors.map( color => new ColorCircle( context, color )
 		{
-			case ( color, index ) => ( index, new ColorCircle( context, color )
-			{
-				setActive( color == selection )
+			setActive( color == selection )
 
-				setOnClickListener( ( _: View ) =>
+			setOnClickListener( ( _: View ) =>
+			{
+				selection = color
+				circles.filter( _.isActive ).map( _.deactivate() )
+				activate()
+				Option( getDialog ).foreach( dialog =>
 				{
-					circles.values.filter( _.isActive ).map( _.deactivate() )
-					activate()
-					Option( getDialog ).foreach( dialog =>
-					{
-						onClick( dialog, BUTTON_POSITIVE )
-						dialog.dismiss()
-					} )
+					onClick( dialog, BUTTON_POSITIVE )
+					dialog.dismiss()
 				} )
 			} )
-		} ).toMap
+		} )
 
 		override def getCount = colors.length
 
@@ -133,19 +133,6 @@ class ColorPicker( context: Context, attributes: AttributeSet, styles: Int ) ext
 
 		override def getView( position: Int, convertView: View, parent: ViewGroup ) = circles( position )
 
-		override def getItem( position: Int ): Integer = colors( position ).color
-
-		def getColor() = circles.values.find( _.isActive ).map( _.getColor ).getOrElse
-		{
-			Log.w( Tag, "Could not find a selected ColorCircle which is not supposed to happen" )
-			Color.White
-		}
-
-		def getLabel() = labels.map( _( colors.indexOf( getColor() ) ) )
+		override def getItem( position: Int ) = null
 	}
-}
-
-object ColorPicker
-{
-	val Tag = classOf[ColorPicker].getName
 }

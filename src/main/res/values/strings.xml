@@ -2,7 +2,7 @@
 
 <resources>
 
-	<string-array name="color_picker_preference_color_names">
+	<string-array name="color_picker_preference_color_labels">
 
 		<item>Picton Blue</item>
 		<item>Amethyst</item>

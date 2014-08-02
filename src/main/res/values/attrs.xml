@@ -2,10 +2,22 @@
 
 <resources>
 
+	<declare-styleable name="ColorPickerPreference">
+
+		<attr
+			name="colors"
+			format="reference" />
+
+		<attr
+			name="labels"
+			format="reference" />
+
+	</declare-styleable>
+
 	<declare-styleable name="FontPickerPreference">
 
 		<attr
-			name="previewText"
+			name="preview"
 			format="string" />
 
 	</declare-styleable>
