@@ -1,15 +1,38 @@
 package com.taig
 
-import _root_.android.app.SearchManager
-import _root_.android.content.DialogInterface.OnDismissListener
-import _root_.android.content.{SharedPreferences, DialogInterface}
+import _root_.android.app.ActionBar.Tab
+import _root_.android.app.{ActionBar, FragmentTransaction, SearchManager}
+import _root_.android.content.{DialogInterface, SharedPreferences}
+import _root_.android.os.AsyncTask
 import _root_.android.preference.Preference
-import _root_.android.preference.Preference.OnPreferenceClickListener
+import _root_.android.support.v4.view.ViewPager
 import _root_.android.view.View
 import _root_.android.widget.CompoundButton
 
+import scala.concurrent.ExecutionContext
+
 package object android
 {
+	implicit lazy val executionContext = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+
+	implicit def `function1 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab ) => Unit ) = new ActionBar.TabListener
+	{
+		override def onTabSelected( tab: Tab, transaction: FragmentTransaction ) = f( tab )
+
+		override def onTabUnselected( tab: Tab, transaction: FragmentTransaction ) {}
+
+		override def onTabReselected( tab: Tab, transaction: FragmentTransaction ) {}
+	}
+
+	implicit def `function2 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab, FragmentTransaction ) => Unit ) = new ActionBar.TabListener
+	{
+		override def onTabSelected( tab: Tab, transaction: FragmentTransaction ) = f( tab, transaction )
+
+		override def onTabUnselected( tab: Tab, transaction: FragmentTransaction ) {}
+
+		override def onTabReselected( tab: Tab, transaction: FragmentTransaction ) {}
+	}
+
 	implicit def `function1 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( Boolean ) => Unit ) = new CompoundButton.OnCheckedChangeListener
 	{
 		override def onCheckedChanged( widget: CompoundButton, checked: Boolean ) = f( checked )
@@ -65,9 +88,9 @@ package object android
 		override def onPreferenceClick( preference: Preference ) = { f( preference ); true }
 	}
 
-	implicit def `function0 -> Unit -> Runnable`( f: () => Unit ) = new Runnable
+	implicit def `function0 -> Unit -> Runnable`( f: => Unit ) = new Runnable
 	{
-		override def run() = f()
+		override def run() = f
 	}
 
 	implicit def `function0 -> Unit -> SearchManager.OnCancelListener`( f: () => Unit ) = new SearchManager.OnCancelListener
@@ -93,5 +116,14 @@ package object android
 	implicit def `function1 -> Boolean -> View.OnLongClickListener`( f: ( View ) => Boolean ) = new View.OnLongClickListener
 	{
 		override def onLongClick( view: View ) = f( view )
+	}
+
+	implicit def `function1 -> Unit -> ViewPager.OnPageChangeListener#onPageSelected`( f: ( Int ) => Unit ) = new ViewPager.OnPageChangeListener
+	{
+		override def onPageScrolled( position: Int, positionOffset: Float, positionOffsetPixels: Int ) {}
+
+		override def onPageScrollStateChanged( state: Int ) {}
+
+		override def onPageSelected( position: Int ) = f( position )
 	}
 }
