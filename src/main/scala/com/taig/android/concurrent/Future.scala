@@ -5,32 +5,52 @@ import android.os.{AsyncTask, Handler, Looper}
 import scala.concurrent.duration.Duration
 import scala.concurrent.{CanAwait, ExecutionContext, TimeoutException}
 import scala.util.Try
+import com.taig.android._
+import scala.collection.mutable
 
-case class Future[+T]( body: => T ) extends scala.concurrent.Future[T]
+class Future[T]( body: => T ) extends scala.concurrent.Future[T]
 {
 	private var result: Option[Try[T]] = None
+
+	private val tasks = new mutable.ListBuffer[( Try[T] ) => Any]
 
 	AsyncTask.THREAD_POOL_EXECUTOR.execute(
 	{
 		result = Some( Try( body ) )
-		Future.handler.post( onComplete( null ) )
+
+		Future.this.synchronized
+		{
+			Future.handler.post( tasks.foreach( _( result.get ) ) )
+		}
 	}: Unit )
 
-	override def onComplete[U]( f: ( Try[T] ) => U )( implicit executor: ExecutionContext ): Unit = ???
+	override def onComplete[U]( f: ( Try[T] ) => U )( implicit executor: ExecutionContext ) = synchronized
+	{
+		if( isCompleted )
+		{
+			f( result.get )
+		}
+		else
+		{
+			tasks.append( f )
+		}
+	}
 
 	override def isCompleted = result.isDefined
 
 	override def value = result
 
-	@scala.throws[Exception]( classOf[Exception] )
-	override def result( atMost: Duration )( implicit permit: CanAwait ): T = ???
-
 	@scala.throws[InterruptedException]( classOf[InterruptedException] )
 	@scala.throws[TimeoutException]( classOf[TimeoutException] )
-	override def ready( atMost: Duration )( implicit permit: CanAwait ): Future[T] = ???
+	override def ready( atMost: Duration )( implicit permit: CanAwait ) = null.asInstanceOf[this.type]
+
+	@scala.throws[Exception]( classOf[Exception] )
+	override def result( atMost: Duration )( implicit permit: CanAwait ) = null.asInstanceOf[T]
 }
 
 object Future
 {
-	private val handler = new Handler( Looper.getMainLooper )
+	private lazy val handler = new Handler( Looper.getMainLooper )
+
+	def apply[T]( body: => T ) = new Future[T]( body )
 }
