@@ -16,6 +16,8 @@ The source is currently lacking of documentation as it is primary intended for p
 - Common implicit conversions (`import com.taig.android._`)
 - WallpaperService wrapper to clean up the mess of an API Google is providing
 - Color picker preference
+- Font picker preference
+- Future implementation that runs callbacks on UI thread
 
 **Screenshots**
 
