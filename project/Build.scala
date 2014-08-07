@@ -10,7 +10,7 @@ object Build extends android.AutoBuild
 			name := "toolbelt",
 			organization := "com.taig.android",
 			scalaVersion := "2.11.2",
-			scalacOptions ++= Seq( "-feature", "-language:implicitConversions", "-deprecation", "-language:dynamics" ), 
+			scalacOptions ++= Seq( "-feature", "-language:implicitConversions", "-deprecation", "-language:dynamics", "-language:reflectiveCalls" ), 
 			version := "1.0.0",
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "20"

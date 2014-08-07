@@ -1,10 +1,22 @@
 package com.taig.android
 
-import android.os.AsyncTask
+import java.util.concurrent.Executor
+
+import android.os.{Looper, Handler, AsyncTask}
 
 import scala.concurrent.ExecutionContext
 
 package object concurrent
 {
-	implicit lazy val executionContext = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+	lazy val Executor = new
+	{
+		implicit lazy val Pool = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+
+		implicit lazy val Ui = ExecutionContext.fromExecutor( new Executor
+		{
+			private val handler = new Handler( Looper.getMainLooper )
+
+			override def execute( command: Runnable ) = handler.post( command )
+		} )
+	}
 }
