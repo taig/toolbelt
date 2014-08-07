@@ -4,6 +4,7 @@ import java.io.File
 
 import android.app.{SearchManager, FragmentTransaction, ActionBar}
 import android.app.ActionBar.Tab
+import android.content.DialogInterface.OnCancelListener
 import android.content.{SharedPreferences, DialogInterface}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
@@ -15,7 +16,7 @@ package object conversion
 {
 	implicit def `File -> RichFile`( file: File ) = new RichFile( file )
 
-	implicit def `function1 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab ) => Unit ) = new ActionBar.TabListener
+	implicit def `function1 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab ) => Any ) = new ActionBar.TabListener
 	{
 		override def onTabSelected( tab: Tab, transaction: FragmentTransaction ) = f( tab )
 
@@ -24,7 +25,7 @@ package object conversion
 		override def onTabReselected( tab: Tab, transaction: FragmentTransaction ) {}
 	}
 
-	implicit def `function2 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab, FragmentTransaction ) => Unit ) = new ActionBar.TabListener
+	implicit def `function2 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab, FragmentTransaction ) => Any ) = new ActionBar.TabListener
 	{
 		override def onTabSelected( tab: Tab, transaction: FragmentTransaction ) = f( tab, transaction )
 
@@ -33,12 +34,12 @@ package object conversion
 		override def onTabReselected( tab: Tab, transaction: FragmentTransaction ) {}
 	}
 
-	implicit def `function0 -> Unit -> AdapterView.OnItemClickListener`( f: => Unit ) = new AdapterView.OnItemClickListener
+	implicit def `function0 -> Unit -> AdapterView.OnItemClickListener`( f: => Any ) = new AdapterView.OnItemClickListener
 	{
 		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f
 	}
 
-	implicit def `function4 -> Unit -> AdapterView.OnItemClickListener`( f: ( AdapterView[_], View, Int, Long ) => Unit ) = new AdapterView.OnItemClickListener
+	implicit def `function4 -> Unit -> AdapterView.OnItemClickListener`( f: ( AdapterView[_], View, Int, Long ) => Any ) = new AdapterView.OnItemClickListener
 	{
 		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f( parent, view, position, id )
 	}
@@ -53,29 +54,44 @@ package object conversion
 		override def onItemLongClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f( parent, view, position, id )
 	}
 
-	implicit def `function1 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( Boolean ) => Unit ) = new CompoundButton.OnCheckedChangeListener
+	implicit def `function1 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( Boolean ) => Any ) = new CompoundButton.OnCheckedChangeListener
 	{
 		override def onCheckedChanged( widget: CompoundButton, checked: Boolean ) = f( checked )
 	}
 
-	implicit def `function2 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( CompoundButton, Boolean ) => Unit ) = new CompoundButton.OnCheckedChangeListener
+	implicit def `function2 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( CompoundButton, Boolean ) => Any ) = new CompoundButton.OnCheckedChangeListener
 	{
 		override def onCheckedChanged( widget: CompoundButton, checked: Boolean ) = f( widget, checked )
 	}
 
-	implicit def `function1 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface ) => Unit ) = new DialogInterface.OnClickListener
+	implicit def `function0 -> Unit -> DialogInterface.OnCancelListener`( f: => Any ) = new DialogInterface.OnCancelListener
 	{
-		override def onClick( dialog: DialogInterface, which: Int ): Unit = f( dialog )
+		override def onCancel( dialog: DialogInterface ) = f
 	}
 
-	implicit def `function2 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface, Int ) => Unit ) = new DialogInterface.OnClickListener
+	implicit def `function1 -> Unit -> DialogInterface.OnCancelListener`( f: ( DialogInterface ) => Any ) = new DialogInterface.OnCancelListener
 	{
-		override def onClick( dialog: DialogInterface, which: Int ): Unit = f( dialog, which )
+		override def onCancel( dialog: DialogInterface ) = f( dialog )
 	}
 
-	implicit def `function1 -> Unit -> DialogInterface.OnDismissListener`( f: ( DialogInterface ) => Unit ) = new DialogInterface.OnDismissListener
+	implicit def `function1 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface ) => Any ) = new DialogInterface.OnClickListener
 	{
-		override def onDismiss( dialog: DialogInterface ): Unit = f( dialog )
+		override def onClick( dialog: DialogInterface, which: Int ) = f( dialog )
+	}
+
+	implicit def `function2 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface, Int ) => Any ) = new DialogInterface.OnClickListener
+	{
+		override def onClick( dialog: DialogInterface, which: Int ) = f( dialog, which )
+	}
+
+	implicit def `function0 -> Unit -> DialogInterface.OnDismissListener`( f: => Any ) = new DialogInterface.OnDismissListener
+	{
+		override def onDismiss( dialog: DialogInterface ) = f
+	}
+
+	implicit def `function1 -> Unit -> DialogInterface.OnDismissListener`( f: ( DialogInterface ) => Any ) = new DialogInterface.OnDismissListener
+	{
+		override def onDismiss( dialog: DialogInterface ) = f( dialog )
 	}
 
 	implicit def `function1 -> Boolean -> Preference.OnPreferenceChangeListener`( f: ( Any ) => Boolean ) = new Preference.OnPreferenceChangeListener
@@ -88,7 +104,7 @@ package object conversion
 		override def onPreferenceChange( preference: Preference, newValue: Any ) = f( preference, newValue )
 	}
 
-	implicit def `function0 -> Unit -> Preference.OnPreferenceClickListener`( f: => Unit ) = new Preference.OnPreferenceClickListener
+	implicit def `function0 -> Unit -> Preference.OnPreferenceClickListener`( f: => Any ) = new Preference.OnPreferenceClickListener
 	{
 		override def onPreferenceClick( preference: Preference ) = { f; true }
 	}
@@ -103,32 +119,32 @@ package object conversion
 		override def onPreferenceClick( preference: Preference ) = f( preference )
 	}
 
-	implicit def `function1 -> Unit -> Preference.OnPreferenceClickListener`( f: ( Preference ) => Unit ) = new Preference.OnPreferenceClickListener
+	implicit def `function1 -> Unit -> Preference.OnPreferenceClickListener`( f: ( Preference ) => Any ) = new Preference.OnPreferenceClickListener
 	{
 		override def onPreferenceClick( preference: Preference ) = { f( preference ); true }
 	}
 
-	implicit def `function0 -> Unit -> Runnable`( f: => Unit ) = new Runnable
+	implicit def `function0 -> Unit -> Runnable`( f: => Any ) = new Runnable
 	{
 		override def run() = f
 	}
 
-	implicit def `function0 -> Unit -> SearchManager.OnCancelListener`( f: => Unit ) = new SearchManager.OnCancelListener
+	implicit def `function0 -> Unit -> SearchManager.OnCancelListener`( f: => Any ) = new SearchManager.OnCancelListener
 	{
 		override def onCancel() = f
 	}
 
-	implicit def `function0 -> Unit -> SearchManager.OnDismissListener`( f: => Unit ) = new SearchManager.OnDismissListener
+	implicit def `function0 -> Unit -> SearchManager.OnDismissListener`( f: => Any ) = new SearchManager.OnDismissListener
 	{
 		override def onDismiss() = f
 	}
 
-	implicit def `function2 -> Unit -> SharedPreferences.OnSharedPreferenceChangeListener`( f: ( SharedPreferences, String ) => Unit ) = new SharedPreferences.OnSharedPreferenceChangeListener
+	implicit def `function2 -> Unit -> SharedPreferences.OnSharedPreferenceChangeListener`( f: ( SharedPreferences, String ) => Any ) = new SharedPreferences.OnSharedPreferenceChangeListener
 	{
 		override def onSharedPreferenceChanged( preferences: SharedPreferences, key: String ) = f( preferences, key )
 	}
 
-	implicit def `function1 -> Unit -> View.OnClickListener`( f: ( View ) => Unit ) = new View.OnClickListener
+	implicit def `function1 -> Unit -> View.OnClickListener`( f: ( View ) => Any ) = new View.OnClickListener
 	{
 		override def onClick( view: View ) = f( view )
 	}
@@ -138,7 +154,7 @@ package object conversion
 		override def onLongClick( view: View ) = f( view )
 	}
 
-	implicit def `function1 -> Unit -> ViewPager.OnPageChangeListener#onPageSelected`( f: ( Int ) => Unit ) = new ViewPager.OnPageChangeListener
+	implicit def `function1 -> Unit -> ViewPager.OnPageChangeListener#onPageSelected`( f: ( Int ) => Any ) = new ViewPager.OnPageChangeListener
 	{
 		override def onPageScrolled( position: Int, positionOffset: Float, positionOffsetPixels: Int ) {}
 
