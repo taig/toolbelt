@@ -8,7 +8,9 @@ import android.preference.DialogPreference
 import android.util.AttributeSet
 import android.view.{View, ViewGroup}
 import android.widget.{BaseAdapter, GridView}
-import com.taig.android._
+import com.taig.android.R
+import com.taig.android.conversion._
+import com.taig.android.util.Color
 import com.taig.android.view.ColorCircle
 
 class	ColorPicker( context: Context, attributes: AttributeSet, styles: Int )

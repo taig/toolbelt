@@ -6,7 +6,8 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.{BaseAdapter, CheckedTextView, TextView}
-import com.taig.android._
+import com.taig.android.R
+import com.taig.android.conversion._
 
 class FontPicker( context: Context, attributes: AttributeSet ) extends SummarizedList( context, attributes )
 {

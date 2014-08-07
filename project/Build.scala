@@ -4,12 +4,13 @@ import android.Keys._
 
 object Build extends android.AutoBuild
 {
-	lazy val main = Project( "android-toolbelt", file( "." ) )
+	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings(
-			name := "android-toolbelt",
+			exportJars := true,
+			name := "toolbelt",
 			organization := "com.taig.android",
 			scalaVersion := "2.11.2",
-			scalacOptions ++= Seq( "-feature", "-language:implicitConversions", "-deprecation" ), 
+			scalacOptions ++= Seq( "-feature", "-language:implicitConversions", "-deprecation", "-language:dynamics" ), 
 			version := "1.0.0",
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "20"

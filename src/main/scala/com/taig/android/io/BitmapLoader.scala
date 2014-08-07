@@ -3,8 +3,8 @@ package com.taig.android.io
 import android.content.Context
 import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import android.os.Build
-import com.taig.android.Resolution
 import com.taig.android.io.BitmapLoader._
+import com.taig.android.util.Resolution
 
 import scala.collection.mutable
 

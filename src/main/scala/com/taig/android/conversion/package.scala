@@ -1,19 +1,19 @@
-package com.taig
+package com.taig.android
 
-import _root_.android.app.ActionBar.Tab
-import _root_.android.app.{ActionBar, FragmentTransaction, SearchManager}
-import _root_.android.content.{DialogInterface, SharedPreferences}
-import _root_.android.os.AsyncTask
-import _root_.android.preference.Preference
-import _root_.android.support.v4.view.ViewPager
-import _root_.android.view.View
-import _root_.android.widget.CompoundButton
+import java.io.File
 
-import scala.concurrent.ExecutionContext
+import android.app.{SearchManager, FragmentTransaction, ActionBar}
+import android.app.ActionBar.Tab
+import android.content.{SharedPreferences, DialogInterface}
+import android.preference.Preference
+import android.support.v4.view.ViewPager
+import android.view.View
+import android.widget.{CompoundButton, AdapterView}
+import com.taig.android.io.RichFile
 
-package object android
+package object conversion
 {
-	implicit lazy val executionContext = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+	implicit def `File -> RichFile`( file: File ) = new RichFile( file )
 
 	implicit def `function1 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab ) => Unit ) = new ActionBar.TabListener
 	{
@@ -31,6 +31,26 @@ package object android
 		override def onTabUnselected( tab: Tab, transaction: FragmentTransaction ) {}
 
 		override def onTabReselected( tab: Tab, transaction: FragmentTransaction ) {}
+	}
+
+	implicit def `function0 -> Unit -> AdapterView.OnItemClickListener`( f: => Unit ) = new AdapterView.OnItemClickListener
+	{
+		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f
+	}
+
+	implicit def `function4 -> Unit -> AdapterView.OnItemClickListener`( f: ( AdapterView[_], View, Int, Long ) => Unit ) = new AdapterView.OnItemClickListener
+	{
+		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f( parent, view, position, id )
+	}
+
+	implicit def `function0 -> Boolean -> AdapterView.OnItemLongClickListener`( f: => Boolean ) = new AdapterView.OnItemLongClickListener
+	{
+		override def onItemLongClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f
+	}
+
+	implicit def `function4 -> Boolean -> AdapterView.OnItemLongClickListener`( f: ( AdapterView[_], View, Int, Long ) => Boolean ) = new AdapterView.OnItemLongClickListener
+	{
+		override def onItemLongClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f( parent, view, position, id )
 	}
 
 	implicit def `function1 -> Unit -> CompoundButton.OnCheckedChangeListener`( f: ( Boolean ) => Unit ) = new CompoundButton.OnCheckedChangeListener
@@ -68,14 +88,14 @@ package object android
 		override def onPreferenceChange( preference: Preference, newValue: Any ) = f( preference, newValue )
 	}
 
-	implicit def `function0 -> Unit -> Preference.OnPreferenceClickListener`( f: () => Unit ) = new Preference.OnPreferenceClickListener
+	implicit def `function0 -> Unit -> Preference.OnPreferenceClickListener`( f: => Unit ) = new Preference.OnPreferenceClickListener
 	{
-		override def onPreferenceClick( preference: Preference ) = { f(); true }
+		override def onPreferenceClick( preference: Preference ) = { f; true }
 	}
 
-	implicit def `function0 -> Boolean -> Preference.OnPreferenceClickListener`( f: () => Boolean ) = new Preference.OnPreferenceClickListener
+	implicit def `function0 -> Boolean -> Preference.OnPreferenceClickListener`( f: => Boolean ) = new Preference.OnPreferenceClickListener
 	{
-		override def onPreferenceClick( preference: Preference ) = f()
+		override def onPreferenceClick( preference: Preference ) = f
 	}
 
 	implicit def `function1 -> Boolean -> Preference.OnPreferenceClickListener`( f: ( Preference ) => Boolean ) = new Preference.OnPreferenceClickListener
@@ -93,14 +113,14 @@ package object android
 		override def run() = f
 	}
 
-	implicit def `function0 -> Unit -> SearchManager.OnCancelListener`( f: () => Unit ) = new SearchManager.OnCancelListener
+	implicit def `function0 -> Unit -> SearchManager.OnCancelListener`( f: => Unit ) = new SearchManager.OnCancelListener
 	{
-		override def onCancel() = f()
+		override def onCancel() = f
 	}
 
-	implicit def `function0 -> Unit -> SearchManager.OnDismissListener`( f: () => Unit ) = new SearchManager.OnDismissListener
+	implicit def `function0 -> Unit -> SearchManager.OnDismissListener`( f: => Unit ) = new SearchManager.OnDismissListener
 	{
-		override def onDismiss() = f()
+		override def onDismiss() = f
 	}
 
 	implicit def `function2 -> Unit -> SharedPreferences.OnSharedPreferenceChangeListener`( f: ( SharedPreferences, String ) => Unit ) = new SharedPreferences.OnSharedPreferenceChangeListener

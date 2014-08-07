@@ -5,7 +5,7 @@ import android.os.Build
 import android.preference.Preference.OnPreferenceChangeListener
 import android.preference.{ListPreference, Preference}
 import android.util.AttributeSet
-import com.taig.android._
+import com.taig.android.conversion._
 
 class SummarizedList( context: Context, attributes: AttributeSet ) extends ListPreference( context, attributes )
 {

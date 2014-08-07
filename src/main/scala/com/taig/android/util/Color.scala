@@ -1,4 +1,4 @@
-package com.taig.android
+package com.taig.android.util
 
 import android.graphics.Color._
 
@@ -18,6 +18,8 @@ object Color
 	implicit def colorToInt( color: Color ) = color.color
 
 	implicit def intToColor( color: Int ) = Color( color )
+
+	implicit def stringToColor( hex: String ) = Color( hex )
 
 	val Black = Color( BLACK )
 

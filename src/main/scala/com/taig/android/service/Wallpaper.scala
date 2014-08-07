@@ -1,15 +1,19 @@
-package com.taig.android.service.wallpaper
+package com.taig.android.service
 
+import android.content.Context
+import android.graphics.{Paint, Canvas}
 import android.os.Build.VERSION
 import android.os.Bundle
 import android.service.wallpaper.WallpaperService
 import android.util.Log
 import android.view.{MotionEvent, SurfaceHolder}
-import com.taig.android.Resolution
-import com.taig.android.service.wallpaper.Service.Tag
+import com.taig.android.Contextual
+import com.taig.android.service.Wallpaper.Driver
+import com.taig.android.util.Resolution
+
 import scala.collection.mutable
 
-abstract class Service extends WallpaperService
+abstract class Wallpaper extends WallpaperService with Contextual
 {
 	private val proxies = mutable.ListBuffer.empty[Proxy]
 
@@ -67,8 +71,8 @@ abstract class Service extends WallpaperService
 		{
 			defuel
 
-			setTouchEventsEnabled( driver.touchEvents )
-			setOffsetNotificationsEnabled( driver.offsetNotifications )
+//			setTouchEventsEnabled( driver.touchEvents )
+//			setOffsetNotificationsEnabled( driver.offsetNotifications )
 
 			this.driver = Some( driver )
 			this.state = State.Init
@@ -193,7 +197,84 @@ abstract class Service extends WallpaperService
 	}
 }
 
-object Service
+object Wallpaper
 {
-	val Tag = classOf[Service].getName
+	val Tag = classOf[Wallpaper].getName
+
+	abstract class Driver( context: Context )
+	{
+		private var surface: Option[SurfaceHolder] = None
+
+		//		val touchEvents: Boolean
+		//
+		//		val offsetNotifications: Boolean
+
+		def onCreate( surface: SurfaceHolder, resolution: Resolution )
+		{
+			this.surface = Some( surface )
+		}
+
+		def onStart() {}
+
+		def onRestart() {}
+
+		def onStop() {}
+
+		def onDestroy() { surface = None }
+
+		def onTouchEvent( event: MotionEvent ) {}
+
+		def onOffsetsChanged( x: Float, y: Float, xStep: Float, yStep: Float, xPixel: Int, yPixel: Int ) {}
+
+		def onCommand( action: String, x: Int, y: Int, z: Int, extras: Bundle, resultRequested: Boolean ): Option[Bundle] = None
+
+		def onDesiredSizeChanged( width: Int, height: Int ) {}
+
+		def draw(): Unit = surface.map( surface =>
+		{
+			var canvas: Option[Canvas] = None
+
+			try
+			{
+				canvas = Option( surface.lockCanvas( ) )
+				canvas.map( draw )
+			}
+			finally
+			{
+				try
+				{
+					canvas.map( surface.unlockCanvasAndPost )
+				}
+				catch
+					{
+						case exception: IllegalArgumentException =>
+						{
+							Log.w( Tag, "Weird on device rotation surface exception thrown and ignored" )
+						}
+					}
+			}
+		} )
+
+		protected def draw( canvas: Canvas ): Unit
+	}
+
+	object Driver
+	{
+		val Tag = classOf[Driver].getName
+
+		case class Empty( context: Context ) extends Driver( context )
+		{
+			override def onStart()
+			{
+				super.onStart( )
+				draw()
+			}
+
+			override protected def draw( canvas: Canvas )
+			{
+				// Paint it black
+				canvas.drawColor( context.getResources.getColor( android.R.color.black ) )
+			}
+		}
+	}
 }

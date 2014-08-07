@@ -6,7 +6,8 @@ import android.preference.PreferenceCategory
 import android.util.AttributeSet
 import android.view.View
 import android.widget.CompoundButton
-import com.taig.android._
+import com.taig.android.R
+import com.taig.android.conversion._
 
 class	SwitchableCategory( context: Context, attributes: AttributeSet, style: Int )
 extends	PreferenceCategory( context, attributes, style )
