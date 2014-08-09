@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.service.wallpaper.WallpaperService
 import android.util.Log
 import android.view.{MotionEvent, SurfaceHolder}
-import com.taig.android.Contextual
+import com.taig.android.content.{Contextual, Service}
 import com.taig.android.service.Wallpaper.Driver
 import com.taig.android.util.Resolution
 
 import scala.collection.mutable
 
-abstract class Wallpaper extends WallpaperService with Contextual
+abstract class Wallpaper extends WallpaperService with Service
 {
 	private val proxies = mutable.ListBuffer.empty[Proxy]
 
@@ -246,12 +246,12 @@ object Wallpaper
 					canvas.map( surface.unlockCanvasAndPost )
 				}
 				catch
+				{
+					case exception: IllegalArgumentException =>
 					{
-						case exception: IllegalArgumentException =>
-						{
-							Log.w( Tag, "Weird on device rotation surface exception thrown and ignored" )
-						}
+						Log.w( Tag, "Weird on device rotation surface exception thrown and hereby ignored" )
 					}
+				}
 			}
 		} )
 

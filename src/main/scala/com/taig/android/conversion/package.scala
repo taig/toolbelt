@@ -1,21 +1,15 @@
 package com.taig.android
 
-import java.io.File
-
-import android.app.{SearchManager, FragmentTransaction, ActionBar}
 import android.app.ActionBar.Tab
-import android.content.DialogInterface.OnCancelListener
-import android.content.{SharedPreferences, DialogInterface}
+import android.app.{ActionBar, FragmentTransaction, SearchManager}
+import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
 import android.view.View
-import android.widget.{CompoundButton, AdapterView}
-import com.taig.android.io.RichFile
+import android.widget.{AdapterView, CompoundButton}
 
 package object conversion
 {
-	implicit def `File -> RichFile`( file: File ) = new RichFile( file )
-
 	implicit def `function1 -> Unit -> ActionBar.TabListener#onTabSelected`( f: ( Tab ) => Any ) = new ActionBar.TabListener
 	{
 		override def onTabSelected( tab: Tab, transaction: FragmentTransaction ) = f( tab )
@@ -72,6 +66,11 @@ package object conversion
 	implicit def `function1 -> Unit -> DialogInterface.OnCancelListener`( f: ( DialogInterface ) => Any ) = new DialogInterface.OnCancelListener
 	{
 		override def onCancel( dialog: DialogInterface ) = f( dialog )
+	}
+
+	implicit def `function0 -> Unit -> DialogInterface.OnClickListener`( f: => Any ) = new DialogInterface.OnClickListener
+	{
+		override def onClick( dialog: DialogInterface, which: Int ) = f
 	}
 
 	implicit def `function1 -> Unit -> DialogInterface.OnClickListener`( f: ( DialogInterface ) => Any ) = new DialogInterface.OnClickListener
