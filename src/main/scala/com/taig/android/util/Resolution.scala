@@ -22,6 +22,7 @@ object Resolution
 	def apply( resolution: Array[Int] ): Resolution =
 	{
 		require( resolution.length == 2 )
+
 		apply( resolution( 0 ), resolution( 1 ) )
 	}
 

@@ -4,15 +4,20 @@ import java.io.File
 
 class RichFile( file: File )
 {
-	def deleteRecursively( file: File = this.file )
+	def deleteRecursively()
 	{
-		if( file.isDirectory )
+		def deleteRecursively( file: File )
 		{
-			file.listFiles().foreach( deleteRecursively )
+			if( file.isDirectory )
+			{
+				file.listFiles().foreach( deleteRecursively )
+			}
+			else
+			{
+				file.delete()
+			}
 		}
-		else
-		{
-			file.delete()
-		}
+
+		deleteRecursively( file )
 	}
 }
