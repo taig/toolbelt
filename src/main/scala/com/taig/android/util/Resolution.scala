@@ -1,14 +1,14 @@
 package com.taig.android.util
 
-import android.os.{Parcel, Parcelable}
+import android.os.Parcel
+import android.os.Parcelable.Creator
+import com.taig.android.parcel.Parcelable
 
 case class Resolution( width: Int, height: Int ) extends Parcelable
 {
 	def *( ratio: ( Float, Float ) ) = Resolution( ( width * ratio._1 ).toInt, ( height * ratio._2 ).toInt )
 
 	override def toString = s"$width x $height"
-
-	override def describeContents() = 0
 
 	override def writeToParcel( destination: Parcel, flags: Int )
 	{
@@ -26,7 +26,7 @@ object Resolution
 		apply( resolution( 0 ), resolution( 1 ) )
 	}
 
-	val CREATOR = new Parcelable.Creator[Resolution]()
+	val CREATOR = new Creator[Resolution]()
 	{
 		override def createFromParcel( source: Parcel ) = Resolution( source.readInt(), source.readInt() )
 
