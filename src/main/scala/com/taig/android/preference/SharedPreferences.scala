@@ -1,8 +1,8 @@
 package com.taig.android.preference
 
-import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.preference.PreferenceManager
+import com.taig.android.content.Context
 
 class SharedPreferences( preferences: android.content.SharedPreferences ) extends android.content.SharedPreferences with Dynamic
 {
@@ -87,7 +87,7 @@ object SharedPreferences
 		new SharedPreferences( PreferenceManager.getDefaultSharedPreferences( context ) )
 	}
 
-	def apply( name: String, mode: Int = Context.MODE_PRIVATE )( implicit context: Context ): SharedPreferences =
+	def apply( name: String, mode: Int = android.content.Context.MODE_PRIVATE )( implicit context: Context ): SharedPreferences =
 	{
 		new SharedPreferences( context.getSharedPreferences( name, mode ) )
 	}

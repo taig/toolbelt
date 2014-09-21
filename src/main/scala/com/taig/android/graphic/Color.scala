@@ -1,4 +1,4 @@
-package com.taig.android.util
+package com.taig.android.graphic
 
 import android.graphics.Color._
 
@@ -15,12 +15,6 @@ case class Color( color: Int ) extends AnyVal
 
 object Color
 {
-	implicit def colorToInt( color: Color ) = color.color
-
-	implicit def intToColor( color: Int ) = Color( color )
-
-	implicit def stringToColor( hex: String ) = Color( hex )
-
 	val Black = Color( BLACK )
 
 	val Blue = Color( BLUE )

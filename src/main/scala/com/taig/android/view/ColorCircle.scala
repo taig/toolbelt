@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.ImageView
 import com.taig.android.R
-import com.taig.android.util.Color
+import com.taig.android.graphic.Color
 
 class	ColorCircle( context: Context, private var color: Color, attributes: AttributeSet, style: Int )
 extends	ImageView( context, attributes, style )

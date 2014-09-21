@@ -2,9 +2,9 @@ package com.taig.android.content
 
 import android.support.v4.app.DialogFragment
 
-trait Fragment extends android.support.v4.app.Fragment with Contextual
+trait Fragment extends android.support.v4.app.Fragment with Context
 {
-	override protected implicit lazy val context = getActivity
+	override protected[content] implicit lazy val context = getActivity
 }
 
 object Fragment

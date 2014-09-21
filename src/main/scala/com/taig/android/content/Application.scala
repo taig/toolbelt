@@ -1,6 +1,6 @@
 package com.taig.android.content
 
-trait Service extends android.app.Service with Context
+trait Application extends android.app.Application with Context
 {
 	override protected[content] implicit val context = this
 }

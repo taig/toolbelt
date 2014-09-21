@@ -1,6 +1,5 @@
 package com.taig.android.content
 
-import android.content.Context
 import android.net.Uri
 import android.{ content => android }
 
