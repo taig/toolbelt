@@ -110,8 +110,5 @@
  scala.concurrent.forkjoin.LinkedTransferQueue$PaddedAtomicReference tail;
  scala.concurrent.forkjoin.LinkedTransferQueue$PaddedAtomicReference cleanMe;
 }
-# view AndroidManifest.xml #generated:7
--keep class android.test.InstrumentationTestRunner { <init>(...); }
-
 # view res/layout/color_picker_preference_widget.xml #generated:3
 -keep class com.taig.android.view.ColorCircle { <init>(...); }

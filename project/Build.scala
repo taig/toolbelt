@@ -1,12 +1,13 @@
 import sbt._
 import sbt.Keys._
 import android.Keys._
+import android.Plugin._
 
 object Build extends android.AutoBuild
 {
 	lazy val main = Project( "toolbelt", file( "." ) )
+		.settings( buildAar: _* )
 		.settings(
-			exportJars := true,
 			libraryDependencies ++= Seq(
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value,
 				"com.android.support" % "support-v4" % "20.0.0"
@@ -21,7 +22,8 @@ object Build extends android.AutoBuild
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
-			version := "1.0.0",
+			version := "0.0.1-BETA",
+			libraryProject in Android := true,
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "19"
 		)
