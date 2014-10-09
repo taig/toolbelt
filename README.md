@@ -21,7 +21,7 @@ The source is currently lacking of documentation as it is primary intended for p
 
 **Screenshots**
 
-![Screenshot 1](http://taig.github.io/Android-Toolbelt/asset/1.png)
-![Screenshot 2](http://taig.github.io/Android-Toolbelt/asset/2.png)
-![Screenshot 3](http://taig.github.io/Android-Toolbelt/asset/3.png)
-![Screenshot 4](http://taig.github.io/Android-Toolbelt/asset/4.png)
+![Screenshot 1](http://taig.github.io/Toolbelt/asset/1.png)
+![Screenshot 2](http://taig.github.io/Toolbelt/asset/2.png)
+![Screenshot 3](http://taig.github.io/Toolbelt/asset/3.png)
+![Screenshot 4](http://taig.github.io/Toolbelt/asset/4.png)
