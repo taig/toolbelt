@@ -7,8 +7,11 @@ object Build extends android.AutoBuild
 	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings(
 			exportJars := true,
-			libraryDependencies ++= Seq( "org.scala-lang" % "scala-reflect" % scalaVersion.value ),
-			name := "toolbelt",
+			libraryDependencies ++= Seq(
+				"org.scala-lang" % "scala-reflect" % scalaVersion.value,
+				"com.android.support" % "support-v4" % "20.0.0"
+			),
+			name := "Toolbelt",
 			organization := "com.taig.android",
 			scalaVersion := "2.11.2",
 			scalacOptions ++= Seq(

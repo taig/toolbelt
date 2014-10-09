@@ -20,6 +20,8 @@ package object graphic
 
 	implicit def `Int -> Alignment.Value.Absolute`( value: Int ) = Absolute( value )
 
+	implicit def `Pair -> Tuple2`[T]( pair: Pair[T] ) = pair.toTuple
+
 	implicit def `String -> Color`( hex: String ) = Color( hex )
 
 	implicit def `Tuple2 -> Alignment`( t: ( Value, Value ) ) = Alignment( t._1, t._2, t._1, t._2 )
@@ -28,7 +30,7 @@ package object graphic
 
 	implicit def `Tuple2 -> Position`( coordinates: ( Int, Int ) ) = Position( coordinates._1, coordinates._2 )
 
-	implicit def `Value -> Alignment`( value: Value ) = Alignment( value, value, value, value )
+	implicit def `Tuple2 -> Resolution`( resolution: ( Int, Int ) ) = Resolution( resolution._1, resolution._2 )
 
-	implicit def `Tuple4 -> Animation.Position`( t: ( Value, Value, Value, Value ) ) = Alignment( t._1, t._2, t._3, t._4 )
+	implicit def `Value -> Alignment`( value: Value ) = Alignment( value, value, value, value )
 }

@@ -1,6 +1,6 @@
 package com.taig.android.service
 
-import android.graphics.{Color, ColorFilter, Canvas}
+import android.graphics.{Paint, Color, ColorFilter, Canvas}
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.service.wallpaper.WallpaperService
 import android.util.Log
 import android.view.{MotionEvent, SurfaceHolder}
 import com.taig.android.content._
+import com.taig.android.graphic
 import com.taig.android.service.Wallpaper.Driver
 import com.taig.android.graphic.Resolution
 
@@ -212,7 +213,11 @@ object Wallpaper
 			try
 			{
 				canvas = Option( surface.lockCanvas() )
-				canvas.foreach( draw )
+				canvas.foreach( canvas =>
+				{
+					canvas.drawColor( Color.BLACK )
+					draw( canvas )
+				} )
 			}
 			finally
 			{

@@ -33,7 +33,7 @@ object File
 			Resolution( options.outWidth, options.outHeight )
 		}
 
-		require( resolution.width > -1 && resolution.height > -1, "Not a valid image file" )
+		require( resolution.width > -1 && resolution.height > -1, s"Not a valid image file ($path)" )
 
 		def decode(): Bitmap = decode( getDefaultOptions )
 
@@ -95,25 +95,5 @@ object File
 		}
 
 		protected def getDefaultOptions = new Options { inScaled = false }
-	}
-
-	object Image
-	{
-//		def getSampleSize( image: Resolution, target: Resolution ) =
-//		{
-//			def getSampleSize( sampleSize: Int ): Int =
-//			{
-//				if( image.width / ( sampleSize * 2 ) >= target.width && image.height / ( sampleSize * 2 ) >= target.width )
-//				{
-//					getSampleSize( sampleSize * 2 )
-//				}
-//				else
-//				{
-//					sampleSize
-//				}
-//			}
-//
-//			getSampleSize( 1 )
-//		}
 	}
 }

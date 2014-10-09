@@ -1,48 +1,46 @@
 package com.taig.android.graphic
 
-abstract class Pair[R <: Pair[R, T], T]( val _1: T, val _2: T ) extends Product2[T, T]
+trait Pair[T] extends Product2[T, T]
 {
+	type S <: Pair[T]
+
+	def swap = map( ( a: T, b: T ) => ( b, a ) )
+
+	def map( f: ( T, T ) => ( T, T ) ): S
+
 	def toSeq = Seq( _1, _2 )
 
 	def toTuple = ( _1, _2 )
-
-	val companion: Pair.Companion[R, T]
 }
 
 object Pair
 {
-	trait Companion[R, T]
+	trait Numeric extends Pair[Int]
 	{
-		def apply( tuple: ( T, T ) ): R
+		override type S <: Numeric
 
-		def apply( array: Array[T] ): R =
-		{
-			require( array.length == 2 )
+		def +( a: Int ): S = this + ( a, a )
 
-			apply( array( 0 ), array( 1 ) )
-		}
-	}
+		def +( t: ( Int, Int ) ): S = this + ( t._1, t._2 )
 
-	abstract class Numeric[R <: Numeric[R]]( _1: Int, _2: Int ) extends Pair[R, Int]( _1, _2 )
-	{
-		def +( scalar: Int ): R = this.+( scalar, scalar )
+		def +( a: Int, b: Int ): S = map( ( x: Int, y: Int ) => ( x + a, y + b ) )
 
-		def +( vector: ( Int, Int ) ): R = companion( _1 + vector._1, _2 + vector._2 )
+		def -( a: Int ): S = this - ( a, a )
 
-		def +( pair: Pair.Numeric[_] ): R = companion( _1 + pair._1, _2 + pair._2 )
+		def -( t: ( Int, Int ) ): S = this - ( t._1, t._2 )
 
-		def -( scalar: Int ): R = this.-( scalar, scalar )
+		def -( a: Int, b: Int ): S = map( ( x: Int, y: Int ) => ( x - a, y - b ) )
 
-		def -( vector: ( Int, Int ) ): R = companion( _1 - vector._1, _2 - vector._2 )
+		def *( a: Float ): S = this * ( a, a )
 
-		def -( pair: Pair.Numeric[_] ): R = companion( _1 - pair._1, _2 - pair._2 )
+		def *( t: ( Float, Float ) ): S = this * ( t._1, t._2 )
 
-		def *( scalar: Float ): R = this.*( scalar, scalar )
+		def *( a: Float, b: Float ): S = map( ( x: Int, y: Int ) => ( ( x * a ).toInt, ( y * b ).toInt ) )
 
-		def *( vector: ( Float, Float ) ): R = companion( ( _1 * vector._1 ).toInt, ( _2 * vector._2 ).toInt )
+		def /( a: Float ): S = this / ( a, a )
 
-		def /( scalar: Float ): R = this./( scalar, scalar )
+		def /( t: ( Float, Float ) ): S = this / ( t._1, t._2 )
 
-		def /( vector: ( Float, Float ) ): R = companion( ( _1 / vector._1 ).toInt, ( _2 / vector._2 ).toInt )
+		def /( a: Float, b: Float ): S = map( ( x: Int, y: Int ) => ( ( x / a ).toInt, ( y / b ).toInt ) )
 	}
 }

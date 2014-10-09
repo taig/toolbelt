@@ -5,8 +5,8 @@ import android.app.{ActionBar, FragmentTransaction, SearchManager}
 import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
-import android.view.View
-import android.widget.{AdapterView, CompoundButton}
+import android.view.{MenuItem, KeyEvent, View}
+import android.widget.{TextView, AdapterView, CompoundButton}
 
 package object conversion
 {
@@ -93,6 +93,26 @@ package object conversion
 		override def onDismiss( dialog: DialogInterface ) = f( dialog )
 	}
 
+	implicit def `Function0 -> Boolean -> MenuItem.OnMenuItemClickListener`( f: => Boolean ) = new MenuItem.OnMenuItemClickListener
+	{
+		override def onMenuItemClick( item: MenuItem ) = f
+	}
+
+	implicit def `Function0 -> Unit -> MenuItem.OnMenuItemClickListener`( f: => Any ) = new MenuItem.OnMenuItemClickListener
+	{
+		override def onMenuItemClick( item: MenuItem ) = { f; false }
+	}
+
+	implicit def `Function1 -> Boolean -> MenuItem.OnMenuItemClickListener`( f: ( MenuItem ) => Boolean ) = new MenuItem.OnMenuItemClickListener
+	{
+		override def onMenuItemClick( item: MenuItem ) = f( item )
+	}
+
+	implicit def `Function1 -> Unit -> MenuItem.OnMenuItemClickListener`( f: ( MenuItem ) => Any ) = new MenuItem.OnMenuItemClickListener
+	{
+		override def onMenuItemClick( item: MenuItem ) = { f( item ); false }
+	}
+
 	implicit def `Function1 -> Boolean -> Preference.OnPreferenceChangeListener`( f: Any => Boolean ) = new Preference.OnPreferenceChangeListener
 	{
 		override def onPreferenceChange( preference: Preference, newValue: Any ) = f( newValue )
@@ -141,6 +161,31 @@ package object conversion
 	implicit def `Function2 -> Unit -> SharedPreferences.OnSharedPreferenceChangeListener`( f: ( SharedPreferences, String ) => Any ) = new SharedPreferences.OnSharedPreferenceChangeListener
 	{
 		override def onSharedPreferenceChanged( preferences: SharedPreferences, key: String ) = f( preferences, key )
+	}
+
+	implicit def `Function0 -> Boolean -> TextView.OnEditorActionListener`( f: => Boolean ) = new TextView.OnEditorActionListener
+	{
+		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f
+	}
+
+	implicit def `Function1 -> Boolean -> TextView.OnEditorActionListener`[T <: TextView]( f: ( T ) => Boolean ) = new TextView.OnEditorActionListener
+	{
+		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f( view.asInstanceOf[T] )
+	}
+
+	implicit def `Function2 -> Boolean -> TextView.OnEditorActionListener`[T <: TextView]( f: ( T, Int ) => Boolean ) = new TextView.OnEditorActionListener
+	{
+		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f( view.asInstanceOf[T], action )
+	}
+
+	implicit def `Function3 -> Boolean -> TextView.OnEditorActionListener`[T <: TextView]( f: ( T, Int, KeyEvent ) => Boolean ) = new TextView.OnEditorActionListener
+	{
+		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f( view.asInstanceOf[T], action, event )
+	}
+
+	implicit def `Function0 -> Unit -> View.OnClickListener`( f: => Any ) = new View.OnClickListener
+	{
+		override def onClick( view: View ) = f
 	}
 
 	implicit def `Function1 -> Unit -> View.OnClickListener`( f: View => Any ) = new View.OnClickListener
