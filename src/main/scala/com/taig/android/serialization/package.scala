@@ -1,6 +1,6 @@
 package com.taig.android
 
-import android.os.Parcel
+import android.os.{Bundle, Parcel}
 
 import scala.reflect.ClassTag
 
@@ -34,6 +34,8 @@ package object serialization
 			.readSerializable
 			.asInstanceOf[T]
 	}
+
+	implicit def `Bundle -> Option[Bundle]`( bundle: Bundle ) = Option( bundle )
 
 	implicit def `Function1 -> T -> T`[T <: Object: ClassTag]( f: Parcel => T ) = new android.os.Parcelable.Creator[T]
 	{
