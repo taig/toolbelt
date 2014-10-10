@@ -2,7 +2,7 @@ package com.taig.android.graphic.positionable
 
 import android.os.{Parcel, Parcelable}
 import com.taig.android.graphic.Positionable
-import com.taig.android.parcel._
+import com.taig.android.serialization._
 
 case class	Position( var x: Int, var y: Int )
 extends		Positionable

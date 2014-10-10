@@ -1,9 +1,9 @@
 package com.taig.android.graphic
 
-import java.lang.Math._
+import scala.math._
 
 import android.os.{Parcel, Parcelable}
-import com.taig.android.parcel._
+import com.taig.android.serialization._
 
 case class Resolution( width: Int, height: Int ) extends Pair.Numeric with Parcelable
 {

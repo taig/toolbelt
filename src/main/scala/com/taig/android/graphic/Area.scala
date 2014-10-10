@@ -2,7 +2,7 @@ package com.taig.android.graphic
 
 import android.os.{Parcel, Parcelable}
 import com.taig.android.graphic.positionable.Position
-import com.taig.android.parcel._
+import com.taig.android.serialization._
 
 /**
  * An area within a coordinate based element
