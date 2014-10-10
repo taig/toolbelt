@@ -10,7 +10,8 @@ object Build extends android.AutoBuild
 		.settings(
 			libraryDependencies ++= Seq(
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value,
-				"com.android.support" % "support-v4" % "20.0.0"
+				"com.android.support" % "support-v4" % "20.0.0",
+				"com.github.japgolly.android" % "svg-android" % "2.0.6"
 			),
 			name := "Toolbelt",
 			organization := "com.taig.android",
@@ -22,7 +23,7 @@ object Build extends android.AutoBuild
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
-			version := "0.0.1-BETA",
+			version := "0.0.2-BETA",
 			libraryProject in Android := true,
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "19"
