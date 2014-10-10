@@ -2,8 +2,7 @@ package com.taig.android.graphic.positionable
 
 import android.os.{Parcel, Parcelable}
 import com.taig.android.graphic._
-import com.taig.android.parcel._
-import scala.math._
+import com.taig.android.serialization._
 
 case class	Animation( start: Position, end: Position, var x: Int, var y: Int )
 extends		Positionable
