@@ -63,6 +63,10 @@ package object serialization
 
 	implicit class RichBundle( bundle: Bundle )
 	{
+		def putOption[T: ClassTag]( key: String, value: Option[T] ) = putValue( key, value.orNull )
+
+		def getOption[T: ClassTag]( key: String ) = Option( getValue[T]( key ) )
+
 		def putValue[T: ClassTag]( key: String, value: T ) = implicitly[ClassTag[T]] match
 		{
 			case ClassTag.Boolean => bundle.putBoolean( key, value.asInstanceOf[Boolean] )
