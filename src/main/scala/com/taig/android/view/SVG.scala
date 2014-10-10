@@ -6,6 +6,12 @@ import android.view.View
 import android.widget.ImageView
 import com.larvalabs.svgandroid.SVGBuilder
 
+/**
+ * Display an SVG graphic
+ * 
+ * This is a subclass of [[ImageView]] and provides no additional XML attributes. Instead the src attribute should
+ * be used to point at an SVG file in the res/raw folder.
+ */
 class SVG( context: Context, attributes: AttributeSet, style: Int ) extends ImageView( context, attributes, style )
 {
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, 0 )
