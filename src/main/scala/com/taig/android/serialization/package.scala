@@ -1,6 +1,5 @@
 package com.taig.android
 
-
 import android.os.{IBinder, Parcelable, Bundle, Parcel}
 import android.util.SparseArray
 
@@ -21,30 +20,30 @@ package object serialization
 			val Char = implicitly[ClassTag[Array[Char]]]
 
 			val CharSequence = implicitly[ClassTag[Array[CharSequence]]]
-			
+
 			val Double = implicitly[ClassTag[Array[Double]]]
-			
+
 			val Float = implicitly[ClassTag[Array[Float]]]
-			
+
 			val Int = implicitly[ClassTag[Array[Int]]]
-			
+
 			val Long = implicitly[ClassTag[Array[Long]]]
-			
+
 			val Parcelable = implicitly[ClassTag[Array[Parcelable]]]
-			
+
 			val Short = implicitly[ClassTag[Array[Short]]]
-			
+
 			val SparseParcelable = implicitly[ClassTag[Array[SparseArray[_ <: Parcelable]]]]
-			
+
 			val String = implicitly[ClassTag[Array[String]]]
 		}
 
 		val List = new
 		{
 			val CharSequence = implicitly[ClassTag[ArrayList[CharSequence]]]
-			
+
 			val Integer = implicitly[ClassTag[ArrayList[Integer]]]
-			
+
 			val Parcelable = implicitly[ClassTag[ArrayList[Parcelable]]]
 
 			val String = implicitly[ClassTag[ArrayList[String]]]
