@@ -18,6 +18,7 @@ The source is currently lacking of documentation as it is primary intended for p
 - Color picker preference
 - Font picker preference
 - Future implementation that runs callbacks on UI thread
+- ImageView that supports SVGs
 
 **Screenshots**
 
