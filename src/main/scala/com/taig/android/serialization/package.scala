@@ -62,7 +62,7 @@ package object serialization
 
 	implicit class RichBundle( bundle: Bundle )
 	{
-		def putOption[T: ClassTag]( key: String, value: Option[T] ) = putValue( key, value.orNull )
+		def putOption[T: ClassTag]( key: String, value: Option[T] ) = putValue[T]( key, value.getOrElse( null.asInstanceOf[T] ) )
 
 		def getOption[T: ClassTag]( key: String ) = Option( getValue[T]( key ) )
 
