@@ -7,7 +7,7 @@ This library is the foundatation for the [Coyote Buttes Live Wallpaper](https://
 
 **Install**
 
-This project is an Android library project meaning that you have to clone and reference it by yourself.
+`libraryDependencies += "com.taig.android" %% "toolbelt" % "0.0.2-BETA"`
 
 **Features**
 
