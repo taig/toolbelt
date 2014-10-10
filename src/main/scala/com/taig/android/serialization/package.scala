@@ -64,7 +64,7 @@ package object serialization
 	{
 		def putOption[T: ClassTag]( key: String, value: Option[T] ) = putValue[T]( key, value.getOrElse( null.asInstanceOf[T] ) )
 
-		def getOption[T: ClassTag]( key: String ) = Option( getValue[T]( key ) )
+		def getOption[T: ClassTag]( key: String ) = getValue[T]( key )
 
 		def putValue[T: ClassTag]( key: String, value: T ) = implicitly[ClassTag[T]] match
 		{
