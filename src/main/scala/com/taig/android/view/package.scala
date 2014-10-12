@@ -53,7 +53,7 @@ package object view
 		 */
 		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) =
 		{
-			addOnWindowFocusChangeListener( ( hasFocus: Boolean ) =>
+			addOnWindowFocusChangeListener( ( hasFocus: Boolean ) => if( o.isAlive )
 			{
 				removeOnWindowFocusChangeListener( listener )
 				listener.onWindowFocusChanged( hasFocus )
@@ -79,7 +79,7 @@ package object view
 		 */
 		def setOnNextGlobalFocusChangeListener( listener: OnGlobalFocusChangeListener ) =
 		{
-			addOnGlobalFocusChangeListener( ( oldFocus: View, newFocus: View ) =>
+			addOnGlobalFocusChangeListener( ( oldFocus: View, newFocus: View ) => if( o.isAlive )
 			{
 				removeOnGlobalFocusChangeListener( listener )
 				listener.onGlobalFocusChanged( oldFocus, newFocus )
@@ -103,11 +103,11 @@ package object view
 		 * @see removeOnGlobalLayoutListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnGlobalLayoutListener`()]]
 		 */
-		def setOnNextGlobalLayoutListener( listener: OnGlobalLayoutListener ) = addOnGlobalLayoutListener(
+		def setOnNextGlobalLayoutListener( listener: OnGlobalLayoutListener ) = addOnGlobalLayoutListener( if( o.isAlive )
 		{
 			removeOnGlobalLayoutListener( listener )
 			listener.onGlobalLayout()
-		}: Unit )
+		} )
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnGlobalLayoutListener]]
@@ -138,8 +138,15 @@ package object view
 		 */
 		def setOnNextPreDrawListener( listener: OnPreDrawListener ) = addOnPreDrawListener(
 		{
-			removeOnPreDrawListener( listener )
-			listener.onPreDraw()
+			if( o.isAlive )
+			{
+				removeOnPreDrawListener( listener )
+				listener.onPreDraw()
+			}
+			else
+			{
+				true
+			}
 		}: Boolean )
 
 		/**
@@ -159,11 +166,11 @@ package object view
 		 * @see removeOnDrawListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnDrawListener`()]]
 		 */
-		def setOnNextDrawListener( listener: OnDrawListener ) = addOnDrawListener(
+		def setOnNextDrawListener( listener: OnDrawListener ) = addOnDrawListener( if( o.isAlive )
 		{
 			removeOnDrawListener( listener )
 			listener.onDraw()
-		}: Unit )
+		} )
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnDrawListener]]
@@ -182,11 +189,11 @@ package object view
 		 * @see removeOnScrollChangedListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnScrollChangedListener`()]]
 		 */
-		def setOnNextScrollChangedListener( listener: OnScrollChangedListener ) = addOnScrollChangedListener(
+		def setOnNextScrollChangedListener( listener: OnScrollChangedListener ) = addOnScrollChangedListener( if( o.isAlive )
 		{
 			removeOnScrollChangedListener( listener )
 			listener.onScrollChanged()
-		}: Unit )
+		} )
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnScrollChangedListener]]
@@ -207,7 +214,7 @@ package object view
 		 */
 		def setOnNextTouchModeChangeListener( listener: OnTouchModeChangeListener ) =
 		{
-			addOnTouchModeChangeListener( ( isInTouchMode: Boolean ) =>
+			addOnTouchModeChangeListener( ( isInTouchMode: Boolean ) => if( o.isAlive )
 			{
 				removeOnTouchModeChangeListener( listener )
 				listener.onTouchModeChanged( isInTouchMode )
