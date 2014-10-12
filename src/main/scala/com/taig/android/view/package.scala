@@ -1,6 +1,7 @@
 package com.taig.android
 
 import android.view.{MenuItem, View}
+import com.taig.android.conversion._
 
 package object view
 {
@@ -25,6 +26,22 @@ package object view
 		def removeOnWindowAttachListener( listener: OnWindowAttachListener ) = o.removeOnWindowAttachListener( listener )
 
 		def addOnWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) = o.addOnWindowFocusChangeListener( listener )
+
+		/**
+		 * Single execution listener that will automatically remove itself after the first execution
+		 *
+		 * @see addOnWindowFocusChangeListener
+		 * @see removeOnWindowFocusChangeListener
+		 * @see [[com.taig.android.conversion.`Function1 -> Unit -> ViewTreeObserver.OnWindowFocusChangeListener`( )]]
+		 */
+		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) =
+		{
+			o.addOnWindowFocusChangeListener( ( hasFocus: Boolean ) =>
+			{
+				o.removeOnWindowFocusChangeListener( listener )
+				listener.onWindowFocusChanged( hasFocus )
+			} )
+		}
 
 		def removeOnWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) = o.removeOnWindowFocusChangeListener( listener )
 
