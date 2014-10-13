@@ -37,6 +37,8 @@ class SVG( context: Context, attributes: AttributeSet, style: Int ) extends Imag
 		setSVG( src )
 	}
 
+	array.recycle()
+
 	def setSVG( rawId: Int ) = setImageDrawable
 	{
 		new SVGBuilder().readFromResource( getResources, rawId ).build().getDrawable

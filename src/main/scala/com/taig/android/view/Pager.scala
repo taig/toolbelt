@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
+import com.taig.android.R
 
 /**
  * A ViewPager implementation that allows to enable and disable swipe navigation
@@ -13,6 +14,12 @@ class Pager( context: Context, attributes: AttributeSet ) extends ViewPager( con
 	private var swipe = true
 
 	def this( context: Context ) = this( context, null )
+
+	val array = context.obtainStyledAttributes( attributes, R.styleable.View_Pager )
+
+	swipe = array.getBoolean( R.styleable.View_Pager_swipe, swipe )
+
+	array.recycle()
 
 	def isSwipeEnabled = swipe
 

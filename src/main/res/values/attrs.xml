@@ -4,21 +4,25 @@
 
 	<declare-styleable name="ColorPickerPreference">
 
-		<attr
-			name="colors"
-			format="reference" />
+		<attr name="colors"
+			  format="reference" />
 
-		<attr
-			name="labels"
-			format="reference" />
+		<attr name="labels"
+			  format="reference" />
 
 	</declare-styleable>
 
 	<declare-styleable name="FontPickerPreference">
 
-		<attr
-			name="preview"
-			format="string" />
+		<attr name="preview"
+			  format="string" />
+
+	</declare-styleable>
+
+	<declare-styleable name="View.Pager">
+
+		<attr name="swipe"
+			  format="boolean" />
 
 	</declare-styleable>
 
