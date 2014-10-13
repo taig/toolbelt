@@ -6,7 +6,8 @@ import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
 import android.view.{ViewTreeObserver, MenuItem, KeyEvent, View}
-import android.widget.{TextView, AdapterView, CompoundButton}
+import android.widget.{EditText, TextView, AdapterView, CompoundButton}
+import com.taig.android.view.Text
 
 package object conversion
 {
@@ -161,6 +162,11 @@ package object conversion
 	implicit def `Function2 -> Unit -> SharedPreferences.OnSharedPreferenceChangeListener`( f: ( SharedPreferences, String ) => Any ) = new SharedPreferences.OnSharedPreferenceChangeListener
 	{
 		override def onSharedPreferenceChanged( preferences: SharedPreferences, key: String ) = f( preferences, key )
+	}
+
+	implicit def `Function1 -> Boolean -> Text.Listener.OnEditorDone`( f: ( EditText ) => Boolean ) = new Text.Listener.OnEditorDone()
+	{
+		override def onEditorDone( view: EditText ) = f( view )
 	}
 
 	implicit def `Function0 -> Boolean -> TextView.OnEditorActionListener`( f: => Boolean ) = new TextView.OnEditorActionListener

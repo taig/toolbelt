@@ -1,6 +1,8 @@
 package com.taig.android
 
+import android.view.inputmethod.EditorInfo
 import android.view.{MenuItem, View}
+import android.widget.{EditText, TextView}
 import com.taig.android.conversion._
 
 package object view
@@ -20,6 +22,18 @@ package object view
 			Option( item.getIcon ).foreach( _.setAlpha( if( enabled ) 255 else 50 ) )
 
 			item.setEnabled( enabled )
+		}
+	}
+
+	implicit class RichTextView( view: TextView )
+	{
+		def setOnEditorDoneListener( listener: Text.Listener.OnEditorDone ) =
+		{
+			view.setOnEditorActionListener( ( view: EditText, action: Int ) => action & EditorInfo.IME_MASK_ACTION match
+			{
+				case EditorInfo.IME_ACTION_DONE => listener.onEditorDone( view )
+				case _ => false
+			} )
 		}
 	}
 
