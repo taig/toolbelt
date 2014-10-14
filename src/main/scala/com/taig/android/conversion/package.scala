@@ -7,7 +7,7 @@ import android.preference.Preference
 import android.support.v4.view.ViewPager
 import android.view.{ViewTreeObserver, MenuItem, KeyEvent, View}
 import android.widget.{EditText, TextView, AdapterView, CompoundButton}
-import com.taig.android.view.Text
+import com.taig.android.widget.Text
 
 package object conversion
 {

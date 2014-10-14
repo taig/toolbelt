@@ -11,7 +11,7 @@ import android.widget.{BaseAdapter, GridView}
 import com.taig.android.R
 import com.taig.android.conversion._
 import com.taig.android.graphic.Color
-import com.taig.android.view.ColorCircle
+import com.taig.android.widget.ColorCircle
 
 class	ColorPicker( context: Context, attributes: AttributeSet, styles: Int )
 extends	DialogPreference( context, attributes, styles )

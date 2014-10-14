@@ -1,4 +1,4 @@
-package com.taig.android.view
+package com.taig.android.widget
 
 import android.content.Context
 import android.util.AttributeSet
