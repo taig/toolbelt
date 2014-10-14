@@ -226,6 +226,4 @@ package object view
 		 */
 		def removeOnTouchModeChangeListener( listener: OnTouchModeChangeListener ) = o.removeOnTouchModeChangeListener( listener )
 	}
-
-	implicit def `Inflater -> View`[V <: View]( inflater: Inflater[V] ): V = inflater.view
 }
