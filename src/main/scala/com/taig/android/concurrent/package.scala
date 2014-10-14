@@ -2,7 +2,7 @@ package com.taig.android
 
 import java.util.concurrent.Executor
 
-import android.os.{Looper, Handler, AsyncTask}
+import android.os.{AsyncTask, Handler, Looper}
 
 import scala.concurrent.ExecutionContext
 

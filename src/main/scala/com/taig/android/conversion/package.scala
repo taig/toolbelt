@@ -5,8 +5,8 @@ import android.app.{ActionBar, FragmentTransaction, SearchManager}
 import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
-import android.view.{ViewTreeObserver, MenuItem, KeyEvent, View}
-import android.widget.{EditText, TextView, AdapterView, CompoundButton}
+import android.view.{KeyEvent, MenuItem, View, ViewTreeObserver}
+import android.widget.{AdapterView, CompoundButton, EditText, TextView}
 import com.taig.android.widget.Text
 
 package object conversion

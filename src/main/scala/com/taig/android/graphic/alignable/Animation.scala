@@ -1,9 +1,9 @@
 package com.taig.android.graphic.alignable
 
 import com.taig.android.graphic._
-import scala.math._
-
 import com.taig.android.graphic.positionable.Position
+
+import scala.math._
 
 case class Animation( start: Alignment, end: Alignment ) extends Alignable
 {

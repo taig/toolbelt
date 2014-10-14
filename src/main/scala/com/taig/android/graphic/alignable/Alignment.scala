@@ -1,13 +1,12 @@
 package com.taig.android.graphic.alignable
 
 import android.util.Log
-
-import scala.math._
-
+import com.taig.android.graphic._
 import com.taig.android.graphic.alignable.Alignment.Value.Auto
 import com.taig.android.graphic.alignable.Alignment.{Resolvable, Value}
 import com.taig.android.graphic.positionable.Position
-import com.taig.android.graphic._
+
+import scala.math._
 
 case class Alignment( top: Value = Auto, right: Value = Auto, bottom: Value = Auto, left: Value = Auto ) extends Alignable
 {

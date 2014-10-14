@@ -1,7 +1,7 @@
 package com.taig.android.content
 
 import android.view.LayoutInflater
-import android.{ content => android }
+import android.{content => android}
 
 trait Context
 {

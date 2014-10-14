@@ -1,6 +1,6 @@
 package com.taig.android.view
 
-import android.view.{ViewGroup, View, LayoutInflater}
+import android.view.{LayoutInflater, View, ViewGroup}
 
 case class Inflater[V <: View]( resource: Int, root: Option[ViewGroup] = None, attachToRoot: Boolean = false )( implicit inflater: LayoutInflater )
 {
