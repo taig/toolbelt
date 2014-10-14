@@ -1,10 +1,12 @@
 package com.taig.android.widget
 
 import android.content.Context
+import android.os.{Bundle, Parcelable}
 import android.util.AttributeSet
 import android.view.View
 import android.widget.{TextView, EditText, ViewSwitcher}
 import com.taig.android.graphic.Color
+import com.taig.android.widget.InlineEditText.Parameter
 
 /**
  * A widget that can switch between an [[android.widget.EditText]] and a [[android.widget.TextView]]
@@ -54,5 +56,42 @@ class InlineEditText( context: Context, attributes: AttributeSet ) extends ViewS
 		}
 
 		super.setDisplayedChild( whichChild )
+	}
+
+	override def onSaveInstanceState() =
+	{
+		val bundle = new Bundle()
+		bundle.putParcelable( Parameter.Instance, InlineEditText.super.onSaveInstanceState )
+		bundle.putInt( Parameter.Current, getDisplayedChild )
+		bundle.putParcelable( Parameter.Edit, edit.onSaveInstanceState() )
+		bundle.putParcelable( Parameter.Text, text.onSaveInstanceState() )
+
+		bundle
+	}
+
+	override def onRestoreInstanceState( state: Parcelable ) = state match
+	{
+		case bundle: Bundle =>
+		{
+			super.onRestoreInstanceState( bundle.getParcelable( Parameter.Instance ) )
+			setDisplayedChild( bundle.getInt( Parameter.Current ) )
+			edit.onRestoreInstanceState( bundle.getParcelable( Parameter.Edit ) )
+			text.onRestoreInstanceState( bundle.getParcelable( Parameter.Text ) )
+		}
+		case _ => super.onRestoreInstanceState( state )
+	}
+}
+
+object InlineEditText
+{
+	val Parameter = new
+	{
+		val Current = getClass.getName + ".Current"
+
+		val Edit = getClass.getName + ".Current"
+
+		val Instance = getClass.getName + ".Instance"
+
+		val Text = getClass.getName + ".Current"
 	}
 }
