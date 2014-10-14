@@ -5,9 +5,8 @@ import java.net.URI
 import java.{io => java}
 
 import android.graphics.Bitmap.createBitmap
-import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import android.graphics.BitmapFactory.Options
-import android.util.Log
+import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import com.taig.android.graphic.{Area, Resolution}
 
 object File

@@ -1,7 +1,6 @@
 package com.taig.android
 
-import android.os.{IBinder, Parcelable, Bundle, Parcel}
-import android.util.SparseArray
+import android.os.{Bundle, Parcel}
 
 import scala.reflect.ClassTag
 

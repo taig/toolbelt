@@ -1,8 +1,8 @@
 package com.taig.android
 
 import com.taig.android.graphic.alignable.Alignment
-import Alignment.Value
-import Alignment.Value._
+import com.taig.android.graphic.alignable.Alignment.Value
+import com.taig.android.graphic.alignable.Alignment.Value._
 import com.taig.android.graphic.positionable.Position
 
 package object graphic

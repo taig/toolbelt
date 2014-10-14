@@ -3,8 +3,8 @@ package com.taig.android
 import java.io.File
 
 import android.graphics.Bitmap
-import com.taig.android.io.File.Image
 import com.taig.android.graphic.Resolution
+import com.taig.android.io.File.Image
 
 import scala.util.Try
 

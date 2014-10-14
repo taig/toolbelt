@@ -1,7 +1,7 @@
 package com.taig.android.content
 
 import android.net.Uri
-import android.{ content => android }
+import android.{content => android}
 
 import scala.reflect.ClassTag
 
