@@ -2,6 +2,7 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.{TextView, EditText, ViewSwitcher}
 import com.taig.android.graphic.Color
 
@@ -18,6 +19,9 @@ class InlineEditText( context: Context, attributes: AttributeSet ) extends ViewS
 
 	val text = new TextView( context, attributes, android.R.attr.editTextStyle )
 
+	edit.setId( View.NO_ID )
+
+	text.setId( View.NO_ID )
 	text.setBackgroundColor( Color.Transparent )
 	text.setInputType( 0 )
 
