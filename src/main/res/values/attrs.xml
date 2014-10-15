@@ -37,6 +37,35 @@
 		<attr format="reference|string"
 			  name="regex" />
 
+		<attr format="flag"
+			  name="rules">
+
+			<flag name="alpha"
+				  value="0x001" />
+
+			<flag name="alphaDash"
+				  value="0x002" />
+
+			<flag name="alphaNumeric"
+				  value="0x004" />
+
+			<flag name="email"
+				  value="0x008" />
+
+			<flag name="integer"
+				  value="0x016" />
+
+			<flag name="numeric"
+				  value="0x032" />
+
+			<flag name="phone"
+				  value="0x064" />
+
+			<flag name="required"
+				  value="0x128" />
+
+		</attr>
+
 	</declare-styleable>
 
 </resources>

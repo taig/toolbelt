@@ -1,10 +1,12 @@
 package com.taig.android.widget
 
 import android.content.Context
-import android.util.AttributeSet
+import android.util.{AttributeSet, Patterns}
 import android.view.View
 import com.taig.android._
 import com.taig.android.conversion._
+
+import scala.collection.mutable
 
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
@@ -24,17 +26,37 @@ with	Validatable
 		case id => Some( id )
 	}
 
-	var regex = Option( array.getString( R.styleable.Widget_Validation_regex ) )
+	var regex =
+	{
+		val all = mutable.ArrayBuffer.empty[String]
+
+		Option( Seq( array.getString( R.styleable.Widget_Validation_regex ) ) ).foreach( all.append )
+
+		val rules = array.getInt( R.styleable.Widget_Validation_rules, Validatable.Flag.None )
+
+		if( ( rules & Validatable.Flag.None ) != Validatable.Flag.None )
+		{
+			if( ( rules & Validatable.Flag.Alpha ) == Validatable.Flag.Alpha ) all.append( "[\\p{L}]*" )
+			if( ( rules & Validatable.Flag.AlphaDash ) == Validatable.Flag.AlphaDash ) all.append( "[\\p{L}\\-]*" )
+			if( ( rules & Validatable.Flag.AlphaNumeric ) == Validatable.Flag.AlphaNumeric ) all.append( "[\\p{L}0-9]*" )
+			if( ( rules & Validatable.Flag.Email ) == Validatable.Flag.Email ) all.append( Patterns.EMAIL_ADDRESS.pattern() )
+			if( ( rules & Validatable.Flag.Integer ) == Validatable.Flag.Integer ) all.append( "[0-9]*" )
+			if( ( rules & Validatable.Flag.Numeric ) == Validatable.Flag.Numeric ) all.append( "\\d*([\\.,]\\d+)?" )
+			if( ( rules & Validatable.Flag.Required ) == Validatable.Flag.Required ) all.append( ".+" )
+		}
+
+		all
+	}
 
 	array.recycle()
 
-	require( Seq( matches, regex ).count( _.isDefined ) < 2, "Can't define regex and matches field, choose one" )
+	require( !( matches.isDefined && regex.nonEmpty ), "Can't define regex and matches field, choose one" )
 
 	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate() )
 
-	override def isValid = if( regex.isDefined )
+	override def isValid = if( regex.nonEmpty )
 	{
-		regex.map( getText.toString.matches ).get
+		regex.forall( getText.toString.matches )
 	}
 	else if( matches.isDefined )
 	{
