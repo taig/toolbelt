@@ -1,12 +1,12 @@
 package com.taig.android.widget
 
 import android.content.Context
-import android.util.{Log, AttributeSet, Patterns}
+import android.util.{AttributeSet, Patterns}
 import android.view.View
+import android.widget.TextView
 import com.taig.android._
 import com.taig.android.conversion._
-
-import scala.collection.mutable
+import com.taig.android.widget.Validatable.Flag
 
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
@@ -18,62 +18,68 @@ with	Validatable
 
 	private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
 
-	var error = Option( array.getString( R.styleable.Widget_Validation_error ) )
-
-	var matches = array.getResourceId( R.styleable.Widget_Validation_matches, -1 ) match
+	val validation = new
 	{
-		case -1 => None
-		case id => Some( id )
-	}
+		var message = Option( array.getString( R.styleable.Widget_Validation_message ) )
 
-	var regex =
-	{
-		val all = mutable.ArrayBuffer.empty[String]
+		var icon = Option( array.getDrawable( R.styleable.Widget_Validation_icon ) )
 
-		Option( Seq( array.getString( R.styleable.Widget_Validation_regex ) ) ).foreach( all.append )
-
-		val rules = array.getInt( R.styleable.Widget_Validation_rules, Validatable.Flag.None )
-
-		Log.d( "ASDF", "rules: " + rules )
-		Log.d( "ASDF", "( rules & Validatable.Flag.None ): " + ( rules & Validatable.Flag.None ) + " != " + Validatable.Flag.None + "?" )
-		Log.d( "ASDF", "( rules & Validatable.Flag.Required ): " + ( rules & Validatable.Flag.Required ) + " == " + Validatable.Flag.Required )
-
-		if( ( rules & Validatable.Flag.None ) != Validatable.Flag.None )
+		var `match` = array.getResourceId( R.styleable.Widget_Validation_matches, -1 ) match
 		{
-			if( ( rules & Validatable.Flag.Alpha ) == Validatable.Flag.Alpha ) all.append( "[\\p{L}]*" )
-			if( ( rules & Validatable.Flag.AlphaDash ) == Validatable.Flag.AlphaDash ) all.append( "[\\p{L}\\-]*" )
-			if( ( rules & Validatable.Flag.AlphaNumeric ) == Validatable.Flag.AlphaNumeric ) all.append( "[\\p{L}0-9]*" )
-			if( ( rules & Validatable.Flag.Email ) == Validatable.Flag.Email ) all.append( Patterns.EMAIL_ADDRESS.pattern() )
-			if( ( rules & Validatable.Flag.Integer ) == Validatable.Flag.Integer ) all.append( "[0-9]*" )
-			if( ( rules & Validatable.Flag.Numeric ) == Validatable.Flag.Numeric ) all.append( "\\d*([\\.,]\\d+)?" )
-			if( ( rules & Validatable.Flag.Required ) == Validatable.Flag.Required ) all.append( ".+" )
+			case -1 => None
+			case id => Some( id )
 		}
 
-		all.toSeq
+		var regex = Option( array.getString( R.styleable.Widget_Validation_regex ) )
+
+		var required = array.getBoolean( R.styleable.Widget_Validation_required, false )
+
+		var rule = array.getInt( R.styleable.Widget_Validation_rule, -1 ) match
+		{
+			case -1 => None
+			case id => Some( id )
+		}
 	}
 
 	array.recycle()
 
-	require( !( matches.isDefined && regex.nonEmpty ), "Can't define regex and matches field, choose one" )
+	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate(): Unit )
 
-	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate() )
-
-	override def isValid = if( regex.nonEmpty )
+	override def isValid =
 	{
-		regex.forall( getText.toString.matches )
+		val regex = validation.regex ++ validation.rule.map
+		{
+			case Flag.Alpha => "[\\p{L}]*"
+			case Flag.AlphaDash => "[\\p{L}\\-]*"
+			case Flag.AlphaNumeric => "[\\p{L}0-9]*"
+			case Flag.Email => Patterns.EMAIL_ADDRESS.pattern()
+			case Flag.Integer => "[0-9]*"
+			case Flag.Numeric => "\\d*([\\.,]\\d+)?"
+			case Flag.Phone => "(\\+?\\d+)?"
+		}
+
+		val `match` = validation.`match`
+			.map( getRootView.findViewById )
+			.collect{ case text: TextView => text.getText.toString }
+
+		regex.forall( getText.toString.matches ) && `match`.forall( _ == getText.toString )
 	}
-	else if( matches.isDefined )
+
+	override def validate() = if( isValid )
 	{
-		val target = getRootView.findViewById( matches.get ).asInstanceOf[android.widget.EditText].getText.toString
-		target == getText.toString
+		setError( null, null )
+		true
 	}
 	else
 	{
-		true
-	}
+		val message = validation.message.getOrElse( getResources.getString( R.string.validation_error ) )
 
-	override def validate() = if( !isValid )
-	{
-		setError( error.getOrElse( context.getString( R.string.validation_error ) ) )
+		validation.icon match
+		{
+			case Some( icon ) => setError( message, icon )
+			case None => setError( message )
+		}
+
+		false
 	}
 }

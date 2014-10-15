@@ -28,40 +28,43 @@
 
 	<declare-styleable name="Widget.Validation">
 
-		<attr format="string"
-			  name="error" />
+		<attr format="reference"
+			  name="icon" />
 
 		<attr format="reference"
 			  name="matches" />
 
-		<attr format="reference|string"
+		<attr format="string"
+			  name="message" />
+
+		<attr format="string"
 			  name="regex" />
 
-		<attr name="rules">
+		<attr format="boolean"
+			  name="required" />
 
-			<flag name="alpha"
-				  value="0x001" />
+		<attr name="rule">
 
-			<flag name="alphaDash"
-				  value="0x002" />
+			<enum name="alpha"
+				  value="1" />
 
-			<flag name="alphaNumeric"
-				  value="0x004" />
+			<enum name="alphaDash"
+				  value="2" />
 
-			<flag name="email"
-				  value="0x008" />
+			<enum name="alphaNumeric"
+				  value="3" />
 
-			<flag name="integer"
-				  value="0x016" />
+			<enum name="email"
+				  value="4" />
 
-			<flag name="numeric"
-				  value="0x032" />
+			<enum name="integer"
+				  value="5" />
 
-			<flag name="phone"
-				  value="0x064" />
+			<enum name="numeric"
+				  value="6" />
 
-			<flag name="required"
-				  value="0x128" />
+			<enum name="phone"
+				  value="7" />
 
 		</attr>
 
