@@ -11,7 +11,7 @@ import com.larvalabs.svgandroid.SVGBuilder
  * 
  * SVGs have to be stored in the res/raw folder and can be referenced with the src attribute.
  */
-class Image( context: Context, attributes: AttributeSet, style: Int ) extends ImageView( context, attributes, 0 )
+class Image( context: Context, attributes: AttributeSet, style: Int ) extends ImageView( context, attributes, style )
 {
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, 0 )
 

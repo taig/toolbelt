@@ -199,6 +199,11 @@ package object conversion
 		override def onClick( view: View ) = f( view )
 	}
 
+	implicit def `Function2 -> Unit -> View.OnFocusChangeListener`( f: ( View, Boolean ) => Unit ) = new View.OnFocusChangeListener
+	{
+		override def onFocusChange( view: View, hasFocus: Boolean ) = f( view, hasFocus )
+	}
+
 	implicit def `Function1 -> Boolean -> View.OnLongClickListener`( f: View => Boolean ) = new View.OnLongClickListener
 	{
 		override def onLongClick( view: View ) = f( view )
