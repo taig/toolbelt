@@ -1,7 +1,7 @@
 package com.taig.android
 
 import android.view.inputmethod.EditorInfo
-import android.widget.{ViewSwitcher, EditText, TextView}
+import android.widget.{EditText, TextView, ViewSwitcher}
 import com.taig.android.conversion._
 
 package object widget
