@@ -26,5 +26,5 @@ with	Validatable
 
 	override def isValid = inputs.forall( _.isValid )
 
-	override def validate() = inputs.foreach( _.validate() )
+	override def validate() = inputs.forall( _.validate() )
 }
