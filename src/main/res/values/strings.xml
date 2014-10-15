@@ -44,4 +44,6 @@
 
 	</string-array>
 
+	<string name="validation_error">Error!</string>
+
 </resources>
