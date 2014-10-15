@@ -3,6 +3,7 @@ package com.taig.android.widget
 import android.content.Context
 import android.os.{Bundle, Parcelable}
 import android.util.{SparseArray, AttributeSet}
+import android.util.AttributeSet
 import android.view.View
 import android.widget.{TextView, EditText, ViewSwitcher}
 import com.taig.android.graphic.Color
