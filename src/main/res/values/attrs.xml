@@ -34,7 +34,7 @@
 		<attr format="reference"
 			  name="matches" />
 
-		<attr format="string"
+		<attr format="reference|string"
 			  name="regex" />
 
 	</declare-styleable>
