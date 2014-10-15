@@ -37,8 +37,7 @@
 		<attr format="reference|string"
 			  name="regex" />
 
-		<attr format="flag"
-			  name="rules">
+		<attr name="rules">
 
 			<flag name="alpha"
 				  value="0x001" />

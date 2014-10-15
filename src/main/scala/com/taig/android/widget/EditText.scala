@@ -1,7 +1,7 @@
 package com.taig.android.widget
 
 import android.content.Context
-import android.util.{AttributeSet, Patterns}
+import android.util.{Log, AttributeSet, Patterns}
 import android.view.View
 import com.taig.android._
 import com.taig.android.conversion._
@@ -34,6 +34,10 @@ with	Validatable
 
 		val rules = array.getInt( R.styleable.Widget_Validation_rules, Validatable.Flag.None )
 
+		Log.d( "ASDF", "rules: " + rules )
+		Log.d( "ASDF", "( rules & Validatable.Flag.None ): " + ( rules & Validatable.Flag.None ) + " != " + Validatable.Flag.None + "?" )
+		Log.d( "ASDF", "( rules & Validatable.Flag.Required ): " + ( rules & Validatable.Flag.Required ) + " == " + Validatable.Flag.Required )
+
 		if( ( rules & Validatable.Flag.None ) != Validatable.Flag.None )
 		{
 			if( ( rules & Validatable.Flag.Alpha ) == Validatable.Flag.Alpha ) all.append( "[\\p{L}]*" )
@@ -45,7 +49,7 @@ with	Validatable
 			if( ( rules & Validatable.Flag.Required ) == Validatable.Flag.Required ) all.append( ".+" )
 		}
 
-		all
+		all.toSeq
 	}
 
 	array.recycle()
