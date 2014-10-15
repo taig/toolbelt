@@ -2,10 +2,9 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.os.{Bundle, Parcelable}
-import android.util.{SparseArray, AttributeSet}
-import android.util.AttributeSet
+import android.util.{AttributeSet, SparseArray}
 import android.view.View
-import android.widget.{TextView, EditText, ViewSwitcher}
+import android.widget.{TextView, ViewSwitcher}
 import com.taig.android.graphic.Color
 import com.taig.android.widget.InlineEditText.Parameter
 
@@ -93,10 +92,10 @@ object InlineEditText
 	{
 		val Current = getClass.getName + ".Current"
 
-		val Edit = getClass.getName + ".Current"
+		val Edit = getClass.getName + ".Edit"
 
 		val Instance = getClass.getName + ".Instance"
 
-		val Text = getClass.getName + ".Current"
+		val Text = getClass.getName + ".Text"
 	}
 }
