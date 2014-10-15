@@ -16,15 +16,35 @@ with	Validatable
 
 	private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
 
-	var regex = Option( array.getString( R.styleable.Widget_Validation_regex ) )
-
 	var error = Option( array.getString( R.styleable.Widget_Validation_error ) )
+
+	var matches = array.getResourceId( R.styleable.Widget_Validation_matches, -1 ) match
+	{
+		case -1 => None
+		case id => Some( id )
+	}
+
+	var regex = Option( array.getString( R.styleable.Widget_Validation_regex ) )
 
 	array.recycle()
 
+	require( Seq( matches, regex ).count( _.isDefined ) < 2, "Can't define regex and matches field, choose one" )
+
 	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate() )
 
-	override def isValid = regex.map( getText.toString.matches ).getOrElse( true )
+	override def isValid = if( regex.isDefined )
+	{
+		regex.map( getText.toString.matches ).get
+	}
+	else if( matches.isDefined )
+	{
+		val target = getRootView.findViewById( matches.get ).asInstanceOf[android.widget.EditText].getText.toString
+		target == getText.toString
+	}
+	else
+	{
+		true
+	}
 
 	override def validate() = if( !isValid )
 	{
