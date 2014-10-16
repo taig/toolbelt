@@ -44,6 +44,17 @@
 
 	</string-array>
 
-	<string name="validation_error">Error!</string>
+	<string name="validation_error_alpha">Only alphabetic characters</string>
+	<string name="validation_error_alpha_dash">Only alphabetic characters and dashes</string>
+	<string name="validation_error_alpha_numeric">Only alphanumeric characters</string>
+	<string name="validation_error_email">Not a valid email address</string>
+	<string name="validation_error_integer">Not a valid number</string>
+	<string name="validation_error_length">Exactly %1$d characters</string>
+	<string name="validation_error_matches">Does not match</string>
+	<string name="validation_error_max_length">At max %1$d characters</string>
+	<string name="validation_error_min_length">At least %1$d characters</string>
+	<string name="validation_error_numeric">Not a valid decimal number</string>
+	<string name="validation_error_phone">Not a valid phone number</string>
+	<string name="validation_error_required">Mandatory field</string>
 
 </resources>

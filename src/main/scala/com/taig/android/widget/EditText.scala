@@ -1,12 +1,13 @@
 package com.taig.android.widget
 
 import android.content.Context
-import android.util.{AttributeSet, Patterns}
+import android.util.{AttributeSet, TypedValue}
 import android.view.View
 import android.widget.TextView
 import com.taig.android._
 import com.taig.android.conversion._
-import com.taig.android.widget.Validatable.Flag
+import com.taig.android.widget.validation.Type._
+import com.taig.android.widget.validation.Validatable
 
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
@@ -16,70 +17,91 @@ with	Validatable
 
 	def this( context: Context ) = this( context, null )
 
-	private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
-
-	val validation = new
+	lazy val validation = new
 	{
-		var message = Option( array.getString( R.styleable.Widget_Validation_message ) )
+		private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
 
-		var icon = Option( array.getDrawable( R.styleable.Widget_Validation_icon ) )
-
-		var `match` = array.getResourceId( R.styleable.Widget_Validation_matches, -1 ) match
+		private val resolve = new
 		{
-			case -1 => None
-			case id => Some( id )
+			private val value = new TypedValue
+
+			def enabled( index: Int ) = if( array.getValue( index, value ) )
+			{
+				value.`type` match
+				{
+					case TypedValue.TYPE_INT_BOOLEAN => array.getBoolean( index, false )
+					case _ => true
+				}
+			}
+			else
+			{
+				false
+			}
+
+			def message( index: Int, resource: Int ) = Option( array.getString( index ) ).getOrElse
+			{
+				// Check if the main index received a string, otherwise fall back to default resource
+				if( value.`type` == TypedValue.TYPE_STRING ) value.string else context.getString( resource )
+			}
 		}
 
-		var regex = Option( array.getString( R.styleable.Widget_Validation_regex ) )
+		val icon = Option( array.getDrawable( R.styleable.Widget_Validation_icon ) )
 
-		var required = array.getBoolean( R.styleable.Widget_Validation_required, false )
+		val alpha = new Alpha(
+			resolve.enabled( R.styleable.Widget_Validation_alpha ),
+			resolve.message( R.styleable.Widget_Validation_alphaMessage, R.string.validation_error_alpha )
+		)
 
-		var rule = array.getInt( R.styleable.Widget_Validation_rule, -1 ) match
-		{
-			case -1 => None
-			case id => Some( id )
+		val email = new Alpha(
+			resolve.enabled( R.styleable.Widget_Validation_email ),
+			resolve.message( R.styleable.Widget_Validation_emailMessage, R.string.validation_error_email )
+		)
+
+		val matches = new Match(
+			resolve.enabled( R.styleable.Widget_Validation_matches ),
+			resolve.message( R.styleable.Widget_Validation_matchesMessage, R.string.validation_error_matches ),
+			array.getResourceId( R.styleable.Widget_Validation_matches, -1 )
+		) {
+			override def find = getRootView.findViewById( target ).asInstanceOf[TextView].getText
 		}
+
+		val max = new Max(
+			resolve.enabled( R.styleable.Widget_Validation_max ),
+			resolve.message( R.styleable.Widget_Validation_maxMessage, R.string.validation_error_max_length ),
+			array.getInt( R.styleable.Widget_Validation_max, Int.MaxValue )
+		)
+
+		val min = new Min(
+			resolve.enabled( R.styleable.Widget_Validation_min ),
+			resolve.message( R.styleable.Widget_Validation_minMessage, R.string.validation_error_min_length ),
+			array.getInt( R.styleable.Widget_Validation_min, Int.MinValue )
+		)
+
+		val all = Seq( alpha, email, matches, max, min )
+
+		array.recycle()
 	}
-
-	array.recycle()
 
 	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate(): Unit )
 
-	override def isValid =
+	override def isValid = validation.all.forall( _.validate( getText.toString ) )
+
+	override def validate() = validation.all.find( _.validate( getText.toString ) ) match
 	{
-		val regex = validation.regex ++ validation.rule.map
+		case Some( field ) =>
 		{
-			case Flag.Alpha => "[\\p{L}]*"
-			case Flag.AlphaDash => "[\\p{L}\\-]*"
-			case Flag.AlphaNumeric => "[\\p{L}0-9]*"
-			case Flag.Email => Patterns.EMAIL_ADDRESS.pattern()
-			case Flag.Integer => "[0-9]*"
-			case Flag.Numeric => "\\d*([\\.,]\\d+)?"
-			case Flag.Phone => "(\\+?\\d+)?"
+			validation.icon match
+			{
+				case Some( icon ) => setError( field.message, icon )
+				case None => setError( field.message )
+			}
+
+			false
 		}
-
-		val `match` = validation.`match`
-			.map( getRootView.findViewById )
-			.collect{ case text: TextView => text.getText.toString }
-
-		regex.forall( getText.toString.matches ) && `match`.forall( _ == getText.toString )
-	}
-
-	override def validate() = if( isValid )
-	{
-		setError( null, null )
-		true
-	}
-	else
-	{
-		val message = validation.message.getOrElse( getResources.getString( R.string.validation_error ) )
-
-		validation.icon match
+		case None =>
 		{
-			case Some( icon ) => setError( message, icon )
-			case None => setError( message )
+			setError( null, null )
+			true
 		}
-
-		false
 	}
 }

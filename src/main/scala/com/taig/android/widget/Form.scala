@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.taig.android.widget.validation.Validatable
 
 class	Form( context: Context, attributes: AttributeSet, style: Int )
 extends	LinearLayout( context, attributes, style )

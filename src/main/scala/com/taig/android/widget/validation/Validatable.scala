@@ -1,4 +1,4 @@
-package com.taig.android.widget
+package com.taig.android.widget.validation
 
 trait Validatable
 {
@@ -17,24 +17,4 @@ trait Validatable
 	 *         otherwise
 	 */
 	def validate(): Boolean
-}
-
-object Validatable
-{
-	val Flag = new
-	{
-		val Alpha = 1
-
-		val AlphaDash = 2
-
-		val AlphaNumeric = 3
-
-		val Email = 4
-
-		val Integer = 5
-
-		val Numeric = 6
-
-		val Phone = 7
-	}
 }

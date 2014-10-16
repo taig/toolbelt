@@ -28,45 +28,89 @@
 
 	<declare-styleable name="Widget.Validation">
 
+		<attr format="boolean|string"
+			  name="alpha" />
+
+		<attr format="string"
+			  name="alphaMessage" />
+
+		<attr format="boolean|string"
+			  name="alphaDash" />
+
+		<attr format="string"
+			  name="alphaDashMessage" />
+
+		<attr format="boolean|string"
+			  name="alphaNumeric" />
+
+		<attr format="string"
+			  name="alphaNumericMessage" />
+
+		<attr format="boolean|string"
+			  name="email" />
+
+		<attr format="string"
+			  name="emailMessage" />
+
 		<attr format="reference"
 			  name="icon" />
+
+		<attr format="boolean|string"
+			  name="integer" />
+
+		<attr format="string"
+			  name="integerMessage" />
+
+		<attr format="integer"
+			  name="length" />
+
+		<attr format="string"
+			  name="lengthMessage" />
 
 		<attr format="reference"
 			  name="matches" />
 
 		<attr format="string"
-			  name="message" />
+			  name="matchesMessage" />
+
+		<attr format="integer"
+			  name="max" />
 
 		<attr format="string"
+			  name="maxMessage" />
+
+		<attr format="integer"
+			  name="min" />
+
+		<attr format="string"
+			  name="minMessage" />
+
+		<attr format="boolean|string"
+			  name="numeric" />
+
+		<attr format="string"
+			  name="numericMessage" />
+
+		<attr format="boolean|string"
 			  name="regex" />
+
+		<attr format="string"
+			  name="regexMessage" />
+
+		<attr format="string"
+			  name="regexValue" />
 
 		<attr format="boolean"
 			  name="required" />
 
-		<attr name="rule">
+		<attr format="string"
+			  name="requiredMessage" />
 
-			<enum name="alpha"
-				  value="1" />
+		<attr format="boolean|string"
+			  name="phone" />
 
-			<enum name="alphaDash"
-				  value="2" />
-
-			<enum name="alphaNumeric"
-				  value="3" />
-
-			<enum name="email"
-				  value="4" />
-
-			<enum name="integer"
-				  value="5" />
-
-			<enum name="numeric"
-				  value="6" />
-
-			<enum name="phone"
-				  value="7" />
-
-		</attr>
+		<attr format="string"
+			  name="phoneMessage" />
 
 	</declare-styleable>
 
