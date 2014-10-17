@@ -28,42 +28,89 @@
 
 	<declare-styleable name="Widget.Validation">
 
+		<attr format="boolean"
+			  name="alpha" />
+
 		<attr format="string"
-			  name="error" />
+			  name="alphaMessage" />
+
+		<attr format="boolean|string"
+			  name="alphaDash" />
+
+		<attr format="string"
+			  name="alphaDashMessage" />
+
+		<attr format="boolean|string"
+			  name="alphaNumeric" />
+
+		<attr format="string"
+			  name="alphaNumericMessage" />
+
+		<attr format="boolean|string"
+			  name="email" />
+
+		<attr format="string"
+			  name="emailMessage" />
+
+		<attr format="reference"
+			  name="icon" />
+
+		<attr format="boolean|string"
+			  name="integer" />
+
+		<attr format="string"
+			  name="integerMessage" />
+
+		<attr format="integer"
+			  name="length" />
+
+		<attr format="string"
+			  name="lengthMessage" />
 
 		<attr format="reference"
 			  name="matches" />
 
-		<attr format="reference|string"
+		<attr format="string"
+			  name="matchesMessage" />
+
+		<attr format="integer"
+			  name="max" />
+
+		<attr format="string"
+			  name="maxMessage" />
+
+		<attr format="integer"
+			  name="min" />
+
+		<attr format="string"
+			  name="minMessage" />
+
+		<attr format="boolean|string"
+			  name="numeric" />
+
+		<attr format="string"
+			  name="numericMessage" />
+
+		<attr format="boolean|string"
 			  name="regex" />
 
-		<attr name="rules">
+		<attr format="string"
+			  name="regexMessage" />
 
-			<flag name="alpha"
-				  value="0x001" />
+		<attr format="string"
+			  name="pattern" />
 
-			<flag name="alphaDash"
-				  value="0x002" />
+		<attr format="boolean"
+			  name="required" />
 
-			<flag name="alphaNumeric"
-				  value="0x004" />
+		<attr format="string"
+			  name="requiredMessage" />
 
-			<flag name="email"
-				  value="0x008" />
+		<attr format="boolean|string"
+			  name="phone" />
 
-			<flag name="integer"
-				  value="0x016" />
-
-			<flag name="numeric"
-				  value="0x032" />
-
-			<flag name="phone"
-				  value="0x064" />
-
-			<flag name="required"
-				  value="0x128" />
-
-		</attr>
+		<attr format="string"
+			  name="phoneMessage" />
 
 	</declare-styleable>
 
