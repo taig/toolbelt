@@ -28,7 +28,7 @@
 
 	<declare-styleable name="Widget.Validation">
 
-		<attr format="boolean|string"
+		<attr format="boolean"
 			  name="alpha" />
 
 		<attr format="string"

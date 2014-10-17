@@ -17,7 +17,7 @@ with	Validatable
 
 	def this( context: Context ) = this( context, null )
 
-	lazy val validation = new
+	val validation = new
 	{
 		private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
 
@@ -29,7 +29,7 @@ with	Validatable
 			{
 				value.`type` match
 				{
-					case TypedValue.TYPE_INT_BOOLEAN => array.getBoolean( index, false )
+					case TypedValue.TYPE_INT_BOOLEAN if value.resourceId == 0 => array.getBoolean( index, false )
 					case _ => true
 				}
 			}
@@ -52,18 +52,18 @@ with	Validatable
 			resolve.message( R.styleable.Widget_Validation_alphaMessage, R.string.validation_error_alpha )
 		)
 
-		val email = new Alpha(
+		val email = new Email(
 			resolve.enabled( R.styleable.Widget_Validation_email ),
 			resolve.message( R.styleable.Widget_Validation_emailMessage, R.string.validation_error_email )
 		)
 
 		val matches = new Match(
-			resolve.enabled( R.styleable.Widget_Validation_matches ),
 			resolve.message( R.styleable.Widget_Validation_matchesMessage, R.string.validation_error_matches ),
 			array.getResourceId( R.styleable.Widget_Validation_matches, -1 )
 		) {
 			override def find = getRootView.findViewById( target ).asInstanceOf[TextView].getText
 		}
+
 
 		val max = new Max(
 			resolve.enabled( R.styleable.Widget_Validation_max ),
@@ -77,7 +77,12 @@ with	Validatable
 			array.getInt( R.styleable.Widget_Validation_min, Int.MinValue )
 		)
 
-		val all = Seq( alpha, email, matches, max, min )
+		val required = new Required(
+			resolve.enabled( R.styleable.Widget_Validation_required ),
+			resolve.message( R.styleable.Widget_Validation_requiredMessage, R.string.validation_error_required )
+		)
+
+		val all = Seq( alpha, email, matches, max, min, required )
 
 		array.recycle()
 	}
@@ -86,7 +91,7 @@ with	Validatable
 
 	override def isValid = validation.all.forall( _.validate( getText.toString ) )
 
-	override def validate() = validation.all.find( _.validate( getText.toString ) ) match
+	override def validate() = validation.all.find( !_.validate( getText.toString ) ) match
 	{
 		case Some( field ) =>
 		{

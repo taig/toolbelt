@@ -1,6 +1,6 @@
 package com.taig.android.widget.validation
 
-import android.util.Patterns
+import android.util.{Log, Patterns}
 
 object Type
 {
@@ -16,24 +16,31 @@ object Type
 
 	class Length( enabled: Boolean, message: CharSequence, var value: Int ) extends Validation( enabled, message )
 	{
-		override def validate( value: CharSequence ) = !enabled || enabled && value.length() == this.value
+		override def validate( value: CharSequence ) = super.validate( value ) || value.length() == this.value
 	}
 
 	abstract class Match( enabled: Boolean, message: CharSequence, var target: Int ) extends Validation( enabled, message )
 	{
-		override def validate( value: CharSequence ) = !enabled || enabled && value == find
+		def this( message: CharSequence, target: Int ) = this( target > 0, message, target )
+
+		override def validate( value: CharSequence ) =
+		{
+			Log.d( "ASDF", s"Compare: '$value' == '$find'" )
+			Log.d( "ASDF", s"${value.getClass.getName} vs ${find.getClass.getName}" )
+			super.validate( value ) || value == find
+		}
 
 		protected def find: CharSequence
 	}
 
 	class Max( enabled: Boolean, message: CharSequence, var length: Int ) extends Validation( enabled, message )
 	{
-		override def validate( value: CharSequence ) = !enabled || enabled && value.length() <= length
+		override def validate( value: CharSequence ) = super.validate( value ) || value.length() <= length
 	}
 
 	class Min( enabled: Boolean, message: CharSequence, var length: Int ) extends Validation( enabled, message )
 	{
-		override def validate( value: CharSequence ) = !enabled || enabled && value.length() >= length
+		override def validate( value: CharSequence ) = super.validate( value ) || value.length() >= length
 	}
 
 	class Numeric( enabled: Boolean, message: CharSequence ) extends Validation.Regex( enabled, message, "\\d*([\\.,]\\d+)?" )
@@ -44,6 +51,6 @@ object Type
 
 	class Required( enabled: Boolean, message: CharSequence ) extends Validation( enabled, message )
 	{
-		override def validate( value: CharSequence ) = !enabled || enabled && value.length() > 0
+		override def validate( value: CharSequence ) = !enabled || value.length() > 0
 	}
 }
