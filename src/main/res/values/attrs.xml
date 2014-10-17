@@ -98,7 +98,7 @@
 			  name="regexMessage" />
 
 		<attr format="string"
-			  name="regexValue" />
+			  name="pattern" />
 
 		<attr format="boolean"
 			  name="required" />

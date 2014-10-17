@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.taig.android._
 import com.taig.android.conversion._
 import com.taig.android.widget.validation.Type._
-import com.taig.android.widget.validation.Validatable
+import com.taig.android.widget.validation.{Validator, Validatable}
 
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
@@ -52,29 +52,64 @@ with	Validatable
 			resolve.message( R.styleable.Widget_Validation_alphaMessage, R.string.validation_error_alpha )
 		)
 
+		val alphaDash = new AlphaDash(
+			resolve.enabled( R.styleable.Widget_Validation_alphaDash ),
+			resolve.message( R.styleable.Widget_Validation_alphaDashMessage, R.string.validation_error_alpha_dash )
+		)
+
+		val alphaNumeric = new AlphaNumeric(
+			resolve.enabled( R.styleable.Widget_Validation_alphaNumeric ),
+			resolve.message( R.styleable.Widget_Validation_alphaNumericMessage, R.string.validation_error_alpha_numeric )
+		)
+
 		val email = new Email(
 			resolve.enabled( R.styleable.Widget_Validation_email ),
 			resolve.message( R.styleable.Widget_Validation_emailMessage, R.string.validation_error_email )
 		)
 
-		val matches = new Match(
+		val integer = new Integer(
+			resolve.enabled( R.styleable.Widget_Validation_integer ),
+			resolve.message( R.styleable.Widget_Validation_integerMessage, R.string.validation_error_integer )
+		)
+
+		val length = new Length(
+			resolve.message( R.styleable.Widget_Validation_lengthMessage, R.string.validation_error_length ),
+			array.getInt( R.styleable.Widget_Validation_length, -1 )
+		)
+
+		val matches = new Matches(
 			resolve.message( R.styleable.Widget_Validation_matchesMessage, R.string.validation_error_matches ),
 			array.getResourceId( R.styleable.Widget_Validation_matches, -1 )
 		) {
 			override def find = getRootView.findViewById( target ).asInstanceOf[TextView].getText
 		}
 
-
 		val max = new Max(
-			resolve.enabled( R.styleable.Widget_Validation_max ),
-			resolve.message( R.styleable.Widget_Validation_maxMessage, R.string.validation_error_max_length ),
+			Option( array.getString( R.styleable.Widget_Validation_maxMessage ) )
+				.getOrElse( context.getString( R.string.validation_error_max_length ) ),
 			array.getInt( R.styleable.Widget_Validation_max, Int.MaxValue )
 		)
 
 		val min = new Min(
-			resolve.enabled( R.styleable.Widget_Validation_min ),
-			resolve.message( R.styleable.Widget_Validation_minMessage, R.string.validation_error_min_length ),
+			Option( array.getString( R.styleable.Widget_Validation_minMessage ) )
+				.getOrElse( context.getString( R.string.validation_error_min_length ) ),
 			array.getInt( R.styleable.Widget_Validation_min, Int.MinValue )
+		)
+
+		val numeric = new Numeric(
+			resolve.enabled( R.styleable.Widget_Validation_numeric ),
+			resolve.message( R.styleable.Widget_Validation_numericMessage, R.string.validation_error_numeric )
+		)
+
+		val phone = new Phone(
+			resolve.enabled( R.styleable.Widget_Validation_phone ),
+			resolve.message( R.styleable.Widget_Validation_phoneMessage, R.string.validation_error_phone )
+		)
+
+		val regex = new Validator.Regex(
+			resolve.enabled( R.styleable.Widget_Validation_regex ) || array.getString( R.styleable.Widget_Validation_pattern ) != null,
+			resolve.message( R.styleable.Widget_Validation_regexMessage, R.string.validation_error_regex ),
+			array.getString( R.styleable.Widget_Validation_pattern )
 		)
 
 		val required = new Required(

@@ -22,6 +22,18 @@
 
 	</string-array>
 
-	<string name="validation_error">Fehler!</string>
+	<string name="validation_error_alpha">Nur Buchstaben</string>
+	<string name="validation_error_alpha_dash">Nur Buchstabend und Bindestriche</string>
+	<string name="validation_error_alpha_numeric">Nur Buchstaben und Zahlen</string>
+	<string name="validation_error_email">Keine gültige E-Mail-Adresse</string>
+	<string name="validation_error_integer">Keine gültige Zahl</string>
+	<string name="validation_error_length">Genau %1$d Zeichen</string>
+	<string name="validation_error_matches">Keine Übereinstimmung</string>
+	<string name="validation_error_max_length">Maximal %1$d Zeichen</string>
+	<string name="validation_error_min_length">Mindestens %1$d Zeichen</string>
+	<string name="validation_error_numeric">Keine gültige Dezimalzahl</string>
+	<string name="validation_error_phone">Keine gültige Telefonnummer</string>
+	<string name="validation_error_regex">Ungültiges Format</string>
+	<string name="validation_error_required">Pflichtfeld</string>
 
 </resources>

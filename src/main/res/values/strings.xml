@@ -56,5 +56,6 @@
 	<string name="validation_error_numeric">Not a valid decimal number</string>
 	<string name="validation_error_phone">Not a valid phone number</string>
 	<string name="validation_error_required">Mandatory field</string>
+	<string name="validation_error_regex">Invalid format</string>
 
 </resources>
