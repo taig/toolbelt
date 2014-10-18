@@ -9,6 +9,9 @@ import com.taig.android.conversion._
 import com.taig.android.widget.validation.Type._
 import com.taig.android.widget.validation.{Validator, Validatable}
 
+/**
+ * An EditText implementation that allows form validation
+ */
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
 with	Validatable
