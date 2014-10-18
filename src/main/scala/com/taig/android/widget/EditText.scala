@@ -7,8 +7,11 @@ import android.widget.TextView
 import com.taig.android._
 import com.taig.android.conversion._
 import com.taig.android.widget.validation.Type._
-import com.taig.android.widget.validation.{Validator, Validatable}
+import com.taig.android.widget.validation.{Validatable, Validator}
 
+/**
+ * An EditText implementation that allows form validation
+ */
 class	EditText( context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
 with	Validatable
@@ -29,7 +32,7 @@ with	Validatable
 			{
 				value.`type` match
 				{
-					case TypedValue.TYPE_INT_BOOLEAN if value.resourceId == 0 => array.getBoolean( index, false )
+					case TypedValue.TYPE_INT_BOOLEAN => array.getBoolean( index, false )
 					case _ => true
 				}
 			}
@@ -117,7 +120,7 @@ with	Validatable
 			resolve.message( R.styleable.Widget_Validation_requiredMessage, R.string.validation_error_required )
 		)
 
-		val all = Seq( alpha, email, matches, max, min, required )
+		val all = Seq( alpha, alphaDash, alphaNumeric, email, integer, length, matches, max, min, numeric, phone, regex, required )
 
 		array.recycle()
 	}

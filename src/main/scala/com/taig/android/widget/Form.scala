@@ -27,5 +27,5 @@ with	Validatable
 
 	override def isValid = inputs.forall( _.isValid )
 
-	override def validate() = inputs.forall( _.validate() )
+	override def validate() = inputs.foldLeft( true ){ case ( status, field ) => field.validate() && status }
 }
