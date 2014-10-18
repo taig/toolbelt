@@ -32,7 +32,7 @@ with	Validatable
 			{
 				value.`type` match
 				{
-					case TypedValue.TYPE_INT_BOOLEAN if value.resourceId == 0 => array.getBoolean( index, false )
+					case TypedValue.TYPE_INT_BOOLEAN => array.getBoolean( index, false )
 					case _ => true
 				}
 			}
