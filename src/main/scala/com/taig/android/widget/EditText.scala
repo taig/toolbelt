@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.taig.android._
 import com.taig.android.conversion._
 import com.taig.android.widget.validation.Type._
-import com.taig.android.widget.validation.{Validator, Validatable}
+import com.taig.android.widget.validation.{Validatable, Validator}
 
 /**
  * An EditText implementation that allows form validation
