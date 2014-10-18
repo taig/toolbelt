@@ -120,7 +120,7 @@ with	Validatable
 			resolve.message( R.styleable.Widget_Validation_requiredMessage, R.string.validation_error_required )
 		)
 
-		val all = Seq( alpha, email, matches, max, min, required )
+		val all = Seq( alpha, alphaDash, alphaNumeric, email, integer, length, matches, max, min, numeric, phone, regex, required )
 
 		array.recycle()
 	}
