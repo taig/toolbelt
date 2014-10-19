@@ -1,19 +1,21 @@
 package com.taig.android.widget.validation
 
-abstract class Validator( var enabled: Boolean, var message: CharSequence )
+abstract class Validator( var enabled: Boolean, private var template: CharSequence )
 {
-	def getMessage = message
+	def message_( template: String ) = this.template = template
+
+	def message = template
 
 	def validate( value: CharSequence ) = !enabled || value.length() == 0
 }
 
 object Validator
 {
-	class Regex( enabled: Boolean, message: CharSequence, pattern: String ) extends Validator( enabled, message )
+	class Regex( enabled: Boolean, template: CharSequence, pattern: String ) extends Validator( enabled, template )
 	{
 		def this( message: CharSequence, expression: String ) = this( expression != null, message, expression )
 
-		require( !enabled || pattern != null, "Pattern must be defined if this Validator is enabled" )
+		require( !enabled || pattern != null, "Pattern must be defined if Regex Validator is enabled" )
 
 		override def validate( value: CharSequence ) =
 		{
