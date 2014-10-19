@@ -2,6 +2,8 @@ package com.taig.android.widget.validation
 
 abstract class Validator( var enabled: Boolean, var message: CharSequence )
 {
+	def getMessage = message
+
 	def validate( value: CharSequence ) = !enabled || value.length() == 0
 }
 
