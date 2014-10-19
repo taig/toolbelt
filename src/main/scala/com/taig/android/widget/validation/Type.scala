@@ -18,7 +18,7 @@ object Type
 	{
 		def this( message: CharSequence, value: Int ) = this( value != -1, message, value )
 
-		override def getMessage = String.format( message.toString, value )
+		override def getMessage = message.toString.format( value )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() == this.value
 	}
@@ -36,7 +36,7 @@ object Type
 	{
 		def this( message: CharSequence, length: Int ) = this( length < Int.MaxValue, message, length )
 
-		override def getMessage = String.format( message.toString, length )
+		override def getMessage = message.toString.format( length )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() <= length
 	}
@@ -45,7 +45,7 @@ object Type
 	{
 		def this( message: CharSequence, length: Int ) = this( length > Int.MinValue, message, length )
 
-		override def getMessage = String.format( message.toString, length )
+		override def getMessage = message.toString.format( length )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() >= length
 	}
