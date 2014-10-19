@@ -18,7 +18,7 @@ object Type
 	{
 		def this( template: CharSequence, value: Int ) = this( value != -1, template, value )
 
-//		override def message = template.toString.format( value )
+		override def message = template.toString.format( value )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() == this.value
 	}
@@ -36,7 +36,7 @@ object Type
 	{
 		def this( template: CharSequence, length: Int ) = this( length < Int.MaxValue, template, length )
 
-//		override def message = template.toString.format( length )
+		override def message = template.toString.format( length )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() <= length
 	}
@@ -45,7 +45,7 @@ object Type
 	{
 		def this( template: CharSequence, length: Int ) = this( length > Int.MinValue, template, length )
 
-//		override def message = template.toString.format( length )
+		override def message = template.toString.format( length )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() >= length
 	}
