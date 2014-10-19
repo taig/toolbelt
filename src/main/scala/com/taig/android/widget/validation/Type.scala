@@ -18,6 +18,8 @@ object Type
 	{
 		def this( message: CharSequence, value: Int ) = this( value != -1, message, value )
 
+		override def getMessage = String.format( message.toString, value )
+
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() == this.value
 	}
 
@@ -34,12 +36,16 @@ object Type
 	{
 		def this( message: CharSequence, length: Int ) = this( length < Int.MaxValue, message, length )
 
+		override def getMessage = String.format( message.toString, length )
+
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() <= length
 	}
 
 	class Min( enabled: Boolean, message: CharSequence, var length: Int ) extends Validator( enabled, message )
 	{
 		def this( message: CharSequence, length: Int ) = this( length > Int.MinValue, message, length )
+
+		override def getMessage = String.format( message.toString, length )
 
 		override def validate( value: CharSequence ) = super.validate( value ) || value.length() >= length
 	}
