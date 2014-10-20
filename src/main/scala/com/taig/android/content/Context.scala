@@ -9,7 +9,7 @@ trait Context
 
 	protected[content] implicit val richContext = this
 
-	implicit def `Id -> String`( id: Int ) = context.getString( id )
+	implicit def `Int -> String`( resource: Int ): String = context.getString( resource )
 
 	implicit lazy val layoutInflater: LayoutInflater = LayoutInflater.from( context )
 
