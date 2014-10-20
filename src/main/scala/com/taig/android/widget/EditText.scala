@@ -48,7 +48,7 @@ with	Validatable
 			}
 		}
 
-		val icon = Option( array.getDrawable( R.styleable.Widget_Validation_icon ) )
+		var icon = Option( array.getDrawable( R.styleable.Widget_Validation_icon ) )
 
 		val alpha = new Alpha(
 			resolve.enabled( R.styleable.Widget_Validation_alpha ),
