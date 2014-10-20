@@ -2,11 +2,10 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.os.{Bundle, Parcelable}
-import android.util.{AttributeSet, SparseArray}
+import android.util.{SparseArray, AttributeSet}
 import android.view.View
 import android.widget.{TextView, ViewSwitcher}
 import com.taig.android.graphic.Color
-import com.taig.android.widget.InlineEditText.Parameter
 
 /**
  * A widget that can switch between an [[android.widget.EditText]] and a [[android.widget.TextView]]
@@ -15,44 +14,47 @@ import com.taig.android.widget.InlineEditText.Parameter
  */
 class InlineEditText( context: Context, attributes: AttributeSet ) extends ViewSwitcher( context, attributes )
 {
+	val input = new EditText( context, attributes )
+
+	val label = new TextView( context, attributes, android.R.attr.editTextStyle )
+
 	def this( context: Context ) = this( context, null )
 
-	val edit = new EditText( context, attributes )
+	input.setId( View.NO_ID )
 
-	val text = new TextView( context, attributes, android.R.attr.editTextStyle )
+	label.setId( View.NO_ID )
+	label.setBackgroundColor( Color.Transparent )
+	label.setInputType( 0 )
 
-	edit.setId( View.NO_ID )
+	addView( label )
+	addView( input )
 
-	text.setId( View.NO_ID )
-	text.setBackgroundColor( Color.Transparent )
-	text.setInputType( 0 )
+	val show = new
+	{
+		def label() = setDisplayedChild( 0 )
 
-	addView( text )
-	addView( edit )
+		def input() = setDisplayedChild( 1 )
+	}
 
-	def showText() = setDisplayedChild( 0 )
-
-	def showEdit() = setDisplayedChild( 1 )
-
-	def getText = edit.getText
+	def getText = input.getText
 
 	def setText( text: CharSequence )
 	{
-		this.edit.setText( text )
-		this.text.setText( text )
+		input.setText( text )
+		label.setText( text )
 	}
 
-	def setText( resId: Int )
+	def setText( resource: Int )
 	{
-		this.edit.setText( resId )
-		this.text.setText( resId )
+		input.setText( resource )
+		label.setText( resource )
 	}
 
 	override def setDisplayedChild( whichChild: Int )
 	{
 		if( whichChild == 0 )
 		{
-			text.setText( getText )
+			label.setText( getText )
 		}
 
 		super.setDisplayedChild( whichChild )
@@ -61,41 +63,32 @@ class InlineEditText( context: Context, attributes: AttributeSet ) extends ViewS
 	override def onSaveInstanceState() =
 	{
 		val bundle = new Bundle()
-		bundle.putParcelable( Parameter.Instance, InlineEditText.super.onSaveInstanceState )
-		bundle.putParcelable( Parameter.Edit, edit.onSaveInstanceState() )
-		bundle.putParcelable( Parameter.Text, text.onSaveInstanceState() )
-		bundle.putInt( Parameter.Current, getDisplayedChild )
-
+		bundle.putParcelable( "state", super.onSaveInstanceState() )
+		bundle.putParcelable( "input", input.onSaveInstanceState() )
+		bundle.putParcelable( "label", label.onSaveInstanceState() )
+		bundle.putInt( "active", getDisplayedChild )
 		bundle
 	}
 
-	override def dispatchSaveInstanceState( container: SparseArray[Parcelable] ) = super.dispatchFreezeSelfOnly( container )
+	protected override def dispatchSaveInstanceState( container: SparseArray[Parcelable] )
+	{
+		super.dispatchFreezeSelfOnly( container )
+	}
 
 	override def onRestoreInstanceState( state: Parcelable ) = state match
 	{
 		case bundle: Bundle =>
 		{
-			super.onRestoreInstanceState( bundle.getParcelable( Parameter.Instance ) )
-			edit.onRestoreInstanceState( bundle.getParcelable( Parameter.Edit ) )
-			text.onRestoreInstanceState( bundle.getParcelable( Parameter.Text ) )
-			setDisplayedChild( bundle.getInt( Parameter.Current ) )
+			super.onRestoreInstanceState( bundle.getParcelable( "state" ) )
+			input.onRestoreInstanceState( bundle.getParcelable( "input" ) )
+			label.onRestoreInstanceState( bundle.getParcelable( "label" ) )
+			setDisplayedChild( bundle.getInt( "active" ) )
 		}
 		case _ => super.onRestoreInstanceState( state )
 	}
 
-	override def dispatchRestoreInstanceState( container: SparseArray[Parcelable] ) = super.dispatchThawSelfOnly( container )
-}
-
-object InlineEditText
-{
-	val Parameter = new
+	protected override def dispatchRestoreInstanceState( container: SparseArray[Parcelable] )
 	{
-		val Current = getClass.getName + ".Current"
-
-		val Edit = getClass.getName + ".Edit"
-
-		val Instance = getClass.getName + ".Instance"
-
-		val Text = getClass.getName + ".Text"
+		super.dispatchThawSelfOnly( container )
 	}
 }
