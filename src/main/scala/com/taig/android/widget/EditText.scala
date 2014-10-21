@@ -1,6 +1,7 @@
 package com.taig.android.widget
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.{AttributeSet, TypedValue}
 import android.view.View
 import android.widget.TextView
@@ -127,24 +128,23 @@ with	Validatable
 
 	setOnFocusChangeListener( ( _: View, focus: Boolean ) => if( !focus ) validate(): Unit )
 
+	override def setError( error: CharSequence ) = validation.icon match
+	{
+		case Some( icon ) => setError( error, icon )
+		case None => super.setError( error )
+	}
+
+	override def setError( error: CharSequence, icon: Drawable )
+	{
+		Option( icon ).foreach( iocn => icon.setBounds( 0, 0, icon.getIntrinsicWidth, icon.getIntrinsicHeight ) )
+		super.setError( error, icon )
+	}
+
 	override def isValid = validation.all.forall( _.validate( getText.toString ) )
 
 	override def validate() = validation.all.find( !_.validate( getText.toString ) ) match
 	{
-		case Some( field ) =>
-		{
-			validation.icon match
-			{
-				case Some( icon ) => setError( field.message, icon )
-				case None => setError( field.message )
-			}
-
-			false
-		}
-		case None =>
-		{
-			setError( null, null )
-			true
-		}
+		case Some( field ) => setError( field.message ); false
+		case None => setError( null, null ); true
 	}
 }
