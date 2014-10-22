@@ -17,7 +17,7 @@ libraryDependencies += "com.taig.android" %% "toolbelt" % "0.0.20-BETA"
 
 The source is currently lacking of documentation as it is primary intended for personal use. The library's main features are:
 
-- Common implicit conversions (`import com.taig.android._`)
+- Common implicit conversions (`import com.taig.android.conversion._`)
 - WallpaperService wrapper to clean up the mess of an API Google is providing
 - Color picker preference
 - Font picker preference
