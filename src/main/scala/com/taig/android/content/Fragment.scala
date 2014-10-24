@@ -1,6 +1,6 @@
 package com.taig.android.content
 
-import android.support.v4.app.DialogFragment
+import android.support.v4.app.{ListFragment, DialogFragment}
 import com.taig.android.content
 
 trait Fragment extends android.support.v4.app.Fragment with Context
@@ -22,6 +22,8 @@ object Fragment
 			super.onDestroyView()
 		}
 	}
+
+	trait List extends ListFragment with Fragment
 
 	/**
 	 * Flag a Fragment as Creditor of an Activity
