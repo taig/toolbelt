@@ -2,6 +2,7 @@ package com.taig.android.widget.image
 
 import android.graphics.PorterDuff.Mode
 import android.graphics._
+import android.util.Log
 import com.taig.android.R
 import com.taig.android.widget.Image
 
@@ -37,8 +38,12 @@ trait Radius extends Image
 		case Some( drawable ) =>
 		{
 			rectangle.set( getDrawable.getBounds )
+
 			getImageMatrix.mapRect( rectangle )
 			rectangle.offset( getPaddingLeft, getPaddingTop )
+
+			// Prevent radius being drawn out of canvas bounds
+			rectangle.intersect( new RectF( 0, 0, canvas.getWidth, canvas.getHeight ) )
 
 			val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
 			canvas.drawRoundRect( rectangle, radius.getValue, radius.getValue, paint1 )
