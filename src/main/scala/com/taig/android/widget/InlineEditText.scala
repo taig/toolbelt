@@ -2,7 +2,7 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.os.{Bundle, Parcelable}
-import android.util.{SparseArray, AttributeSet}
+import android.util.{AttributeSet, SparseArray}
 import android.view.View
 import android.widget.{TextView, ViewSwitcher}
 import com.taig.android.graphic.Color

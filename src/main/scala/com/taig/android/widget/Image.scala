@@ -1,8 +1,6 @@
 package com.taig.android.widget
 
 import android.content.Context
-import android.graphics.{Matrix, Canvas, Bitmap, Picture}
-import android.graphics.drawable.PictureDrawable
 import android.util.{AttributeSet, TypedValue}
 import android.view.View
 import android.widget.ImageView
