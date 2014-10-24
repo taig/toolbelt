@@ -26,6 +26,39 @@
 
 	</declare-styleable>
 
+	<declare-styleable name="Widget.Image">
+
+		<attr name="android:src" />
+
+	</declare-styleable>
+
+	<declare-styleable name="Widget.Image.AspectRatio">
+
+		<attr name="dominance">
+
+			<enum name="width"
+				  value="0" />
+
+			<enum name="height"
+				  value="1" />
+
+		</attr>
+
+		<attr name="enabled"
+			  format="boolean" />
+
+		<attr name="ratio"
+			  format="float" />
+
+	</declare-styleable>
+
+	<declare-styleable name="Widget.Image.Radius">
+
+		<attr name="radius"
+			  format="dimension" />
+
+	</declare-styleable>
+
 	<declare-styleable name="Widget.Validation">
 
 		<attr format="boolean"

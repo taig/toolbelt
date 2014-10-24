@@ -70,4 +70,9 @@ case class Resolution( width: Int, height: Int ) extends Pair.Numeric with Parce
 object Resolution
 {
 	val CREATOR: Parcelable.Creator[Resolution] = ( source: Parcel ) => Resolution( source.readInt, source.readInt )
+
+	def apply( dimensioned: { def getWidth(): Int; def getHeight(): Int } ): Resolution =
+	{
+		apply( dimensioned.getWidth(), dimensioned.getHeight() )
+	}
 }
