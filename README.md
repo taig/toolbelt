@@ -10,7 +10,7 @@ This library is the foundatation for the [Coyote Buttes Live Wallpaper](https://
 ````
 resolvers += Resolver.url( "Toolbelt", url( "http://taig.github.io/Toolbelt/release" ) )( ivyStylePatterns )
 
-libraryDependencies += "com.taig.android" %% "toolbelt" % "0.0.20-BETA"
+libraryDependencies += "com.taig.android" %% "toolbelt" % "0.1.2-BETA"
 ````
 
 **Features**
