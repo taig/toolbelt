@@ -225,5 +225,9 @@ package object view
 		 * @see [[android.view.ViewTreeObserver#removeOnTouchModeChangeListener]]
 		 */
 		def removeOnTouchModeChangeListener( listener: OnTouchModeChangeListener ) = o.removeOnTouchModeChangeListener( listener )
+
+		def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
+
+		def setPadding( topBottom: Int, leftRight: Int ) = view.setPadding( leftRight, topBottom, leftRight, topBottom )
 	}
 }
