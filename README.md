@@ -10,19 +10,19 @@ This library is the foundatation for the [Coyote Buttes Live Wallpaper](https://
 ````
 resolvers += Resolver.url( "Toolbelt", url( "http://taig.github.io/Toolbelt/release" ) )( ivyStylePatterns )
 
-libraryDependencies += "com.taig.android" %% "toolbelt" % "0.0.10-BETA"
+libraryDependencies += "com.taig.android" %% "toolbelt" % "0.1.2-BETA"
 ````
 
 **Features**
 
 The source is currently lacking of documentation as it is primary intended for personal use. The library's main features are:
 
-- Common implicit conversions (`import com.taig.android._`)
+- Common implicit conversions (`import com.taig.android.conversion._`)
 - WallpaperService wrapper to clean up the mess of an API Google is providing
 - Color picker preference
 - Font picker preference
 - Future implementation that runs callbacks on UI thread
-- ImageView that supports SVGs
+- ImageView that supports SVGs, rounded corners and fixed aspect ratio
 
 **Screenshots**
 
