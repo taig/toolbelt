@@ -2,7 +2,6 @@ package com.taig.android.widget.image
 
 import android.graphics.PorterDuff.Mode
 import android.graphics._
-import android.util.Log
 import com.taig.android.R
 import com.taig.android.widget.Image
 

@@ -1,6 +1,6 @@
 package com.taig.android.content
 
-import android.support.v4.app.{ListFragment, DialogFragment}
+import android.support.v4.app.{DialogFragment, ListFragment}
 import com.taig.android.content
 
 trait Fragment extends android.support.v4.app.Fragment with Context
