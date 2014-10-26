@@ -12,7 +12,9 @@ import com.taig.android.R
  * 
  * SVGs have to be stored in the res/raw folder and can be referenced with the src attribute.
  */
-class Image( val context: Context, val attributes: AttributeSet, val style: Int ) extends ImageView( context, attributes, style )
+class	Image( val context: Context, val attributes: AttributeSet, val style: Int )
+extends	ImageView( context, attributes, style )
+with	Widget
 {
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, 0 )
 
