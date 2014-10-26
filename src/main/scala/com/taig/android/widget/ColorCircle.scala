@@ -8,8 +8,9 @@ import android.widget.ImageView
 import com.taig.android.R
 import com.taig.android.graphic.Color
 
-class	ColorCircle( context: Context, private var color: Color, attributes: AttributeSet, style: Int )
+class	ColorCircle( val context: Context, private var color: Color, attributes: AttributeSet, style: Int )
 extends	ImageView( context, attributes, style )
+with	Widget
 {
 	def this( context: Context ) = this( context, Color.White, null, 0 )
 

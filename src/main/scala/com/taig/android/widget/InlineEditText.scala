@@ -12,7 +12,9 @@ import com.taig.android.graphic.Color
  * 
  * By default it displays the TextView
  */
-class InlineEditText( context: Context, attributes: AttributeSet ) extends ViewSwitcher( context, attributes )
+class	InlineEditText( val context: Context, attributes: AttributeSet )
+extends	ViewSwitcher( context, attributes )
+with	Widget
 {
 	val input = new EditText( context, attributes )
 

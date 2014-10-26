@@ -13,8 +13,9 @@ import com.taig.android.widget.validation.{Validatable, Validator}
 /**
  * An EditText implementation that allows form validation
  */
-class	EditText( context: Context, attributes: AttributeSet, style: Int )
+class	EditText( val context: Context, attributes: AttributeSet, style: Int )
 extends	android.widget.EditText( context, attributes, style )
+with	Widget
 with	Validatable
 {
 	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.editTextStyle )
