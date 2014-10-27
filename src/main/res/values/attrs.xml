@@ -61,7 +61,7 @@
 
 	<declare-styleable name="Widget.Text.HintStyle">
 
-		<attr name="textStyleHint">
+		<attr name="hintTextStyle">
 
 			<flag name="normal"
 				  value="0" />
