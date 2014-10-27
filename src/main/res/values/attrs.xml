@@ -59,6 +59,23 @@
 
 	</declare-styleable>
 
+	<declare-styleable name="Widget.Text.HintStyle">
+
+		<attr name="textStyleHint">
+
+			<flag name="normal"
+				  value="0" />
+
+			<flag name="bold"
+				  value="1" />
+
+			<flag name="italic"
+				  value="2" />
+
+		</attr>
+
+	</declare-styleable>
+
 	<declare-styleable name="Widget.Validation">
 
 		<attr format="boolean"
