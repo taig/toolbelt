@@ -14,21 +14,21 @@ extends	Text
 		var style = -1
 	}
 
-	private var textStyle = getTypeface.getStyle
-
 	{
 		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Text_HintStyle )
 
-		hint.style = array.getInt( R.styleable.Widget_Text_HintStyle_textStyleHint, hint.style )
+		hint.style = array.getInt( R.styleable.Widget_Text_HintStyle_hintTextStyle, hint.style )
 
 		array.recycle()
 	}
+
+	private var textStyle = () => Option( getTypeface ).map( _.getStyle ).getOrElse( -1 )
 
 	addTextChangedListener( new Watcher
 	{
 		override def afterTextChanged( text: Editable )
 		{
-			setTypeface( null, if( text.length() > 0 ) textStyle else hint.style )
+			setTypeface( null, if( text.length() > 0 ) textStyle() else hint.style )
 		}
 	} )
 
@@ -38,7 +38,7 @@ extends	Text
 
 	override def setTypeface( typeface: Typeface, style: Int )
 	{
-		textStyle = style
+		textStyle = () => style
 		super.setTypeface( typeface, style )
 	}
 }
