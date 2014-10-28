@@ -1,5 +1,6 @@
 package com.taig.android.widget.image
 
+import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.widget.Image
 
@@ -40,17 +41,60 @@ trait AspectRatio extends Image
 
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )
 	{
-		super.onMeasure( widthMeasure, heightMeasure )
-
-		if( ratio.isEnabled )
+		( Option( getDrawable ), ( getMode( widthMeasure ), getMode( heightMeasure ) ) ) match
 		{
-			val ( width, height ) = ratio.getDominance match
+			case ( None, _ ) => setMeasuredDimensions( 0, 0 )
+			case ( _, ( EXACTLY, EXACTLY ) ) =>
 			{
-				case 0 => ( getMeasuredWidth, ( getMeasuredWidth * ratio.getValue ).toInt )
-				case 1 => ( ( getMeasuredHeight * ratio.getValue ).toInt, getMeasuredHeight )
-			}
+				val ( width, height ) = ratio.getDominance match
+				{
+					case 0 => ( getSize( widthMeasure ), ( getSize( widthMeasure ) * ratio.getValue ).toInt )
+					case 1 => ( ( getSize( heightMeasure ) * ratio.getValue ).toInt, getSize( heightMeasure ) )
+				}
 
-			setMeasuredDimensions( width, height )
+				setMeasuredDimensions( width, height )
+
+				if( getAdjustViewBounds )
+				{
+					getLayoutParams.width = width
+					getLayoutParams.height = height
+				}
+			}
+			case ( _, ( _, EXACTLY ) ) =>
+			{
+				val height = getSize( heightMeasure )
+				setMeasuredDimensions( ( height * ratio.getValue ).toInt, height )
+			}
+			case ( _, ( EXACTLY, _ ) ) =>
+			{
+				val width = getSize( widthMeasure )
+				setMeasuredDimensions( ( width * ratio.getValue ).toInt, width )
+			}
+			case ( Some( drawable ), ( UNSPECIFIED, UNSPECIFIED ) ) =>
+			{
+				val ( width, height ) = ratio.getDominance match
+				{
+					case 0 => ( drawable.getIntrinsicWidth, ( drawable.getIntrinsicWidth * ratio.getValue ).toInt )
+					case 1 => ( ( drawable.getIntrinsicHeight * ratio.getValue ).toInt, drawable.getIntrinsicHeight )
+				}
+
+				setMeasuredDimensions( width, height )
+			}
+			case ( Some( drawable ), ( UNSPECIFIED, _ ) ) =>
+			{
+				setMeasuredDimensions(
+					( drawable.getIntrinsicWidth * ratio.getValue ).toInt,
+					drawable.getIntrinsicWidth
+				)
+			}
+			case ( Some( drawable ), ( _, UNSPECIFIED ) ) =>
+			{
+				setMeasuredDimensions(
+					( drawable.getIntrinsicHeight * ratio.getValue ).toInt,
+					drawable.getIntrinsicHeight
+				)
+			}
+			case _ => super.onMeasure( widthMeasure, heightMeasure )
 		}
 	}
 }
