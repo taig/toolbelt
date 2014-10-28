@@ -2,7 +2,7 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.ViewGroup
+import android.view.{View, ViewGroup}
 import android.widget.LinearLayout
 import com.taig.android.R
 import com.taig.android.widget.validation.Validatable
@@ -16,7 +16,10 @@ with	Validatable
 
 	def this( context: Context ) = this( context, null )
 
-	setId( R.id.form )
+	if( getId == View.NO_ID )
+	{
+		setId( R.id.form )
+	}
 
 	lazy val inputs = findChildren( this )
 
