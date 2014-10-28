@@ -2,6 +2,7 @@ package com.taig.android
 
 import android.view.{MenuItem, View}
 import com.taig.android.conversion._
+import com.taig.android.view.View.Padding
 
 package object view
 {
@@ -27,7 +28,15 @@ package object view
 	{
 		import android.view.ViewTreeObserver._
 
-		private val o = view.getViewTreeObserver
+		private def o = view.getViewTreeObserver
+
+		def getPadding() = View.Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
+
+		def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
+
+		def setPadding( vertical: Int, horizontal: Int ) = view.setPadding( horizontal, vertical, horizontal, vertical )
+
+		def setPadding( padding: Padding ) = view.setPadding( padding.left, padding.top, padding.right, padding.bottom )
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#addOnWindowAttachListener]]
@@ -51,12 +60,15 @@ package object view
 		 * @see removeOnWindowFocusChangeListener
 		 * @see [[com.taig.android.conversion.`Function1 -> Unit -> ViewTreeObserver.OnWindowFocusChangeListener`()]]
 		 */
-		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) =
+		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener )
 		{
-			addOnWindowFocusChangeListener( ( hasFocus: Boolean ) => if( o.isAlive )
+			addOnWindowFocusChangeListener( new OnWindowFocusChangeListener
 			{
-				removeOnWindowFocusChangeListener( listener )
-				listener.onWindowFocusChanged( hasFocus )
+				override def onWindowFocusChanged( hasFocus: Boolean )
+				{
+					removeOnWindowFocusChangeListener( this )
+					listener.onWindowFocusChanged( hasFocus )
+				}
 			} )
 		}
 
@@ -77,12 +89,15 @@ package object view
 		 * @see removeOnGlobalFocusChangeListener
 		 * @see [[com.taig.android.conversion.`Function2 -> Unit -> ViewTreeObserver.OnGlobalFocusChangeListener`()]]
 		 */
-		def setOnNextGlobalFocusChangeListener( listener: OnGlobalFocusChangeListener ) =
+		def setOnNextGlobalFocusChangeListener( listener: OnGlobalFocusChangeListener )
 		{
-			addOnGlobalFocusChangeListener( ( oldFocus: View, newFocus: View ) => if( o.isAlive )
+			addOnGlobalFocusChangeListener( new OnGlobalFocusChangeListener
 			{
-				removeOnGlobalFocusChangeListener( listener )
-				listener.onGlobalFocusChanged( oldFocus, newFocus )
+				override def onGlobalFocusChanged( oldFocus: View, newFocus: View )
+				{
+					removeOnGlobalFocusChangeListener( this )
+					listener.onGlobalFocusChanged( oldFocus, newFocus )
+				}
 			} )
 		}
 
@@ -103,11 +118,17 @@ package object view
 		 * @see removeOnGlobalLayoutListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnGlobalLayoutListener`()]]
 		 */
-		def setOnNextGlobalLayoutListener( listener: OnGlobalLayoutListener ) = addOnGlobalLayoutListener( if( o.isAlive )
+		def setOnNextGlobalLayoutListener( listener: OnGlobalLayoutListener )
 		{
-			removeOnGlobalLayoutListener( listener )
-			listener.onGlobalLayout()
-		} )
+			addOnGlobalLayoutListener( new OnGlobalLayoutListener
+			{
+				override def onGlobalLayout()
+				{
+					removeOnGlobalLayoutListener( this )
+					listener.onGlobalLayout()
+				}
+			} )
+		}
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnGlobalLayoutListener]]
@@ -136,18 +157,17 @@ package object view
 		 * @see removeOnPreDrawListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Boolean -> ViewTreeObserver.OnPreDrawListener`()]]
 		 */
-		def setOnNextPreDrawListener( listener: OnPreDrawListener ) = addOnPreDrawListener(
+		def setOnNextPreDrawListener( listener: OnPreDrawListener )
 		{
-			if( o.isAlive )
+			addOnPreDrawListener( new OnPreDrawListener
 			{
-				removeOnPreDrawListener( listener )
-				listener.onPreDraw()
-			}
-			else
-			{
-				true
-			}
-		}: Boolean )
+				override def onPreDraw() =
+				{
+					removeOnPreDrawListener( this )
+					listener.onPreDraw()
+				}
+			} )
+		}
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnPreDrawListener]]
@@ -166,11 +186,17 @@ package object view
 		 * @see removeOnDrawListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnDrawListener`()]]
 		 */
-		def setOnNextDrawListener( listener: OnDrawListener ) = addOnDrawListener( if( o.isAlive )
+		def setOnNextDrawListener( listener: OnDrawListener )
 		{
-			removeOnDrawListener( listener )
-			listener.onDraw()
-		} )
+			addOnDrawListener( new OnDrawListener
+			{
+				override def onDraw()
+				{
+					removeOnDrawListener( this )
+					listener.onDraw()
+				}
+			} )
+		}
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnDrawListener]]
@@ -189,11 +215,17 @@ package object view
 		 * @see removeOnScrollChangedListener
 		 * @see [[com.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnScrollChangedListener`()]]
 		 */
-		def setOnNextScrollChangedListener( listener: OnScrollChangedListener ) = addOnScrollChangedListener( if( o.isAlive )
+		def setOnNextScrollChangedListener( listener: OnScrollChangedListener )
 		{
-			removeOnScrollChangedListener( listener )
-			listener.onScrollChanged()
-		} )
+			addOnScrollChangedListener( new OnScrollChangedListener
+			{
+				override def onScrollChanged()
+				{
+					removeOnScrollChangedListener( this )
+					listener.onScrollChanged()
+				}
+			} )
+		}
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnScrollChangedListener]]
@@ -214,10 +246,13 @@ package object view
 		 */
 		def setOnNextTouchModeChangeListener( listener: OnTouchModeChangeListener ) =
 		{
-			addOnTouchModeChangeListener( ( isInTouchMode: Boolean ) => if( o.isAlive )
+			addOnTouchModeChangeListener( new OnTouchModeChangeListener
 			{
-				removeOnTouchModeChangeListener( listener )
-				listener.onTouchModeChanged( isInTouchMode )
+				override def onTouchModeChanged( isInTouchMode: Boolean )
+				{
+					removeOnTouchModeChangeListener( this )
+					listener.onTouchModeChanged( isInTouchMode )
+				}
 			} )
 		}
 
@@ -225,9 +260,5 @@ package object view
 		 * @see [[android.view.ViewTreeObserver#removeOnTouchModeChangeListener]]
 		 */
 		def removeOnTouchModeChangeListener( listener: OnTouchModeChangeListener ) = o.removeOnTouchModeChangeListener( listener )
-
-		def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
-
-		def setPadding( topBottom: Int, leftRight: Int ) = view.setPadding( leftRight, topBottom, leftRight, topBottom )
 	}
 }
