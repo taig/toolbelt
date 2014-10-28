@@ -35,5 +35,6 @@
 	<string name="validation_error_phone">Keine gültige Telefonnummer</string>
 	<string name="validation_error_regex">Ungültiges Format</string>
 	<string name="validation_error_required">Pflichtfeld</string>
+	<string name="validation_error_required_selection">Bitte eine Auswahl treffen</string>
 
 </resources>
