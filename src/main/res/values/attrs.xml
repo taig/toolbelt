@@ -36,26 +36,26 @@
 
 		<attr name="dominance">
 
+			<enum name="auto"
+				  value="1" />
+
 			<enum name="width"
-				  value="0" />
+				  value="1" />
 
 			<enum name="height"
-				  value="1" />
+				  value="0" />
 
 		</attr>
 
-		<attr name="enabled"
-			  format="boolean" />
-
 		<attr name="ratio"
-			  format="float" />
+			  format="float|boolean" />
 
 	</declare-styleable>
 
 	<declare-styleable name="Widget.Image.Radius">
 
 		<attr name="radius"
-			  format="dimension" />
+			  format="dimension|boolean" />
 
 	</declare-styleable>
 

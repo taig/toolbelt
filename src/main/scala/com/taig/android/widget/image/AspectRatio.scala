@@ -3,54 +3,122 @@ package com.taig.android.widget.image
 import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.widget.Image
+import com.taig.android.widget.image.AspectRatio._
 
-trait AspectRatio extends Image
+/**
+ * ImageView extension that allows to specify fixed aspect ratios to the view
+ * 
+ * @see [[R.styleable.Widget_Image_AspectRatio]]
+ */
+trait	AspectRatio
+extends	Image
 {
-	val ratio = new
+	private val ratio = new
 	{
-		private var dominance = 0
+		var dominance = Dominance.Auto
 
-		def getDominance = dominance
+		var enabled = true
 
-		def setDominance( dominance: Int ) { this.dominance = dominance }
-
-		private var enabled = true
-
-		def isEnabled = enabled
-
-		def setEnabled( enabled: Boolean ) { this.enabled = enabled }
-
-		private var value = 1f
-
-		def getValue = value
-
-		def setValue( value: Float ) { this.value = value }
+		var value = 1f
 	}
 
 	{
 		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Image_AspectRatio )
 
-		ratio.setDominance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, ratio.getDominance ) )
+		setRatioDiminance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, getRatioDominance ) )
 
-		ratio.setEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_enabled, ratio.isEnabled ) )
+		setRatioEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_ratio, isRatioEnabled ) )
 
-		ratio.setValue( array.getFloat( R.styleable.Widget_Image_AspectRatio_ratio, ratio.getValue ) )
+		setRatio( array.getFloat( R.styleable.Widget_Image_AspectRatio_ratio, getRatio ) )
 
 		array.recycle()
 	}
 
+	/**
+	 * Get the dominant dimension
+	 * 
+	 * The dominant dimension is the axis, that will not be scaled. If [[Dominance.Width]] is dominant, then the view's
+	 * height will be the width multiplied with the aspect ratio.
+	 * 
+	 * If the dominance is set to [[Dominance.Auto]] then the smaller dimension will be used as the dominant
+	 * one.
+	 * 
+	 * @return The dominant dimension: [[Dominance.Auto]] (default), [[Dominance.Width]] or [[Dominance.Height]]
+	 * @see [[R.styleable.Widget_Image_AspectRatio_dominance]]
+	 */
+	def getRatioDominance = ratio.dominance
+
+	/**
+	 * Set the dominant dimension
+	 * 
+	 * @param dominance [[Dominance.Auto]] (default), [[Dominance.Width]] or [[Dominance.Height]]
+	 * @see [[R.styleable.Widget_Image_AspectRatio_dominance]]
+	 */
+	def setRatioDiminance( dominance: Int ) = ratio.dominance = dominance
+
+	/**
+	 * Check whether the ratio constrains are enabled and therefore being applied to the view
+	 * 
+	 * @return <code>true</code> (default) if the ratio constrains are enabled, <code>false</code> otherwise
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
+	 */
+	def isRatioEnabled = ratio.enabled
+
+	/**
+	 * Enable or disable the ratio constraints
+	 * 
+	 * @param enabled <code>true</code> (default) to enable, <code>false</code> disable
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
+	 */
+	def setRatioEnabled( enabled: Boolean ) = ratio.enabled = enabled
+
+	/**
+	 * Get the aspect ratio
+	 * 
+	 * @return The current aspect ratio (default: <code>1</code>)
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
+	 */
+	def getRatio = ratio.value
+
+	/**
+	 * Set the aspect ratio
+	 * 
+	 * @param value The aspect ratio (default: 1)
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
+	 */
+	def setRatio( value: Float ) = ratio.value = value
+
+	/**
+	 * Apply the aspect ratio to a given dimension, respecting the dominant dimension
+	 * 
+	 * @param width Dimension width
+	 * @param height Dimension height
+	 * @param dominance Dominant dimension (default: [[getRatioDominance]])
+	 * @return The resolution with the aspect ratio applied
+	 */
+	private def resolve( width: Int, height: Int, dominance: Int = getRatioDominance ): ( Int, Int ) = dominance match
+	{
+		case Dominance.Auto if width <= height => resolve( width, height, Dominance.Width )
+		case Dominance.Auto if height < width => resolve( width, height, Dominance.Height )
+		case Dominance.Width => ( width, ( width * getRatio ).toInt )
+		case Dominance.Height => ( ( height * getRatio ).toInt, height )
+	}
+
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )
 	{
-		( Option( getDrawable ), ( getMode( widthMeasure ), getMode( heightMeasure ) ) ) match
+		val drawable = getDrawable
+
+		if( drawable == null || !isRatioEnabled )
 		{
-			case ( None, _ ) => setMeasuredDimensions( 0, 0 )
-			case ( _, ( EXACTLY, EXACTLY ) ) =>
+			super.onMeasure( widthMeasure, heightMeasure )
+			return
+		}
+
+		( getMode( widthMeasure ), getMode( heightMeasure ) ) match
+		{
+			case ( EXACTLY, EXACTLY ) =>
 			{
-				val ( width, height ) = ratio.getDominance match
-				{
-					case 0 => ( getSize( widthMeasure ), ( getSize( widthMeasure ) * ratio.getValue ).toInt )
-					case 1 => ( ( getSize( heightMeasure ) * ratio.getValue ).toInt, getSize( heightMeasure ) )
-				}
+				val ( width, height ) = resolve( getSize( widthMeasure ), getSize( heightMeasure ) )
 
 				setMeasuredDimensions( width, height )
 
@@ -60,41 +128,42 @@ trait AspectRatio extends Image
 					getLayoutParams.height = height
 				}
 			}
-			case ( _, ( _, EXACTLY ) ) =>
-			{
-				val height = getSize( heightMeasure )
-				setMeasuredDimensions( ( height * ratio.getValue ).toInt, height )
-			}
-			case ( _, ( EXACTLY, _ ) ) =>
+			case ( EXACTLY, _ ) =>
 			{
 				val width = getSize( widthMeasure )
-				setMeasuredDimensions( ( width * ratio.getValue ).toInt, width )
+				setMeasuredDimensions( ( width * getRatio ).toInt, width )
 			}
-			case ( Some( drawable ), ( UNSPECIFIED, UNSPECIFIED ) ) =>
+			case ( _, EXACTLY ) =>
 			{
-				val ( width, height ) = ratio.getDominance match
-				{
-					case 0 => ( drawable.getIntrinsicWidth, ( drawable.getIntrinsicWidth * ratio.getValue ).toInt )
-					case 1 => ( ( drawable.getIntrinsicHeight * ratio.getValue ).toInt, drawable.getIntrinsicHeight )
-				}
-
+				val height = getSize( heightMeasure )
+				setMeasuredDimensions( ( height * getRatio ).toInt, height )
+			}
+			case ( UNSPECIFIED, UNSPECIFIED ) =>
+			{
+				val ( width, height ) = resolve( drawable.getIntrinsicWidth, drawable.getIntrinsicHeight )
 				setMeasuredDimensions( width, height )
 			}
-			case ( Some( drawable ), ( UNSPECIFIED, _ ) ) =>
+			case ( UNSPECIFIED, _ ) =>
 			{
-				setMeasuredDimensions(
-					( drawable.getIntrinsicWidth * ratio.getValue ).toInt,
-					drawable.getIntrinsicWidth
-				)
+				setMeasuredDimensions( ( drawable.getIntrinsicWidth * getRatio ).toInt, drawable.getIntrinsicWidth )
 			}
-			case ( Some( drawable ), ( _, UNSPECIFIED ) ) =>
+			case ( _, UNSPECIFIED ) =>
 			{
-				setMeasuredDimensions(
-					( drawable.getIntrinsicHeight * ratio.getValue ).toInt,
-					drawable.getIntrinsicHeight
-				)
+				setMeasuredDimensions( ( drawable.getIntrinsicHeight * getRatio ).toInt, drawable.getIntrinsicHeight )
 			}
 			case _ => super.onMeasure( widthMeasure, heightMeasure )
 		}
+	}
+}
+
+object AspectRatio
+{
+	val Dominance = new
+	{
+		val Auto = 0
+
+		val Width = 1
+
+		val Height = 2
 	}
 }
