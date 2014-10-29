@@ -38,7 +38,7 @@ with	Widget
 		def input() = setDisplayedChild( 1 )
 	}
 
-	def getText = input.getText
+	def getText: CharSequence = input.getText
 
 	def setText( text: CharSequence )
 	{
