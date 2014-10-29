@@ -32,26 +32,32 @@ trait Radius extends Image
 		array.recycle()
 	}
 
-	override def onDraw( canvas: Canvas ) = Option( getDrawable ) match
+	override def onDraw( canvas: Canvas )
 	{
-		case Some( drawable ) =>
+		val drawable = getDrawable
+
+		if( drawable == null )
 		{
-			rectangle.set( getDrawable.getBounds )
-
-			getImageMatrix.mapRect( rectangle )
-			rectangle.offset( getPaddingLeft, getPaddingTop )
-
-			// Prevent radius being drawn out of canvas bounds
-			rectangle.intersect( new RectF( 0, 0, canvas.getWidth, canvas.getHeight ) )
-
-			val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
-			canvas.drawRoundRect( rectangle, radius.getValue, radius.getValue, paint1 )
-			canvas.saveLayer( rectangle, paint2, Canvas.ALL_SAVE_FLAG )
 			super.onDraw( canvas )
-			canvas.restoreToCount( restore )
+			return
 		}
-		case None => super.onDraw( canvas )
+
+		rectangle.set( drawable.getBounds )
+
+		getImageMatrix.mapRect( rectangle )
+		rectangle.offset( getPaddingLeft, getPaddingTop )
+
+		// Prevent radius being drawn out of canvas bounds
+		rectangle.intersect( new RectF( 0, 0, canvas.getWidth, canvas.getHeight ) )
+
+		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
+		canvas.drawRoundRect( rectangle, radius.getValue, radius.getValue, paint1 )
+		canvas.saveLayer( rectangle, paint2, Canvas.ALL_SAVE_FLAG )
+		super.onDraw( canvas )
+		canvas.restoreToCount( restore )
 	}
+
+	override def draw( canvas: Canvas ) = super.draw( canvas )
 }
 
 object Radius
