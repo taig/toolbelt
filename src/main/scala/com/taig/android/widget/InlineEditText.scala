@@ -25,7 +25,7 @@ with	Widget
 	input.setId( View.NO_ID )
 
 	label.setId( View.NO_ID )
-	label.setBackgroundColor( Color.Transparent )
+	label.setBackground( null )
 	label.setInputType( 0 )
 
 	addView( label )
