@@ -47,11 +47,8 @@
 
 		</attr>
 
-		<attr name="enabled"
-			  format="boolean" />
-
 		<attr name="ratio"
-			  format="float" />
+			  format="float|boolean" />
 
 	</declare-styleable>
 

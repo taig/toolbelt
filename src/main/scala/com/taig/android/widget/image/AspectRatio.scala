@@ -26,7 +26,7 @@ trait AspectRatio extends Image
 
 		setRatioDiminance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, getRatioDominance ) )
 
-		setRatioEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_enabled, isRatioEnabled ) )
+		setRatioEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_ratio, isRatioEnabled ) )
 
 		setRatio( array.getFloat( R.styleable.Widget_Image_AspectRatio_ratio, getRatio ) )
 
@@ -59,7 +59,7 @@ trait AspectRatio extends Image
 	 * Check whether the ratio constrains are enabled and therefore being applied to the view
 	 * 
 	 * @return <code>true</code> (default) if the ratio constrains are enabled, <code>false</code> otherwise
-	 * @see [[R.styleable.Widget_Image_AspectRatio_enabled]]
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
 	 */
 	def isRatioEnabled = ratio.enabled
 
@@ -67,7 +67,7 @@ trait AspectRatio extends Image
 	 * Enable or disable the ratio constraints
 	 * 
 	 * @param enabled <code>true</code> (default) to enable, <code>false</code> disable
-	 * @see [[R.styleable.Widget_Image_AspectRatio_enabled]]
+	 * @see [[R.styleable.Widget_Image_AspectRatio_ratio]]
 	 */
 	def setRatioEnabled( enabled: Boolean ) = ratio.enabled = enabled
 
