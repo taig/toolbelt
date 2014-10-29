@@ -10,7 +10,8 @@ import com.taig.android.widget.image.AspectRatio._
  * 
  * @see [[R.styleable.Widget_Image_AspectRatio]]
  */
-trait AspectRatio extends Image
+trait	AspectRatio
+extends	Image
 {
 	private val ratio = new
 	{

@@ -12,6 +12,8 @@ trait Radius extends Image
 {
 	private val radius = new
 	{
+		var enabled = true
+
 		var value = 0f
 	}
 
@@ -26,20 +28,26 @@ trait Radius extends Image
 	{
 		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Image_Radius )
 
+		setRadiusEnabled( array.getBoolean( R.styleable.Widget_Image_Radius_radius, isRadiusEnabled ) )
+
 		setRadius( array.getDimension( R.styleable.Widget_Image_Radius_radius, getRadius ) )
 
 		array.recycle()
 	}
 
+	def isRadiusEnabled = radius.enabled
+
+	def setRadiusEnabled( enabled: Boolean ) = radius.enabled = enabled
+
 	def getRadius = radius.value
 
-	def setRadius( value: Float ) { radius.value = value }
+	def setRadius( value: Float ) = radius.value = value
 
 	override def onDraw( canvas: Canvas )
 	{
 		val drawable = getDrawable
 
-		if( drawable == null )
+		if( drawable == null || !isRadiusEnabled )
 		{
 			super.onDraw( canvas )
 			return

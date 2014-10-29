@@ -55,7 +55,7 @@
 	<declare-styleable name="Widget.Image.Radius">
 
 		<attr name="radius"
-			  format="dimension" />
+			  format="dimension|boolean" />
 
 	</declare-styleable>
 
