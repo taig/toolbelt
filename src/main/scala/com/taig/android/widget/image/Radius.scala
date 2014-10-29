@@ -8,6 +8,8 @@ import com.taig.android.widget.Image
 /**
  * ImageView extension that allows to apply a radius to the src drawable
  */
+// TODO Allow background drawing with radius
+// TODO Solid colors probbably don't work?
 trait Radius extends Image
 {
 	private val radius = new
@@ -35,12 +37,36 @@ trait Radius extends Image
 		array.recycle()
 	}
 
+	/**
+	 * Check whether radius drawing is enabled and therefore being applied to the drawable
+	 *
+	 * @return <code>true</code> (default) if radius drawing is enabled, <code>false</code> otherwise
+	 * @see [[R.styleable.Widget_Image_Radius_radius]]
+	 */
 	def isRadiusEnabled = radius.enabled
 
+	/**
+	 * Enable or disable radius drawing
+	 *
+	 * @param enabled <code>true</code> (default) to enable, <code>false</code> disable
+	 * @see [[R.styleable.Widget_Image_Radius_radius]]
+	 */
 	def setRadiusEnabled( enabled: Boolean ) = radius.enabled = enabled
 
+	/**
+	 * Get the radius
+	 *
+	 * @return The current radius (default: <code>0</code>)
+	 * @see [[R.styleable.Widget_Image_Radius_radius]]
+	 */
 	def getRadius = radius.value
 
+	/**
+	 * Set the radius
+	 *
+	 * @param value The radius (default: 0)
+	 * @see [[R.styleable.Widget_Image_Radius_radius]]
+	 */
 	def setRadius( value: Float ) = radius.value = value
 
 	override def onDraw( canvas: Canvas )
@@ -69,8 +95,6 @@ trait Radius extends Image
 		super.onDraw( canvas )
 		canvas.restoreToCount( restore )
 	}
-
-	override def draw( canvas: Canvas ) = super.draw( canvas )
 }
 
 object Radius
