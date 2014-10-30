@@ -16,13 +16,19 @@ with	Validatable
 
 	def this( context: Context ) = this( context, null )
 
+	private lazy val inputs = findChildren( this )
+
 	if( getId == View.NO_ID )
 	{
 		setId( R.id.form )
 	}
 
-	lazy val inputs = findChildren( this )
-
+	/**
+	 * Recursively find all validatable children of the given view
+	 * 
+	 * @param view View to browse
+	 * @return Collection of [[Validatable]] objects
+	 */
 	private def findChildren( view: ViewGroup ): Seq[Validatable] = ( 0 to view.getChildCount - 1 )
 		.map( view.getChildAt )
 		.collect

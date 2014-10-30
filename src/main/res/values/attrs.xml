@@ -47,15 +47,15 @@
 
 		</attr>
 
-		<attr name="ratio"
-			  format="float|boolean" />
+		<attr format="float|boolean"
+			  name="ratio" />
 
 	</declare-styleable>
 
 	<declare-styleable name="Widget.Image.Radius">
 
-		<attr name="radius"
-			  format="dimension|boolean" />
+		<attr format="dimension|boolean"
+			  name="radius" />
 
 	</declare-styleable>
 
