@@ -18,7 +18,7 @@ with			Widget
 {
 	def this( context: Context ) = this( context, null )
 
-	protected val input: View
+	protected val input: Widget
 
 	// Since EditText is the most common form element, the TextView adjusts its style to match its bounds,
 	// in implementation it is necessary to style the input element accordingly
