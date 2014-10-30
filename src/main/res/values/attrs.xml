@@ -26,13 +26,6 @@
 
 	</declare-styleable>
 
-	<declare-styleable name="Widget.Form">
-
-		<attr format="dimension"
-			  name="rowSpacing" />
-
-	</declare-styleable>
-
 	<declare-styleable name="Widget.Image">
 
 		<attr name="android:src" />
