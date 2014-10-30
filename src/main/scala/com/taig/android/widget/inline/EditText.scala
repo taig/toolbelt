@@ -6,11 +6,13 @@ import com.taig.android.widget
 import com.taig.android.widget.Inline
 
 class	EditText( context: Context, attributes: AttributeSet )
-extends	Inline( context, attributes )
+extends
+{
+	protected val input = new widget.EditText( context, attributes )
+}
+with	Inline( context, attributes )
 {
 	def this( context: Context ) = this( context, null )
-
-	override protected val input = new widget.EditText( context, attributes )
 
 	def getText = input.getText
 }
