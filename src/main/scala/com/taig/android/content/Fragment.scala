@@ -36,6 +36,6 @@ object Fragment
 	{
 		this: Fragment =>
 
-		override lazy val contract = context.asInstanceOf[C]
+		override def contract = context.asInstanceOf[C]
 	}
 }
