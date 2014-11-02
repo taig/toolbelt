@@ -9,9 +9,10 @@ object Build extends android.AutoBuild
 		.settings( buildAar: _* )
 		.settings(
 			libraryDependencies ++= Seq(
-				"org.scala-lang" % "scala-reflect" % scalaVersion.value,
 				"com.android.support" % "support-v4" % "20.0.0",
-				"com.github.japgolly.android" % "svg-android" % "2.0.6"
+				"com.android.support" % "appcompat-v7" % "21.0.0",
+				"com.github.japgolly.android" % "svg-android" % "2.0.6",
+				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
 			name := "Toolbelt",
 			organization := "com.taig.android",
