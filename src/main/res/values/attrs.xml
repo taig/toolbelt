@@ -102,8 +102,7 @@
 		<attr format="string"
 			  name="emailMessage" />
 
-		<attr format="reference"
-			  name="icon" />
+		<attr name="icon" />
 
 		<attr format="boolean|string"
 			  name="integer" />
