@@ -1,5 +1,6 @@
 package com.taig.android.service
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.{Canvas, Color, ColorFilter}
 import android.os.Build.VERSION

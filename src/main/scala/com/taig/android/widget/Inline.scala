@@ -12,13 +12,15 @@ import com.taig.android.widget.Inline.Parameter
  *
  * By default the TextView is shown
  */
-abstract class	Inline( val context: Context, attributes: AttributeSet )
+abstract class	Inline( val attributes: AttributeSet = null )( implicit context: Context )
 extends			ViewSwitcher( context, attributes )
 with			Widget
 {
-	def this( context: Context ) = this( context, null )
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
 
-	protected val input: Widget
+	def this( context: Context ) = this()( context )
+
+	protected def input: Widget
 
 	// Since EditText is the most common form element, the TextView adjusts its style to match its bounds,
 	// in implementation it is necessary to style the input element accordingly

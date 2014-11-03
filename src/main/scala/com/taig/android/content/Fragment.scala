@@ -3,9 +3,11 @@ package com.taig.android.content
 import android.support.v4.app.{DialogFragment, ListFragment}
 import com.taig.android.content
 
-trait Fragment extends android.support.v4.app.Fragment with Context
+trait	Fragment
+extends	android.support.v4.app.Fragment
+with	Contextual
 {
-	override protected[content] implicit lazy val context = getActivity
+	override implicit def context = getActivity
 }
 
 object Fragment
@@ -36,6 +38,6 @@ object Fragment
 	{
 		this: Fragment =>
 
-		override def contract = context.asInstanceOf[C]
+		override def debtor = getActivity.asInstanceOf[C]
 	}
 }

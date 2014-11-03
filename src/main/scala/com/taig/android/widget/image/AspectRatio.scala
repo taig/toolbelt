@@ -1,5 +1,6 @@
 package com.taig.android.widget.image
 
+import android.content.res.TypedArray
 import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.widget.Image
@@ -22,17 +23,14 @@ extends	Image
 		var value = 1f
 	}
 
+	initialize( R.styleable.Widget_Image_AspectRatio, ( array: TypedArray ) =>
 	{
-		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Image_AspectRatio )
-
 		setRatioDiminance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, getRatioDominance ) )
 
 		setRatioEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_ratio, isRatioEnabled ) )
 
 		setRatio( array.getFloat( R.styleable.Widget_Image_AspectRatio_ratio, getRatio ) )
-
-		array.recycle()
-	}
+	} )
 
 	/**
 	 * Get the dominant dimension

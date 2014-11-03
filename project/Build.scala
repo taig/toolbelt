@@ -9,8 +9,8 @@ object Build extends android.AutoBuild
 		.settings( buildAar: _* )
 		.settings(
 			libraryDependencies ++= Seq(
-				"com.android.support" % "support-v4" % "21.0.0",
 				"com.android.support" % "appcompat-v7" % "21.0.0",
+				"com.android.support" % "cardview-v7" % "21.0.0",
 				"com.github.japgolly.android" % "svg-android" % "2.0.6",
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
@@ -24,7 +24,7 @@ object Build extends android.AutoBuild
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
-			version := "0.1.12-BETA",
+			version := "0.2.0-BETA",
 			libraryProject in Android := true,
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "21"

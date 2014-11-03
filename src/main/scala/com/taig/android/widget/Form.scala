@@ -7,14 +7,18 @@ import android.widget.LinearLayout
 import com.taig.android.R
 import com.taig.android.widget.validation.Validatable
 
-class	Form( val context: Context, attributes: AttributeSet, style: Int )
-extends	LinearLayout( context, attributes, style )
-with	Widget
+class	Form( val attributes: AttributeSet = null, val style: Int = 0, val theme: Int = 0 )( implicit context: Context )
+extends	LinearLayout( context, attributes, style, theme )
+with	Widget.Styleable
 with	Validatable
 {
-	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, 0 )
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
 
-	def this( context: Context ) = this( context, null )
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
+
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
 
 	private lazy val inputs = findChildren( this )
 

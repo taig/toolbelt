@@ -4,22 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 
-class	Text( val context: Context, val attributes: AttributeSet, val style: Int )
-extends	TextView( context, attributes, style )
-with	Widget
+class	Text( val attributes: AttributeSet = null, val style: Int = android.R.attr.textViewStyle, val theme: Int = 0 )( implicit context: Context )
+extends	TextView( context, attributes, style, theme )
+with	Widget.Styleable
 {
-	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.textViewStyle )
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style )( context )
 
-	def this( context: Context ) = this( context, null )
-}
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
-object Text
-{
-	object Listener
-	{
-		trait OnEditorDone
-		{
-			def onEditorDone( view: android.widget.EditText ): Boolean
-		}
-	}
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
 }

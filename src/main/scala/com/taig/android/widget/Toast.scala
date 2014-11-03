@@ -1,8 +1,8 @@
 package com.taig.android.widget
 
+import android.content.Context
 import android.widget.Toast.LENGTH_LONG
 import android.{widget => android}
-import com.taig.android.content._
 
 object Toast
 {
