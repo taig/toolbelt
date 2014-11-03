@@ -8,23 +8,25 @@ import android.widget.ImageView
 import com.taig.android.R
 import com.taig.android.graphic.Color
 
-class	ColorCircle( val context: Context, private var color: Color, attributes: AttributeSet, style: Int )
-extends	ImageView( context, attributes, style )
-with	Widget
+class	ColorCircle( val attributes: AttributeSet = null, val style: Int = 0, val theme: Int = 0 )( implicit context: Context )
+extends	ImageView( context, attributes, style, theme )
+with	Widget.Styleable
 {
-	def this( context: Context ) = this( context, Color.White, null, 0 )
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
 
-	def this( context: Context, attributes: AttributeSet ) = this( context, Color.White, attributes, 0 )
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
-	def this( context: Context, attributes: AttributeSet, style: Int ) = this( context, Color.White, attributes, style )
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
 
-	def this( context: Context, color: Color ) = this( context, color, null, 0 )
+	def this( context: Context ) = this()( context )
 
-	lazy val check = context
+	private var color: Color = Color.White
+
+	private lazy val check = context
 		.getResources
 		.getDrawable( R.drawable.color_picker_preference_circle_selected )
 
-	val circle = context
+	private val circle = context
 		.getResources
 		.getDrawable( R.drawable.color_picker_preference_circle )
 		.mutate()

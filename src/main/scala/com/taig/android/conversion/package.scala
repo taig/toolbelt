@@ -164,11 +164,6 @@ package object conversion
 		override def onSharedPreferenceChanged( preferences: SharedPreferences, key: String ) = f( preferences, key )
 	}
 
-	implicit def `Function1 -> Boolean -> Text.Listener.OnEditorDone`( f: ( EditText ) => Boolean ) = new Text.Listener.OnEditorDone()
-	{
-		override def onEditorDone( view: EditText ) = f( view )
-	}
-
 	implicit def `Function0 -> Boolean -> TextView.OnEditorActionListener`( f: => Boolean ) = new TextView.OnEditorActionListener
 	{
 		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f

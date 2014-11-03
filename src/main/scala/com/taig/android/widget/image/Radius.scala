@@ -1,5 +1,6 @@
 package com.taig.android.widget.image
 
+import android.content.res.TypedArray
 import android.graphics.PorterDuff.Mode
 import android.graphics._
 import com.taig.android.R
@@ -9,7 +10,7 @@ import com.taig.android.widget.Image
  * ImageView extension that allows to apply a radius to the src drawable
  */
 // TODO Allow background drawing with radius
-// TODO Solid colors probbably don't work?
+// TODO Solid colors probably don't work?
 trait Radius extends Image
 {
 	private val radius = new
@@ -27,15 +28,12 @@ trait Radius extends Image
 
 	private val paint2 = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
 
+	initialize( R.styleable.Widget_Image_Radius, ( array: TypedArray ) =>
 	{
-		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Image_Radius )
-
 		setRadiusEnabled( array.getBoolean( R.styleable.Widget_Image_Radius_radius, isRadiusEnabled ) )
 
 		setRadius( array.getDimension( R.styleable.Widget_Image_Radius_radius, getRadius ) )
-
-		array.recycle()
-	}
+	} )
 
 	/**
 	 * Check whether radius drawing is enabled and therefore being applied to the drawable

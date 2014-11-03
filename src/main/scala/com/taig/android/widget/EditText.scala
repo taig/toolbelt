@@ -13,18 +13,22 @@ import com.taig.android.widget.validation.{Validatable, Validator}
 /**
  * An EditText implementation that allows form validation
  */
-class	EditText( val context: Context, attributes: AttributeSet, style: Int )
-extends	android.widget.EditText( context, attributes, style )
-with	Widget
+class	EditText( val attributes: AttributeSet = null, val style: Int = android.R.attr.editTextStyle, val theme: Int = 0 )( implicit context: Context )
+extends	android.widget.EditText( context, attributes, style, theme )
+with	Widget.Styleable
 with	Validatable
 {
-	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.editTextStyle )
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
 
-	def this( context: Context ) = this( context, null )
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
+
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
 
 	val validation = new
 	{
-		private val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Validation, style, 0 )
+		private val array = getStyledAttributes( R.styleable.Widget_Validation )
 
 		private val resolve = new
 		{

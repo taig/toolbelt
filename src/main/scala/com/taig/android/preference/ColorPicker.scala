@@ -13,9 +13,17 @@ import com.taig.android.conversion._
 import com.taig.android.graphic.Color
 import com.taig.android.widget.ColorCircle
 
-class	ColorPicker( context: Context, attributes: AttributeSet, styles: Int )
-extends	DialogPreference( context, attributes, styles )
+class	ColorPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
+extends	DialogPreference( context, attributes, style, theme )
 {
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
+
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
+
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
+
 	private var widget: ColorCircle = null
 
 	private var colors: Array[Color] = null
@@ -25,8 +33,6 @@ extends	DialogPreference( context, attributes, styles )
 	private var selection = Color.White
 
 	private lazy val adapter = new Adapter()
-
-	def this( context: Context, attributes: AttributeSet ) = this( context, attributes, android.R.attr.dialogPreferenceStyle )
 
 	var array = context.obtainStyledAttributes( attributes, R.styleable.ColorPickerPreference )
 
@@ -112,8 +118,10 @@ extends	DialogPreference( context, attributes, styles )
 
 	private class Adapter extends BaseAdapter
 	{
-		private val circles: Array[ColorCircle] = colors.map( color => new ColorCircle( context, color )
+		private val circles: Array[ColorCircle] = colors.map( color => new ColorCircle()
 		{
+			setColor( color )
+
 			setActive( color == selection )
 
 			setOnClickListener( ( _: View ) =>

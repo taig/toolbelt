@@ -5,14 +5,14 @@ import android.util.AttributeSet
 import com.taig.android.widget
 import com.taig.android.widget.Inline
 
-class	EditText( context: Context, attributes: AttributeSet )
-extends
+class	EditText( attributes: AttributeSet = null )( implicit context: Context )
+extends	Inline( context, attributes )
 {
-	protected val input = new widget.EditText( context, attributes )
-}
-with	Inline( context, attributes )
-{
-	def this( context: Context ) = this( context, null )
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
+
+	protected lazy val input = new widget.EditText( attributes )
 
 	def getText = input.getText
 }

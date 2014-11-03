@@ -7,11 +7,18 @@ import android.preference.{ListPreference, Preference}
 import android.util.AttributeSet
 import com.taig.android.conversion._
 
-class SummarizedList( context: Context, attributes: AttributeSet ) extends ListPreference( context, attributes )
+class	SummarizedList( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
+extends	ListPreference( context, attributes, style, theme )
 {
-	private var listener: Option[OnPreferenceChangeListener] = None
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
 
-	def this( context: Context ) = this( context, null )
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
+
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
+
+	private var listener: Option[OnPreferenceChangeListener] = None
 
 	super.setOnPreferenceChangeListener( ( preference: Preference, newValue: Any ) =>
 	{

@@ -1,12 +1,16 @@
 package com.taig.android
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.{content => android}
 
 package object content
 {
-	implicit class RichContext( value: android.Context ) extends Context
+	implicit class RichContext( context: Context )
 	{
-		override protected[content] implicit val context = value
+		def inflater = LayoutInflater.from( context )
+
+		def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 	}
 
 	implicit class RichIntent( intent: android.Intent )
@@ -19,5 +23,12 @@ package object content
 		def canBeHandled( implicit context: Context ) = intent.resolveActivity( context.getPackageManager ) != null
 	}
 
-	implicit def `Context -> Android.Context`( context: Context ): android.Context = context.context
+	implicit class RichResource( resource: Int )
+	{
+		def asColor( implicit context: Context ) = context.getResources.getColor( resource )
+
+		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
+
+		def asString( implicit context: Context ) = context.getString( resource )
+	}
 }

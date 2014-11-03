@@ -1,10 +1,12 @@
 package com.taig.android.preference
 
+import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.preference.PreferenceManager
-import com.taig.android.content.Context
 
-class SharedPreferences( preferences: android.content.SharedPreferences ) extends android.content.SharedPreferences with Dynamic
+class	SharedPreferences( preferences: android.content.SharedPreferences )
+extends	android.content.SharedPreferences
+with	Dynamic
 {
 	def selectDynamic( key: String ) = get( key )
 

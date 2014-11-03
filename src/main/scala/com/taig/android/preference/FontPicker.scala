@@ -9,8 +9,17 @@ import android.widget.{BaseAdapter, CheckedTextView, TextView}
 import com.taig.android.R
 import com.taig.android.conversion._
 
-class FontPicker( context: Context, attributes: AttributeSet ) extends SummarizedList( context, attributes )
+class	FontPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
+extends	SummarizedList( attributes, style, theme )( context )
 {
+	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
+
+	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
+
+	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
+
+	def this( context: Context ) = this()( context )
+
 	private var preview = "Lorem Ipsum"
 
 	private var widget: TextView = null
@@ -20,8 +29,6 @@ class FontPicker( context: Context, attributes: AttributeSet ) extends Summarize
 	private var selection = fonts( 0 )
 
 	private lazy val adapter = new Adapter()
-
-	def this( context: Context ) = this( context, null )
 
 	var array = context.obtainStyledAttributes( attributes, R.styleable.FontPickerPreference )
 	preview = Option( array.getString( R.styleable.FontPickerPreference_preview ) ).getOrElse( preview )
