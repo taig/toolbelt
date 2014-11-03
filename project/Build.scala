@@ -24,7 +24,7 @@ object Build extends android.AutoBuild
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
-			version := "0.1.12-BETA",
+			version := "0.2.0-BETA",
 			libraryProject in Android := true,
 			minSdkVersion in Android := "10",
 			targetSdkVersion in Android := "21"
