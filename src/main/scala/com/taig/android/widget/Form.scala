@@ -7,13 +7,11 @@ import android.widget.LinearLayout
 import com.taig.android.R
 import com.taig.android.widget.validation.Validatable
 
-class	Form( val attributes: AttributeSet = null, val style: Int = 0, val theme: Int = 0 )( implicit context: Context )
-extends	LinearLayout( context, attributes, style, theme )
+class	Form( val attributes: AttributeSet = null, val style: Int = 0 )( implicit context: Context )
+extends	LinearLayout( context, attributes, style )
 with	Widget.Styleable
 with	Validatable
 {
-	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
-
 	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )

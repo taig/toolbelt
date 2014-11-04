@@ -9,11 +9,9 @@ import android.widget.{BaseAdapter, CheckedTextView, TextView}
 import com.taig.android.R
 import com.taig.android.conversion._
 
-class	FontPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
-extends	SummarizedList( attributes, style, theme )( context )
+class	FontPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle )( implicit context: Context )
+extends	SummarizedList( attributes, style )( context )
 {
-	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
-
 	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )

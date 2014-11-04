@@ -34,11 +34,9 @@ object Widget
 	{
 		def style: Int
 
-		def theme: Int
-
 		override def getStyledAttributes( attributes: Array[Int] ) =
 		{
-			context.obtainStyledAttributes( this.attributes, attributes, style, theme )
+			context.obtainStyledAttributes( this.attributes, attributes, style, 0 )
 		}
 	}
 }

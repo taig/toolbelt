@@ -9,11 +9,9 @@ import android.widget.CompoundButton
 import com.taig.android.R
 import com.taig.android.conversion._
 
-class	SwitchableCategory( attributes: AttributeSet = null, style: Int = android.R.attr.preferenceCategoryStyle, theme: Int = 0 )( implicit context: Context )
-extends	PreferenceCategory( context, attributes, style, theme )
+class	SwitchableCategory( attributes: AttributeSet = null, style: Int = android.R.attr.preferenceCategoryStyle )( implicit context: Context )
+extends	PreferenceCategory( context, attributes, style )
 {
-	def this( context: Context, attributes: AttributeSet, styles: Int, theme: Int ) = this( attributes, styles, theme )( context )
-
 	def this( context: Context, attributes: AttributeSet, styles: Int ) = this( attributes, styles )( context )
 
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )

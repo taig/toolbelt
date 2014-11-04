@@ -13,11 +13,9 @@ import com.taig.android.conversion._
 import com.taig.android.graphic.Color
 import com.taig.android.widget.ColorCircle
 
-class	ColorPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
-extends	DialogPreference( context, attributes, style, theme )
+class	ColorPicker( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle )( implicit context: Context )
+extends	DialogPreference( context, attributes, style )
 {
-	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
-
 	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )

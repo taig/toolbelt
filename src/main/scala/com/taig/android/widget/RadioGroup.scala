@@ -8,17 +8,14 @@ import com.taig.android.widget.validation.Validatable
 
 class	RadioGroup( val attributes: AttributeSet = null )( implicit context: Context )
 extends	android.widget.RadioGroup( context, attributes )
-with	Widget
+with	Widget.Styleable
 with	Validatable
 {
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )
 
 	def this( context: Context ) = this()( context )
 
-	override def getStyledAttributes( attributes: Array[Int] ) =
-	{
-		context.obtainStyledAttributes( this.attributes, attributes, android.R.attr.radioButtonStyle, 0 )
-	}
+	override val style = android.R.attr.radioButtonStyle
 
 	val validation = new
 	{
