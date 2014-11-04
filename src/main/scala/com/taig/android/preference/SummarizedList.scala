@@ -7,11 +7,9 @@ import android.preference.{ListPreference, Preference}
 import android.util.AttributeSet
 import com.taig.android.conversion._
 
-class	SummarizedList( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle, theme: Int = 0 )( implicit context: Context )
-extends	ListPreference( context, attributes, style, theme )
+class	SummarizedList( attributes: AttributeSet = null, style: Int = android.R.attr.dialogPreferenceStyle )( implicit context: Context )
+extends	ListPreference( context, attributes, style )
 {
-	def this( context: Context, attributes: AttributeSet, style: Int, theme: Int ) = this( attributes, style, theme )( context )
-
 	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
 	def this( context: Context, attributes: AttributeSet ) = this( attributes )( context )

@@ -1,5 +1,6 @@
 package com.taig.android.widget.text
 
+import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.text.Editable
 import com.taig.android.R
@@ -14,13 +15,10 @@ extends	Text
 		var style = -1
 	}
 
+	initialize( R.styleable.Widget_Text_HintStyle, ( array: TypedArray ) =>
 	{
-		val array = context.obtainStyledAttributes( attributes, R.styleable.Widget_Text_HintStyle )
-
 		hint.style = array.getInt( R.styleable.Widget_Text_HintStyle_hintTextStyle, hint.style )
-
-		array.recycle()
-	}
+	} )
 
 	private var textStyle = () => Option( getTypeface ).map( _.getStyle ).getOrElse( -1 )
 
