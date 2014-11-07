@@ -10,7 +10,16 @@ package object content
 	{
 		def inflater = LayoutInflater.from( context )
 
-		def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
+		def getExternalOrInternalCacheDir() = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
+
+		/**
+		 * Get the app's default PackageInfo
+		 * 
+		 * Useful to access manifest information, such as the app version.
+		 * 
+		 * @return Default PackageInfo
+		 */
+		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
 	}
 
 	implicit class RichIntent( intent: android.Intent )
