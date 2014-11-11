@@ -1,6 +1,6 @@
 package com.taig.android
 
-import android.view.{MenuItem, View}
+import android.view.{ViewGroup, MenuItem, View}
 import android.widget.ViewSwitcher
 
 package object widget
@@ -259,6 +259,23 @@ package object widget
 		 * @see [[android.view.ViewTreeObserver#removeOnTouchModeChangeListener]]
 		 */
 		def removeOnTouchModeChangeListener( listener: OnTouchModeChangeListener ) = o.removeOnTouchModeChangeListener( listener )
+	}
+
+	implicit class RichViewGroup( view: ViewGroup )
+	{
+		/**
+		 * Recursively discovers all children of this view and flattens them into a one dimensional collection
+		 */
+		def getAllChildren() =
+		{
+			def discover( view: View ): Seq[View] = view match
+			{
+				case group: ViewGroup => group +: discover( view )
+				case _ => Seq( view )
+			}
+
+			discover( view )
+		}
 	}
 
 	implicit class RichViewSwitcher( view: ViewSwitcher )
