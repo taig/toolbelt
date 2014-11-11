@@ -270,7 +270,7 @@ package object widget
 		{
 			def discover( view: View ): Seq[View] = view match
 			{
-				case group: ViewGroup => group +: discover( view )
+				case group: ViewGroup => group +: discover( group )
 				case _ => Seq( view )
 			}
 
