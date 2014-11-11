@@ -1,7 +1,10 @@
 package com.taig.android
 
+import android.util.Log
 import android.view.{ViewGroup, MenuItem, View}
 import android.widget.ViewSwitcher
+import scala.annotation.tailrec
+import scala.collection.mutable
 
 package object widget
 {
@@ -264,17 +267,28 @@ package object widget
 	implicit class RichViewGroup( view: ViewGroup )
 	{
 		/**
-		 * Recursively discovers all children of this view and flattens them into a one dimensional collection
+		 * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
+		 * particular order
 		 */
 		def getAllChildren() =
 		{
-			def discover( view: View ): Seq[View] = view match
+			def discover( view: ViewGroup, views: mutable.ListBuffer[View] )
 			{
-				case group: ViewGroup => group +: discover( group )
-				case _ => Seq( view )
+				( 0 to view.getChildCount - 1 )
+					.map( view.getChildAt( _ ) match
+					{
+						case group: ViewGroup =>
+						{
+							views.append( group )
+							discover( group, views )
+						}
+						case v => views.append( v )
+					} )
 			}
 
-			discover( view )
+			val views = new mutable.ListBuffer[View]()
+			discover( view, views )
+			views.toSeq
 		}
 	}
 
