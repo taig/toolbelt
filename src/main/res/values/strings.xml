@@ -44,14 +44,6 @@
 
 	</string-array>
 
-	<string name="time_picker_increment_minute_button">Increment minute</string>
-	<string name="time_picker_decrement_minute_button">Decrement minute</string>
-	<string name="time_picker_increment_hour_button">Increment hour</string>
-	<string name="time_picker_decrement_hour_button">Decrement hour</string>
-	<string name="time_picker_increment_set_pm_button">Set PM</string>
-	<string name="time_picker_decrement_set_am_button">Set AM</string>
-	<string name="time_picker_separator">:</string>
-
 	<string name="validation_error_alpha">Only alphabetic characters</string>
 	<string name="validation_error_alpha_dash">Only alphabetic characters and dashes</string>
 	<string name="validation_error_alpha_numeric">Only alphanumeric characters</string>

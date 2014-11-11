@@ -19,9 +19,6 @@
 
 	</declare-styleable>
 
-	<attr name="timePickerStyle"
-		  format="reference" />
-
 	<declare-styleable name="View.Pager">
 
 		<attr format="boolean"

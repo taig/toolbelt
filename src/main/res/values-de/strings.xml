@@ -22,13 +22,6 @@
 
 	</string-array>
 
-	<string name="time_picker_increment_minute_button">Minute erhöhen</string>
-	<string name="time_picker_decrement_minute_button">Minute verringern</string>
-	<string name="time_picker_increment_hour_button">Stunde erhöhen</string>
-	<string name="time_picker_decrement_hour_button">Stunde verringern</string>
-	<string name="time_picker_increment_set_pm_button">Nachmittags</string>
-	<string name="time_picker_decrement_set_am_button">Vormittags</string>
-
 	<string name="validation_error_alpha">Nur Buchstaben</string>
 	<string name="validation_error_alpha_dash">Nur Buchstabend und Bindestriche</string>
 	<string name="validation_error_alpha_numeric">Nur Buchstaben und Zahlen</string>
