@@ -6,11 +6,10 @@ import android.Plugin._
 object Build extends android.AutoBuild
 {
 	lazy val main = Project( "toolbelt", file( "." ) )
-		.settings( buildAar: _* )
+		.settings( androidBuildAar: _* )
 		.settings(
 			libraryDependencies ++= Seq(
 				"com.android.support" % "appcompat-v7" % "21.0.0",
-				"com.android.support" % "cardview-v7" % "21.0.0",
 				"com.github.japgolly.android" % "svg-android" % "2.0.6",
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
@@ -24,9 +23,11 @@ object Build extends android.AutoBuild
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
+			// @see https://github.com/pfn/android-sdk-plugin/issues/88
+			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
 			version := "0.2.4-BETA",
-			libraryProject in Android := true,
 			minSdkVersion in Android := "10",
+			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"
 		)
 }
