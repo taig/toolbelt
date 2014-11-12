@@ -15,6 +15,7 @@ object Build extends android.AutoBuild
 			),
 			name := "Toolbelt",
 			organization := "com.taig.android",
+			publishArtifact in ( Compile, packageDoc ) := false,
 			scalaVersion := "2.11.4",
 			scalacOptions ++= Seq(
 				"-deprecation",
@@ -25,7 +26,7 @@ object Build extends android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.2.5-BETA",
+			version := "0.2.6-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"

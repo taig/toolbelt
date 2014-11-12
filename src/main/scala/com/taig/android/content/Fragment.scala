@@ -34,7 +34,7 @@ object Fragment
 	 * 
 	 * @tparam C The Contract that is implemented by the Activity
 	 */
-	trait Creditor[C <: Contract] extends content.Creditor[C]
+	trait Creditor[+C <: Contract] extends content.Creditor[C]
 	{
 		this: Fragment =>
 

@@ -12,5 +12,5 @@ with	Contextual
 
 object Activity
 {
-	trait Creditor[C <: Contract] extends content.Creditor[Seq[C]]
+	trait Creditor[+C <: Contract] extends content.Creditor[Seq[C]]
 }

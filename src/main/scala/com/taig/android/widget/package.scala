@@ -272,23 +272,17 @@ package object widget
 		 */
 		def getAllChildren() =
 		{
-			def discover( view: ViewGroup, views: mutable.ListBuffer[View] )
+			def discover( view: ViewGroup ): Seq[View] =
 			{
 				( 0 to view.getChildCount - 1 )
-					.map( view.getChildAt( _ ) match
+					.map( view.getChildAt ) match
 					{
-						case group: ViewGroup =>
-						{
-							views.append( group )
-							discover( group, views )
-						}
-						case v => views.append( v )
-					} )
+						case group: ViewGroup => group +: discover( group )
+						case _ => Seq( view )
+					}
 			}
 
-			val views = new mutable.ListBuffer[View]()
-			discover( view, views )
-			views.toSeq
+			discover( view )
 		}
 	}
 
