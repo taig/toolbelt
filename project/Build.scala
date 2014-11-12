@@ -15,6 +15,7 @@ object Build extends android.AutoBuild
 			),
 			name := "Toolbelt",
 			organization := "com.taig.android",
+			publishArtifact in ( Compile, packageDoc ) := false,
 			scalaVersion := "2.11.4",
 			scalacOptions ++= Seq(
 				"-deprecation",
