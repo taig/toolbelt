@@ -6,10 +6,15 @@ import android.preference.Preference
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.view.{KeyEvent, MenuItem, View, ViewTreeObserver}
-import android.widget.{AdapterView, CompoundButton, TextView}
+import android.widget.{ActionMenuView, AdapterView, CompoundButton, TextView}
 
 package object conversion
 {
+	implicit def `Function1 -> Boolean -> ActionMenuView.OnMenuItemClickListener`( f: ( MenuItem ) => Boolean ) = new ActionMenuView.OnMenuItemClickListener
+	{
+		override def onMenuItemClick( item: MenuItem ) = f( item )
+	}
+	
 	implicit def `Function0 -> Unit -> AdapterView.OnItemClickListener`( f: => Unit ) = new AdapterView.OnItemClickListener
 	{
 		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f
@@ -173,6 +178,27 @@ package object conversion
 	implicit def `Function2 -> Unit -> View.OnFocusChangeListener`( f: ( View, Boolean ) => Unit ) = new View.OnFocusChangeListener
 	{
 		override def onFocusChange( view: View, hasFocus: Boolean ) = f( view, hasFocus )
+	}
+
+	implicit def `Function0 -> Unit -> View.OnLayoutChangedListener`( f: => Unit ) = new View.OnLayoutChangeListener
+	{
+		override def onLayoutChange( view: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int ) = f
+	}
+
+	implicit def `Function1 -> Unit -> View.OnLayoutChangedListener`( f: ( View ) => Unit ) = new View.OnLayoutChangeListener
+	{
+		override def onLayoutChange( view: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int ) =
+		{
+			f( view )
+		}
+	}
+
+	implicit def `Function9 -> Unit -> View.OnLayoutChangedListener`( f: ( View, Int, Int, Int, Int, Int, Int, Int, Int ) => Unit ) = new View.OnLayoutChangeListener
+	{
+		override def onLayoutChange( view: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int ) =
+		{
+			f( view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom )
+		}
 	}
 
 	implicit def `Function1 -> Boolean -> View.OnLongClickListener`( f: View => Boolean ) = new View.OnLongClickListener
