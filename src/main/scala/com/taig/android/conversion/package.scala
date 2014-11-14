@@ -4,9 +4,9 @@ import android.app.SearchManager
 import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.Toolbar
+import android.support.v7.widget.{ActionMenuView, Toolbar}
 import android.view.{KeyEvent, MenuItem, View, ViewTreeObserver}
-import android.widget.{ActionMenuView, AdapterView, CompoundButton, TextView}
+import android.widget.{AdapterView, CompoundButton, TextView}
 
 package object conversion
 {
