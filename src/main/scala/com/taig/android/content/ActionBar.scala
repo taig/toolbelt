@@ -23,7 +23,7 @@ object ActionBar
 		trait	Property[+S <: ActionBar.Split]
 		extends	ActionBar.Property[S]
 		{
-			var split: Option[ActionMenu]
+			def split: Option[ActionMenu]
 		}
 	}
 

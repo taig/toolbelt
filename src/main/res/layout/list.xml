@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 android:gravity="center">
+
+	<ListView android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:id="@android:id/list"
+			  android:clipToPadding="false"
+			  android:divider="@android:color/transparent"
+			  android:dividerHeight="@dimen/spacing_x0.25"
+			  android:listSelector="@android:color/transparent"
+			  android:padding="@dimen/spacing_x0.25"
+			  android:scrollbarStyle="outsideOverlay" />
+
+	<TextView android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:id="@android:id/empty"
+			  android:gravity="center_horizontal"
+			  android:paddingLeft="@dimen/spacing"
+			  android:paddingRight="@dimen/spacing" />
+
+</FrameLayout>
