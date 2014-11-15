@@ -37,13 +37,13 @@
 		<attr name="dominance">
 
 			<enum name="auto"
-				  value="1" />
+				  value="0" />
 
 			<enum name="width"
 				  value="1" />
 
 			<enum name="height"
-				  value="0" />
+				  value="2" />
 
 		</attr>
 

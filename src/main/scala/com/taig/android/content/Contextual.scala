@@ -4,5 +4,5 @@ import android.content.Context
 
 trait Contextual
 {
-	implicit protected def context: Context
+	implicit def context: Context
 }

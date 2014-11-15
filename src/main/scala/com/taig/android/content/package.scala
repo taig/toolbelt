@@ -36,6 +36,10 @@ package object content
 	{
 		def asColor( implicit context: Context ) = context.getResources.getColor( resource )
 
+		def asDimension( implicit context: Context ) = context.getResources.getDimension( resource )
+
+		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
+
 		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
 
 		def asString( implicit context: Context ) = context.getString( resource )

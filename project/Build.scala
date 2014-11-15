@@ -10,6 +10,7 @@ object Build extends android.AutoBuild
 		.settings(
 			libraryDependencies ++= Seq(
 				"com.android.support" % "appcompat-v7" % "21.0.0",
+				"com.astuetz" % "pagerslidingtabstrip" % "1.0.1",
 				"com.github.japgolly.android" % "svg-android" % "2.0.6",
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
@@ -21,6 +22,7 @@ object Build extends android.AutoBuild
 				"-deprecation",
 				"-feature",
 				"-language:dynamics",
+				"-language:existentials",
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
