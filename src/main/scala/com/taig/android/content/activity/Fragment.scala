@@ -13,13 +13,13 @@ import com.taig.android.content.activity.Fragment.Property
 trait	Fragment
 extends	Activity
 {
-	def fragment: Property[Fragment]
+	def fragment: Property
 }
 
 object Fragment
 {
-	trait	Property[+F <: Fragment]
-	extends	content.Property[F]
+	trait	Property
+	extends	content.Property[Fragment]
 	{
 		def all: Seq[Class[_ <: support.Fragment]]
 

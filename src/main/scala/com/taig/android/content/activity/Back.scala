@@ -11,7 +11,7 @@ with	content.ActionBar
 {
 	require( !this.isInstanceOf[Drawer], "Can't use both: Drawer and Back, pick one!" )
 
-	override def actionbar: Back.Property[Back]
+	override def actionbar: Back.Property
 
 	override def onCreate( state: Bundle )
 	{
@@ -33,8 +33,9 @@ with	content.ActionBar
 
 object Back
 {
-	trait	Property[+B <: Back]
-	extends	content.ActionBar.Property[B]
+	trait	Property
+	extends	content.Property[Back]
+	with	content.ActionBar.Property
 	{
 		def onBackPressed(): Unit
 	}

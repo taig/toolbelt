@@ -11,7 +11,7 @@ extends	Fragment
 with	content.ActionBar
 with	content.Options
 {
-	override def actionbar = new Property( this ) with Options.Property.ActionBar[Options]
+	override def actionbar = new Property( this ) with Options.Property.ActionBar
 
 	override def onCreate( state: Bundle )
 	{
@@ -28,7 +28,7 @@ object Options
 	with	content.ActionBar.Split
 	with	content.Options.Split
 	{
-		override def actionbar = new content.Property( this ) with Split.Property.ActionBar[Split]
+		override def actionbar = new content.Property( this ) with Split.Property.ActionBar
 
 		override def onCreate( state: Bundle )
 		{
@@ -45,9 +45,10 @@ object Options
 	{
 		object Property
 		{
-			trait	ActionBar[+S <: Split]
-			extends	content.ActionBar.Split.Property[S]
-			with	Options.Property.ActionBar[S]
+			trait	ActionBar
+			extends	content.Property[Split]
+			with	content.ActionBar.Split.Property
+			with	Options.Property.ActionBar
 			{
 				override def split = content.getActivity.asInstanceOf[activity.ActionBar.Split].actionbar.split
 			}
@@ -56,8 +57,9 @@ object Options
 
 	object Property
 	{
-		trait	ActionBar[+O <: Options]
-		extends	content.ActionBar.Property[O]
+		trait	ActionBar
+		extends	content.Property[Options]
+		with	content.ActionBar.Property
 		{
 			override def main = content.getActivity.asInstanceOf[activity.ActionBar].actionbar.main
 		}

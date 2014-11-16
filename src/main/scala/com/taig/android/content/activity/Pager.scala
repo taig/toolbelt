@@ -12,9 +12,9 @@ trait	Pager
 extends	Activity
 with	Fragment
 {
-	val pager = new Property( this ) with Pager.Property[Pager]
+	val pager = new Property( this ) with Pager.Property
 
-	override def fragment: Pager.Property.Fragment[Pager]
+	override def fragment: Pager.Property.Fragment
 
 	override def onCreate( state: Bundle )
 	{
@@ -48,8 +48,8 @@ with	Fragment
 
 object Pager
 {
-	trait	Property[+P <: Pager]
-	extends	content.Property[P]
+	trait	Property
+	extends	content.Property[Pager]
 	{
 		lazy val widget = content.findViewById( R.id.pager ).asInstanceOf[com.taig.android.widget.Pager]
 
@@ -66,8 +66,9 @@ object Pager
 
 	object Property
 	{
-		trait	Fragment[+P <: Pager]
-		extends	content.activity.Fragment.Property[P]
+		trait	Fragment
+		extends	content.Property[Pager]
+		with	content.activity.Fragment.Property
 		{
 			override def getActive() = content.pager.adapter.current
 		}

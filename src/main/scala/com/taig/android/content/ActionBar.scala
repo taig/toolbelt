@@ -7,7 +7,7 @@ import com.taig.android.widget.ActionMenu
 trait	ActionBar
 extends	Contextual
 {
-	def actionbar: ActionBar.Property[ActionBar]
+	def actionbar: ActionBar.Property
 }
 
 object ActionBar
@@ -15,20 +15,21 @@ object ActionBar
 	trait	Split
 	extends	ActionBar
 	{
-		override def actionbar: Split.Property[Split]
+		override def actionbar: Split.Property
 	}
 
 	object Split
 	{
-		trait	Property[+S <: ActionBar.Split]
-		extends	ActionBar.Property[S]
+		trait	Property
+		extends	content.Property[Split]
+		with	ActionBar.Property
 		{
 			def split: Option[ActionMenu]
 		}
 	}
 
-	trait	Property[+A <: ActionBar]
-	extends	content.Property[A]
+	trait	Property
+	extends	content.Property[ActionBar]
 	{
 		def main: Toolbar
 	}

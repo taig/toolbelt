@@ -12,7 +12,7 @@ extends	Activity
 {
 	require( !this.isInstanceOf[Back], "Can't use both: Drawer and Back, pick one!" )
 
-	def drawer: Drawer.Property[Drawer]
+	def drawer: Drawer.Property
 
 	override def onCreate( state: Bundle )
 	{
@@ -88,7 +88,7 @@ object Drawer
 		val Drawer = getClass.getName + ".Drawer"
 	}
 
-	trait	Property[+D <: Drawer]
+	trait	Property
 	extends	content.Property[Drawer]
 	{
 		def wrapper: com.taig.android.widget.Drawer

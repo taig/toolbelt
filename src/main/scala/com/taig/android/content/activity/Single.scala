@@ -12,7 +12,7 @@ trait	Single
 extends	Activity
 with	Fragment
 {
-	override def fragment: Single.Property.Fragment[Single]
+	override def fragment: Single.Property.Fragment
 
 	override def onCreate( state: Bundle )
 	{
@@ -32,8 +32,9 @@ object Single
 {
 	object Property
 	{
-		trait	Fragment[+S <: Single]
-		extends	content.activity.Fragment.Property[S]
+		trait	Fragment
+		extends	content.Property[Single]
+		with	content.activity.Fragment.Property
 		{
 			override def all = Seq( single )
 

@@ -6,7 +6,7 @@ import com.taig.android.content
 trait	Options
 extends	ActionBar
 {
-	def menu: Options.Property[Options]
+	def menu: Options.Property
 }
 
 object Options
@@ -15,13 +15,14 @@ object Options
 	extends	Options
 	with	ActionBar.Split
 	{
-		override def menu: Split.Property[Split]
+		override def menu: Split.Property
 	}
 
 	object Split
 	{
-		trait	Property[+S <: Split]
-		extends	Options.Property[S]
+		trait	Property
+		extends	content.Property[Split]
+		with	Options.Property
 		{
 			override def action = 0
 
@@ -30,9 +31,10 @@ object Options
 
 		object Property
 		{
-			trait	Split[+S <: Options.Split]
-			extends	content.ActionBar.Split.Property[S]
-			with	Options.Property.ActionBar[S]
+			trait	Split
+			extends	content.Property[Options.Split]
+			with	content.ActionBar.Split.Property
+			with	Options.Property.ActionBar
 			{
 				override def inflate( id: Int ) = split match
 				{
@@ -48,16 +50,17 @@ object Options
 		}
 	}
 
-	trait	Property[+O <: Options]
-	extends	content.Property[O]
+	trait	Property
+	extends	content.Property[Options]
 	{
 		def action: Int
 	}
 
 	object Property
 	{
-		trait	ActionBar[+O <: Options]
-		extends	content.ActionBar.Property[O]
+		trait	ActionBar
+		extends	content.Property[Options]
+		with	content.ActionBar.Property
 		{
 			def inflate( id: Int )
 			{

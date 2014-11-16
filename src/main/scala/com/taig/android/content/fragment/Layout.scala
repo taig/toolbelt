@@ -8,7 +8,7 @@ import com.taig.android.content.Fragment
 trait	Layout
 extends	Fragment
 {
-	def layout: Layout.Property[Layout]
+	def layout: Layout.Property
 
 	override def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) = layout.reference match
 	{
@@ -19,8 +19,8 @@ extends	Fragment
 
 object Layout
 {
-	trait	Property[+L <: Layout]
-	extends	content.Property[L]
+	trait	Property
+	extends	content.Property[Layout]
 	{
 		implicit protected def `Int -> Either`( id: Int ): Either[Int, View] = Left( id )
 

@@ -14,9 +14,9 @@ extends	Activity
 with	Fragment
 with	Pager
 {
-	def tabs: Tabs.Property[Tabs]
+	def tabs: Tabs.Property
 
-	override val pager = new Property[Tabs]( this ) with Tabs.Property.Pager[Tabs] 
+	override val pager = new Property[Tabs]( this ) with Tabs.Property.Pager 
 
 	override def onCreate( state: Bundle )
 	{
@@ -36,8 +36,8 @@ with	Pager
 
 object Tabs
 {
-	trait	Property[+T <: Tabs]
-	extends	content.Property[T]
+	trait	Property
+	extends	content.Property[Tabs]
 	{
 		def titles: Seq[String]
 
@@ -79,8 +79,9 @@ object Tabs
 
 	object Property
 	{
-		trait	Pager[+T <: Tabs]
-		extends	Pager.Property[T]
+		trait	Pager
+		extends	content.Property[Tabs]
+		with	Pager.Property
 		{
 			override lazy val adapter = new content.Adapter
 		}

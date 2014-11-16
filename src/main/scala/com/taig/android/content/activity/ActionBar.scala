@@ -14,7 +14,7 @@ trait	ActionBar
 extends	Activity
 with	content.ActionBar
 {
-	override lazy val actionbar = new Property( this ) with ActionBar.Property[ActionBar]
+	override lazy val actionbar = new Property( this ) with ActionBar.Property
 
 	override def onCreate( state: Bundle )
 	{
@@ -31,14 +31,15 @@ object ActionBar
 	extends	ActionBar
 	with	content.ActionBar.Split
 	{
-		override lazy val actionbar = new content.Property( this ) with Split.Property[Split]
+		override lazy val actionbar = new content.Property( this ) with Split.Property
 	}
 
 	object Split
 	{
-		trait	Property[+S <: Split]
-		extends	ActionBar.Property[S]
-		with	content.ActionBar.Split.Property[S]
+		trait	Property
+		extends	content.Property[Split]
+		with	ActionBar.Property
+		with	content.ActionBar.Split.Property
 		{
 			override lazy val split: Option[ActionMenu] =
 			{
@@ -53,9 +54,10 @@ object ActionBar
 		}
 	}
 
-	trait	Property[+A <: ActionBar]
-	extends	content.ActionBar.Property[A]
+	trait	Property
+	extends	content.Property[ActionBar]
+	with	content.ActionBar.Property
 	{
-		override lazy val main = content.getLayoutInflater().inflate( R.layout.bar_main, null ).asInstanceOf[Toolbar]
+		override lazy val main = content.getLayoutInflater.inflate( R.layout.bar_main, null ).asInstanceOf[Toolbar]
 	}
 }

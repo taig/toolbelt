@@ -11,9 +11,9 @@ extends	com.taig.android.content.Fragment.List
 with	Fragment
 with	Layout
 {
-	def list: List.Property[List]
+	def list: List.Property
 
-	override val layout = new Property( this ) with List.Property.Layout[List]
+	override val layout = new Property( this ) with List.Property.Layout
 
 	override def onViewCreated( view: View, state: Bundle )
 	{
@@ -25,8 +25,8 @@ with	Layout
 
 object List
 {
-	trait	Property[+L <: List]
-	extends	content.Property[L]
+	trait	Property
+	extends	content.Property[List]
 	{
 		lazy val empty = content.findViewById( android.R.id.empty ).asInstanceOf[TextView]
 
@@ -37,8 +37,9 @@ object List
 
 	object Property
 	{
-		trait Layout[+L <: List]
-		extends	Layout.Property[L]
+		trait	Layout
+		extends	content.Property[List]
+		with	Layout.Property
 		{
 			override val reference: Either[Int, View] = R.layout.list
 		}
