@@ -12,9 +12,17 @@ trait	Pager
 extends	Activity
 with	Fragment
 {
+	protected implicit def `Seq[Class[Fragment]] -> Pager.Fragment`( fragments: Seq[Class[_ <: support.Fragment]] ): Pager.Fragment =
+	{
+		new Property( this ) with Pager.Fragment
+		{
+			override def all = fragments
+		}
+	}
+
 	val pager = new Property( this ) with Pager.Property
 
-	override def fragment: Pager.Property.Fragment
+	override def fragment: Pager.Fragment
 
 	override def onCreate( state: Bundle )
 	{
@@ -64,13 +72,10 @@ object Pager
 		def jump( position: Int ): Unit = widget.setCurrentItem( position )
 	}
 
-	object Property
+	trait	Fragment
+	extends	content.Property[Pager]
+	with	content.activity.Fragment.Property
 	{
-		trait	Fragment
-		extends	content.Property[Pager]
-		with	content.activity.Fragment.Property
-		{
-			override def getActive() = content.pager.adapter.current
-		}
+		override def getActive() = content.pager.adapter.current
 	}
 }

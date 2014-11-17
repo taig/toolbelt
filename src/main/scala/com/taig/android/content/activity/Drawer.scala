@@ -5,7 +5,7 @@ import android.view.{MenuItem, View}
 import android.widget.FrameLayout
 import com.taig.android.content._
 import com.taig.android.content.activity.Drawer.Parameter
-import com.taig.android.{R, content, widget}
+import com.taig.android.{R, content}
 
 trait	Drawer
 extends	Activity
@@ -28,14 +28,12 @@ extends	Activity
 		}
 
 		// Prepare navigation drawer
-		findViewById( R.id.drawer )
-			.asInstanceOf[FrameLayout]
-			.addView( drawer.widget )
+		drawer.wrapper.addView( drawer.widget )
 
 		// Restore drawer state: opened or closed?
 		Option( state ).collect
 		{
-			case state if state.getBoolean( Parameter.Drawer, false ) => drawer.wrapper.openDrawer( drawer.widget )
+			case state if state.getBoolean( Parameter.Drawer, false ) => drawer.root.openDrawer( drawer.wrapper )
 		}
 	}
 
@@ -44,9 +42,9 @@ extends	Activity
 	 */
 	override def onBackPressed() =
 	{
-		if( drawer.wrapper.isDrawerOpen( drawer.widget ) )
+		if( drawer.root.isDrawerOpen( drawer.wrapper ) )
 		{
-			drawer.wrapper.closeDrawer( drawer.widget )
+			drawer.root.closeDrawer( drawer.wrapper )
 		}
 		else
 		{
@@ -58,13 +56,13 @@ extends	Activity
 	{
 		case android.R.id.home =>
 		{
-			if( drawer.wrapper.isDrawerOpen( drawer.widget ) )
+			if( drawer.root.isDrawerOpen( drawer.wrapper ) )
 			{
-				drawer.wrapper.closeDrawer( drawer.widget )
+				drawer.root.closeDrawer( drawer.wrapper )
 			}
 			else
 			{
-				drawer.wrapper.openDrawer( drawer.widget )
+				drawer.root.openDrawer( drawer.wrapper )
 			}
 
 			true
@@ -77,7 +75,7 @@ extends	Activity
 		super.onSaveInstanceState( state )
 
 		// Save drawer state: open or closed?
-		state.putBoolean( Parameter.Drawer, drawer.wrapper.isDrawerOpen( drawer.widget ) )
+		state.putBoolean( Parameter.Drawer, drawer.root.isDrawerOpen( drawer.wrapper ) )
 	}
 }
 
@@ -91,8 +89,17 @@ object Drawer
 	trait	Property
 	extends	content.Property[Drawer]
 	{
-		def wrapper: com.taig.android.widget.Drawer
+		lazy val root = content
+			.findViewById( R.id.drawer_root )
+			.asInstanceOf[com.taig.android.widget.Drawer]
 
+		lazy val wrapper = content
+			.findViewById( R.id.drawer )
+			.asInstanceOf[FrameLayout]
+
+		/**
+		 * The actual drawer layout
+		 */
 		def widget: View
 	}
 }

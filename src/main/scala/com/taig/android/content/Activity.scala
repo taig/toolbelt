@@ -12,6 +12,8 @@ with	Contextual
 {
 	override implicit def context = this
 
+	private var root: View = null
+
 	override def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
@@ -31,24 +33,14 @@ with	Contextual
 
 	def setRootView( view: View ): Unit =
 	{
-		// Get the current root view
-		val root = findViewById( R.id.root )
-
-		// All hail the new root
 		super.setContentView( view )
-
-		if( view.findViewById( R.id.root ) == null )
-		{
-			view.setId( R.id.root )
-		}
 
 		if( root != null )
 		{
-			// Current root is no longer root
-			root.setId( View.NO_ID )
-			// But it's a child now!
 			addContentView( root )
 		}
+
+		root = view
 	}
 
 	def addHeaderView( resource: Int ): Unit = addHeaderView( getLayoutInflater.inflate( resource, null ) )

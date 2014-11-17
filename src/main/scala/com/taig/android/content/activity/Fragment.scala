@@ -1,8 +1,10 @@
 package com.taig.android.content.activity
 
-import com.taig.android.content.Activity
-import com.taig.android.content
+import java.lang.reflect.InvocationTargetException
+
 import android.support.v4.{app => support}
+import com.taig.android.content
+import com.taig.android.content.Activity
 import com.taig.android.content.activity.Fragment.Property
 
 /**
@@ -30,6 +32,16 @@ object Fragment
 		 */
 		def getActive(): support.Fragment
 
-		def instantiate[F <: support.Fragment]( fragment: Class[F] ) = fragment.getConstructor().newInstance()
+		def instantiate[F <: support.Fragment]( fragment: Class[F] ) =
+		{
+			try
+			{
+				fragment.getConstructor().newInstance()
+			}
+			catch
+			{
+				case e: InvocationTargetException => throw e.getCause
+			}
+		}
 	}
 }

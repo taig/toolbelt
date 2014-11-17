@@ -14,9 +14,17 @@ extends	Activity
 with	Fragment
 with	Pager
 {
+	protected implicit def `Seq[String] -> Tabs.Property`( strings: Seq[String] ) =
+	{
+		new Property( this ) with Tabs.Property
+		{
+			override def titles = strings
+		}
+	}
+
 	def tabs: Tabs.Property
 
-	override val pager = new Property[Tabs]( this ) with Tabs.Property.Pager 
+	override val pager = new Property( this ) with Tabs.Pager 
 
 	override def onCreate( state: Bundle )
 	{
@@ -46,6 +54,7 @@ object Tabs
 			// TODO Apply colors from theme or actionbar
 			//		setBackgroundResource( R.color.highlight )
 			//		setIndicatorColorResource( R.color.neutral )
+			setMinimumHeight( 500 )
 			setIndicatorHeight( applyDimension( COMPLEX_UNIT_DIP, 2, getResources.getDisplayMetrics ).toInt )
 			setDividerColorResource( android.R.color.transparent )
 			setPadding( R.dimen.spacing_x0_5.asPixel, 0 )
@@ -68,22 +77,19 @@ object Tabs
 					( 0 to root.getChildCount - 1 )
 						.map( i => ( i, root.getChildAt( i ) ) )
 						.foreach
-					{
-						case ( i, view ) if i == position => view.setAlpha( 1 )
-						case ( _, view ) => view.setAlpha( 0.5f )
-					}
+						{
+							case ( i, view ) if i == position => view.setAlpha( 1 )
+							case ( _, view ) => view.setAlpha( 0.5f )
+						}
 				}
 			} )
 		}
 	}
 
-	object Property
+	trait	Pager
+	extends	content.Property[Tabs]
+	with	Pager.Property
 	{
-		trait	Pager
-		extends	content.Property[Tabs]
-		with	Pager.Property
-		{
-			override lazy val adapter = new content.Adapter
-		}
+		override lazy val adapter = new content.Adapter
 	}
 }

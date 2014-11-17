@@ -14,7 +14,4 @@
 	<item name="header"
 		  type="id" />
 
-	<item name="root"
-		  type="id" />
-
 </resources>

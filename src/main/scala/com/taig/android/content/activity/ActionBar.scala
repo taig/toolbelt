@@ -14,7 +14,7 @@ trait	ActionBar
 extends	Activity
 with	content.ActionBar
 {
-	override lazy val actionbar = new Property( this ) with ActionBar.Property
+	override val actionbar = new Property( this ) with ActionBar.Property
 
 	override def onCreate( state: Bundle )
 	{
@@ -31,7 +31,7 @@ object ActionBar
 	extends	ActionBar
 	with	content.ActionBar.Split
 	{
-		override lazy val actionbar = new content.Property( this ) with Split.Property
+		override val actionbar = new content.Property( this ) with Split.Property
 	}
 
 	object Split

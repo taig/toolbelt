@@ -1,12 +1,13 @@
 package com.taig.android.content
 
 import android.support.v7.internal.view.SupportMenuInflater
+import android.view.{MenuInflater, Menu}
 import com.taig.android.content
 
 trait	Options
 extends	ActionBar
 {
-	def menu: Options.Property
+	def options: Options.Property
 }
 
 object Options
@@ -15,7 +16,7 @@ object Options
 	extends	Options
 	with	ActionBar.Split
 	{
-		override def menu: Split.Property
+		override def options: Split.Property
 	}
 
 	object Split
@@ -24,53 +25,41 @@ object Options
 		extends	content.Property[Split]
 		with	Options.Property
 		{
-			override def action = 0
+			override def main = 0
 
 			def split: Int
-		}
 
-		object Property
-		{
-			trait	Split
-			extends	content.Property[Options.Split]
-			with	content.ActionBar.Split.Property
-			with	Options.Property.ActionBar
+			override def inflate()
 			{
-				override def inflate( id: Int ) = split match
-				{
-					case Some( split ) =>
-					{
-						new SupportMenuInflater( context ).inflate( content.menu.split, split.getMenu )
-					}
-					case _ => main.inflateMenu( content.menu.split )
-				}
+				super.inflate()
 
-				override def find( id: Int ) = super.find( id )
+				content.actionbar.split.map( _.getMenu ) match
+				{
+					case Some( menu ) => new SupportMenuInflater( context ).inflate( split, menu )
+					case _ => content.actionbar.main.inflateMenu( split )
+				}
 			}
+
+			override def find( id: Int ) = content.actionbar.split
+				.map( _.getMenu.findItem( id ) )
+				.flatMap( Option.apply )
+				.getOrElse( super.find( id ) )
 		}
 	}
 
 	trait	Property
 	extends	content.Property[Options]
 	{
-		def action: Int
-	}
+		def main: Int
 
-	object Property
-	{
-		trait	ActionBar
-		extends	content.Property[Options]
-		with	content.ActionBar.Property
+		def inflate()
 		{
-			def inflate( id: Int )
+			if( main > 0 )
 			{
-				if( id > 0 )
-				{
-					main.inflateMenu( id )
-				}
+				content.actionbar.main.inflateMenu( main )
 			}
-
-			def find( id: Int ) = main.getMenu.findItem( id )
 		}
+
+		def find( id: Int ) = content.actionbar.main.getMenu.findItem( id )
 	}
 }

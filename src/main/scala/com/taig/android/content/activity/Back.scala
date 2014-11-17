@@ -2,16 +2,16 @@ package com.taig.android.content.activity
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.taig.android.content.Activity
+import com.taig.android.content.{Property, Activity}
 import com.taig.android.content
 
 trait	Back
 extends	Activity
-with	content.ActionBar
+with	ActionBar
 {
 	require( !this.isInstanceOf[Drawer], "Can't use both: Drawer and Back, pick one!" )
 
-	override def actionbar: Back.Property
+	val back = new Property( this ) with Back.Property
 
 	override def onCreate( state: Bundle )
 	{
@@ -24,7 +24,7 @@ with	content.ActionBar
 	{
 		case android.R.id.home =>
 		{
-			actionbar.onBackPressed()
+			back.onClick()
 			true
 		}
 		case _ => super.onOptionsItemSelected( item )
@@ -35,8 +35,7 @@ object Back
 {
 	trait	Property
 	extends	content.Property[Back]
-	with	content.ActionBar.Property
 	{
-		def onBackPressed(): Unit
+		def onClick() = content.onBackPressed()
 	}
 }
