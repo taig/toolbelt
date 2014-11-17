@@ -10,8 +10,8 @@ object Build extends android.AutoBuild
 		.settings(
 			libraryDependencies ++= Seq(
 				"com.android.support" % "appcompat-v7" % "21.0.0",
-				"com.astuetz" % "pagerslidingtabstrip" % "1.0.1",
 				"com.github.japgolly.android" % "svg-android" % "2.0.6",
+				"com.jpardogo.materialtabstrip" % "library" % "1.0.3",
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
 			name := "Toolbelt",
