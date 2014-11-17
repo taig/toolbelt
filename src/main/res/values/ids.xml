@@ -2,7 +2,16 @@
 
 <resources>
 
+	<item name="content"
+		  type="id" />
+
+	<item name="footer"
+		  type="id" />
+
 	<item name="form"
+		  type="id" />
+
+	<item name="header"
 		  type="id" />
 
 </resources>

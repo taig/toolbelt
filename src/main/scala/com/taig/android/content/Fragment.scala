@@ -8,6 +8,8 @@ extends	android.support.v4.app.Fragment
 with	Contextual
 {
 	override implicit def context = getActivity
+
+	def findViewById( id: Int ) = getView.findViewById( id )
 }
 
 object Fragment

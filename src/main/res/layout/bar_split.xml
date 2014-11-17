@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.taig.android.widget.ActionMenu
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="?attr/actionBarSize"
+	android:id="@+id/bar_split"
+	android:background="?attr/colorPrimary" />
