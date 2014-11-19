@@ -27,5 +27,9 @@ with	Widget
 		throw new RuntimeException( "Use addOnMenuItemClickListener" )
 	}
 
-	def addOnMenuItemClickListener( listener: OnMenuItemClickListener ) = listeners.append( listener )
+	def addOnMenuItemClickListener( listener: OnMenuItemClickListener ) =
+	{
+		listeners.append( listener )
+		this
+	}
 }
