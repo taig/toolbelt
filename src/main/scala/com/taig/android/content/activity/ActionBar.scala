@@ -32,6 +32,13 @@ object ActionBar
 	with	content.ActionBar.Split
 	{
 		override val actionbar = new content.Property( this ) with Split.Property
+
+		override def onCreate( state: Bundle )
+		{
+			super.onCreate( state )
+
+			actionbar.split.foreach( setFooterView )
+		}
 	}
 
 	object Split
@@ -43,12 +50,13 @@ object ActionBar
 		{
 			override lazy val split: Option[ActionMenu] =
 			{
-				( content.getResources.getConfiguration.orientation == ORIENTATION_PORTRAIT ).asOption
+				( context.getResources.getConfiguration.orientation == ORIENTATION_PORTRAIT ).asOption
 				{
-					val menu = content.getLayoutInflater.inflate( R.layout.bar_split, null ).asInstanceOf[ActionMenu]
-					content.setFooterView( menu )
-					menu.addOnMenuItemClickListener( ( item: MenuItem ) => content.onOptionsItemSelected( item ) )
-					menu
+					content
+						.getLayoutInflater
+						.inflate( R.layout.bar_split, null )
+						.asInstanceOf[ActionMenu]
+						.addOnMenuItemClickListener( ( item: MenuItem ) => content.onOptionsItemSelected( item ) )
 				}
 			}
 		}
