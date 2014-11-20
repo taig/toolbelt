@@ -5,8 +5,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.{app => support}
 import android.view.ViewGroup
 import com.taig.android._
-import com.taig.android.content.Activity
-import com.taig.android.content.Property
+import com.taig.android.content.{Activity, Property}
 
 trait	Pager
 extends	Activity
@@ -33,7 +32,8 @@ with	Fragment
 		pager.widget.setAdapter( pager.adapter )
 	}
 
-	protected class Adapter extends FragmentPagerAdapter( getSupportFragmentManager )
+	protected class	Adapter
+	extends			FragmentPagerAdapter( getSupportFragmentManager )
 	{
 		protected[Pager] var current: support.Fragment = null
 
