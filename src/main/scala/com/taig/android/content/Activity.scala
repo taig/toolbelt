@@ -52,6 +52,29 @@ with	Contextual
 		super.onCreateOptionsMenu( menu )
 	}
 
+	override def supportInvalidateOptionsMenu()
+	{
+		super.supportInvalidateOptionsMenu()
+
+		this match
+		{
+			case activity: activity.Options => activity.options.clear()
+			case _ => // Noting to do
+		}
+
+		this match
+		{
+			case activity: activity.Fragment =>
+			{
+				activity.fragment.getActive() match
+				{
+					case fragment: fragment.Options => fragment.options.clear()
+					case _ => // Nothing to do
+				}
+			}
+		}
+	}
+
 	def setRootView( resource: Int ): Unit = setRootView( getLayoutInflater.inflate( resource, null ) )
 
 	def setRootView( view: View ): Unit =
