@@ -50,6 +50,12 @@ object Options
 			override def find( id: Int ) = content.actionbar.split
 				.flatMap( split => Option( split.getMenu.findItem( id ) ) )
 				.getOrElse( super.find( id ) )
+
+			override def clear()
+			{
+				super.clear()
+				content.actionbar.split.foreach( _.getMenu.clear() )
+			}
 		}
 	}
 
@@ -61,5 +67,7 @@ object Options
 		def inflate() = content.actionbar.main.inflateMenu( id )
 
 		def find( id: Int ) = content.actionbar.main.getMenu.findItem( id )
+
+		def clear() = content.actionbar.main.getMenu.clear()
 	}
 }
