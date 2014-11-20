@@ -1,13 +1,44 @@
 package com.taig.android
 
-import android.util.Log
-import android.view.{ViewGroup, MenuItem, View}
+import android.support.v4.internal.view.SupportMenuItem._
+import android.support.v7.internal.view.menu.MenuItemImpl
+import android.view.{Menu, MenuItem, View, ViewGroup}
 import android.widget.ViewSwitcher
-import scala.annotation.tailrec
-import scala.collection.mutable
 
 package object widget
 {
+	implicit class RichMenu( menu: Menu )
+	{
+		def add( item: MenuItem ): MenuItem =
+		{
+			val `new` = menu.add( item.getGroupId, item.getItemId, item.getOrder, item.getTitle )
+			`new`.setAlphabeticShortcut( item.getAlphabeticShortcut )
+			`new`.setCheckable( item.isCheckable )
+			`new`.setChecked( item.isChecked )
+			`new`.setEnabled( item.isEnabled )
+			`new`.setIcon( item.getIcon )
+			`new`.setIntent( item.getIntent )
+			`new`.setNumericShortcut( item.getNumericShortcut )
+			`new`.setTitleCondensed( item.getTitleCondensed )
+			`new`.setVisible( item.isVisible )
+
+			item match
+			{
+				case item: MenuItemImpl =>
+				{
+					`new`.setShowAsActionFlags(
+						( if( item.requestsActionButton() ) SHOW_AS_ACTION_IF_ROOM else 0 ) |
+						( if( item.requiresActionButton() ) SHOW_AS_ACTION_ALWAYS else 0 ) |
+						( if( item.showsTextAsAction() ) SHOW_AS_ACTION_WITH_TEXT else 0 )
+					)
+				}
+				case _ => // Nothing to do here
+			}
+
+			`new`
+		}
+	}
+
 	implicit class RichMenuItem( item: MenuItem )
 	{
 		/**
