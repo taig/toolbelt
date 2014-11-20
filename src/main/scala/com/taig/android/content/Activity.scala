@@ -2,7 +2,7 @@ package com.taig.android.content
 
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
-import android.view.{View, ViewGroup}
+import android.view.{Menu, View, ViewGroup}
 import com.taig.android._
 import com.taig.android.conversion._
 
@@ -27,6 +27,29 @@ with	Contextual
 
 		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
 		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
+	}
+
+	override def onCreateOptionsMenu( menu: Menu ) =
+	{
+		this match
+		{
+			case activity: activity.Options => activity.options.inflate()
+			case _ => // Noting to do
+		}
+
+		this match
+		{
+			case activity: activity.Fragment =>
+			{
+				activity.fragment.getActive() match
+				{
+					case fragment: fragment.Options => fragment.options.inflate()
+					case _ => // Nothing to do
+				}
+			}
+		}
+
+		super.onCreateOptionsMenu( menu )
 	}
 
 	def setRootView( resource: Int ): Unit = setRootView( getLayoutInflater.inflate( resource, null ) )
