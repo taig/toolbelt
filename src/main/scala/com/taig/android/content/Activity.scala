@@ -2,6 +2,7 @@ package com.taig.android.content
 
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
+import android.util.Log
 import android.view.{Menu, View, ViewGroup}
 import com.taig.android._
 import com.taig.android.conversion._
@@ -31,6 +32,7 @@ with	Contextual
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
+		Log.d( "ASDF", "onCreateOptionsMenu" )
 		this match
 		{
 			case activity: activity.Options => activity.options.inflate()
@@ -54,6 +56,7 @@ with	Contextual
 
 	override def supportInvalidateOptionsMenu()
 	{
+		Log.d( "ASDF", "supportInvalidateOptionsMenu" )
 		super.supportInvalidateOptionsMenu()
 
 		this match

@@ -54,7 +54,7 @@ object Options
 			override def clear()
 			{
 				super.clear()
-				content.actionbar.split.foreach( _.getMenu.clear() )
+				content.actionbar.split.foreach( _.clear() )
 			}
 		}
 	}

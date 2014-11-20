@@ -1,8 +1,10 @@
 package com.taig.android.content.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.taig.android.content
 import com.taig.android.content.{Fragment, Property, activity}
+import com.taig.android.conversion._
 
 trait	Options
 extends	Fragment
@@ -55,6 +57,17 @@ object Options
 		extends	content.Property[Split]
 		with	Options.Property
 		with	content.Options.Split.Property
+		{
+			override def inflate()
+			{
+				super.inflate()
+
+				content.actionbar.split.foreach
+				{
+					_.addOnMenuItemClickListener( content.onOptionsItemSelected( _: MenuItem ) )
+				}
+			}
+		}
 
 		trait	ActionBar
 		extends	content.Property[Split]

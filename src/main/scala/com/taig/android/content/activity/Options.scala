@@ -1,7 +1,9 @@
 package com.taig.android.content.activity
 
+import android.view.MenuItem
 import com.taig.android.content
 import com.taig.android.content.{Activity, Property}
+import com.taig.android.conversion._
 
 trait	Options
 extends	Activity
@@ -43,6 +45,17 @@ object Options
 		extends	content.Property[Split]
 		with	Options.Property
 		with	content.Options.Split.Property
+		{
+			override def inflate()
+			{
+				super.inflate()
+
+				content.actionbar.split.foreach
+				{
+					_.addOnMenuItemClickListener( content.onOptionsItemSelected( _: MenuItem ) )
+				}
+			}
+		}
 	}
 
 	trait	Property

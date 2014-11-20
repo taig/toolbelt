@@ -56,7 +56,6 @@ object ActionBar
 						.getLayoutInflater
 						.inflate( R.layout.bar_split, null )
 						.asInstanceOf[ActionMenu]
-						.addOnMenuItemClickListener( ( item: MenuItem ) => content.onOptionsItemSelected( item ) )
 				}
 			}
 		}
