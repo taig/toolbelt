@@ -32,6 +32,10 @@ with	Contextual
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
 		// This is so hacky. Shame on your fucked up lifecycle, Android :/
+		// There appears to be an issue with the ViewPager that leads to multiple calls of this method and
+		// therefore multiple menu inflations. To prevent this before creating the menu all elements are cleared.
+		// Even worse: this seems to be a race condition related issue that does not appear all of the times.
+		// Further discussion: https://code.google.com/p/android/issues/detail?id=29472
 		this match
 		{
 			case activity: activity.Options => activity.options.clear()
