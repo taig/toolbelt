@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener
 import android.util.AttributeSet
 import android.view.MenuItem
+import com.taig.android.conversion._
 
 import scala.collection.mutable
 
@@ -17,19 +18,17 @@ with	Widget
 
 	private val listeners = mutable.Buffer[OnMenuItemClickListener]()
 
-	super.setOnMenuItemClickListener( new OnMenuItemClickListener
-	{
-		override def onMenuItemClick( item: MenuItem ) = listeners.map( _.onMenuItemClick( item ) ).contains( true )
-	} )
+	super.setOnMenuItemClickListener( ( item: MenuItem ) => listeners.map( _.onMenuItemClick( item ) ).contains( true ) )
 
-	override final def setOnMenuItemClickListener( listener: OnMenuItemClickListener )
-	{
-		throw new RuntimeException( "Use addOnMenuItemClickListener" )
-	}
+	override final def setOnMenuItemClickListener( listener: OnMenuItemClickListener ) = sys.error( "Use addOnMenuItemClickListener" )
 
-	def addOnMenuItemClickListener( listener: OnMenuItemClickListener ) =
+	def addOnMenuItemClickListener( listener: OnMenuItemClickListener ) = listeners += listener
+
+	def removeOnMenuItemClickListener( listener: OnMenuItemClickListener ) = listeners -= listener
+
+	def clear()
 	{
-		listeners.append( listener )
-		this
+		getMenu.clear()
+		listeners.clear()
 	}
 }

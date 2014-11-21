@@ -2,7 +2,7 @@ package com.taig.android.content
 
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
-import android.view.{View, ViewGroup}
+import android.view.{Menu, View, ViewGroup}
 import com.taig.android._
 import com.taig.android.conversion._
 
@@ -27,6 +27,75 @@ with	Contextual
 
 		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
 		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
+	}
+
+	override def onCreateOptionsMenu( menu: Menu ) =
+	{
+		// This is so hacky. Shame on your fucked up lifecycle, Android :/
+		// There appears to be an issue with the ViewPager that leads to multiple calls of this method and
+		// therefore multiple menu inflations. To prevent this before creating the menu all elements are cleared.
+		// Even worse: this seems to be a race condition related issue that does not appear all of the times.
+		// Further discussion: https://code.google.com/p/android/issues/detail?id=29472
+		this match
+		{
+			case activity: activity.Options => activity.options.clear()
+			case _ => // Noting to do
+		}
+
+		this match
+		{
+			case activity: activity.Fragment =>
+			{
+				activity.fragment.getActive() match
+				{
+					case fragment: fragment.Options => fragment.options.clear()
+					case _ => // Nothing to do
+				}
+			}
+		}
+
+		this match
+		{
+			case activity: activity.Options => activity.options.inflate()
+			case _ => // Noting to do
+		}
+
+		this match
+		{
+			case activity: activity.Fragment =>
+			{
+				activity.fragment.getActive() match
+				{
+					case fragment: fragment.Options => fragment.options.inflate()
+					case _ => // Nothing to do
+				}
+			}
+		}
+
+		super.onCreateOptionsMenu( menu )
+	}
+
+	override def supportInvalidateOptionsMenu()
+	{
+		super.supportInvalidateOptionsMenu()
+
+		this match
+		{
+			case activity: activity.Options => activity.options.clear()
+			case _ => // Noting to do
+		}
+
+		this match
+		{
+			case activity: activity.Fragment =>
+			{
+				activity.fragment.getActive() match
+				{
+					case fragment: fragment.Options => fragment.options.clear()
+					case _ => // Nothing to do
+				}
+			}
+		}
 	}
 
 	def setRootView( resource: Int ): Unit = setRootView( getLayoutInflater.inflate( resource, null ) )

@@ -40,7 +40,7 @@ object Fragment
 			}
 			catch
 			{
-				case e: InvocationTargetException => throw e.getCause
+				case exception: InvocationTargetException => throw exception.getCause
 			}
 		}
 	}

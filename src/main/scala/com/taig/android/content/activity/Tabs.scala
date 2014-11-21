@@ -1,7 +1,6 @@
 package com.taig.android.content.activity
 
 import android.os.Bundle
-import com.astuetz.PagerSlidingTabStrip
 import com.taig.android._
 import com.taig.android.content._
 
@@ -50,11 +49,7 @@ object Tabs
 	{
 		def titles: Seq[String]
 
-		lazy val widget =
-		{
-			val tabs = context.inflater.inflate( R.layout.tabs, null ).asInstanceOf[PagerSlidingTabStrip]
-			tabs
-		}
+		lazy val widget = context.inflater.inflate( R.layout.tabs, null ).asInstanceOf[com.taig.android.widget.Tabs]
 	}
 
 	trait	Pager

@@ -3,14 +3,14 @@
 
 An Android library project providing essential helpers
 
-This library is the foundatation for the [Coyote Buttes Live Wallpaper](https://play.google.com/store/apps/details?id=com.taig.wallpaper.coyote_buttes)
+This library is the foundation for the [Coyote Buttes Live Wallpaper](https://play.google.com/store/apps/details?id=com.taig.wallpaper.coyote_buttes)
 
 **Install**
 
 ````
 resolvers += Resolver.url( "Toolbelt", url( "http://taig.github.io/Toolbelt/release" ) )( ivyStylePatterns )
 
-libraryDependencies += "com.taig.android" %% "toolbelt" % "0.1.10-BETA"
+libraryDependencies += "com.taig.android" %% "toolbelt" % "0.3.2-BETA"
 ````
 
 **Features**
