@@ -1,12 +1,12 @@
 package com.taig.android
 
-import android.app.SearchManager
+import android.app.{TimePickerDialog, SearchManager}
 import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.{ActionMenuView, Toolbar}
 import android.view.{KeyEvent, MenuItem, View, ViewTreeObserver}
-import android.widget.{AdapterView, CompoundButton, TextView}
+import android.widget.{TimePicker, AdapterView, CompoundButton, TextView}
 
 package object conversion
 {
@@ -158,6 +158,22 @@ package object conversion
 	implicit def `Function3 -> Boolean -> TextView.OnEditorActionListener`[T <: TextView]( f: ( T, Int, KeyEvent ) => Boolean ) = new TextView.OnEditorActionListener
 	{
 		override def onEditorAction( view: TextView, action: Int, event: KeyEvent ) = f( view.asInstanceOf[T], action, event )
+	}
+
+	implicit def `Function2 -> Unit -> TimePickerDialog.OnTimeSetListener`( f: ( Int, Int ) => Unit ) =
+	{
+		new TimePickerDialog.OnTimeSetListener
+		{
+			override def onTimeSet( view: TimePicker, hour: Int, minute: Int ) = f( hour, minute )
+		}
+	}
+
+	implicit def `Function3 -> Unit -> TimePickerDialog.OnTimeSetListener`( f: ( TimePicker, Int, Int ) => Unit ) =
+	{
+		new TimePickerDialog.OnTimeSetListener
+		{
+			override def onTimeSet( view: TimePicker, hour: Int, minute: Int ) = f( view, hour, minute )
+		}
 	}
 
 	implicit def `Function1 -> Unit -> Toolbar.OnMenuItemClickListener`( f: MenuItem => Boolean ) = new Toolbar.OnMenuItemClickListener
