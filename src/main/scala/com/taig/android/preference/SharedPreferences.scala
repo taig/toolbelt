@@ -3,6 +3,9 @@ package com.taig.android.preference
 import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.preference.PreferenceManager
+import scala.collection.JavaConversions._
+
+import scala.reflect.ClassTag
 
 class	SharedPreferences( preferences: android.content.SharedPreferences )
 extends	android.content.SharedPreferences
@@ -12,42 +15,50 @@ with	Dynamic
 
 	def updateDynamic( key: String )( value: Any ) = put( key, value )
 
-	def applyDynamic[T]( key: String )( args: T* ): T =
+	def applyDynamic[T: ClassTag]( key: String )( args: T* ): T =
 	{
 		require( args.length == 1, "There must be exactly 1 argument (default value)" )
+
 		get( key, args( 0 ) )
 	}
 
-	def get[T]( key: String ): Option[T] = Option( preferences.getAll.get( key ).asInstanceOf[T] )
+	def get[T: ClassTag]( key: String ): Option[T] = Option( preferences.getAll.get( key ).asInstanceOf[T] )
 
-	def get[T]( key: Key[T] ): T = get( key.name, key.default )
-
-	def get[T]( key: String, default: T ): T = ( default match
+	def get[T: ClassTag]( key: String, default: T ): T =
 	{
-		case boolean: Boolean => getBoolean( key, boolean )
-		case float: Float => getFloat( key, float )
-		case int: Int => getInt( key, int )
-		case long: Long => getLong( key, long )
-		case string: String => getString( key, string )
-		//case set: Set[String] => getStringSet( key, set )
-		case _ => throw new RuntimeException( s"Could not apply a value for $key" )
-	} ).asInstanceOf[T]
+		val string = implicitly[ClassTag[String]]
 
-	def put[T]( key: Key[T], value: T ): Unit = put( key.name, value )
+		val set = implicitly[ClassTag[Set[String]]]
 
-	def put( key: String, value: Any )
+		( implicitly[ClassTag[T]] match
+		{
+			case ClassTag.Boolean => getBoolean( key, default.asInstanceOf[Boolean] )
+			case ClassTag.Float => getFloat( key, default.asInstanceOf[Float] )
+			case ClassTag.Int => getInt( key, default.asInstanceOf[Int] )
+			case ClassTag.Long => getLong( key, default.asInstanceOf[Long] )
+			case `set` => getStringSet( key, default.asInstanceOf[Set[String]] )
+			case `string` => getString( key, default.asInstanceOf[String] )
+			case _ => throw new RuntimeException( s"Could not apply a value for $key" )
+		} ).asInstanceOf[T]
+	}
+
+	def put[T: ClassTag]( key: String, value: T )
 	{
 		val editor = edit()
 
-		value match
+		val string = implicitly[ClassTag[String]]
+
+		val set = implicitly[ClassTag[Set[String]]]
+
+		implicitly[ClassTag[T]] match
 		{
-			case boolean: Boolean => editor.putBoolean( key, boolean )
-			case float: Float => editor.putFloat( key, float )
-			case int: Int => editor.putInt( key, int )
-			case long: Long => editor.putLong( key, long )
-			case string: String => editor.putString( key, string )
-			//case set: Set[String] => editor.putStringSet( key, set )
-			case _ => throw new RuntimeException( s"Could not update a value for $key" )
+			case ClassTag.Boolean => editor.putBoolean( key, value.asInstanceOf[Boolean] )
+			case ClassTag.Float => editor.putFloat( key, value.asInstanceOf[Float] )
+			case ClassTag.Int => editor.putInt( key, value.asInstanceOf[Int] )
+			case ClassTag.Long => editor.putLong( key, value.asInstanceOf[Long] )
+			case `set` => editor.putStringSet( key, value.asInstanceOf[Set[String]] )
+			case `string` => editor.putString( key, value.asInstanceOf[String] )
+			case _ => throw new RuntimeException( s"Could not apply a value for $key" )
 		}
 
 		editor.commit()
