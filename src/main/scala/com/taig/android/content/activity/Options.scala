@@ -14,7 +14,15 @@ with	content.Options
 	{
 		new Property( this ) with Options.Property
 		{
-			override def id = menu
+			override def ids = Seq( menu )
+		}
+	}
+
+	implicit def `Seq[Int] -> Options.Property`( menus: Seq[Int] ): Options.Property =
+	{
+		new Property( this ) with Options.Property
+		{
+			override def ids = menus
 		}
 	}
 
@@ -32,7 +40,15 @@ object Options
 		{
 			new content.Property( this ) with Split.Property
 			{
-				override def id = menu
+				override def ids = Seq( menu )
+			}
+		}
+
+		override implicit def `Seq[Int] -> Options.Property`( menus: Seq[Int] ): Split.Property =
+		{
+			new content.Property( this ) with Split.Property
+			{
+				override def ids = menus
 			}
 		}
 

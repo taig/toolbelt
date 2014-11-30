@@ -31,7 +31,7 @@ object Options
 				case Some( split ) =>
 				{
 					val menu = new MenuBuilder( context )
-					new SupportMenuInflater( context ).inflate( id, menu )
+					ids.foreach( new SupportMenuInflater( context ).inflate( _, menu ) )
 
 					val items = new
 					{
@@ -62,9 +62,11 @@ object Options
 	trait	Property
 	extends	content.Property[Options]
 	{
-		def id: Int
+		protected implicit def `Int -> Seq[Int]`( id: Int ): Seq[Int] = Seq( id )
 
-		def inflate() = content.actionbar.main.inflateMenu( id )
+		def ids: Seq[Int]
+
+		def inflate() = ids.foreach( content.actionbar.main.inflateMenu )
 
 		def find( id: Int ) = content.actionbar.main.getMenu.findItem( id )
 
