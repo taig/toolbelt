@@ -5,7 +5,9 @@ import com.taig.android.serialization._
 
 import scala.math._
 
-case class Resolution( width: Int, height: Int ) extends Pair.Numeric with Parcelable
+case class	Resolution( width: Int, height: Int ) 
+extends		Pair.Numeric
+with		Parcelable
 {
 	override type S = Resolution
 
@@ -15,7 +17,19 @@ case class Resolution( width: Int, height: Int ) extends Pair.Numeric with Parce
 
 	override def map( f: ( Int, Int ) => ( Int, Int ) ) = f( width, height )
 
-	val aspectRatio = width / height.toFloat
+	/**
+	 * Aspect ration of this Resolution
+	 * 
+	 * @return ( with to height, height to width )
+	 */
+	def getAspectRatio() = ( width / height.toFloat, height / width.toFloat )
+
+	/**
+	 * Compare with and height of this Resolution with the target
+	 * 
+	 * @return ( width to target width, height to target height )
+	 */
+	def getRatioTo( target: Resolution ) = ( target.width / width.toFloat, target.height / height.toFloat )
 
 	/**
 	 * Down- or upscale this Resolution until one of it's dimensions matches the target
@@ -24,29 +38,29 @@ case class Resolution( width: Int, height: Int ) extends Pair.Numeric with Parce
 	 */
 	def scaleTo( target: Resolution ) = this *
 	{
+		lazy val ratio = getRatioTo( target )
+
 		if( this > target )
 		{
-			max( target.width / width.toFloat, target.height / height.toFloat )
+			max( ratio._1, ratio._2 )
 		}
 		else if( this < target )
 		{
-			min( target.width / width.toFloat, target.height / height.toFloat )
+			min( ratio._1, ratio._2 )
 		}
 		else if( width > target.width )
 		{
-			target.width / width.toFloat
+			ratio._1
 		}
 		else if( height > target.height )
 		{
-			target.height / height.toFloat
+			ratio._2
 		}
 		else
 		{
 			1
 		}
 	}
-
-	def ratio( resolution: Resolution ) = ( width / resolution.width.toFloat, height / resolution.height.toFloat )
 
 	def >( resolution: Resolution ) = width > resolution.width && height > resolution.height
 
