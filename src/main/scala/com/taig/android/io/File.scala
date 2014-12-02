@@ -38,10 +38,9 @@ object File
 
 		def decode(): Bitmap = decode( getDefaultOptions )
 
-		/**
-		 * Scale until at least one edge matches the target
-		 */
-		def decode( target: Resolution, options: Options = getDefaultOptions ): Bitmap =
+		def decode( target: Resolution ): Bitmap = decode( target, getDefaultOptions )
+
+		def decode( target: Resolution, options: Options ): Bitmap =
 		{
 			if( options.inSampleSize == 0 )
 			{
@@ -58,7 +57,14 @@ object File
 
 			if( scaled != target )
 			{
-				Bitmap.createScaledBitmap( bitmap, scaled.width, scaled.height, false )
+				try
+				{
+					Bitmap.createScaledBitmap( bitmap, scaled.width, scaled.height, false )
+				}
+				finally
+				{
+					bitmap.recycle()
+				}
 			}
 			else
 			{
@@ -76,7 +82,9 @@ object File
 
 		def decode( clipping: Area, options: Options ): Bitmap = decode( 1, clipping, options )
 
-		def decode( scale: Float, clipping: Area, options: Options = getDefaultOptions ): Bitmap =
+		def decode( scale: Float, clipping: Area): Bitmap = decode( scale, clipping, getDefaultOptions )
+
+		def decode( scale: Float, clipping: Area, options: Options ): Bitmap =
 		{
 			// When the sample size has not been set we'll make a sampled decoding part of the scaling process.
 			if( scale != 1 && options.inSampleSize == 0 )
