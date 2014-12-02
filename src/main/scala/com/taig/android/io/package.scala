@@ -13,7 +13,7 @@ package object io
 {
 	implicit class RichBitmap( bitmap: Bitmap )
 	{
-		lazy val resolution = Resolution( bitmap.getWidth, bitmap.getHeight )
+		def getResolution() = Resolution( bitmap.getWidth, bitmap.getHeight )
 
 		def toBase64(): String =
 		{
