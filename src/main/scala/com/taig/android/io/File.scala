@@ -41,7 +41,7 @@ object File
 		/**
 		 * Scale until at least one edge matches the target
 		 */
-		def decode( target: Resolution, options: Options = getDefaultOptions ) =
+		def decode( target: Resolution, options: Options = getDefaultOptions ): Bitmap =
 		{
 			if( options.inSampleSize == 0 )
 			{
