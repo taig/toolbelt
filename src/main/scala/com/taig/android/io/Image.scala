@@ -1,22 +1,21 @@
 package com.taig.android.io
 
-import java.io.{BufferedInputStream, InputStream}
+import java.io.{File, FileInputStream, InputStream}
 
 import android.content.Context
 import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.Options
 import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import android.net.Uri
-import android.util.Log
 import com.taig.android.graphic.{Area, Resolution}
 
 import scala.math._
 
-class Image( val stream: BufferedInputStream )
+class Image private( stream: () => InputStream )
 {
-	def this( stream: InputStream ) = this( new BufferedInputStream( stream ) )
+	def this( file: File ) = this( () => new FileInputStream( file ) )
 
-	def this( uri: Uri )( implicit context: Context ) = this( context.getContentResolver.openInputStream( uri ) )
+	def this( uri: Uri )( implicit context: Context ) = this( () => context.getContentResolver.openInputStream( uri ) )
 
 	val resolution =
 	{
@@ -26,9 +25,9 @@ class Image( val stream: BufferedInputStream )
 			inScaled = false
 		}
 
-		stream.mark( 1024 )
+		val stream = this.stream()
 		BitmapFactory.decodeStream( stream, null, options )
-		stream.reset()
+		stream.close()
 
 		Resolution( options.outWidth, options.outHeight )
 	}
@@ -70,6 +69,7 @@ class Image( val stream: BufferedInputStream )
 				.getOrElse( 1 )
 		}
 
+		val stream = this.stream()
 		val bitmap = BitmapFactory.decodeStream( stream, null, options )
 		stream.close()
 
