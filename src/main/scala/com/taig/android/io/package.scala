@@ -1,6 +1,6 @@
 package com.taig.android
 
-import java.io.{ByteArrayOutputStream, File, FileInputStream}
+import java.io.{ByteArrayOutputStream, File}
 
 import android.graphics.Bitmap
 import android.util.Base64
@@ -49,6 +49,6 @@ package object io
 			deleteRecursively( file )
 		}
 
-		def asImage() = Try( new Image( new FileInputStream( file ) ) )
+		def asImage() = Try( new Image( file ) )
 	}
 }
