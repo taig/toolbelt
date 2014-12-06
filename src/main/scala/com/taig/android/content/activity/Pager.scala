@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.{app => support}
 import android.view.ViewGroup
 import com.taig.android._
+import com.taig.android.content.activity.Pager.Parameter
 import com.taig.android.content.{Activity, Property}
 
 trait	Pager
@@ -30,6 +31,10 @@ with	Fragment
 		setContentView( R.layout.pager )
 
 		pager.widget.setAdapter( pager.adapter )
+
+		Option( getIntent.getSerializableExtra( Parameter.Page ) )
+			.map( _.asInstanceOf[Class[support.Fragment]] )
+			.foreach( selection => pager.widget.setCurrentItem( fragment.all.indexOf( selection ) ) )
 	}
 
 	protected class	Adapter
@@ -56,6 +61,11 @@ with	Fragment
 
 object Pager
 {
+	val Parameter = new
+	{
+		val Page = getClass.getName + ".Page"
+	}
+
 	trait	Property
 	extends	content.Property[Pager]
 	{
