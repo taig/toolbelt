@@ -52,12 +52,13 @@ with	Contextual
 					case _ => // Nothing to do
 				}
 			}
+			case _ => // Nothing to do?
 		}
 
 		this match
 		{
 			case activity: activity.Options => activity.options.inflate()
-			case _ => // Noting to do
+			case _ => // Nothing to do
 		}
 
 		this match
@@ -70,6 +71,7 @@ with	Contextual
 					case _ => // Nothing to do
 				}
 			}
+			case _ => // Nothing to do?
 		}
 
 		super.onCreateOptionsMenu( menu )
@@ -82,7 +84,7 @@ with	Contextual
 		this match
 		{
 			case activity: activity.Options => activity.options.clear()
-			case _ => // Noting to do
+			case _ => // Nothing to do
 		}
 
 		this match
@@ -95,6 +97,7 @@ with	Contextual
 					case _ => // Nothing to do
 				}
 			}
+			case _ => // Nothing to do?
 		}
 	}
 
