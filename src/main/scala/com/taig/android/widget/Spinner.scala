@@ -3,7 +3,7 @@ package com.taig.android.widget
 import android.content.Context
 import android.util.AttributeSet
 
-class	Spinner( val attributes: AttributeSet = null, val style: Int = android.R.attr.editTextStyle, val mode: Int = -1 )( implicit context: Context )
+class	Spinner( val attributes: AttributeSet = null, val style: Int = android.R.attr.spinnerStyle, val mode: Int = -1 )( implicit context: Context )
 extends	android.widget.Spinner( context, attributes, style, mode )
 with	Widget.Styleable
 {
