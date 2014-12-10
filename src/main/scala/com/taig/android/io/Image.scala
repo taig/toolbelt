@@ -7,7 +7,7 @@ import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.Options
 import android.graphics.{Bitmap, BitmapFactory, Matrix}
 import android.net.Uri
-import com.taig.android.graphic.{Area, Resolution}
+import com.taig.android.graphic._
 
 import scala.math._
 
@@ -40,6 +40,7 @@ class Image private( stream: () => InputStream )
 
 	def decode( target: Resolution, options: Options ): Bitmap =
 	{
+		require( target > ( 0 x 0 ), s"Target resolution ($target) must be > 0 x 0" )
 		val ( x, y ) = resolution.getRatioTo( target )
 		decode( max( x, y ), options )
 	}
@@ -58,6 +59,8 @@ class Image private( stream: () => InputStream )
 
 	def decode( scale: Float, clipping: Area, options: Options ): Bitmap =
 	{
+		require( scale > 0, s"Scale ($scale) must be > 0" )
+
 		// When the sample size has not been set we'll make a sampled decoding part of the scaling process.
 		if( scale != 1 && options.inSampleSize == 0 )
 		{
