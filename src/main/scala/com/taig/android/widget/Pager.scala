@@ -40,17 +40,27 @@ with	Widget
 
 	super.setOnPageChangeListener( Listener )
 
-	override def onAttachedToWindow()
-	{
-		super.onAttachedToWindow()
+	def isSwipeEnabled = swipe
 
-		if( getCurrentItem == 0 )
-		{
-			triggerFocusEvents()
-		}
+	def setSwipeEnabled( enabled: Boolean ) = swipe = enabled
+
+	override def onTouchEvent( event: MotionEvent ) = if( swipe ) super.onTouchEvent( event ) else false
+
+	override def onInterceptTouchEvent( event: MotionEvent ) =
+	{
+		if( swipe ) super.onInterceptTouchEvent( event ) else false
 	}
 
-	protected def triggerFocusEvents() =
+	override def setOnPageChangeListener( listener: OnPageChangeListener ) = if( listener != null )
+	{
+		addOnPageChangeListener( listener )
+	}
+
+	def addOnPageChangeListener( listener: OnPageChangeListener ) = listeners += listener
+
+	def removeOnPageChangeListener( listener: OnPageChangeListener ) = listeners -= listener
+
+	def triggerFocusListeners()
 	{
 		getAdapter match
 		{
@@ -77,26 +87,6 @@ with	Widget
 		previous = Some( getCurrentItem )
 	}
 
-	def isSwipeEnabled = swipe
-
-	def setSwipeEnabled( enabled: Boolean ) = swipe = enabled
-
-	override def onTouchEvent( event: MotionEvent ) = if( swipe ) super.onTouchEvent( event ) else false
-
-	override def onInterceptTouchEvent( event: MotionEvent ) =
-	{
-		if( swipe ) super.onInterceptTouchEvent( event ) else false
-	}
-
-	override def setOnPageChangeListener( listener: OnPageChangeListener ) = if( listener != null )
-	{
-		addOnPageChangeListener( listener )
-	}
-
-	def addOnPageChangeListener( listener: OnPageChangeListener ) = listeners += listener
-
-	def removeOnPageChangeListener( listener: OnPageChangeListener ) = listeners -= listener
-
 	private object	Listener
 	extends			ViewPager.OnPageChangeListener
 	{
@@ -107,7 +97,8 @@ with	Widget
 
 		override def onPageSelected( position: Int )
 		{
-			triggerFocusEvents()
+			triggerFocusListeners()
+
 			listeners.foreach( _.onPageSelected( position ) )
 		}
 
