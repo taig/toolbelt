@@ -3,6 +3,7 @@ package com.taig.android.content.activity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.{app => support}
+import android.util.SparseArray
 import android.view.ViewGroup
 import com.taig.android._
 import com.taig.android.content.activity.Pager.Parameter
@@ -40,9 +41,26 @@ with	Fragment
 	protected class	Adapter
 	extends			FragmentPagerAdapter( getSupportFragmentManager )
 	{
+		private val fragments = new SparseArray[support.Fragment]()
+
 		protected[Pager] var current: support.Fragment = null
 
-		override def getItem( position: Int ) = fragment.instantiate( fragment.all( position ) )
+		override def getItem( position: Int ) = Option( fragments.get( position ) ) match
+		{
+			case Some( fragment ) => fragment
+			case None =>
+			{
+				val `new` = fragment.instantiate( fragment.all( position ) )
+				fragments.put( position, `new` )
+				`new`
+			}
+		}
+
+		override def destroyItem( container: ViewGroup, position: Int, `object`: scala.Any )
+		{
+			super.destroyItem( container, position, `object` )
+			fragments.remove( position )
+		}
 
 		override def getCount = fragment.all.length
 
