@@ -25,7 +25,7 @@ extends	Image
 
 	initialize( R.styleable.Widget_Image_AspectRatio, ( array: TypedArray ) =>
 	{
-		setRatioDiminance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, getRatioDominance ) )
+		setRatioDominance( array.getInt( R.styleable.Widget_Image_AspectRatio_dominance, getRatioDominance ) )
 
 		setRatioEnabled( array.getBoolean( R.styleable.Widget_Image_AspectRatio_ratio, isRatioEnabled ) )
 
@@ -52,7 +52,7 @@ extends	Image
 	 * @param dominance [[Dominance.Auto]] (default), [[Dominance.Width]] or [[Dominance.Height]]
 	 * @see [[R.styleable.Widget_Image_AspectRatio_dominance]]
 	 */
-	def setRatioDiminance( dominance: Int ) = ratio.dominance = dominance
+	def setRatioDominance( dominance: Int ) = ratio.dominance = dominance
 
 	/**
 	 * Check whether the ratio constrains are enabled and therefore being applied to the view
@@ -96,10 +96,11 @@ extends	Image
 	 */
 	private def resolve( width: Int, height: Int, dominance: Int = getRatioDominance ): ( Int, Int ) = dominance match
 	{
-		case Dominance.Auto if width <= height => resolve( width, height, Dominance.Width )
+		case Dominance.Auto if width < height => resolve( width, height, Dominance.Width )
 		case Dominance.Auto if height < width => resolve( width, height, Dominance.Height )
 		case Dominance.Width => ( width, ( width * getRatio ).toInt )
 		case Dominance.Height => ( ( height * getRatio ).toInt, height )
+		case _ => ( width, height )
 	}
 
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )
