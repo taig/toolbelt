@@ -66,15 +66,13 @@ object Pager
 	extends	content.Property[Pager]
 	with	content.activity.Fragment.Property
 	{
-		override def getActive() = content.pager.adapter.current
+		override def getActive() = content.pager.adapter.getFragment( content.pager.widget.getCurrentItem )
 	}
 
 	class	Adapter( activity: Pager )
 	extends	FragmentPagerAdapter( activity.getSupportFragmentManager )
 	{
 		private val fragments = new SparseArray[support.Fragment]()
-
-		protected[Pager] var current: support.Fragment = null
 
 		override def getItem( position: Int ) =
 		{
@@ -97,16 +95,5 @@ object Pager
 		}
 
 		override def getCount = activity.fragment.all.length
-
-		override def setPrimaryItem( container: ViewGroup, position: Int, `object`: Any )
-		{
-			this.current = `object` match
-			{
-				case fragment: support.Fragment => fragment
-				case _ => null
-			}
-
-			super.setPrimaryItem( container, position, `object` )
-		}
 	}
 }
