@@ -31,15 +31,6 @@ with	Pager
 		tabs.widget.setViewPager( pager.widget )
 		addHeaderView( tabs.widget )
 	}
-
-	protected class	Adapter
-	extends			super.Adapter
-	with			widget.Tabs.Adapter
-	{
-		override implicit def context = Tabs.this.context
-
-		override def getPageTitle( position: Int ) = tabs.titles( position )
-	}
 }
 
 object Tabs
@@ -56,6 +47,15 @@ object Tabs
 	extends	content.Property[Tabs]
 	with	Pager.Property
 	{
-		override lazy val adapter = new content.Adapter
+		override lazy val adapter = new Adapter( content )
+	}
+
+	class	Adapter( activity: Tabs )
+	extends	Pager.Adapter( activity )
+	with	widget.Tabs.Adapter
+	{
+		override implicit def context = activity.context
+
+		override def getPageTitle( position: Int ) = activity.tabs.titles( position )
 	}
 }

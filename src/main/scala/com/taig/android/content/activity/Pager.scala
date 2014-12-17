@@ -37,44 +37,6 @@ with	Fragment
 			.map( _.asInstanceOf[Class[support.Fragment]] )
 			.foreach( selection => pager.widget.setCurrentItem( fragment.all.indexOf( selection ) ) )
 	}
-
-	protected class	Adapter
-	extends			FragmentPagerAdapter( getSupportFragmentManager )
-	{
-		private val fragments = new SparseArray[support.Fragment]()
-
-		protected[Pager] var current: support.Fragment = null
-
-		override def getItem( position: Int ) = Option( fragments.get( position ) ) match
-		{
-			case Some( fragment ) => fragment
-			case None =>
-			{
-				val `new` = fragment.instantiate( fragment.all( position ) )
-				fragments.put( position, `new` )
-				`new`
-			}
-		}
-
-		override def destroyItem( container: ViewGroup, position: Int, `object`: scala.Any )
-		{
-			super.destroyItem( container, position, `object` )
-			fragments.remove( position )
-		}
-
-		override def getCount = fragment.all.length
-
-		override def setPrimaryItem( container: ViewGroup, position: Int, `object`: Any )
-		{
-			this.current = `object` match
-			{
-				case fragment: support.Fragment => fragment
-				case _ => null
-			}
-
-			super.setPrimaryItem( container, position, `object` )
-		}
-	}
 }
 
 object Pager
@@ -89,7 +51,7 @@ object Pager
 	{
 		lazy val widget = content.findViewById( R.id.pager ).asInstanceOf[com.taig.android.widget.Pager]
 
-		lazy val adapter = new content.Adapter
+		lazy val adapter = new Adapter( content )
 
 		def next() = widget.setCurrentItem( widget.getCurrentItem + 1 )
 
@@ -105,5 +67,46 @@ object Pager
 	with	content.activity.Fragment.Property
 	{
 		override def getActive() = content.pager.adapter.current
+	}
+
+	class	Adapter( activity: Pager )
+	extends	FragmentPagerAdapter( activity.getSupportFragmentManager )
+	{
+		private val fragments = new SparseArray[support.Fragment]()
+
+		protected[Pager] var current: support.Fragment = null
+
+		override def getItem( position: Int ) =
+		{
+			activity.fragment.instantiate( activity.fragment.all( position ) )
+		}
+
+		def getFragment( position: Int ) = fragments.get( position )
+
+		override def instantiateItem( container: ViewGroup, position: Int ) =
+		{
+			val `new` = super.instantiateItem( container, position ).asInstanceOf[support.Fragment]
+			fragments.put( position, `new` )
+			`new`
+		}
+
+		override def destroyItem( container: ViewGroup, position: Int, `object`: scala.Any )
+		{
+			super.destroyItem( container, position, `object` )
+			fragments.remove( position )
+		}
+
+		override def getCount = activity.fragment.all.length
+
+		override def setPrimaryItem( container: ViewGroup, position: Int, `object`: Any )
+		{
+			this.current = `object` match
+			{
+				case fragment: support.Fragment => fragment
+				case _ => null
+			}
+
+			super.setPrimaryItem( container, position, `object` )
+		}
 	}
 }

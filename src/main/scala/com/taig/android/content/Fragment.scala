@@ -1,13 +1,34 @@
 package com.taig.android.content
 
-import android.support.v4.app.{DialogFragment, ListFragment}
+import android.support.v4.app.{FragmentActivity, DialogFragment, ListFragment}
 import com.taig.android.content
 
 trait	Fragment
 extends	android.support.v4.app.Fragment
 with	Contextual
 {
-	override implicit def context = getActivity
+	// Manually store context, as it is mysteriously getting lost otherwise
+	implicit override def context = Option( activity ).getOrElse( getActivity )
+
+	private var activity: FragmentActivity = null
+
+	override def onAttach( activity: android.app.Activity )
+	{
+		super.onAttach( activity )
+
+		this.activity = activity match
+		{
+			case activity: FragmentActivity => activity
+			case _ => null
+		}
+	}
+
+	override def onDetach()
+	{
+		super.onDetach()
+
+		this.activity = null
+	}
 
 	def findViewById( id: Int ) = getView.findViewById( id )
 }
