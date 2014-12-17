@@ -3,7 +3,6 @@ package com.taig.android.content.activity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.{app => support}
-import android.util.SparseArray
 import android.view.ViewGroup
 import com.taig.android._
 import com.taig.android.content.activity.Pager.Parameter
@@ -72,8 +71,6 @@ object Pager
 	class	Adapter( activity: Pager )
 	extends	FragmentPagerAdapter( activity.getSupportFragmentManager )
 	{
-		private val fragments = new SparseArray[support.Fragment]()
-
 		protected[Pager] var current: support.Fragment = null
 
 		override def getItem( position: Int ) =
@@ -81,20 +78,9 @@ object Pager
 			activity.fragment.instantiate( activity.fragment.all( position ) )
 		}
 
-		def getFragment( position: Int ) = fragments.get( position )
-
-		override def instantiateItem( container: ViewGroup, position: Int ) =
-		{
-			val `new` = super.instantiateItem( container, position ).asInstanceOf[support.Fragment]
-			fragments.put( position, `new` )
-			`new`
-		}
-
-		override def destroyItem( container: ViewGroup, position: Int, `object`: scala.Any )
-		{
-			super.destroyItem( container, position, `object` )
-			fragments.remove( position )
-		}
+		def getFragment( position: Int ) = activity
+			.getSupportFragmentManager
+			.findFragmentByTag( getName( position ) )
 
 		override def getCount = activity.fragment.all.length
 
@@ -107,6 +93,22 @@ object Pager
 			}
 
 			super.setPrimaryItem( container, position, `object` )
+		}
+
+		private def getName( position: Int ) =
+		{
+			val method = classOf[FragmentPagerAdapter].getDeclaredMethod(
+				"makeFragmentName",
+				java.lang.Integer.TYPE,
+				java.lang.Long.TYPE
+			)
+
+			method.setAccessible( true )
+			method.invoke(
+				null,
+				activity.pager.widget.getId: java.lang.Integer,
+				getItemId( position ): java.lang.Long
+			).asInstanceOf[String]
 		}
 	}
 }
