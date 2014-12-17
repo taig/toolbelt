@@ -2,12 +2,12 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.util.{AttributeSet, Log}
 import android.view.MotionEvent
 import com.taig.android._
+import com.taig.android.content.activity.Pager.Adapter
 import com.taig.android.content.fragment.Paged
 import com.taig.android.widget.Pager.Tag
 
@@ -64,15 +64,15 @@ with	Widget
 	{
 		getAdapter match
 		{
-			case adapter: FragmentPagerAdapter =>
+			case adapter: Adapter =>
 			{
-				previous.map( adapter.getItem ) match
+				previous.map( adapter.getFragment ) match
 				{
 					case Some( fragment: Paged ) => fragment.onPagerUnfocused()
 					case _ => // Nothing to do
 				}
 
-				adapter.getItem( getCurrentItem ) match
+				adapter.getFragment( getCurrentItem ) match
 				{
 					case fragment: Paged => fragment.onPagerFocused()
 					case _ => // Nothing to do

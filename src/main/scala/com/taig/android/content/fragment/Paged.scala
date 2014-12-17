@@ -6,7 +6,7 @@ import com.taig.android.content.Fragment
 import com.taig.android.content.activity.Pager
 
 /**
- * Optional mixin to mark this fragment as page of a ViewPager
+ * Optional mixin to mark this fragment as page of a ViewPager providing additional lifecycle callbacks
  */
 trait	Paged
 extends	Fragment
@@ -15,20 +15,24 @@ extends	Fragment
 	{
 		super.onViewCreated( view, state )
 
+		// Hack my way to initial event trigger
 		context match
 		{
-			case activity: Pager if
-				activity.pager.widget.getCurrentItem == 0 &&
-				activity.pager.adapter.getItem( 0 ) == this =>
-				{
-					// Hack around to initial event trigger
-					activity.pager.widget.triggerFocusListeners()
-				}
+			case activity: Pager if activity.pager.widget.getCurrentItem == 0 && activity.pager.adapter.getFragment( 0 ) == this =>
+			{
+				activity.pager.widget.triggerFocusListeners()
+			}
 			case _ => // Nothing to do
 		}
 	}
 
+	/**
+	 * Triggered when this fragment is used as the ViewPager's selection
+	 */
 	def onPagerFocused() {}
 
+	/**
+	 * Triggered when this fragment is no longer the ViewPager's selection
+	 */
 	def onPagerUnfocused() {}
 }
