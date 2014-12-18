@@ -96,11 +96,10 @@ extends	Image
 	 */
 	private def resolve( width: Int, height: Int, dominance: Int = getRatioDominance ): ( Int, Int ) = dominance match
 	{
-		case Dominance.Auto if width < height => resolve( width, height, Dominance.Width )
+		case Dominance.Auto if width <= height => resolve( width, height, Dominance.Width )
 		case Dominance.Auto if height < width => resolve( width, height, Dominance.Height )
 		case Dominance.Width => ( width, ( width * getRatio ).toInt )
 		case Dominance.Height => ( ( height * getRatio ).toInt, height )
-		case _ => ( width, height )
 	}
 
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )

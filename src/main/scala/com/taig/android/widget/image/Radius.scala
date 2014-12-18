@@ -77,9 +77,8 @@ trait Radius extends Image
 			return
 		}
 
-		rectangle.set( drawable.getBounds )
+		rectangle.set( 0, 0, drawable.getIntrinsicWidth, drawable.getIntrinsicHeight )
 
-		getImageMatrix.mapRect( rectangle )
 		rectangle.offset( getPaddingLeft, getPaddingTop )
 
 		// Prevent radius being drawn out of canvas bounds
