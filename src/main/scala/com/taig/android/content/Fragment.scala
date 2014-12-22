@@ -1,5 +1,6 @@
 package com.taig.android.content
 
+import android.os.Bundle
 import android.support.v4.app.{FragmentActivity, DialogFragment, ListFragment}
 import com.taig.android.content
 
@@ -35,8 +36,26 @@ with	Contextual
 
 object Fragment
 {
-	trait Dialog extends DialogFragment with Fragment
+	/**
+	 * Fragment dialog, which retains its instance state by default
+	 * 
+	 * @tparam D Dialog type that will be created by this Fragment and then returned from [[DialogFragment.getDialog()]]
+	 */
+	trait	Dialog[+D <: android.app.Dialog]
+	extends	DialogFragment
+	with	Fragment
 	{
+		override def onCreate( state: Bundle )
+		{
+			super.onCreate( state )
+
+			setRetainInstance( true )
+		}
+
+		override def getDialog = super.getDialog.asInstanceOf[D]
+
+		override def onCreateDialog( state: Bundle ): D = super.onCreateDialog( state ).asInstanceOf[D]
+
 		override def onDestroyView()
 		{
 			if( getDialog != null && getRetainInstance )
@@ -48,7 +67,9 @@ object Fragment
 		}
 	}
 
-	trait List extends ListFragment with Fragment
+	trait	List
+	extends	ListFragment
+	with	Fragment
 
 	/**
 	 * Flag a Fragment as Creditor of an Activity
@@ -57,7 +78,8 @@ object Fragment
 	 * 
 	 * @tparam C The Contract that is implemented by the Activity
 	 */
-	trait Creditor[+C <: Contract] extends content.Creditor[C]
+	trait	Creditor[+C <: Contract]
+	extends	content.Creditor[C]
 	{
 		this: Fragment =>
 
