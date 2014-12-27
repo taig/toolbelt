@@ -35,7 +35,9 @@ with	Contextual
 
 object Fragment
 {
-	trait Dialog extends DialogFragment with Fragment
+	trait	Dialog
+	extends	DialogFragment
+	with	Fragment
 	{
 		override def onDestroyView()
 		{
@@ -48,7 +50,9 @@ object Fragment
 		}
 	}
 
-	trait List extends ListFragment with Fragment
+	trait	List
+	extends	ListFragment
+	with	Fragment
 
 	/**
 	 * Flag a Fragment as Creditor of an Activity
@@ -57,7 +61,8 @@ object Fragment
 	 * 
 	 * @tparam C The Contract that is implemented by the Activity
 	 */
-	trait Creditor[+C <: Contract] extends content.Creditor[C]
+	trait	Creditor[+C <: Contract]
+	extends	content.Creditor[C]
 	{
 		this: Fragment =>
 
