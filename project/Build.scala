@@ -11,7 +11,7 @@ object Build extends android.AutoBuild
 			libraryDependencies ++= Seq(
 				"com.android.support" % "appcompat-v7" % "21.0.0",
 				"com.github.japgolly.android" % "svg-android" % "2.0.6",
-				"com.jpardogo.materialtabstrip" % "library" % "1.0.5",
+				"com.jpardogo.materialtabstrip" % "library" % "1.0.6",
 				"org.scala-lang" % "scala-reflect" % scalaVersion.value
 			),
 			name := "Toolbelt",
