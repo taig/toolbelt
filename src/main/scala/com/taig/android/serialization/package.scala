@@ -1,6 +1,6 @@
 package com.taig.android
 
-import android.os.{Bundle, Parcel}
+import android.os.{Parcelable, Bundle, Parcel}
 
 import scala.reflect.ClassTag
 
@@ -8,7 +8,22 @@ package object serialization
 {
 	private type ArrayList[T] = java.util.ArrayList[T]
 
-	implicit class RichBundle( bundle: Bundle ) {}
+	implicit class RichBundle( bundle: Bundle )
+	{
+		def putParcelableCollection( key: String, value: Traversable[Parcelable] )
+		{
+			bundle.putParcelableArray( key, value.toArray )
+		}
+
+		def getParcelableCollection[T]( key: String ): Option[Traversable[T]] =
+		{
+			Option( bundle.getParcelableArray( key ) )
+				.collect
+				{
+					case elements: Array[Parcelable] => elements.map( _.asInstanceOf[T] )
+				}
+		}
+	}
 
 	implicit class RichParcel( parcel: Parcel )
 	{
