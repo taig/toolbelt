@@ -1,5 +1,7 @@
 package com.taig.android.io
 
+import java.io.{FileInputStream, File, InputStream}
+
 import android.content.Context
 import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.Options
@@ -9,8 +11,12 @@ import com.taig.android.graphic._
 
 import scala.math._
 
-class Image( uri: Uri )( implicit context: Context )
+class Image private( stream: => InputStream )
 {
+	def this( file: File ) = this( new FileInputStream( file ) )
+
+	def this( uri: Uri )( implicit context: Context ) = this( context.getContentResolver.openInputStream( uri ) )
+
 	val resolution =
 	{
 		val options = new Options
@@ -19,7 +25,7 @@ class Image( uri: Uri )( implicit context: Context )
 			inScaled = false
 		}
 
-		val stream = context.getContentResolver.openInputStream( uri )
+		val stream = this.stream
 
 		try
 		{
@@ -73,7 +79,7 @@ class Image( uri: Uri )( implicit context: Context )
 				.getOrElse( 1 )
 		}
 
-		val stream = context.getContentResolver.openInputStream( uri )
+		val stream = this.stream
 
 		try
 		{

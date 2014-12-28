@@ -52,6 +52,6 @@ package object io
 
 		def isImage() = toImage().isSuccess
 
-		def toImage() = Try( new Image( Uri.fromFile( file ) ) )
+		def toImage() = Try( new Image( file ) )
 	}
 }
