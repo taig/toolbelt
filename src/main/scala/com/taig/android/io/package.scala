@@ -3,6 +3,7 @@ package com.taig.android
 import java.io.{ByteArrayOutputStream, File}
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Base64
 import com.taig.android.graphic.Resolution
 
@@ -49,6 +50,8 @@ package object io
 			deleteRecursively( file )
 		}
 
-		def asImage() = Try( new Image( file ) )
+		def isImage() = toImage().isSuccess
+
+		def toImage() = Try( new Image( Uri.fromFile( file ) ) )
 	}
 }
