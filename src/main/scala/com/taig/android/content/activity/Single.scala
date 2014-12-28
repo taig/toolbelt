@@ -22,11 +22,11 @@ with	Fragment
 
 	override def fragment: Single.Fragment
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 
-		if( state == null )
+		if( state.isEmpty )
 		{
 			getSupportFragmentManager
 				.beginTransaction()

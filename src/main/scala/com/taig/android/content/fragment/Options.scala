@@ -32,7 +32,7 @@ with	content.Options
 
 	override val actionbar = new Property( this ) with Options.ActionBar
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 

@@ -21,7 +21,7 @@ with	Pager
 
 	override val pager = new Property( this ) with Tabs.Pager 
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		require( tabs.titles.length == fragment.all.length, "Amount of fragments must equal amount of tab titles" )
 

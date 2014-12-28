@@ -18,7 +18,7 @@ extends	Fragment
 		super.onAttach( activity )
 	}
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		Log.d( getClass.getName, s"onCreate( $state )" )
 

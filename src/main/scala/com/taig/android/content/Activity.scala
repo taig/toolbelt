@@ -18,6 +18,11 @@ with	Contextual
 	{
 		super.onCreate( state )
 
+		onCreate( Option( state ) )
+	}
+
+	def onCreate( state: Option[Bundle] )
+	{
 		setRootView( R.layout.main )
 
 		// Adjust content margins to not be hidden behind the actionbar once the layout is done
@@ -27,11 +32,7 @@ with	Contextual
 
 		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
 		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
-
-		onCreate( Option( state ) )
 	}
-
-	def onCreate( state: Option[Bundle] ) {}
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{

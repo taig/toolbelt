@@ -14,7 +14,7 @@ extends	Activity
 
 	def drawer: Drawer.Property
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 
@@ -31,10 +31,9 @@ extends	Activity
 		drawer.wrapper.addView( drawer.widget )
 
 		// Restore drawer state: opened or closed?
-		Option( state ).collect
-		{
-			case state if state.getBoolean( Parameter.Drawer, false ) => drawer.root.openDrawer( drawer.wrapper )
-		}
+		state
+			.map( _.getBoolean( Parameter.Drawer, false ) )
+			.collect{ case true => drawer.root.openDrawer( drawer.wrapper ) }
 	}
 
 	/**
