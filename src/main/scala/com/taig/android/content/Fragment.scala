@@ -1,5 +1,6 @@
 package com.taig.android.content
 
+import android.os.Bundle
 import android.support.v4.app.{FragmentActivity, DialogFragment, ListFragment}
 import com.taig.android.content
 
@@ -11,6 +12,15 @@ with	Contextual
 	implicit override def context = Option( activity ).getOrElse( getActivity )
 
 	private var activity: FragmentActivity = null
+
+	override final def onCreate( state: Bundle )
+	{
+		super.onCreate( state )
+
+		onCreate( Option( state ) )
+	}
+
+	def onCreate( state: Option[Bundle] ) {}
 
 	override def onAttach( activity: android.app.Activity )
 	{

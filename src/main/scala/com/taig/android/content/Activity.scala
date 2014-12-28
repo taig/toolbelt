@@ -14,7 +14,7 @@ with	Contextual
 
 	private var root: View = null
 
-	override def onCreate( state: Bundle )
+	override final def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
 
@@ -27,7 +27,11 @@ with	Contextual
 
 		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
 		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
+
+		onCreate( Option( state ) )
 	}
+
+	def onCreate( state: Option[Bundle] ) {}
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
