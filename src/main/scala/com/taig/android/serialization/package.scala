@@ -8,6 +8,8 @@ package object serialization
 {
 	private type ArrayList[T] = java.util.ArrayList[T]
 
+	implicit class RichBundle( bundle: Bundle ) {}
+
 	implicit class RichParcel( parcel: Parcel )
 	{
 		def writeBoolean( boolean: Boolean ) = parcel.writeValue( boolean )
