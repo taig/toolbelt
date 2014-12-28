@@ -16,7 +16,7 @@ with	content.ActionBar
 {
 	override val actionbar = new Property( this ) with ActionBar.Property
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 
@@ -33,7 +33,7 @@ object ActionBar
 	{
 		override val actionbar = new content.Property( this ) with Split.Property
 
-		override def onCreate( state: Bundle )
+		override def onCreate( state: Option[Bundle] )
 		{
 			super.onCreate( state )
 

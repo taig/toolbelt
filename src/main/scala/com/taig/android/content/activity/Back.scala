@@ -13,7 +13,7 @@ with	ActionBar
 
 	val back = new Property( this ) with Back.Property
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 

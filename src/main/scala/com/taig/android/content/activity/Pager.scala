@@ -24,7 +24,7 @@ with	Fragment
 
 	override def fragment: Pager.Fragment
 
-	override def onCreate( state: Bundle )
+	override def onCreate( state: Option[Bundle] )
 	{
 		super.onCreate( state )
 

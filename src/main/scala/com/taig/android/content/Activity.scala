@@ -14,10 +14,15 @@ with	Contextual
 
 	private var root: View = null
 
-	override def onCreate( state: Bundle )
+	override final def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
 
+		onCreate( Option( state ) )
+	}
+
+	def onCreate( state: Option[Bundle] )
+	{
 		setRootView( R.layout.main )
 
 		// Adjust content margins to not be hidden behind the actionbar once the layout is done

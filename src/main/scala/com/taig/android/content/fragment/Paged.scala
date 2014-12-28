@@ -11,7 +11,7 @@ import com.taig.android.content.activity.Pager
 trait	Paged
 extends	Fragment
 {
-	override def onViewCreated( view: View, state: Bundle )
+	override def onViewCreated( view: View, state: Option[Bundle] )
 	{
 		super.onViewCreated( view, state )
 

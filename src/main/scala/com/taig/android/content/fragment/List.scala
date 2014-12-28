@@ -25,7 +25,7 @@ with	Layout
 
 	override val widget = new Property( this ) with List.Widget
 
-	override def onViewCreated( view: View, state: Bundle )
+	override def onViewCreated( view: View, state: Option[Bundle] )
 	{
 		super.onViewCreated( view, state )
 

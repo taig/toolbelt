@@ -77,7 +77,8 @@ trait Radius extends Image
 			return
 		}
 
-		rectangle.set( 0, 0, drawable.getIntrinsicWidth, drawable.getIntrinsicHeight )
+		rectangle.set( drawable.copyBounds() )
+		getImageMatrix.mapRect( rectangle )
 
 		rectangle.offset( getPaddingLeft, getPaddingTop )
 

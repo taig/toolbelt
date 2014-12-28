@@ -22,10 +22,13 @@ extends	Fragment
 
 	def widget: Layout.Widget
 
-	override def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) = layout.reference match
+	override def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ) =
 	{
-		case Left( id ) => inflater.inflate( id, container, false )
-		case Right( view ) => view
+		layout.reference match
+		{
+			case Left( id ) => inflater.inflate( id, container.orNull, false )
+			case Right( view ) => view
+		}
 	}
 }
 
