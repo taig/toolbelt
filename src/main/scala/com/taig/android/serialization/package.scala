@@ -39,8 +39,6 @@ package object serialization
 			.asInstanceOf[T]
 	}
 
-	implicit def `Bundle -> Option[Bundle]`( bundle: Bundle ) = Option( bundle )
-
 	implicit def `Function1 -> T -> T`[T <: Object: ClassTag]( f: Parcel => T ) = new android.os.Parcelable.Creator[T]
 	{
 		override def createFromParcel( source: Parcel ): T = f( source )
