@@ -1,7 +1,5 @@
 package com.taig.android.io
 
-import java.io.{File, FileInputStream, InputStream}
-
 import android.content.Context
 import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.Options
@@ -11,12 +9,8 @@ import com.taig.android.graphic._
 
 import scala.math._
 
-class Image private( stream: () => InputStream )
+class Image( uri: Uri )( implicit context: Context )
 {
-	def this( file: File ) = this( () => new FileInputStream( file ) )
-
-	def this( uri: Uri )( implicit context: Context ) = this( () => context.getContentResolver.openInputStream( uri ) )
-
 	val resolution =
 	{
 		val options = new Options
@@ -25,9 +19,16 @@ class Image private( stream: () => InputStream )
 			inScaled = false
 		}
 
-		val stream = this.stream()
-		BitmapFactory.decodeStream( stream, null, options )
-		stream.close()
+		val stream = context.getContentResolver.openInputStream( uri )
+
+		try
+		{
+			BitmapFactory.decodeStream( stream, null, options )
+		}
+		finally
+		{
+			stream.close()
+		}
 
 		Resolution( options.outWidth, options.outHeight )
 	}
@@ -72,39 +73,46 @@ class Image private( stream: () => InputStream )
 				.getOrElse( 1 )
 		}
 
-		val stream = this.stream()
-		val bitmap = BitmapFactory.decodeStream( stream, null, options )
-		stream.close()
+		val stream = context.getContentResolver.openInputStream( uri )
 
-		// Apply remaining scaling (after sampling has been applied) and clipping
-		if( options.inSampleSize > 1 || scale != 1 )
+		try
 		{
-			try
+			val bitmap = BitmapFactory.decodeStream( stream, null, options )
+
+			// Apply remaining scaling (after sampling has been applied) and clipping
+			if( options.inSampleSize > 1 || scale != 1 )
 			{
-				createBitmap(
-					bitmap,
-					clipping.position.x / options.inSampleSize,
-					clipping.position.y / options.inSampleSize,
-					Math.min(
-						clipping.resolution.width / options.inSampleSize,
-						bitmap.getWidth - clipping.position.x / options.inSampleSize
-					),
-					Math.min(
-						clipping.resolution.height / options.inSampleSize,
-						bitmap.getHeight - clipping.position.y / options.inSampleSize
-					),
-					new Matrix { setScale( options.inSampleSize * scale, options.inSampleSize * scale ) },
-					false
-				)
+				try
+				{
+					createBitmap(
+						bitmap,
+						clipping.position.x / options.inSampleSize,
+						clipping.position.y / options.inSampleSize,
+						Math.min(
+							clipping.resolution.width / options.inSampleSize,
+							bitmap.getWidth - clipping.position.x / options.inSampleSize
+						),
+						Math.min(
+							clipping.resolution.height / options.inSampleSize,
+							bitmap.getHeight - clipping.position.y / options.inSampleSize
+						),
+						new Matrix { setScale( options.inSampleSize * scale, options.inSampleSize * scale ) },
+						false
+					)
+				}
+				finally
+				{
+					bitmap.recycle()
+				}
 			}
-			finally
+			else
 			{
-				bitmap.recycle()
+				bitmap
 			}
 		}
-		else
+		finally
 		{
-			bitmap
+			stream.close()
 		}
 	}
 
