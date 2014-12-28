@@ -1,7 +1,8 @@
 package com.taig.android.content
 
 import android.os.Bundle
-import android.support.v4.app.{FragmentActivity, DialogFragment, ListFragment}
+import android.support.v4.app.{DialogFragment, FragmentActivity, ListFragment}
+import android.view.{LayoutInflater, View, ViewGroup}
 import com.taig.android.content
 
 trait	Fragment
@@ -22,6 +23,15 @@ with	Contextual
 
 	def onCreate( state: Option[Bundle] ) {}
 
+	override final def onActivityCreated( state: Bundle )
+	{
+		super.onActivityCreated( state )
+
+		onActivityCreated( Option( state ) )
+	}
+
+	def onActivityCreated( state: Option[Bundle] ) {}
+
 	override def onAttach( activity: android.app.Activity )
 	{
 		super.onAttach( activity )
@@ -32,6 +42,22 @@ with	Contextual
 			case _ => null
 		}
 	}
+
+	override final def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) =
+	{
+		onCreateView( inflater, Option( container ), Option( state ) )
+	}
+
+	def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ): View = null
+
+	override final def onViewCreated( view: View, state: Bundle )
+	{
+		super.onViewCreated( view, state )
+
+		onViewCreated( view, Option( state ) )
+	}
+
+	def onViewCreated( view: View, state: Option[Bundle] ) {}
 
 	override def onDetach()
 	{

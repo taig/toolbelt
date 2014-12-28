@@ -25,21 +25,21 @@ extends	Fragment
 		super.onCreate( state )
 	}
 
-	override def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) =
+	override def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ) =
 	{
 		Log.d( getClass.getName, s"onCreateView( $inflater, $container, $state )" )
 
 		super.onCreateView( inflater, container, state )
 	}
 
-	override def onViewCreated( view: View, state: Bundle )
+	override def onViewCreated( view: View, state: Option[Bundle] )
 	{
 		Log.d( getClass.getName, s"onViewCreated( $view, $state )" )
 
 		super.onViewCreated( view, state )
 	}
 
-	override def onActivityCreated( state: Bundle )
+	override def onActivityCreated( state: Option[Bundle] )
 	{
 		Log.d( getClass.getName, s"onActivityCreated( $state )" )
 
