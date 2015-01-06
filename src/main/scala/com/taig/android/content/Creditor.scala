@@ -8,7 +8,7 @@ package com.taig.android.content
  *
  * @tparam C The Contract type that is implemented by the debtor
  */
-trait Creditor[+C]
+trait Creditor[+C <: Contract]
 {
 	/**
 	 * Get the debtor that implements the Contract C
