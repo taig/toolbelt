@@ -1,6 +1,8 @@
 package com.taig.android
 
-import android.content.Context
+import android.content.res.Resources.NotFoundException
+import android.content.{ContentResolver, Context}
+import android.net.Uri
 import android.view.LayoutInflater
 import android.{content => android}
 
@@ -38,10 +40,18 @@ package object content
 
 		def asDimension( implicit context: Context ) = context.getResources.getDimension( resource )
 
-		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
-
 		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
 
+		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
+
 		def asString( implicit context: Context ) = context.getString( resource )
+
+		@throws[NotFoundException]
+		def asUri( implicit context: Context ) = Uri.parse(
+			ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+			context.getResources.getResourcePackageName( resource ) + "/" +
+			context.getResources.getResourceTypeName( resource ) + "/" +
+			context.getResources.getResourceEntryName( resource ) + "/"
+		)
 	}
 }
