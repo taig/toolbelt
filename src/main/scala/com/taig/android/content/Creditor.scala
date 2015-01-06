@@ -6,7 +6,7 @@ package com.taig.android.content
  * Creates a relationship between Activity and Fragment: if one entity implements the Creditor role, the other entity
  * should be implementing the Contract C.
  *
- * @tparam C The Contract that is implemented by the debtor
+ * @tparam C The Contract type that is implemented by the debtor
  */
 trait Creditor[+C]
 {
