@@ -56,6 +56,6 @@ object Type
 
 	class Required( enabled: Boolean, template: CharSequence ) extends Validator( enabled, template )
 	{
-		override def validate( value: CharSequence ) = !enabled || value.length() > 0
+		override def validate( value: CharSequence ) = !enabled || value.toString.trim.length() > 0
 	}
 }
