@@ -13,4 +13,6 @@ package object util
 	{
 		def encode( charset: String = "UTF-8" ) = URLEncoder.encode( string, charset )
 	}
+
+	implicit def `String -> Log.Tag`( string: String ): Log.Tag = Log.Tag( string )
 }
