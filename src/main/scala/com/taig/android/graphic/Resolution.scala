@@ -1,13 +1,12 @@
 package com.taig.android.graphic
 
-import android.os.{Parcel, Parcelable}
-import com.taig.android.serialization._
+import com.taig.android.parcelable.annotation.Parcelable
 
 import scala.math._
 
+@Parcelable
 case class	Resolution( width: Int, height: Int ) 
 extends		Pair.Numeric
-with		Parcelable
 {
 	override type S = Resolution
 
@@ -71,20 +70,10 @@ with		Parcelable
 	def <=( resolution: Resolution ) = width <= resolution.width && height <= resolution.height
 
 	override def toString = s"$width x $height"
-
-	override def writeToParcel( destination: Parcel, flags: Int )
-	{
-		destination.writeInt( width )
-		destination.writeInt( height )
-	}
-
-	override def describeContents = 0
 }
 
 object Resolution
 {
-	val CREATOR: Parcelable.Creator[Resolution] = ( source: Parcel ) => Resolution( source.readInt, source.readInt )
-
 	def apply( dimensioned: { def getWidth(): Int; def getHeight(): Int } ): Resolution =
 	{
 		apply( dimensioned.getWidth(), dimensioned.getHeight() )
