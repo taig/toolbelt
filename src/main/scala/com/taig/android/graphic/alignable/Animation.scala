@@ -2,9 +2,11 @@ package com.taig.android.graphic.alignable
 
 import com.taig.android.graphic._
 import com.taig.android.graphic.positionable.Position
+import com.taig.android.parcelable.annotation.Parcelable
 
 import scala.math._
 
+@Parcelable
 case class Animation( start: Alignment, end: Alignment ) extends Alignable
 {
 	override def resolve( resolution: Resolution, target: Resolution ) =

@@ -2,7 +2,8 @@ package com.taig.android.graphic
 
 import android.graphics.Color._
 
-case class Color( color: Int ) extends AnyVal
+case class	Color( color: Int )
+extends		AnyVal
 {
 	def darken( amount: Float ) =
 	{

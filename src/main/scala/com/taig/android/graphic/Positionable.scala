@@ -1,8 +1,12 @@
 package com.taig.android.graphic
 
+import com.taig.android.parcelable.annotation.Parcelable
+
 import scala.math._
 
-trait Positionable extends Pair.Numeric
+@Parcelable
+trait	Positionable
+extends	Pair.Numeric
 {
 	override type S <: Positionable
 

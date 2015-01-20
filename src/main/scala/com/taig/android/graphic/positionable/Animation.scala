@@ -1,12 +1,11 @@
 package com.taig.android.graphic.positionable
 
-import android.os.{Parcel, Parcelable}
 import com.taig.android.graphic._
-import com.taig.android.serialization._
+import com.taig.android.parcelable.annotation.Parcelable
 
+@Parcelable
 case class	Animation( start: Position, end: Position, var x: Int, var y: Int )
 extends		Positionable
-with		Parcelable
 {
 	override type S = Animation
 
@@ -28,16 +27,6 @@ with		Parcelable
 	}
 
 	override def toString = s"$start -> $end: ${super.toString}"
-
-	override def writeToParcel( destination: Parcel, flags: Int ) =
-	{
-		destination.writeParcelable( start, flags )
-		destination.writeParcelable( end, flags )
-		destination.writeInt( x )
-		destination.writeInt( y )
-	}
-
-	override def describeContents = 0
 }
 
 object Animation
@@ -45,11 +34,4 @@ object Animation
 	def apply( start: Position, end: Position ): Animation = Animation( start, end, start.x, start.y )
 
 	def apply( start: Position, end: Position, position: Position ): Animation = Animation( start, end, position.x, position.y )
-
-	val CREATOR: Parcelable.Creator[Animation] = ( source: Parcel ) => Animation(
-		source.readParcel,
-		source.readParcel,
-		source.readInt,
-		source.readInt
-	)
 }
