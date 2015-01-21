@@ -16,7 +16,7 @@ object Build extends android.AutoBuild
 					"com.android.support" % "appcompat-v7" % "21.0.3",
 					"com.github.japgolly.android" % "svg-android" % "2.0.6",
 					"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
-					"com.taig.android" %% "parcelable" % "1.0.0",
+					"com.taig.android" %% "parcelable" % "1.1.0",
 					"org.scala-lang" % "scala-reflect" % version
 				)
 			} ),

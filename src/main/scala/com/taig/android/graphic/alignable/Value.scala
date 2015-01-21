@@ -1,7 +1,5 @@
 package com.taig.android.graphic.alignable
 
-import android.os.Parcel
-import com.taig.android.parcelable.Creator
 import com.taig.android.parcelable.annotation.Parcelable
 
 @Parcelable
@@ -22,27 +20,11 @@ object Value
 		override def resolve( dimension: Int ) = value
 	}
 
-	class	Auto
-	extends	Value
-	with	android.os.Parcelable
-	{
-		override def describeContents() = 0
-
-		override def writeToParcel( destination: Parcel, flags: Int ) = {}
-	}
-
+	@Parcelable
 	object	Auto
-	extends	Auto
-	with	Creator[Auto]
+	extends	Value
 	{
 		override def toString = "Auto"
-
-		override lazy val CREATOR = new android.os.Parcelable.Creator[Auto]
-		{
-			override def createFromParcel( source: Parcel ) = Auto
-
-			override def newArray( size: Int ) = new Array[Auto]( size )
-		}
 	}
 
 	@Parcelable

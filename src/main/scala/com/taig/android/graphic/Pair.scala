@@ -1,6 +1,10 @@
 package com.taig.android.graphic
 
-trait Pair[T] extends Product2[T, T]
+import com.taig.android.parcelable.annotation.Parcelable
+
+@Parcelable
+trait	Pair[T]
+extends	Product2[T, T]
 {
 	type S <: Pair[T]
 
@@ -15,7 +19,9 @@ trait Pair[T] extends Product2[T, T]
 
 object Pair
 {
-	trait Numeric extends Pair[Int]
+	@Parcelable
+	trait	Numeric
+	extends	Pair[Int]
 	{
 		override type S <: Numeric
 
