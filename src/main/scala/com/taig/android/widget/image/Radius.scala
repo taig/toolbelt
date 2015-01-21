@@ -3,11 +3,8 @@ package com.taig.android.widget.image
 import android.content.res.TypedArray
 import android.graphics.PorterDuff.Mode
 import android.graphics._
-import android.widget.ImageView
-import android.widget.ImageView.ScaleType
 import com.taig.android.R
-import com.taig.android.widget.image.Radius.Tag
-import com.taig.android.util.{Companion, Log}
+import com.taig.android.util.Companion
 import com.taig.android.widget.Image
 
 /**
@@ -82,32 +79,15 @@ extends	Image
 			return
 		}
 
-		Log.d( s"Draw with Radius: $getRadius" )
-		Log.d( s"Drawable Bounds: ${drawable.copyBounds()}" )
 		rectangle.set( drawable.copyBounds() )
-		Log.d( s"Rectangle: $rectangle" )
-//		getImageMatrix.mapRect( rectangle )
-		val field = classOf[ImageView].getDeclaredField( "mDrawMatrix" )
-		field.setAccessible( true )
-//		val matrix = Option( field.get( this ).asInstanceOf[Matrix] ).getOrElse( getImageMatrix ).mapRect( rectangle )
-		val m = new Matrix()
-		m.setValues( Array( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) )
-		m.mapRect( rectangle )
-		Log.d( "mDrawMatrix: " + field.get( this ) )
-		val f2 = classOf[ImageView].getDeclaredField( "mMatrix" )
-		f2.setAccessible( true )
-		Log.d( "mMatrix: " + f2.get( this ) )
-		Log.d( s"Image Matrix: $getImageMatrix" )
-		Log.d( s"Mapped Rect: $rectangle" )
+		getImageMatrix.mapRect( rectangle )
 
 		rectangle.offset( getPaddingLeft, getPaddingTop )
-		Log.d( s"Offset Rect: $rectangle" )
 
 		// Prevent radius being drawn out of canvas bounds
-//		intersection.right = canvas.getWidth
-//		intersection.bottom = canvas.getHeight
-//		rectangle.intersect( intersection )
-//		Log.d( s"Intersected Rect: $rectangle" )
+		intersection.right = canvas.getWidth
+		intersection.bottom = canvas.getHeight
+		rectangle.intersect( intersection )
 
 		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
 		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint1 )
