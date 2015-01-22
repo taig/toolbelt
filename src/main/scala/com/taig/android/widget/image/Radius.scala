@@ -24,8 +24,6 @@ extends	Image
 
 	private val rectangle = new RectF()
 
-	private val intersection = new RectF( 0, 0, 0, 0 )
-
 	private val paint1 = new Paint( Paint.ANTI_ALIAS_FLAG )
 
 	private val paint2 = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
@@ -79,16 +77,7 @@ extends	Image
 			return
 		}
 
-		rectangle.set( drawable.copyBounds() )
-		getImageMatrix.mapRect( rectangle )
-
-		rectangle.offset( getPaddingLeft, getPaddingTop )
-
-		// Prevent radius being drawn out of canvas bounds
-		intersection.right = canvas.getWidth
-		intersection.bottom = canvas.getHeight
-		rectangle.intersect( intersection )
-
+		rectangle.set( 0, 0, canvas.getWidth, canvas.getHeight )
 		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
 		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint1 )
 		canvas.saveLayer( rectangle, paint2, Canvas.ALL_SAVE_FLAG )
