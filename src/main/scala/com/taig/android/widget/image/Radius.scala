@@ -24,9 +24,12 @@ extends	Image
 
 	private val rectangle = new RectF()
 
-	private val paint1 = new Paint( Paint.ANTI_ALIAS_FLAG )
+	private val paint = new
+	{
+		val image = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
 
-	private val paint2 = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
+		val shape = new Paint( Paint.ANTI_ALIAS_FLAG ){ setXfermode( new PorterDuffXfermode( Mode.SRC ) ) }
+	}
 
 	initialize( R.styleable.Widget_Image_Radius, ( array: TypedArray ) =>
 	{
@@ -79,8 +82,8 @@ extends	Image
 
 		rectangle.set( 0, 0, canvas.getWidth, canvas.getHeight )
 		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
-		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint1 )
-		canvas.saveLayer( rectangle, paint2, Canvas.ALL_SAVE_FLAG )
+		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint.shape )
+		canvas.saveLayer( rectangle, paint.image, Canvas.ALL_SAVE_FLAG )
 		super.onDraw( canvas )
 		canvas.restoreToCount( restore )
 	}
