@@ -27,7 +27,6 @@ object Build extends android.AutoBuild
 			scalacOptions ++= Seq(
 				"-deprecation",
 				"-feature",
-				"-language:dynamics",
 				"-language:existentials",
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
