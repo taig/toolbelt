@@ -9,19 +9,7 @@ import scala.reflect.ClassTag
 
 class	SharedPreferences( preferences: android.content.SharedPreferences )
 extends	android.content.SharedPreferences
-with	Dynamic
 {
-	def selectDynamic( key: String ) = get( key )
-
-	def updateDynamic( key: String )( value: Any ) = put( key, value )
-
-	def applyDynamic[T: ClassTag]( key: String )( args: T* ): T =
-	{
-		require( args.length == 1, "There must be exactly 1 argument (default value)" )
-
-		get( key, args( 0 ) )
-	}
-
 	def get[T: ClassTag]( key: String ): Option[T] = Option( preferences.getAll.get( key ).asInstanceOf[T] )
 
 	def get[T: ClassTag]( key: String, default: T ): T =
