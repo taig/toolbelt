@@ -4,6 +4,7 @@ import android.content.res.TypedArray
 import android.graphics.PorterDuff.Mode
 import android.graphics._
 import com.taig.android.R
+import com.taig.android.util.Companion
 import com.taig.android.widget.Image
 
 /**
@@ -11,7 +12,8 @@ import com.taig.android.widget.Image
  */
 // TODO Allow background drawing with radius
 // TODO Solid colors probably don't work?
-trait Radius extends Image
+trait	Radius
+extends	Image
 {
 	private val radius = new
 	{
@@ -22,11 +24,12 @@ trait Radius extends Image
 
 	private val rectangle = new RectF()
 
-	private val intersection = new RectF( 0, 0, 0, 0 )
+	private val paint = new
+	{
+		val image = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
 
-	private val paint1 = new Paint( Paint.ANTI_ALIAS_FLAG )
-
-	private val paint2 = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
+		val shape = new Paint( Paint.ANTI_ALIAS_FLAG ){ setXfermode( new PorterDuffXfermode( Mode.SRC ) ) }
+	}
 
 	initialize( R.styleable.Widget_Image_Radius, ( array: TypedArray ) =>
 	{
@@ -77,25 +80,14 @@ trait Radius extends Image
 			return
 		}
 
-		rectangle.set( drawable.copyBounds() )
-		getImageMatrix.mapRect( rectangle )
-
-		rectangle.offset( getPaddingLeft, getPaddingTop )
-
-		// Prevent radius being drawn out of canvas bounds
-		intersection.right = canvas.getWidth
-		intersection.bottom = canvas.getHeight
-		rectangle.intersect( intersection )
-
+		rectangle.set( 0, 0, canvas.getWidth, canvas.getHeight )
 		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
-		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint1 )
-		canvas.saveLayer( rectangle, paint2, Canvas.ALL_SAVE_FLAG )
+		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint.shape )
+		canvas.saveLayer( rectangle, paint.image, Canvas.ALL_SAVE_FLAG )
 		super.onDraw( canvas )
 		canvas.restoreToCount( restore )
 	}
 }
 
-object Radius
-{
-	val Tag = getClass.getName
-}
+object	Radius
+extends	Companion

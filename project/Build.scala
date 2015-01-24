@@ -16,8 +16,7 @@ object Build extends android.AutoBuild
 					"com.android.support" % "appcompat-v7" % "21.0.3",
 					"com.github.japgolly.android" % "svg-android" % "2.0.6",
 					"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
-					"com.taig.android" %% "parcelable" % "1.0.0",
-					"org.scala-lang" % "scala-reflect" % version
+					"com.taig.android" %% "parcelable" % "1.2.1"
 				)
 			} ),
 			name := "Toolbelt",
@@ -28,14 +27,13 @@ object Build extends android.AutoBuild
 			scalacOptions ++= Seq(
 				"-deprecation",
 				"-feature",
-				"-language:dynamics",
 				"-language:existentials",
 				"-language:implicitConversions",
 				"-language:reflectiveCalls"
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.25-BETA",
+			version := "0.3.26-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"

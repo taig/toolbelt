@@ -5,6 +5,7 @@ import android.view.{MenuItem, View}
 import android.widget.FrameLayout
 import com.taig.android.content._
 import com.taig.android.content.activity.Drawer.Parameter
+import com.taig.android.util.Companion
 import com.taig.android.{R, content}
 
 trait	Drawer
@@ -78,11 +79,12 @@ extends	Activity
 	}
 }
 
-object Drawer
+object	Drawer
+extends	Companion
 {
 	val Parameter = new
 	{
-		val Drawer = getClass.getName + ".Drawer"
+		val Drawer = Tag + ".Drawer"
 	}
 
 	trait	Property
