@@ -36,15 +36,23 @@ package object content
 
 	implicit class RichResource( resource: Int )
 	{
+		def asBoolean( implicit context: Context ) = context.getResources.getBoolean( resource )
+
 		def asColor( implicit context: Context ) = context.getResources.getColor( resource )
 
 		def asDimension( implicit context: Context ) = context.getResources.getDimension( resource )
 
 		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
 
+		def asInteger( implicit context: Context ) = context.getResources.getInteger( resource )
+
+		def asIntegers( implicit context: Context ) = context.getResources.getIntArray( resource )
+
 		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
 
 		def asString( implicit context: Context ) = context.getString( resource )
+
+		def asStrings( implicit context: Context ) = context.getResources.getStringArray( resource )
 
 		@throws[NotFoundException]
 		def asUri( implicit context: Context ) = Uri.parse(
