@@ -71,6 +71,14 @@ package object widget
 
 		def setPadding( padding: Padding ) = view.setPadding( padding.left, padding.top, padding.right, padding.bottom )
 
+		def setPaddingBottom( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
+
+		def setPaddingLeft( padding: Int ) = view.setPadding( padding, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
+
+		def setPaddingRight( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
+
+		def setPaddingTop( padding: Int ) = view.setPadding( view.getPaddingLeft, padding, view.getPaddingRight, view.getPaddingBottom )
+
 		/**
 		 * @see [[android.view.ViewTreeObserver#addOnWindowAttachListener]]
 		 */
