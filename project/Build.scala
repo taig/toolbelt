@@ -16,7 +16,7 @@ object Build extends android.AutoBuild
 					"com.android.support" % "appcompat-v7" % "21.0.3",
 					"com.github.japgolly.android" % "svg-android" % "2.0.6",
 					"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
-					"com.taig.android" %% "parcelable" % "1.2.2"
+					"com.taig.android" %% "parcelable" % "1.2.3"
 				)
 			} ),
 			name := "Toolbelt",
@@ -33,7 +33,7 @@ object Build extends android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.27-BETA",
+			version := "0.3.28-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"
