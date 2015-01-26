@@ -2,6 +2,8 @@ package com.taig.android.content
 
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
+import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.{Menu, View, ViewGroup}
 import com.taig.android._
 import com.taig.android.conversion._
@@ -133,7 +135,7 @@ with	Contextual
 	def setHeaderView( view: View ): Unit =
 	{
 		findViewById( R.id.wrapper_header ).setVisibility( View.VISIBLE )
-		setView( R.id.header, view )
+		setView( R.id.header, view, None )
 	}
 
 	def addContentView( resource: Int ): Unit = addContentView( getLayoutInflater.inflate( resource, null ) )
@@ -142,7 +144,15 @@ with	Contextual
 
 	override def setContentView( resource: Int ): Unit = setContentView( getLayoutInflater.inflate( resource, null ) )
 
-	override def setContentView( view: View ): Unit = setView( R.id.content, view )
+	override def setContentView( view: View ): Unit =
+	{
+		setContentView( view, new LayoutParams( MATCH_PARENT, MATCH_PARENT ) )
+	}
+
+	override def setContentView( view: View, params: LayoutParams ): Unit =
+	{
+		setView( R.id.content, view, Option( params ) )
+	}
 
 	def addFooterView( resource: Int ): Unit = addFooterView( getLayoutInflater.inflate( resource, null ) )
 
@@ -157,7 +167,7 @@ with	Contextual
 	def setFooterView( view: View ): Unit =
 	{
 		findViewById( R.id.wrapper_footer ).setVisibility( View.VISIBLE )
-		setView( R.id.footer, view )
+		setView( R.id.footer, view, None )
 	}
 
 	private def addView( id: Int, view: View )
@@ -172,7 +182,7 @@ with	Contextual
 		element.addView( view )
 	}
 
-	private def setView( id: Int, view: View )
+	private def setView( id: Int, view: View, params: Option[LayoutParams] )
 	{
 		val element = findViewById( id ).asInstanceOf[ViewGroup]
 
@@ -182,6 +192,11 @@ with	Contextual
 		}
 
 		element.removeAllViews()
-		element.addView( view )
+
+		params match
+		{
+			case Some( params ) => element.addView( view, params )
+			case None => element.addView( view )
+		}
 	}
 }
