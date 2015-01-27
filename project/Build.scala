@@ -14,6 +14,8 @@ object Build extends android.AutoBuild
 				Seq(
 					compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
 					"com.android.support" % "appcompat-v7" % "21.0.3",
+					"com.android.support" % "cardview-v7" % "21.0.3",
+					"com.android.support" % "recyclerview-v7" % "21.0.3",
 					"com.github.japgolly.android" % "svg-android" % "2.0.6",
 					"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
 					"com.taig.android" %% "parcelable" % "1.2.3"
@@ -33,7 +35,7 @@ object Build extends android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.30-BETA",
+			version := "0.3.31-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"
