@@ -9,510 +9,515 @@ import android.os.Bundle
 import android.support.v4
 import android.support.v4.{app => support}
 import android.support.v7.view
-import android.util.{AttributeSet, Log}
+import android.util.AttributeSet
 import android.view.ActionMode.Callback
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.WindowManager.LayoutParams
 import android.view._
 import com.taig.android.content.Activity
+import com.taig.android.content.activity.Lifecycle.Tag
+import com.taig.android.util.{Companion, Log}
 
 trait	Lifecycle
 extends	Activity
 {
-	override def onCreate( state: Option[Bundle] )
+	override def onCreate( state: Option[Bundle] ): Unit =
 	{
-		Log.d( getClass.getName, s"onCreate( $state )" )
+		Log.d( s"onCreate( $state )" )
 
 		super.onCreate( state )
 	}
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onCreateOptionsMenu( $menu )" )
+		Log.d( s"onCreateOptionsMenu( $menu )" )
 
 		super.onCreateOptionsMenu( menu )
 	}
 
-	override def supportInvalidateOptionsMenu()
+	override protected def onPostCreate( state: Option[Bundle] ): Unit =
 	{
-		Log.d( getClass.getName, s"supportInvalidateOptionsMenu()" )
+		super.onPostCreate( state )
+
+		Log.d( s"onPostCreate( $state )" )
+	}
+
+	override def supportInvalidateOptionsMenu(): Unit =
+	{
+		Log.d( s"supportInvalidateOptionsMenu()" )
 
 		super.supportInvalidateOptionsMenu()
 	}
 
-	override def onConfigurationChanged( configuration: Configuration )
+	override def onConfigurationChanged( configuration: Configuration ): Unit =
 	{
-		Log.d( getClass.getName, s"onConfigurationChanged( $configuration )")
+		Log.d( s"onConfigurationChanged( $configuration )")
 
 		super.onConfigurationChanged( configuration )
 	}
 
-	override def onStop()
+	override def onStop(): Unit =
 	{
-		Log.d( getClass.getName, s"onStop()")
+		Log.d( s"onStop()")
 
 		super.onStop()
 	}
 
-	override def onPostResume()
+	override def onPostResume(): Unit =
 	{
-		Log.d( getClass.getName, s"onPostResume()")
+		Log.d( s"onPostResume()")
 
 		super.onPostResume()
 	}
 
 	override def onCreatePanelView( id: Int ) =
 	{
-		Log.d( getClass.getName, s"onCreatePanelView( $id )")
+		Log.d( s"onCreatePanelView( $id )")
 
 		super.onCreatePanelView( id )
 	}
 
-	override def onDestroy()
+	override def onDestroy(): Unit =
 	{
-		Log.d( getClass.getName, s"onDestroy()")
+		Log.d( s"onDestroy()")
 
 		super.onDestroy()
 	}
 
-	override def onTitleChanged( title: CharSequence, color: Int )
+	override def onTitleChanged( title: CharSequence, color: Int ): Unit =
 	{
-		Log.d( getClass.getName, s"onTitleChanged( $title, $color )")
+		Log.d( s"onTitleChanged( $title, $color )")
 
 		super.onTitleChanged( title, color )
 	}
 
-	override def onSupportActionModeStarted( mode: view.ActionMode )
+	override def onSupportActionModeStarted( mode: view.ActionMode ): Unit =
 	{
-		Log.d( getClass.getName, s"onSupportActionModeStarted( $mode )")
+		Log.d( s"onSupportActionModeStarted( $mode )")
 
 		super.onSupportActionModeStarted( mode )
 	}
 
-	override def onSupportActionModeFinished( mode: view.ActionMode )
+	override def onSupportActionModeFinished( mode: view.ActionMode ): Unit =
 	{
-		Log.d( getClass.getName, s"onSupportActionModeFinished( $mode )")
+		Log.d( s"onSupportActionModeFinished( $mode )")
 
 		super.onSupportActionModeFinished( mode )
 	}
 
 	override def onCreatePanelMenu( id: Int, menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onCreatePanelMenu( $id, $menu )")
+		Log.d( s"onCreatePanelMenu( $id, $menu )")
 
 		super.onCreatePanelMenu( id, menu )
 	}
 
 	override def onPreparePanel( id: Int, view: View, menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onPreparePanel( $id, $view, $menu )")
+		Log.d( s"onPreparePanel( $id, $view, $menu )")
 
 		super.onPreparePanel( id, view, menu )
 	}
 
-	override def onPanelClosed( id: Int, menu: Menu )
+	override def onPanelClosed( id: Int, menu: Menu ): Unit =
 	{
-		Log.d( getClass.getName, s"onPanelClosed( $id, $menu )")
+		Log.d( s"onPanelClosed( $id, $menu )")
 
 		super.onPanelClosed( id, menu )
 	}
 
 	override def onMenuOpened( id: Int, menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onMenuOpened( $id, $menu )")
+		Log.d( s"onMenuOpened( $id, $menu )")
 
 		super.onMenuOpened( id, menu )
 	}
 
 	override def onPrepareOptionsPanel( view: View, menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onPrepareOptionsPanel( $view, $menu )")
+		Log.d( s"onPrepareOptionsPanel( $view, $menu )")
 
 		super.onPrepareOptionsPanel( view, menu )
 	}
 
-	override def onBackPressed()
+	override def onBackPressed(): Unit =
 	{
-		Log.d( getClass.getName, s"onBackPressed()")
+		Log.d( s"onBackPressed()")
 
 		super.onBackPressed()
 	}
 
-	override def onCreateSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder )
+	override def onCreateSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder ): Unit =
 	{
-		Log.d( getClass.getName, s"onCreateSupportNavigateUpTaskStack( $builder )")
+		Log.d( s"onCreateSupportNavigateUpTaskStack( $builder )")
 
 		super.onCreateSupportNavigateUpTaskStack( builder )
 	}
 
-	override def onPrepareSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder )
+	override def onPrepareSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder ): Unit =
 	{
-		Log.d( getClass.getName, s"onPrepareSupportNavigateUpTaskStack( $builder )")
+		Log.d( s"onPrepareSupportNavigateUpTaskStack( $builder )")
 
 		super.onPrepareSupportNavigateUpTaskStack( builder )
 	}
 
 	override def onSupportNavigateUp() =
 	{
-		Log.d( getClass.getName, s"onSupportNavigateUp()")
+		Log.d( s"onSupportNavigateUp()")
 
 		super.onSupportNavigateUp()
 	}
 
 	override def onKeyShortcut( key: Int, event: KeyEvent ) =
 	{
-		Log.d( getClass.getName, s"onKeyShortcut( $key, $event )")
+		Log.d( s"onKeyShortcut( $key, $event )")
 
 		super.onKeyShortcut( key, event )
 	}
 
 	override def onKeyDown( key: Int, event: KeyEvent ) =
 	{
-		Log.d( getClass.getName, s"onKeyDown( $key, $event )")
+		Log.d( s"onKeyDown( $key, $event )")
 
 		super.onKeyDown( key, event )
 	}
 
-	override def onSupportContentChanged()
+	override def onSupportContentChanged(): Unit =
 	{
-		Log.d( getClass.getName, s"onSupportContentChanged()")
+		Log.d( s"onSupportContentChanged()")
 
 		super.onSupportContentChanged()
 	}
 
 	override def onCreateView( name: String, context: Context, attributes: AttributeSet ) =
 	{
-		Log.d( getClass.getName, s"onCreateView( $name, $context, $attributes )")
+		Log.d( s"onCreateView( $name, $context, $attributes )")
 
 		super.onCreateView( name, context, attributes )
 	}
 
-	override def onActivityResult( request: Int, result: Int, data: Intent )
+	override def onActivityResult( request: Int, result: Int, data: Intent ): Unit =
 	{
-		Log.d( getClass.getName, s"onActivityResult( $request, $result, $data )")
+		Log.d( s"onActivityResult( $request, $result, $data )")
 
 		super.onActivityResult( request, result, data )
 	}
 
-	override def onLowMemory()
+	override def onLowMemory(): Unit =
 	{
-		Log.d( getClass.getName, s"onLowMemory()")
+		Log.d( s"onLowMemory()")
 
 		super.onLowMemory()
 	}
 
-	override def onPause()
+	override def onPause(): Unit =
 	{
-		Log.d( getClass.getName, s"onPause()")
+		Log.d( s"onPause()")
 
 		super.onPause()
 	}
 
-	override def onNewIntent( intent: Intent )
+	override def onNewIntent( intent: Intent ): Unit =
 	{
-		Log.d( getClass.getName, s"onNewIntent( $intent )")
+		Log.d( s"onNewIntent( $intent )")
 
 		super.onNewIntent( intent )
 	}
 
-	override def onResume()
+	override def onResume(): Unit =
 	{
-		Log.d( getClass.getName, s"onResume()")
+		Log.d( s"onResume()")
 
 		super.onResume()
 	}
 
-	override def onResumeFragments()
+	override def onResumeFragments(): Unit =
 	{
-		Log.d( getClass.getName, s"onResumeFragments()")
+		Log.d( s"onResumeFragments()")
 
 		super.onResumeFragments()
 	}
 
-	override def onSaveInstanceState( state: Bundle )
+	override def onSaveInstanceState( state: Bundle ): Unit =
 	{
-		Log.d( getClass.getName, s"onSaveInstanceState( $state )")
+		Log.d( s"onSaveInstanceState( $state )")
 
 		super.onSaveInstanceState( state )
 	}
 
-	override def onStart()
+	override def onStart(): Unit =
 	{
-		Log.d( getClass.getName, s"onStart()")
+		Log.d( s"onStart()")
 
 		super.onStart()
 	}
 
 	override def onRetainCustomNonConfigurationInstance() =
 	{
-		Log.d( getClass.getName, s"onRetainCustomNonConfigurationInstance()")
+		Log.d( s"onRetainCustomNonConfigurationInstance()")
 
 		super.onRetainCustomNonConfigurationInstance()
 	}
 
-	override def onAttachFragment( fragment: support.Fragment )
+	override def onAttachFragment( fragment: support.Fragment ): Unit =
 	{
-		Log.d( getClass.getName, s"onAttachFragment( $fragment )")
+		Log.d( s"onAttachFragment( $fragment )")
 
 		super.onAttachFragment( fragment )
 	}
 
-	override def onRestoreInstanceState( state: Bundle )
+	override def onRestoreInstanceState( state: Bundle ): Unit =
 	{
-		Log.d( getClass.getName, s"onRestoreInstanceState( $state )")
+		Log.d( s"onRestoreInstanceState( $state )")
 
 		super.onRestoreInstanceState( state )
 	}
 
-	override def onPostCreate( state: Bundle )
+	override def onRestart(): Unit =
 	{
-		Log.d( getClass.getName, s"onPostCreate( $state )")
-
-		super.onPostCreate( state )
-	}
-
-	override def onRestart()
-	{
-		Log.d( getClass.getName, s"onRestart()")
+		Log.d( s"onRestart()")
 
 		super.onRestart()
 	}
 
-	override def onUserLeaveHint()
+	override def onUserLeaveHint(): Unit =
 	{
-		Log.d( getClass.getName, s"onUserLeaveHint()")
+		Log.d( s"onUserLeaveHint()")
 
 		super.onUserLeaveHint()
 	}
 
 	override def onCreateThumbnail( bitmap: Bitmap, canvas: Canvas ) =
 	{
-		Log.d( getClass.getName, s"onCreateThumbnail( $bitmap, $canvas )")
+		Log.d( s"onCreateThumbnail( $bitmap, $canvas )")
 
 		super.onCreateThumbnail( bitmap, canvas )
 	}
 
 	override def onCreateDescription() =
 	{
-		Log.d( getClass.getName, s"onCreateDescription()")
+		Log.d( s"onCreateDescription()")
 
 		super.onCreateDescription()
 	}
 
-	override def onProvideAssistData( data: Bundle )
+	override def onProvideAssistData( data: Bundle ): Unit =
 	{
-		Log.d( getClass.getName, s"onProvideAssistData( $data )")
+		Log.d( s"onProvideAssistData( $data )")
 
 		super.onProvideAssistData( data )
 	}
 
 	override def onKeyLongPress( key: Int, event: KeyEvent ) =
 	{
-		Log.d( getClass.getName, s"onKeyLongPress( $key, $event )")
+		Log.d( s"onKeyLongPress( $key, $event )")
 
 		super.onKeyLongPress( key, event )
 	}
 
 	override def onKeyUp( key: Int, event: KeyEvent ) =
 	{
-		Log.d( getClass.getName, s"onKeyUp( $key, $event )")
+		Log.d( s"onKeyUp( $key, $event )")
 
 		super.onKeyUp( key, event )
 	}
 
 	override def onKeyMultiple( key: Int, repeatCount: Int, event: KeyEvent ) =
 	{
-		Log.d( getClass.getName, s"onKeyMultiple( $key, $repeatCount, $event )")
+		Log.d( s"onKeyMultiple( $key, $repeatCount, $event )")
 
 		super.onKeyMultiple( key, repeatCount, event )
 	}
 
 	override def onTouchEvent( event: MotionEvent ) =
 	{
-		Log.d( getClass.getName, s"onTouchEvent( $event )")
+		Log.d( s"onTouchEvent( $event )")
 
 		super.onTouchEvent( event )
 	}
 
 	override def onTrackballEvent( event: MotionEvent ) =
 	{
-		Log.d( getClass.getName, s"onTrackballEvent( $event )")
+		Log.d( s"onTrackballEvent( $event )")
 
 		super.onTrackballEvent( event )
 	}
 
 	override def onGenericMotionEvent( event: MotionEvent ) =
 	{
-		Log.d( getClass.getName, s"onGenericMotionEvent( $event )")
+		Log.d( s"onGenericMotionEvent( $event )")
 
 		super.onGenericMotionEvent( event )
 	}
 
-	override def onUserInteraction()
+	override def onUserInteraction(): Unit =
 	{
-		Log.d( getClass.getName, s"onUserInteraction()")
+		Log.d( s"onUserInteraction()")
 
 		super.onUserInteraction()
 	}
 
-	override def onWindowAttributesChanged( parameters: LayoutParams )
+	override def onWindowAttributesChanged( parameters: LayoutParams ): Unit =
 	{
-		Log.d( getClass.getName, s"onWindowAttributesChanged( $parameters )")
+		Log.d( s"onWindowAttributesChanged( $parameters )")
 
 		super.onWindowAttributesChanged( parameters )
 	}
 
-	override def onWindowFocusChanged( hasFocus: Boolean )
+	override def onWindowFocusChanged( hasFocus: Boolean ): Unit =
 	{
-		Log.d( getClass.getName, s"onWindowFocusChanged( $hasFocus )")
+		Log.d( s"onWindowFocusChanged( $hasFocus )")
 
 		super.onWindowFocusChanged( hasFocus )
 	}
 
-	override def onAttachedToWindow()
+	override def onAttachedToWindow(): Unit =
 	{
-		Log.d( getClass.getName, s"onAttachedToWindow()")
+		Log.d( s"onAttachedToWindow()")
 
 		super.onAttachedToWindow()
 	}
 
-	override def onDetachedFromWindow()
+	override def onDetachedFromWindow(): Unit =
 	{
-		Log.d( getClass.getName, s"onDetachedFromWindow()")
+		Log.d( s"onDetachedFromWindow()")
 
 		super.onDetachedFromWindow()
 	}
 
 	override def onOptionsItemSelected( item: MenuItem ) =
 	{
-		Log.d( getClass.getName, s"onOptionsItemSelected( $item )")
+		Log.d( s"onOptionsItemSelected( $item )")
 
 		super.onOptionsItemSelected( item )
 	}
 
 	override def onPrepareOptionsMenu( menu: Menu ) =
 	{
-		Log.d( getClass.getName, s"onPrepareOptionsMenu( $menu )")
+		Log.d( s"onPrepareOptionsMenu( $menu )")
 
 		super.onPrepareOptionsMenu( menu )
 	}
 
 	override def onNavigateUp() =
 	{
-		Log.d( getClass.getName, s"onNavigateUp()")
+		Log.d( s"onNavigateUp()")
 
 		super.onNavigateUp()
 	}
 
 	override def onNavigateUpFromChild( child: app.Activity ) =
 	{
-		Log.d( getClass.getName, s"onNavigateUpFromChild( $child )")
+		Log.d( s"onNavigateUpFromChild( $child )")
 
 		super.onNavigateUpFromChild( child )
 	}
 
-	override def onCreateNavigateUpTaskStack( builder: TaskStackBuilder )
+	override def onCreateNavigateUpTaskStack( builder: TaskStackBuilder ): Unit =
 	{
-		Log.d( getClass.getName, s"onCreateNavigateUpTaskStack( $builder )")
+		Log.d( s"onCreateNavigateUpTaskStack( $builder )")
 
 		super.onCreateNavigateUpTaskStack( builder )
 	}
 
-	override def onPrepareNavigateUpTaskStack( builder: TaskStackBuilder )
+	override def onPrepareNavigateUpTaskStack( builder: TaskStackBuilder ): Unit =
 	{
-		Log.d( getClass.getName, s"onPrepareNavigateUpTaskStack( $builder )")
+		Log.d( s"onPrepareNavigateUpTaskStack( $builder )")
 
 		super.onPrepareNavigateUpTaskStack( builder )
 	}
 
-	override def onOptionsMenuClosed( menu: Menu )
+	override def onOptionsMenuClosed( menu: Menu ): Unit =
 	{
-		Log.d( getClass.getName, s"onOptionsMenuClosed( $menu )")
+		Log.d( s"onOptionsMenuClosed( $menu )")
 
 		super.onOptionsMenuClosed( menu )
 	}
 
-	override def onCreateContextMenu( menu: ContextMenu, view: View, info: ContextMenuInfo )
+	override def onCreateContextMenu( menu: ContextMenu, view: View, info: ContextMenuInfo ): Unit =
 	{
-		Log.d( getClass.getName, s"onCreateContextMenu( $menu, $view, $info )")
+		Log.d( s"onCreateContextMenu( $menu, $view, $info )")
 
 		super.onCreateContextMenu( menu, view, info )
 	}
 
 	override def onContextItemSelected( item: MenuItem ) =
 	{
-		Log.d( getClass.getName, s"onContextItemSelected( $item )")
+		Log.d( s"onContextItemSelected( $item )")
 
 		super.onContextItemSelected( item )
 	}
 
-	override def onContextMenuClosed( menu: Menu )
+	override def onContextMenuClosed( menu: Menu ): Unit =
 	{
-		Log.d( getClass.getName, s"onContextMenuClosed( $menu )")
+		Log.d( s"onContextMenuClosed( $menu )")
 
 		super.onContextMenuClosed( menu )
 	}
 
 	override def onSearchRequested() =
 	{
-		Log.d( getClass.getName, s"onSearchRequested()")
+		Log.d( s"onSearchRequested()")
 
 		super.onSearchRequested()
 	}
 
-	override def onActivityReenter( result: Int, data: Intent )
+	override def onActivityReenter( result: Int, data: Intent ): Unit =
 	{
-		Log.d( getClass.getName, s"onActivityReenter( $result, $data )")
+		Log.d( s"onActivityReenter( $result, $data )")
 
 		super.onActivityReenter( result, data )
 	}
 
-	override def onChildTitleChanged( child: app.Activity, title: CharSequence )
+	override def onChildTitleChanged( child: app.Activity, title: CharSequence ): Unit =
 	{
-		Log.d( getClass.getName, s"onChildTitleChanged( $child, $title )")
+		Log.d( s"onChildTitleChanged( $child, $title )")
 
 		super.onChildTitleChanged( child, title )
 	}
 
 	override def onCreateView( parent: View, name: String, context: Context, attributes: AttributeSet ) =
 	{
-		Log.d( getClass.getName, s"onCreateView( $parent, $name, $context, $attributes )")
+		Log.d( s"onCreateView( $parent, $name, $context, $attributes )")
 
 		super.onCreateView( parent, name, context, attributes )
 	}
 
-	override def onVisibleBehindCanceled()
+	override def onVisibleBehindCanceled(): Unit =
 	{
-		Log.d( getClass.getName, s"onVisibleBehindCanceled()")
+		Log.d( s"onVisibleBehindCanceled()")
 
 		super.onVisibleBehindCanceled()
 	}
 
-	override def onEnterAnimationComplete()
+	override def onEnterAnimationComplete(): Unit =
 	{
-		Log.d( getClass.getName, s"onEnterAnimationComplete()")
+		Log.d( s"onEnterAnimationComplete()")
 
 		super.onEnterAnimationComplete()
 	}
 
 	override def onWindowStartingActionMode( callback: Callback ) =
 	{
-		Log.d( getClass.getName, s"onWindowStartingActionMode( $callback )")
+		Log.d( s"onWindowStartingActionMode( $callback )")
 
 		super.onWindowStartingActionMode( callback )
 	}
 
-	override def onActionModeStarted( mode: ActionMode )
+	override def onActionModeStarted( mode: ActionMode ): Unit =
 	{
-		Log.d( getClass.getName, s"onActionModeStarted( $mode )")
+		Log.d( s"onActionModeStarted( $mode )")
 
 		super.onActionModeStarted( mode )
 	}
 
-	override def onActionModeFinished( mode: ActionMode )
+	override def onActionModeFinished( mode: ActionMode ): Unit =
 	{
-		Log.d( getClass.getName, s"onActionModeFinished( $mode )")
+		Log.d( s"onActionModeFinished( $mode )")
 
 		super.onActionModeFinished( mode )
 	}
 }
+
+object	Lifecycle
+extends	Companion

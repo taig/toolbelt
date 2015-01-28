@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.{Window, Menu, View, ViewGroup}
+import android.view.{Menu, View, ViewGroup}
 import com.taig.android._
-import com.taig.android.conversion._
 
 trait	Activity
 extends	ActionBarActivity
@@ -16,30 +15,26 @@ with	Contextual
 
 	private var root: View = null
 
-	override final def onCreate( state: Bundle )
+	override protected final def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
 
 		onCreate( Option( state ) )
-
-		if( !getWindow.hasFeature( Window.FEATURE_ACTION_BAR_OVERLAY ) )
-		{
-			// Adjust content margins to not be hidden behind the actionbar once the layout is done
-			val params = findViewById( R.id.content ).getLayoutParams.asInstanceOf[ViewGroup.MarginLayoutParams]
-			val header = findViewById( R.id.wrapper_header )
-			val footer = findViewById( R.id.wrapper_footer )
-	
-			header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
-			footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
-		}
 	}
 
-	def onCreate( state: Option[Bundle] )
+	protected def onCreate( state: Option[Bundle] ): Unit =
 	{
 		setRootView( R.layout.main )
 	}
 
-	override def onPostCreate( savedInstanceState: Bundle ) = super.onPostCreate( savedInstanceState )
+	override protected final def onPostCreate( state: Bundle ) =
+	{
+		super.onPostCreate( state )
+
+		onPostCreate( Option( state ) )
+	}
+
+	protected def onPostCreate( state: Option[Bundle] ): Unit = {}
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
