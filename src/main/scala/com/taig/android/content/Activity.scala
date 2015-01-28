@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.{Menu, View, ViewGroup}
+import android.widget.FrameLayout
 import com.taig.android._
 import com.taig.android.conversion._
 
@@ -18,7 +19,27 @@ with	Contextual
 
 	private var overlay = false
 
-	def setActionBarOverlay( overlay: Boolean ) = this.overlay = overlay
+	def setActionBarOverlay( overlay: Boolean ): Unit = this.overlay = overlay
+
+	def setHeaderShadowEnabled( enabled: Boolean ): Unit =
+	{
+		findViewById( R.id.wrapper_header )
+			.asInstanceOf[FrameLayout]
+			.setForeground( if( enabled ) R.drawable.shadow_down.asDrawable else null )
+	}
+
+	def setFooterShadowEnabled( enabled: Boolean ): Unit =
+	{
+		findViewById( R.id.wrapper_footer )
+			.asInstanceOf[FrameLayout]
+			.setForeground( if( enabled ) R.drawable.shadow_up.asDrawable else null )
+	}
+
+	def setOverlayShadowEnabled( enabled: Boolean ): Unit =
+	{
+		setHeaderShadowEnabled( enabled )
+		setFooterShadowEnabled( enabled )
+	}
 
 	override protected final def onCreate( state: Bundle )
 	{
