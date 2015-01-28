@@ -16,24 +16,31 @@ with	Contextual
 
 	private var root: View = null
 
+	private var overlay = false
+
+	def setActionBarOverlay( overlay: Boolean ) = this.overlay = overlay
+
 	override protected final def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
 
 		onCreate( Option( state ) )
+
+		if( !overlay )
+		{
+			// Adjust content margins to not be hidden behind the actionbar once the layout is done
+			val params = findViewById( R.id.content ).getLayoutParams.asInstanceOf[ViewGroup.MarginLayoutParams]
+			val header = findViewById( R.id.wrapper_header )
+			val footer = findViewById( R.id.wrapper_footer )
+
+			header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
+			footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
+		}
 	}
 
 	protected def onCreate( state: Option[Bundle] ): Unit =
 	{
 		setRootView( R.layout.main )
-
-		// Adjust content margins to not be hidden behind the actionbar once the layout is done
-		val params = findViewById( R.id.content ).getLayoutParams.asInstanceOf[ViewGroup.MarginLayoutParams]
-		val header = findViewById( R.id.wrapper_header )
-		val footer = findViewById( R.id.wrapper_footer )
-
-		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
-		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
 	}
 
 	override protected final def onPostCreate( state: Bundle ) =
