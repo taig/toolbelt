@@ -1,4 +1,4 @@
-package com.taig.android.widget.recycle
+package com.taig.android.widget.recycler
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.{Adapter, AdapterDataObserver, ViewHolder}
@@ -22,16 +22,20 @@ extends	RecyclerView
 		// Register observer to current adapter
 		Option( adapter ).foreach( _.registerAdapterDataObserver( Observer ) )
 
-		check()
+		update()
 	}
 
-	private def check() = ( empty, Option( getAdapter() ) ) match
+	private def update() = ( empty, Option( getAdapter ) ) match
 	{
-		case ( Some( empty ), Some( adapter ) ) =>
+		case ( Some( empty ), Some( adapter ) ) if adapter.getItemCount == 0 =>
 		{
-			val visible = adapter.getItemCount == 0
-			empty.setVisibility( if( visible ) VISIBLE else GONE )
-			setVisibility( if( visible ) GONE else VISIBLE )
+			empty.setVisibility( VISIBLE )
+			setVisibility( GONE )
+		}
+		case ( Some( empty ), Some( _ ) ) =>
+		{
+			empty.setVisibility( GONE )
+			setVisibility( VISIBLE )
 		}
 		case _ => // Nothing to do
 	}
@@ -39,10 +43,10 @@ extends	RecyclerView
 	private object	Observer
 	extends			AdapterDataObserver
 	{
-		override def onItemRangeChanged( start: Int, count: Int ) = check()
+		override def onItemRangeChanged( start: Int, count: Int ) = update()
 
-		override def onItemRangeInserted( start: Int, count: Int ) = check()
+		override def onItemRangeInserted( start: Int, count: Int ) = update()
 
-		override def onItemRangeRemoved( start: Int, count: Int ) = check()
+		override def onItemRangeRemoved( start: Int, count: Int ) = update()
 	}
 }

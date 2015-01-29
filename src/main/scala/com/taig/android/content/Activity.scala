@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.{Menu, View, ViewGroup}
+import android.widget.FrameLayout
 import com.taig.android._
 import com.taig.android.conversion._
 
@@ -16,25 +17,61 @@ with	Contextual
 
 	private var root: View = null
 
-	override final def onCreate( state: Bundle )
+	private var overlay = false
+
+	def setActionBarOverlay( overlay: Boolean ): Unit = this.overlay = overlay
+
+	def setHeaderShadowEnabled( enabled: Boolean ): Unit =
+	{
+		findViewById( R.id.wrapper_header )
+			.asInstanceOf[FrameLayout]
+			.setForeground( if( enabled ) R.drawable.shadow_down.asDrawable else null )
+	}
+
+	def setFooterShadowEnabled( enabled: Boolean ): Unit =
+	{
+		findViewById( R.id.wrapper_footer )
+			.asInstanceOf[FrameLayout]
+			.setForeground( if( enabled ) R.drawable.shadow_up.asDrawable else null )
+	}
+
+	def setOverlayShadowEnabled( enabled: Boolean ): Unit =
+	{
+		setHeaderShadowEnabled( enabled )
+		setFooterShadowEnabled( enabled )
+	}
+
+	override protected final def onCreate( state: Bundle )
 	{
 		super.onCreate( state )
 
 		onCreate( Option( state ) )
+
+		if( !overlay )
+		{
+			// Adjust content margins to not be hidden behind the actionbar once the layout is done
+			val params = findViewById( R.id.content ).getLayoutParams.asInstanceOf[ViewGroup.MarginLayoutParams]
+			val header = findViewById( R.id.wrapper_header )
+			val footer = findViewById( R.id.wrapper_footer )
+
+			header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
+			footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
+		}
 	}
 
-	def onCreate( state: Option[Bundle] )
+	protected def onCreate( state: Option[Bundle] ): Unit =
 	{
 		setRootView( R.layout.main )
-
-		// Adjust content margins to not be hidden behind the actionbar once the layout is done
-		val params = findViewById( R.id.content ).getLayoutParams.asInstanceOf[ViewGroup.MarginLayoutParams]
-		val header = findViewById( R.id.wrapper_header )
-		val footer = findViewById( R.id.wrapper_footer )
-
-		header.addOnLayoutChangeListener( ( view: View ) => params.topMargin = view.getHeight - header.getPaddingBottom )
-		footer.addOnLayoutChangeListener( ( view: View ) => params.bottomMargin = view.getHeight - footer.getPaddingTop )
 	}
+
+	override protected final def onPostCreate( state: Bundle ) =
+	{
+		super.onPostCreate( state )
+
+		onPostCreate( Option( state ) )
+	}
+
+	protected def onPostCreate( state: Option[Bundle] ): Unit = {}
 
 	override def onCreateOptionsMenu( menu: Menu ) =
 	{
