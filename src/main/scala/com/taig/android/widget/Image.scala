@@ -2,10 +2,11 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.drawable.PictureDrawable
 import android.util.{AttributeSet, TypedValue}
 import android.view.View
 import android.widget.ImageView
-import com.larvalabs.svgandroid.SVGBuilder
+import com.caverock.androidsvg.SVG
 import com.taig.android.R
 
 /**
@@ -47,7 +48,7 @@ with	Widget.Styleable
 		{
 			// Make sure hardware rendering is disabled
 			setLayerType( View.LAYER_TYPE_SOFTWARE, null )
-			setImageDrawable( new SVGBuilder().readFromResource( getResources, resId ).build().getDrawable )
+			setImageDrawable( new PictureDrawable( SVG.getFromResource( getResources, resId ).renderToPicture() ) )
 		}
 		else
 		{
