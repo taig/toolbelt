@@ -1,12 +1,13 @@
-package com.taig.android.widget.image
+package com.taig.android.widget.view
 
 import android.content.res.TypedArray
+import android.view.View
 import android.view.View.MeasureSpec
 import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.util.Companion
-import com.taig.android.widget.Image
-import com.taig.android.widget.image.AspectRatio.Dominance
+import com.taig.android.widget.Widget
+import com.taig.android.widget.view.AspectRatio.Dominance
 
 /**
  * ImageView extension that allows to specify fixed aspect ratios to the view
@@ -14,7 +15,8 @@ import com.taig.android.widget.image.AspectRatio.Dominance
  * @see [[R.styleable.Widget_Image_AspectRatio]]
  */
 trait	AspectRatio
-extends	Image
+extends	View
+with	Widget
 {
 	private val ratio = new
 	{
