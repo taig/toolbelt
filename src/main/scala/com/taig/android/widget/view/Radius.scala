@@ -3,9 +3,10 @@ package com.taig.android.widget.view
 import android.content.res.TypedArray
 import android.graphics.PorterDuff.Mode
 import android.graphics._
+import android.view.View
 import com.taig.android.R
 import com.taig.android.util.Companion
-import com.taig.android.widget.Image
+import com.taig.android.widget.{Widget, Image}
 
 /**
  * View extension that allows to apply a radius
@@ -13,7 +14,8 @@ import com.taig.android.widget.Image
 // TODO Allow background drawing with radius
 // TODO Solid colors probably don't work?
 trait	Radius
-extends	Image
+extends	View
+with	Widget
 {
 	private val radius = new
 	{
