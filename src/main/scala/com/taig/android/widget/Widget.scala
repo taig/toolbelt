@@ -23,6 +23,13 @@ with	Contextual
 		array.recycle()
 	}
 
+	protected def setMeasuredDimensionReflective( widthMeasure: Int, heightMeasure: Int ) =
+	{
+		val method = classOf[View].getDeclaredMethod( "setMeasuredDimension", Integer.TYPE, Integer.TYPE )
+		method.setAccessible( true )
+		method.invoke( this, widthMeasure: Integer, heightMeasure: Integer )
+	}
+
 	override def onSaveInstanceState() = super.onSaveInstanceState()
 
 	override def onRestoreInstanceState( state: Parcelable ) = super.onRestoreInstanceState( state )

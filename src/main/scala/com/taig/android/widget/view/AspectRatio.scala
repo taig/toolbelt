@@ -90,47 +90,29 @@ with	Widget
 	 */
 	def setRatio( value: Float ) = ratio.value = value
 
-	/**
-	 * Apply the aspect ratio to a given dimension, respecting the dominant dimension
-	 * 
-	 * @param widthMeasure withMeasure from [[onMeasure()]]
-	 * @param heightMeasure heightMeasure from [[onMeasure()]]
-	 * @param dominance Dominant dimension (default: [[getRatioDominance]])
-	 * @return The resolution with the aspect ratio applied
-	 */
-	private def resolve( widthMeasure: Int, heightMeasure: Int, dominance: Int = getRatioDominance ): ( Int, Int ) =
-	{
-		( dominance, getMode( widthMeasure ), getMode( heightMeasure ) ) match
-		{
-			case ( Dominance.Width, _, _ ) =>
-			{
-				val size = getSize( widthMeasure )
-				( size, ( size * getRatio ).toInt )
-			}
-			case ( Dominance.Height, _, _ ) =>
-			{
-				val size = getSize( heightMeasure )
-				( ( size * getRatio ).toInt, size )
-			}
-			case ( Dominance.Auto, _, EXACTLY ) => resolve( widthMeasure, heightMeasure, Dominance.Height )
-			case _ => resolve( widthMeasure, heightMeasure, Dominance.Width )
-		}
-	}
-
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )
 	{
+		def resolve( dominance: Int = getRatioDominance ): Unit =
+		{
+			val ( width, height ) = ( getMeasuredWidth, getMeasuredHeight )
+
+			dominance match
+			{
+				case Dominance.Width => setMeasuredDimensionReflective( width, ( width * getRatio ).toInt )
+				case Dominance.Height => setMeasuredDimensionReflective( ( height * getRatio ).toInt, height )
+				case Dominance.Auto => ( getMode( widthMeasure ), getMode( heightMeasure ) ) match
+				{
+					case ( widthMode, EXACTLY ) if widthMode != EXACTLY => resolve( Dominance.Height )
+					case _ => resolve( Dominance.Width )
+				}
+			}
+		}
+
+		super.onMeasure( widthMeasure, heightMeasure )
+
 		if( isRatioEnabled )
 		{
-			val ( width, height ) = resolve( widthMeasure, heightMeasure )
-
-			super.onMeasure(
-				MeasureSpec.makeMeasureSpec( width, MeasureSpec.EXACTLY ),
-				MeasureSpec.makeMeasureSpec( height, MeasureSpec.EXACTLY )
-			)
-		}
-		else
-		{
-			super.onMeasure( widthMeasure, heightMeasure )
+			resolve()
 		}
 	}
 }
