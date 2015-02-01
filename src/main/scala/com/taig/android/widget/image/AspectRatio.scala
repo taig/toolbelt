@@ -1,6 +1,7 @@
 package com.taig.android.widget.image
 
 import android.content.res.TypedArray
+import android.view.View.MeasureSpec
 import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.util.Companion
@@ -90,67 +91,44 @@ extends	Image
 	/**
 	 * Apply the aspect ratio to a given dimension, respecting the dominant dimension
 	 * 
-	 * @param width Dimension width
-	 * @param height Dimension height
+	 * @param widthMeasure withMeasure from [[onMeasure()]]
+	 * @param heightMeasure heightMeasure from [[onMeasure()]]
 	 * @param dominance Dominant dimension (default: [[getRatioDominance]])
 	 * @return The resolution with the aspect ratio applied
 	 */
-	private def resolve( width: Int, height: Int, dominance: Int = getRatioDominance ): ( Int, Int ) = dominance match
+	private def resolve( widthMeasure: Int, heightMeasure: Int, dominance: Int = getRatioDominance ): ( Int, Int ) =
 	{
-		case Dominance.Auto if width <= height => resolve( width, height, Dominance.Width )
-		case Dominance.Auto if height < width => resolve( width, height, Dominance.Height )
-		case Dominance.Width => ( width, ( width * getRatio ).toInt )
-		case Dominance.Height => ( ( height * getRatio ).toInt, height )
+		( dominance, getMode( widthMeasure ), getMode( heightMeasure ) ) match
+		{
+			case ( Dominance.Width, _, _ ) =>
+			{
+				val size = getSize( widthMeasure )
+				( size, ( size * getRatio ).toInt )
+			}
+			case ( Dominance.Height, _, _ ) =>
+			{
+				val size = getSize( heightMeasure )
+				( ( size * getRatio ).toInt, size )
+			}
+			case ( Dominance.Auto, _, EXACTLY ) => resolve( widthMeasure, heightMeasure, Dominance.Height )
+			case _ => resolve( widthMeasure, heightMeasure, Dominance.Width )
+		}
 	}
 
 	override def onMeasure( widthMeasure: Int, heightMeasure: Int )
 	{
-		val drawable = getDrawable
+		if( isRatioEnabled )
+		{
+			val ( width, height ) = resolve( widthMeasure, heightMeasure )
 
-		if( drawable == null || !isRatioEnabled )
+			super.onMeasure(
+				MeasureSpec.makeMeasureSpec( width, MeasureSpec.EXACTLY ),
+				MeasureSpec.makeMeasureSpec( height, MeasureSpec.EXACTLY )
+			)
+		}
+		else
 		{
 			super.onMeasure( widthMeasure, heightMeasure )
-			return
-		}
-
-		( getMode( widthMeasure ), getMode( heightMeasure ) ) match
-		{
-			case ( EXACTLY, EXACTLY ) =>
-			{
-				val ( width, height ) = resolve( getSize( widthMeasure ), getSize( heightMeasure ) )
-
-				setMeasuredDimensions( width, height )
-
-				if( getAdjustViewBounds )
-				{
-					getLayoutParams.width = width
-					getLayoutParams.height = height
-				}
-			}
-			case ( EXACTLY, _ ) =>
-			{
-				val width = getSize( widthMeasure )
-				setMeasuredDimensions( ( width * getRatio ).toInt, width )
-			}
-			case ( _, EXACTLY ) =>
-			{
-				val height = getSize( heightMeasure )
-				setMeasuredDimensions( ( height * getRatio ).toInt, height )
-			}
-			case ( UNSPECIFIED, UNSPECIFIED ) =>
-			{
-				val ( width, height ) = resolve( drawable.getIntrinsicWidth, drawable.getIntrinsicHeight )
-				setMeasuredDimensions( width, height )
-			}
-			case ( UNSPECIFIED, _ ) =>
-			{
-				setMeasuredDimensions( ( drawable.getIntrinsicWidth * getRatio ).toInt, drawable.getIntrinsicWidth )
-			}
-			case ( _, UNSPECIFIED ) =>
-			{
-				setMeasuredDimensions( ( drawable.getIntrinsicHeight * getRatio ).toInt, drawable.getIntrinsicHeight )
-			}
-			case _ => super.onMeasure( widthMeasure, heightMeasure )
 		}
 	}
 }
