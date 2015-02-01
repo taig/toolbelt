@@ -1,19 +1,21 @@
-package com.taig.android.widget.image
+package com.taig.android.widget.view
 
 import android.content.res.TypedArray
 import android.graphics.PorterDuff.Mode
 import android.graphics._
+import android.view.View
 import com.taig.android.R
 import com.taig.android.util.Companion
-import com.taig.android.widget.Image
+import com.taig.android.widget.{Widget, Image}
 
 /**
- * ImageView extension that allows to apply a radius to the src drawable
+ * View extension that allows to apply a radius
  */
 // TODO Allow background drawing with radius
 // TODO Solid colors probably don't work?
 trait	Radius
-extends	Image
+extends	View
+with	Widget
 {
 	private val radius = new
 	{
@@ -39,7 +41,7 @@ extends	Image
 	} )
 
 	/**
-	 * Check whether radius drawing is enabled and therefore being applied to the drawable
+	 * Check whether radius drawing is enabled and therefore being applied to the view
 	 *
 	 * @return <code>true</code> (default) if radius drawing is enabled, <code>false</code> otherwise
 	 * @see [[R.styleable.Widget_Image_Radius_radius]]
@@ -72,20 +74,19 @@ extends	Image
 
 	override def onDraw( canvas: Canvas )
 	{
-		val drawable = getDrawable
-
-		if( drawable == null || !isRadiusEnabled )
+		if( isRadiusEnabled )
+		{
+			rectangle.set( 0, 0, canvas.getWidth, canvas.getHeight )
+			val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
+			canvas.drawRoundRect( rectangle, getRadius, getRadius, paint.shape )
+			canvas.saveLayer( rectangle, paint.image, Canvas.ALL_SAVE_FLAG )
+			super.onDraw( canvas )
+			canvas.restoreToCount( restore )
+		}
+		else
 		{
 			super.onDraw( canvas )
-			return
 		}
-
-		rectangle.set( 0, 0, canvas.getWidth, canvas.getHeight )
-		val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
-		canvas.drawRoundRect( rectangle, getRadius, getRadius, paint.shape )
-		canvas.saveLayer( rectangle, paint.image, Canvas.ALL_SAVE_FLAG )
-		super.onDraw( canvas )
-		canvas.restoreToCount( restore )
 	}
 }
 
