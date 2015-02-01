@@ -1,4 +1,4 @@
-package com.taig.android.widget.image
+package com.taig.android.widget.view
 
 /**
  * ImageView extension that draws its src drawable in a circle
