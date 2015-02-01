@@ -1,7 +1,7 @@
 package com.taig.android.content
 
 import android.os.Bundle
-import android.support.v4.app.{DialogFragment, FragmentActivity, ListFragment}
+import android.support.v4.app.{DialogFragment, FragmentActivity}
 import android.view.{LayoutInflater, View, ViewGroup}
 import com.taig.android.content
 
@@ -71,25 +71,6 @@ with	Contextual
 
 object Fragment
 {
-	trait	Dialog
-	extends	DialogFragment
-	with	Fragment
-	{
-		override def onDestroyView()
-		{
-			if( getDialog != null && getRetainInstance )
-			{
-				getDialog.setDismissMessage( null )
-			}
-
-			super.onDestroyView()
-		}
-	}
-
-	trait	List
-	extends	ListFragment
-	with	Fragment
-
 	/**
 	 * Flag a Fragment as Creditor of an Activity
 	 * 
