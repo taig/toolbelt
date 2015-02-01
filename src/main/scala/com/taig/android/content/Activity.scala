@@ -13,7 +13,7 @@ trait	Activity
 extends	ActionBarActivity
 with	Contextual
 {
-	override implicit def context = this
+	override implicit def context: this.type = this
 
 	private var root: View = null
 

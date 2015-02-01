@@ -43,10 +43,6 @@ extends	RecyclerView
 	private object	Observer
 	extends			AdapterDataObserver
 	{
-		override def onItemRangeChanged( start: Int, count: Int ) = update()
-
-		override def onItemRangeInserted( start: Int, count: Int ) = update()
-
-		override def onItemRangeRemoved( start: Int, count: Int ) = update()
+		override def onChanged() = update()
 	}
 }

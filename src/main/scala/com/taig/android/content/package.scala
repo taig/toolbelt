@@ -1,6 +1,5 @@
 package com.taig.android
 
-import android.content.res.Resources.NotFoundException
 import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.LayoutInflater
@@ -54,7 +53,6 @@ package object content
 
 		def asStrings( implicit context: Context ) = context.getResources.getStringArray( resource )
 
-		@throws[NotFoundException]
 		def asUri( implicit context: Context ) = Uri.parse(
 			ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
 			context.getResources.getResourcePackageName( resource ) + "/" +
