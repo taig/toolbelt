@@ -1,6 +1,4 @@
-package com.taig.android.widget.image
-
-import com.taig.android.widget.view.AspectRatio
+package com.taig.android.widget.view
 
 /**
  * ImageView extension that draws its src drawable in a circle
