@@ -11,8 +11,6 @@ import com.taig.android.widget.{Widget, Image}
 /**
  * View extension that allows to apply a radius
  */
-// TODO Allow background drawing with radius
-// TODO Solid colors probably don't work?
 trait	Radius
 extends	View
 with	Widget
