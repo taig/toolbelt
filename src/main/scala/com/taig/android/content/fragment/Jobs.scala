@@ -44,10 +44,10 @@ extends	Fragment
 	/**
 	 * Do it now or as soon as the Fragment is (re-) starting
 	 */
-	def schedule( job: => Unit ) = synchronized( if( ready ) job else queue.enqueue( () => job ) )
+	def schedule( job: => Unit ) = synchronized( if( ready ) Ui( job ) else queue.enqueue( () => job ) )
 
 	/**
 	 * Do it now or not at all
 	 */
-	def attempt( job: => Unit ) = synchronized( if( ready ) job )
+	def attempt( job: => Unit ) = synchronized( if( ready ) Ui( job ) )
 }
