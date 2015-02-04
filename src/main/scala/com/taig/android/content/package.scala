@@ -33,27 +33,27 @@ package object content
 		def canBeHandled( implicit context: Context ) = intent.resolveActivity( context.getPackageManager ) != null
 	}
 
-	implicit class RichResource( resource: Int )
+	implicit class RichResource( resource: Int )( implicit context: Context )
 	{
-		def asBoolean( implicit context: Context ) = context.getResources.getBoolean( resource )
+		def asBoolean = context.getResources.getBoolean( resource )
 
-		def asColor( implicit context: Context ) = context.getResources.getColor( resource )
+		def asColor = context.getResources.getColor( resource )
 
-		def asDimension( implicit context: Context ) = context.getResources.getDimension( resource )
+		def asDimension = context.getResources.getDimension( resource )
 
-		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
+		def asDrawable = context.getResources.getDrawable( resource )
 
-		def asInteger( implicit context: Context ) = context.getResources.getInteger( resource )
+		def asInteger = context.getResources.getInteger( resource )
 
-		def asIntegers( implicit context: Context ) = context.getResources.getIntArray( resource )
+		def asIntegers = context.getResources.getIntArray( resource )
 
-		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
+		def asPixel = context.getResources.getDimensionPixelSize( resource )
 
-		def asString( implicit context: Context ) = context.getString( resource )
+		def asString = context.getString( resource )
 
-		def asStrings( implicit context: Context ) = context.getResources.getStringArray( resource )
+		def asStrings = context.getResources.getStringArray( resource )
 
-		def asUri( implicit context: Context ) = Uri.parse(
+		def asUri = Uri.parse(
 			ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
 			context.getResources.getResourcePackageName( resource ) + "/" +
 			context.getResources.getResourceTypeName( resource ) + "/" +
