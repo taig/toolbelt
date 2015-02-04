@@ -4,7 +4,8 @@ import sbt.Keys._
 import sbt.Resolver.ivyStylePatterns
 import sbt._
 
-object Build extends android.AutoBuild
+object	Build
+extends	android.AutoBuild
 {
 	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings( androidBuildAar: _* )
