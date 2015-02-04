@@ -18,20 +18,22 @@ extends	View
 with	Widget
 {
 	private val radius = new
-	{
-		var enabled = true
+		{
+			var enabled = true
 
-		var value = 0f
-	}
+			var value = 0f
+		}
 
-	private val rectangle = new RectF()
+	private val rectangle = new RectF( )
 
 	private val paint = new
-	{
-		val image = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
+		{
+			val image = new Paint
+			{setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) )}
 
-		val shape = new Paint( Paint.ANTI_ALIAS_FLAG ){ setXfermode( new PorterDuffXfermode( Mode.SRC ) ) }
-	}
+			val shape = new Paint( Paint.ANTI_ALIAS_FLAG )
+			{setXfermode( new PorterDuffXfermode( Mode.SRC ) )}
+		}
 
 	initialize( R.styleable.Widget_Image_Radius, ( array: TypedArray ) =>
 	{
@@ -72,7 +74,7 @@ with	Widget
 	 */
 	def setRadius( value: Float ) = radius.value = value
 
-	override def onDraw( canvas: Canvas )
+	override def draw( canvas: Canvas ) =
 	{
 		if( isRadiusEnabled )
 		{
@@ -80,7 +82,7 @@ with	Widget
 			val restore = canvas.saveLayer( rectangle, null, Canvas.ALL_SAVE_FLAG )
 			canvas.drawRoundRect( rectangle, getRadius, getRadius, paint.shape )
 			canvas.saveLayer( rectangle, paint.image, Canvas.ALL_SAVE_FLAG )
-			super.onDraw( canvas )
+			super.draw( canvas )
 			canvas.restoreToCount( restore )
 		}
 		else
