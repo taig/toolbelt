@@ -4,7 +4,8 @@ import sbt.Keys._
 import sbt.Resolver.ivyStylePatterns
 import sbt._
 
-object Build extends android.AutoBuild
+object	Build
+extends	android.AutoBuild
 {
 	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings( androidBuildAar: _* )
@@ -33,7 +34,7 @@ object Build extends android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.36-BETA",
+			version := "0.3.37-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-21",
 			targetSdkVersion in Android := "21"

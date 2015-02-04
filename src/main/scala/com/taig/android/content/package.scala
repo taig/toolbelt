@@ -2,7 +2,7 @@ package com.taig.android
 
 import android.content.{ContentResolver, Context}
 import android.net.Uri
-import android.view.LayoutInflater
+import android.view.{View, LayoutInflater}
 
 package object content
 {
@@ -11,7 +11,7 @@ package object content
 		/**
 		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
 		 */
-		def find[V]( id: Int ) = activity.findViewById( id ).asInstanceOf[V]
+		def find[V <: View]( id: Int ) = activity.findViewById( id ).asInstanceOf[V]
 	}
 
 	implicit class RichContext( context: Context )
@@ -35,7 +35,7 @@ package object content
 		/**
 		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
 		 */
-		def find[V]( id: Int ) = fragment.getView.findViewById( id ).asInstanceOf[V]
+		def find[V <: View]( id: Int ) = fragment.getView.findViewById( id ).asInstanceOf[V]
 	}
 
 	implicit class RichIntent( intent: android.content.Intent )( implicit context: Context )
