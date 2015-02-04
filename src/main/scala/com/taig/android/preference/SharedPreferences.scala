@@ -52,6 +52,8 @@ extends	android.content.SharedPreferences
 		editor.commit()
 	}
 
+	def clear() = preferences.edit().clear().commit()
+
 	override def contains( key: String ) = preferences.contains( key )
 
 	override def getAll = preferences.getAll
