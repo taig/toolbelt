@@ -23,6 +23,12 @@ with	Contextual
 		array.recycle()
 	}
 
+	/**
+	 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+	 */
+	def find[V]( id: Int ) = findViewById( id ).asInstanceOf[V]
+
+	// Cannot make public by overriding, because of final
 	protected def setMeasuredDimensionReflective( widthMeasure: Int, heightMeasure: Int ) =
 	{
 		val method = classOf[View].getDeclaredMethod( "setMeasuredDimension", Integer.TYPE, Integer.TYPE )
@@ -30,6 +36,7 @@ with	Contextual
 		method.invoke( this, widthMeasure: Integer, heightMeasure: Integer )
 	}
 
+	// Override these to make them public
 	override def onSaveInstanceState() = super.onSaveInstanceState()
 
 	override def onRestoreInstanceState( state: Parcelable ) = super.onRestoreInstanceState( state )

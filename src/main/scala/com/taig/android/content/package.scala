@@ -3,10 +3,17 @@ package com.taig.android
 import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.LayoutInflater
-import android.{content => android}
 
 package object content
 {
+	implicit class RichActivity( activity: android.app.Activity )
+	{
+		/**
+		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+		 */
+		def find[V]( id: Int ) = activity.findViewById( id ).asInstanceOf[V]
+	}
+
 	implicit class RichContext( context: Context )
 	{
 		def inflater = LayoutInflater.from( context )
@@ -23,37 +30,56 @@ package object content
 		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
 	}
 
-	implicit class RichIntent( intent: android.Intent )
+	implicit class RichFragment( fragment: android.support.v4.app.Fragment )
+	{
+		/**
+		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+		 */
+		def find[V]( id: Int ) = fragment.getView.findViewById( id ).asInstanceOf[V]
+	}
+
+	implicit class RichIntent( intent: android.content.Intent )( implicit context: Context )
 	{
 		/**
 		 * Check if there is an activity available to handle this intent
 		 * 
 		 * @return <code>true</code> if this intent can be handled, <code>false</code> otherwise
 		 */
-		def canBeHandled( implicit context: Context ) = intent.resolveActivity( context.getPackageManager ) != null
+		def canBeHandled = intent.resolveActivity( context.getPackageManager ) != null
 	}
 
-	implicit class RichResource( resource: Int )
+	implicit class RichUnit( unit: Float )( implicit context: Context )
 	{
-		def asBoolean( implicit context: Context ) = context.getResources.getBoolean( resource )
+		import android.util.TypedValue._
 
-		def asColor( implicit context: Context ) = context.getResources.getColor( resource )
+		def dp = applyDimension( COMPLEX_UNIT_DIP, unit, context.getResources.getDisplayMetrics )
 
-		def asDimension( implicit context: Context ) = context.getResources.getDimension( resource )
+		def dip = dp
 
-		def asDrawable( implicit context: Context ) = context.getResources.getDrawable( resource )
+		def sp = applyDimension( COMPLEX_UNIT_SP, unit, context.getResources.getDisplayMetrics )
+	}
 
-		def asInteger( implicit context: Context ) = context.getResources.getInteger( resource )
+	implicit class RichResource( resource: Int )( implicit context: Context )
+	{
+		def asBoolean = context.getResources.getBoolean( resource )
 
-		def asIntegers( implicit context: Context ) = context.getResources.getIntArray( resource )
+		def asColor = context.getResources.getColor( resource )
 
-		def asPixel( implicit context: Context ) = context.getResources.getDimensionPixelSize( resource )
+		def asDimension = context.getResources.getDimension( resource )
 
-		def asString( implicit context: Context ) = context.getString( resource )
+		def asDrawable = context.getResources.getDrawable( resource )
 
-		def asStrings( implicit context: Context ) = context.getResources.getStringArray( resource )
+		def asInteger = context.getResources.getInteger( resource )
 
-		def asUri( implicit context: Context ) = Uri.parse(
+		def asIntegers = context.getResources.getIntArray( resource )
+
+		def asPixel = context.getResources.getDimensionPixelSize( resource )
+
+		def asString = context.getString( resource )
+
+		def asStrings = context.getResources.getStringArray( resource )
+
+		def asUri = Uri.parse(
 			ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
 			context.getResources.getResourcePackageName( resource ) + "/" +
 			context.getResources.getResourceTypeName( resource ) + "/" +

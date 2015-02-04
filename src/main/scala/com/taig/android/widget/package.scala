@@ -59,9 +59,10 @@ package object widget
 
 	implicit class RichView( view: View )
 	{
-		import android.view.ViewTreeObserver._
-
-		private def o = view.getViewTreeObserver
+		/**
+		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+		 */
+		def find[V]( id: Int ) = view.findViewById( id ).asInstanceOf[V]
 
 		def getPadding() = Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
@@ -78,6 +79,10 @@ package object widget
 		def setPaddingRight( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
 
 		def setPaddingTop( padding: Int ) = view.setPadding( view.getPaddingLeft, padding, view.getPaddingRight, view.getPaddingBottom )
+
+		import android.view.ViewTreeObserver._
+
+		private def o = view.getViewTreeObserver
 
 		/**
 		 * @see [[android.view.ViewTreeObserver#addOnWindowAttachListener]]
@@ -309,7 +314,7 @@ package object widget
 		 * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
 		 * particular order
 		 */
-		def getAllChildren() =
+		def children =
 		{
 			def discover( view: ViewGroup ): Seq[View] =
 			{
