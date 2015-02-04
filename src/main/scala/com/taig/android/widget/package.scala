@@ -62,7 +62,7 @@ package object widget
 		/**
 		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
 		 */
-		def find[V]( id: Int ) = view.findViewById( id ).asInstanceOf[V]
+		def find[V <: View]( id: Int ) = view.findViewById( id ).asInstanceOf[V]
 
 		def getPadding() = Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
