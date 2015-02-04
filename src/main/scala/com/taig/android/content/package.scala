@@ -3,7 +3,6 @@ package com.taig.android
 import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.LayoutInflater
-import android.{content => android}
 
 package object content
 {
@@ -23,14 +22,25 @@ package object content
 		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
 	}
 
-	implicit class RichIntent( intent: android.Intent )
+	implicit class RichIntent( intent: android.content.Intent )( implicit context: Context )
 	{
 		/**
 		 * Check if there is an activity available to handle this intent
 		 * 
 		 * @return <code>true</code> if this intent can be handled, <code>false</code> otherwise
 		 */
-		def canBeHandled( implicit context: Context ) = intent.resolveActivity( context.getPackageManager ) != null
+		def canBeHandled = intent.resolveActivity( context.getPackageManager ) != null
+	}
+
+	implicit class RichUnit( unit: Float )( implicit context: Context )
+	{
+		import android.util.TypedValue._
+
+		def dp = applyDimension( COMPLEX_UNIT_DIP, unit, context.getResources.getDisplayMetrics )
+
+		def dip = dp
+
+		def sp = applyDimension( COMPLEX_UNIT_SP, unit, context.getResources.getDisplayMetrics )
 	}
 
 	implicit class RichResource( resource: Int )( implicit context: Context )
