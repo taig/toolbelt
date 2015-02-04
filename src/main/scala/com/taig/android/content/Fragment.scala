@@ -1,7 +1,7 @@
 package com.taig.android.content
 
 import android.os.Bundle
-import android.support.v4.app.{DialogFragment, FragmentActivity}
+import android.support.v4.app.FragmentActivity
 import android.view.{LayoutInflater, View, ViewGroup}
 import com.taig.android.content
 
@@ -65,8 +65,6 @@ with	Contextual
 
 		this.activity = null
 	}
-
-	def findViewById( id: Int ) = getView.findViewById( id )
 }
 
 object Fragment

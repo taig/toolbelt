@@ -6,6 +6,14 @@ import android.view.LayoutInflater
 
 package object content
 {
+	implicit class RichActivity( activity: android.app.Activity )
+	{
+		/**
+		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+		 */
+		def find[V]( id: Int ) = activity.findViewById( id ).asInstanceOf[V]
+	}
+
 	implicit class RichContext( context: Context )
 	{
 		def inflater = LayoutInflater.from( context )
@@ -20,6 +28,14 @@ package object content
 		 * @return Default PackageInfo
 		 */
 		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
+	}
+
+	implicit class RichFragment( fragment: android.support.v4.app.Fragment )
+	{
+		/**
+		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
+		 */
+		def find[V]( id: Int ) = fragment.getView.findViewById( id ).asInstanceOf[V]
 	}
 
 	implicit class RichIntent( intent: android.content.Intent )( implicit context: Context )
