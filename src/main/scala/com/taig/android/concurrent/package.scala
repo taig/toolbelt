@@ -3,6 +3,7 @@ package com.taig.android
 import java.util.concurrent.Executor
 
 import android.os.{AsyncTask, Handler, Looper}
+import com.taig.android.conversion._
 
 import scala.concurrent.ExecutionContext
 
@@ -19,4 +20,9 @@ package object concurrent
 			override def execute( command: Runnable ) = handler.post( command )
 		} )
 	}
+
+	/**
+	 * Run in Ui-Thread
+	 */
+	def Ui( body: => Unit ) = Executor.Ui.execute( body )
 }
