@@ -52,7 +52,7 @@ extends	android.content.SharedPreferences
 		editor.commit()
 	}
 
-	def clear() = preferences.edit().clear().commit()
+	def clear() = edit().clear().commit()
 
 	override def contains( key: String ) = preferences.contains( key )
 

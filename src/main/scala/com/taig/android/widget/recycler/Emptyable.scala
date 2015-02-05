@@ -10,7 +10,11 @@ extends	RecyclerView
 {
 	protected var empty: Option[View] = None
 
-	def setEmptyView( view: View ) = empty = Option( view )
+	def setEmptyView( view: View ) =
+	{
+		empty = Option( view )
+		update()
+	}
 
 	override def setAdapter( adapter: Adapter[_ <: ViewHolder] ): Unit =
 	{
@@ -25,19 +29,27 @@ extends	RecyclerView
 		update()
 	}
 
-	private def update() = ( empty, Option( getAdapter ) ) match
+	private def update() =
 	{
-		case ( Some( empty ), Some( adapter ) ) if adapter.getItemCount == 0 =>
+		( empty, Option( getAdapter ) )match
 		{
-			empty.setVisibility( VISIBLE )
-			setVisibility( GONE )
+			case ( Some( empty ), Some( adapter ) ) if adapter.getItemCount == 0 =>
+			{
+				empty.setVisibility( VISIBLE )
+				setVisibility( GONE )
+			}
+			case ( Some( empty ), None ) =>
+			{
+				empty.setVisibility( VISIBLE )
+				setVisibility( GONE )
+			}
+			case ( Some( empty ), Some( _ ) ) =>
+			{
+				empty.setVisibility( GONE )
+				setVisibility( VISIBLE )
+			}
+			case _ => // Nothing to do
 		}
-		case ( Some( empty ), Some( _ ) ) =>
-		{
-			empty.setVisibility( GONE )
-			setVisibility( VISIBLE )
-		}
-		case _ => // Nothing to do
 	}
 
 	private object	Observer
