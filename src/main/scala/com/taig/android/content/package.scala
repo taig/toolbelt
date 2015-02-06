@@ -6,6 +6,8 @@ import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.{View, LayoutInflater}
 
+import scala.reflect._
+
 package object content
 {
 	implicit class RichActivity( activity: android.app.Activity )
@@ -32,6 +34,8 @@ package object content
 		 * @return Default PackageInfo
 		 */
 		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
+
+		def startActivity[A: ClassTag]: Unit = context.startActivity( Intent[A]( context, classTag[A] ) )
 	}
 
 	implicit class RichFragment( fragment: android.support.v4.app.Fragment )
