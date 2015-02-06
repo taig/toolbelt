@@ -1,5 +1,7 @@
 package com.taig.android
 
+import android.app.AlarmManager
+import android.content.Context.ALARM_SERVICE
 import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.{View, LayoutInflater}
@@ -16,7 +18,9 @@ package object content
 
 	implicit class RichContext( context: Context )
 	{
-		def inflater = LayoutInflater.from( context )
+		def AlarmManger = context.getSystemService( ALARM_SERVICE ).asInstanceOf[AlarmManager]
+
+		def Inflater = LayoutInflater.from( context )
 
 		def getExternalOrInternalCacheDir() = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 

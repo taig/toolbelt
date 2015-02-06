@@ -29,7 +29,7 @@ object Tabs
 	{
 		override def getCustomTabView( view: ViewGroup, i: Int ) =
 		{
-			context.inflater.inflate( R.layout.tab, view, false )
+			context.Inflater.inflate( R.layout.tab, view, false )
 		}
 	}
 }

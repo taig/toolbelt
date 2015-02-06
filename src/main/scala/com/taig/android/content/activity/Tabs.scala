@@ -40,7 +40,7 @@ object Tabs
 	{
 		def titles: Seq[String]
 
-		lazy val widget = context.inflater.inflate( R.layout.tabs, null ).asInstanceOf[com.taig.android.widget.Tabs]
+		lazy val widget = context.Inflater.inflate( R.layout.tabs, null ).asInstanceOf[com.taig.android.widget.Tabs]
 	}
 
 	trait	Pager
