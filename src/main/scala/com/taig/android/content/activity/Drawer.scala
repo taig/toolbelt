@@ -42,9 +42,9 @@ extends	Activity
 	 */
 	override def onBackPressed() =
 	{
-		if( drawer.root.isDrawerOpen( drawer.wrapper ) )
+		if( drawer.isOpen() )
 		{
-			drawer.root.closeDrawer( drawer.wrapper )
+			drawer.close()
 		}
 		else
 		{
@@ -56,13 +56,13 @@ extends	Activity
 	{
 		case android.R.id.home =>
 		{
-			if( drawer.root.isDrawerOpen( drawer.wrapper ) )
+			if( drawer.isOpen() )
 			{
-				drawer.root.closeDrawer( drawer.wrapper )
+				drawer.close()
 			}
 			else
 			{
-				drawer.root.openDrawer( drawer.wrapper )
+				drawer.open()
 			}
 
 			true
@@ -75,7 +75,7 @@ extends	Activity
 		super.onSaveInstanceState( state )
 
 		// Save drawer state: open or closed?
-		state.putBoolean( Parameter.Drawer, drawer.root.isDrawerOpen( drawer.wrapper ) )
+		state.putBoolean( Parameter.Drawer, drawer.isOpen() )
 	}
 }
 
@@ -90,6 +90,12 @@ extends	Companion
 	trait	Property
 	extends	content.Property[Drawer]
 	{
+		def close() = root.closeDrawer( wrapper )
+
+		def isOpen() = root.isDrawerOpen( wrapper )
+
+		def open() = root.openDrawer( wrapper )
+
 		lazy val root = content
 			.findViewById( R.id.drawer_root )
 			.asInstanceOf[com.taig.android.widget.Drawer]
