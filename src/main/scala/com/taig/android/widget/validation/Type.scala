@@ -20,14 +20,14 @@ object Type
 
 		override def message = template.toString.format( value )
 
-		override def validate( value: CharSequence ) = super.validate( value ) || value.length() == this.value
+		override def validate( value: CharSequence ) = super.validate( value ) || transform( value ).length == this.value
 	}
 
 	abstract class Matches( enabled: Boolean, template: CharSequence, var target: Int ) extends Validator( enabled, template )
 	{
 		def this( template: CharSequence, target: Int ) = this( target > 0, template, target )
 
-		override def validate( value: CharSequence ) = super.validate( value ) || value.toString == find.toString
+		override def validate( value: CharSequence ) = super.validate( value ) || transform( value ) == transform( find )
 
 		protected def find: CharSequence
 	}
@@ -38,7 +38,7 @@ object Type
 
 		override def message = template.toString.format( length )
 
-		override def validate( value: CharSequence ) = super.validate( value ) || value.length() <= length
+		override def validate( value: CharSequence ) = super.validate( value ) || transform( value ).length() <= length
 	}
 
 	class Min( enabled: Boolean, template: CharSequence, var length: Int ) extends Validator( enabled, template )
@@ -47,15 +47,20 @@ object Type
 
 		override def message = template.toString.format( length )
 
-		override def validate( value: CharSequence ) = super.validate( value ) || value.length() >= length
+		override def validate( value: CharSequence ) = super.validate( value ) || transform( value ).length() >= length
 	}
 
 	class Numeric( enabled: Boolean, template: CharSequence ) extends Validator.Regex( enabled, template, "\\d*([\\.,]\\d+)?" )
 
 	class Phone( enabled: Boolean, template: CharSequence ) extends Validator.Regex( enabled, template, "(\\+?\\d+)?" )
+	{
+		override def transform( value: CharSequence ) = value.toString.replace( " ", "" )
+	}
 
 	class Required( enabled: Boolean, template: CharSequence ) extends Validator( enabled, template )
 	{
-		override def validate( value: CharSequence ) = !enabled || value.toString.trim.length() > 0
+		override def transform( value: CharSequence ) = value.toString.trim
+
+		override def validate(value: CharSequence) = !enabled || transform( value ).length() > 0
 	}
 }

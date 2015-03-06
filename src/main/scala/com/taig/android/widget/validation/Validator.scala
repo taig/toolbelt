@@ -6,7 +6,17 @@ abstract class Validator( var enabled: Boolean, private var template: CharSequen
 
 	def message = template
 
-	def validate( value: CharSequence ) = !enabled || value.length() == 0
+	def validate( value: CharSequence ) = !enabled || transform( value ).length() == 0
+
+	/**
+	 * An additional String transformation before validation
+	 * 
+	 * E.g. a useful utility for phone numbers to remove whitespace before validation and content retrieval.
+	 * 
+	 * @param value Raw content String to transform
+	 * @return Transformed value, default implementation is the identity function
+	 */
+	def transform( value: CharSequence ): CharSequence = value
 }
 
 object Validator
@@ -19,7 +29,7 @@ object Validator
 
 		override def validate( value: CharSequence ) =
 		{
-			super.validate( value ) || value.toString.matches( pattern )
+			super.validate( value ) || transform( value ).toString.matches( pattern )
 		}
 	}
 }
