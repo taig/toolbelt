@@ -24,7 +24,7 @@ extends	android.AutoBuild
 			publishArtifact in ( Compile, packageDoc ) := false,
 			publishArtifact in ( Compile, packageSrc ) := true,
 			resolvers += Resolver.url( "Taig", url( "http://taig.github.io/repository" ) )( ivyStylePatterns ),
-			scalaVersion := "2.11.5",
+			scalaVersion := "2.11.6",
 			scalacOptions ++= Seq(
 				"-deprecation",
 				"-feature",
