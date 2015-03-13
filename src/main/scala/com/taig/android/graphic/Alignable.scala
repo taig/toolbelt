@@ -1,6 +1,6 @@
 package com.taig.android.graphic
 
-import com.taig.android.parcelable.annotation.Parcelable
+import io.taig.android.Parcelable
 
 @Parcelable
 trait Alignable

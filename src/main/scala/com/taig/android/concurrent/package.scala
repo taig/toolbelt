@@ -13,7 +13,7 @@ package object concurrent
 	{
 		implicit lazy val Pool = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
 
-		implicit lazy val Ui = ExecutionContext.fromExecutor( new Executor
+		lazy val Ui = ExecutionContext.fromExecutor( new Executor
 		{
 			private val handler = new Handler( Looper.getMainLooper )
 

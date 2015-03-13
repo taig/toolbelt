@@ -16,7 +16,7 @@ extends	Fragment
 {
 	private var ready = false
 
-	private lazy val queue = mutable.Queue.empty[() => Unit]
+	private lazy val queue = mutable.ListBuffer.empty[() => Unit]
 
 	override def onCreate( state: Option[Bundle] ) =
 	{
@@ -31,7 +31,11 @@ extends	Fragment
 
 		ready = true
 
-		Ui( queue.dequeueAll( _ => true ).foreach( _() ) )
+		Ui
+		{
+			queue.foreach( _() )
+			queue.clear()
+		}
 	}
 
 	override def onPause() = synchronized
@@ -44,10 +48,10 @@ extends	Fragment
 	/**
 	 * Do it now or as soon as the Fragment is (re-) starting
 	 */
-	def schedule( job: => Unit ) = synchronized( if( ready ) job else queue.enqueue( () => job ) )
+	def schedule( job: => Unit ) = synchronized( if( ready ) Ui( job ) else queue.append( () => job ) )
 
 	/**
 	 * Do it now or not at all
 	 */
-	def attempt( job: => Unit ) = synchronized( if( ready ) job )
+	def attempt( job: => Unit ) = synchronized( if( ready ) Ui( job ) )
 }

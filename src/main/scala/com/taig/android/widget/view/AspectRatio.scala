@@ -2,7 +2,6 @@ package com.taig.android.widget.view
 
 import android.content.res.TypedArray
 import android.view.View
-import android.view.View.MeasureSpec
 import android.view.View.MeasureSpec._
 import com.taig.android.R
 import com.taig.android.util.Companion

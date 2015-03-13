@@ -139,7 +139,11 @@ with	Validatable
 
 	override def setError( error: CharSequence, icon: Drawable )
 	{
-		Option( icon ).foreach( iocn => icon.setBounds( 0, 0, icon.getIntrinsicWidth, icon.getIntrinsicHeight ) )
+		if( icon != null )
+		{
+			icon.setBounds( 0, 0, icon.getIntrinsicWidth, icon.getIntrinsicHeight )
+		}
+
 		super.setError( error, icon )
 	}
 
@@ -149,5 +153,15 @@ with	Validatable
 	{
 		case Some( field ) => setError( field.message ); false
 		case None => setError( null, null ); true
+	}
+
+	def getTransformedText =
+	{
+		validation.all
+			.filter( _.enabled )
+			.foldLeft[CharSequence]( super.getText )
+			{
+				( value: CharSequence, validator: Validator ) => validator.transform( value )
+			}
 	}
 }

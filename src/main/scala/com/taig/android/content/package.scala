@@ -1,8 +1,12 @@
 package com.taig.android
 
+import android.app.AlarmManager
+import android.content.Context.ALARM_SERVICE
 import android.content.{ContentResolver, Context}
 import android.net.Uri
 import android.view.{View, LayoutInflater}
+
+import scala.reflect._
 
 package object content
 {
@@ -16,7 +20,9 @@ package object content
 
 	implicit class RichContext( context: Context )
 	{
-		def inflater = LayoutInflater.from( context )
+		def AlarmManger = context.getSystemService( ALARM_SERVICE ).asInstanceOf[AlarmManager]
+
+		def Inflater = LayoutInflater.from( context )
 
 		def getExternalOrInternalCacheDir() = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 
@@ -28,6 +34,8 @@ package object content
 		 * @return Default PackageInfo
 		 */
 		def getPackageInfo() = context.getPackageManager.getPackageInfo( context.getPackageName, 0 )
+
+		def startActivity[A: ClassTag]: Unit = context.startActivity( Intent[A]( context, classTag[A] ) )
 	}
 
 	implicit class RichFragment( fragment: android.support.v4.app.Fragment )
