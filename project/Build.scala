@@ -35,7 +35,7 @@ extends	android.AutoBuild
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
 			version := "0.3.37-BETA",
 			minSdkVersion in Android := "10",
-			platformTarget in Android := "android-21",
+			platformTarget in Android := "android-22",
 			targetSdkVersion in Android := "21"
 		)
 }
