@@ -17,13 +17,12 @@ extends	android.AutoBuild
 				"com.android.support" % "recyclerview-v7" % "21.0.3",
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
 				"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
-				"com.taig.android" %% "parcelable" % "1.2.3"
+				"io.taig.android" %% "parcelable" % "1.2.5"
 			),
 			name := "Toolbelt",
 			organization := "com.taig.android",
 			publishArtifact in ( Compile, packageDoc ) := false,
 			publishArtifact in ( Compile, packageSrc ) := true,
-			resolvers += Resolver.url( "Taig", url( "http://taig.github.io/repository" ) )( ivyStylePatterns ),
 			scalaVersion := "2.11.6",
 			scalacOptions ++= Seq(
 				"-deprecation",
