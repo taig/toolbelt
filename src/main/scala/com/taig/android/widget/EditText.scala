@@ -2,7 +2,6 @@ package com.taig.android.widget
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.text.{SpannableStringBuilder, Editable}
 import android.util.{AttributeSet, TypedValue}
 import android.view.View
 import android.widget.TextView
@@ -156,15 +155,13 @@ with	Validatable
 		case None => setError( null, null ); true
 	}
 
-	override def getText =
+	def getTransformedText =
 	{
-		val text = validation.all
+		validation.all
 			.filter( _.enabled )
 			.foldLeft[CharSequence]( super.getText )
 			{
 				( value: CharSequence, validator: Validator ) => validator.transform( value )
 			}
-
-		new SpannableStringBuilder( text )
 	}
 }
