@@ -12,11 +12,11 @@ extends	android.AutoBuild
 		.settings(
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
-				"com.android.support" % "appcompat-v7" % "21.0.3",
-				"com.android.support" % "cardview-v7" % "21.0.3",
-				"com.android.support" % "recyclerview-v7" % "21.0.3",
+				"com.android.support" % "appcompat-v7" % "22.0.0",
+				"com.android.support" % "cardview-v7" % "22.0.0",
+				"com.android.support" % "recyclerview-v7" % "22.0.0",
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
-				"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
+				"com.jpardogo.materialtabstrip" % "library" % "1.0.9",
 				"io.taig.android" %% "parcelable" % "1.2.5"
 			),
 			name := "Toolbelt",
