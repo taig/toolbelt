@@ -34,7 +34,7 @@ extends	android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.40-BETA",
+			version := "0.3.41-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-22",
 			targetSdkVersion in Android := "21"
