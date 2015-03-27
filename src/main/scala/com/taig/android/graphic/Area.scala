@@ -1,7 +1,7 @@
 package com.taig.android.graphic
 
 import com.taig.android.graphic.positionable.Position
-import io.taig.android.Parcelable
+import io.taig.android.parcelable.annotation.Parcelable
 
 /**
  * An area within a coordinate based element
