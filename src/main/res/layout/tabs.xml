@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.taig.android.widget.Tabs
+<com.astuetz.PagerSlidingTabStrip
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tabs="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/tabs"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:id="@+id/tabs"
 	android:background="?attr/colorPrimary"
-	android:textColor="?attr/android:textColorPrimary"
 	android:textSize="14sp"
-	tabs:pstsShouldExpand="true" />
+	tabs:pstsShouldExpand="true"
+	android:textColor="#99FFFFFF"
+	tabs:pstsTextColorSelected="@android:color/white"
+	tabs:pstsIndicatorColor="@android:color/white" />

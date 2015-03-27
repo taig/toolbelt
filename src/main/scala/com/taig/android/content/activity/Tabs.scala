@@ -1,6 +1,8 @@
 package com.taig.android.content.activity
 
 import android.os.Bundle
+import android.view.ViewGroup
+import com.astuetz.PagerSlidingTabStrip.CustomTabProvider
 import com.taig.android._
 import com.taig.android.content._
 
@@ -19,7 +21,7 @@ with	Pager
 
 	def tabs: Tabs.Property
 
-	override val pager = new Property( this ) with Tabs.Pager 
+	override val pager = new content.Property( this ) with Tabs.Pager
 
 	override def onCreate( state: Option[Bundle] )
 	{
@@ -40,21 +42,24 @@ object Tabs
 	{
 		def titles: Seq[String]
 
-		lazy val widget = context.Inflater.inflate( R.layout.tabs, null ).asInstanceOf[com.taig.android.widget.Tabs]
+		lazy val widget = context.Inflater.inflate( R.layout.tabs, null ).asInstanceOf[com.astuetz.PagerSlidingTabStrip]
 	}
 
 	trait	Pager
 	extends	content.Property[Tabs]
 	with	Pager.Property
 	{
-		override lazy val adapter = new Adapter( content )
+		override lazy val adapter: Tabs.Adapter = new Adapter( content )
 	}
 
 	class	Adapter( activity: Tabs )
 	extends	Pager.Adapter( activity )
-	with	widget.Tabs.Adapter
+	with	CustomTabProvider
 	{
-		override implicit def context = activity.context
+		override def getCustomTabView( viewGroup: ViewGroup, i: Int ) =
+		{
+			activity.getLayoutInflater.inflate( R.layout.tab, viewGroup, false )
+		}
 
 		override def getPageTitle( position: Int ) = activity.tabs.titles( position )
 	}
