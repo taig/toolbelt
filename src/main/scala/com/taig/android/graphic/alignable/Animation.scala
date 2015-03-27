@@ -2,7 +2,7 @@ package com.taig.android.graphic.alignable
 
 import com.taig.android.graphic._
 import com.taig.android.graphic.positionable.Position
-import io.taig.android.Parcelable
+import io.taig.android.parcelable.annotation.Parcelable
 
 import scala.math._
 

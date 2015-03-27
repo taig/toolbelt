@@ -1,7 +1,7 @@
 package com.taig.android.graphic.positionable
 
 import com.taig.android.graphic._
-import io.taig.android.Parcelable
+import io.taig.android.parcelable.annotation.Parcelable
 
 @Parcelable
 case class	Animation( start: Position, end: Position, var x: Int, var y: Int )

@@ -1,6 +1,6 @@
 package com.taig.android.graphic
 
-import io.taig.android.Parcelable
+import io.taig.android.parcelable.annotation.Parcelable
 
 import scala.math._
 
