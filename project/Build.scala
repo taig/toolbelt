@@ -10,6 +10,7 @@ extends	android.AutoBuild
 	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings( androidBuildAar: _* )
 		.settings(
+			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
 				"com.android.support" % "appcompat-v7" % "22.0.0",
