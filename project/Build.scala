@@ -10,13 +10,14 @@ extends	android.AutoBuild
 	lazy val main = Project( "toolbelt", file( "." ) )
 		.settings( androidBuildAar: _* )
 		.settings(
+			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
-				"com.android.support" % "appcompat-v7" % "21.0.3",
-				"com.android.support" % "cardview-v7" % "21.0.3",
-				"com.android.support" % "recyclerview-v7" % "21.0.3",
+				"com.android.support" % "appcompat-v7" % "22.0.0",
+				"com.android.support" % "cardview-v7" % "22.0.0",
+				"com.android.support" % "recyclerview-v7" % "22.0.0",
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
-				"com.jpardogo.materialtabstrip" % "library" % "1.0.8",
+				"com.jpardogo.materialtabstrip" % "library" % "1.0.9",
 				"io.taig.android" %% "parcelable" % "1.2.5"
 			),
 			name := "Toolbelt",
@@ -33,7 +34,7 @@ extends	android.AutoBuild
 			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.3.38-BETA",
+			version := "0.3.40-BETA",
 			minSdkVersion in Android := "10",
 			platformTarget in Android := "android-22",
 			targetSdkVersion in Android := "21"
