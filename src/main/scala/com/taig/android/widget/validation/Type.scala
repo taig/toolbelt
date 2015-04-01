@@ -1,6 +1,6 @@
 package com.taig.android.widget.validation
 
-import android.util.Patterns
+import android.util.{Log, Patterns}
 
 object Type
 {
@@ -27,7 +27,10 @@ object Type
 	{
 		def this( template: CharSequence, target: Int ) = this( target > 0, template, target )
 
-		override def validate( value: CharSequence ) = super.validate( value ) || transform( value ) == transform( find )
+		override def validate( value: CharSequence ) =
+		{
+			super.validate( value ) || transform( value ).toString == transform( find ).toString
+		}
 
 		protected def find: CharSequence
 	}
