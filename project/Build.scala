@@ -13,9 +13,9 @@ extends	android.AutoBuild
 			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
-				"com.android.support" % "appcompat-v7" % "22.0.0",
-				"com.android.support" % "cardview-v7" % "22.0.0",
-				"com.android.support" % "recyclerview-v7" % "22.0.0",
+				"com.android.support" % "appcompat-v7" % "22.1.0",
+				"com.android.support" % "cardview-v7" % "22.1.0",
+				"com.android.support" % "recyclerview-v7" % "22.1.0",
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
 				"com.jpardogo.materialtabstrip" % "library" % "1.0.9",
 				"io.taig.android" %% "parcelable" % "1.2.5"
@@ -26,6 +26,7 @@ extends	android.AutoBuild
 			publishArtifact in ( Compile, packageSrc ) := true,
 			scalaVersion := "2.11.6",
 			scalacOptions ++= Seq(
+				"-target:jvm-1.7",
 				"-deprecation",
 				"-feature",
 				"-language:existentials",
