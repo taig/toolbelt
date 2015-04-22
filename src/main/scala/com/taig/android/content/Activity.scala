@@ -1,7 +1,7 @@
 package com.taig.android.content
 
 import android.os.Bundle
-import android.support.v7.app.ActionBarActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.{Menu, View, ViewGroup}
@@ -10,7 +10,7 @@ import com.taig.android._
 import com.taig.android.conversion._
 
 trait	Activity
-extends	ActionBarActivity
+extends	AppCompatActivity
 with	Contextual
 {
 	override implicit def context: this.type = this
