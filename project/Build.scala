@@ -1,14 +1,14 @@
+import sbt._
+import sbt.Keys._
 import android.Keys._
 import android.Plugin._
-import sbt.Keys._
-import sbt.Resolver.ivyStylePatterns
-import sbt._
+import xerial.sbt.Sonatype._
+import xerial.sbt.Sonatype.SonatypeKeys._
 
 object	Build
 extends	android.AutoBuild
 {
-	lazy val main = Project( "toolbelt", file( "." ) )
-		.settings( androidBuildAar: _* )
+	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar ++ sonatypeSettings )
 		.settings(
 			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
@@ -17,7 +17,7 @@ extends	android.AutoBuild
 				"io.taig.android" %% "parcelable" % "1.2.6"
 			),
 			name := "Toolbelt",
-			organization := "com.taig.android",
+			organization := "io.taig.android",
 			publishArtifact in ( Compile, packageDoc ) := false,
 			publishArtifact in ( Compile, packageSrc ) := true,
 			scalaVersion := "2.11.6",
@@ -29,4 +29,50 @@ extends	android.AutoBuild
 			platformTarget in Android := "android-22",
 			targetSdkVersion in Android := "22"
 		)
+		.settings(
+			description := "Essential helpers for Scala on Android",
+			homepage := Some( url( "https://github.com/taig/toolbelt" ) ),
+			licenses := Seq( "MIT" -> url( "https://raw.githubusercontent.com/taig/toolbelt/master/LICENSE" ) ),
+			organizationHomepage := Some( url( "http://taig.io" ) ),
+			pomExtra :=
+			{
+				<issueManagement>
+					<url>https://github.com/taig/toolbelt/issues</url>
+					<system>GitHub Issues</system>
+				</issueManagement>
+				<developers>
+					<developer>
+						<id>Taig</id>
+						<name>Niklas Klein</name>
+						<email>mail@taig.io</email>
+						<url>http://taig.io/</url>
+					</developer>
+				</developers>
+			},
+			pomIncludeRepository := { _ => false },
+			publishArtifact in Test := false,
+			publishMavenStyle := true,
+			publishTo <<= version ( version =>
+			{
+				val url = Some( "https://oss.sonatype.org/" )
+
+				if( version.endsWith( "SNAPSHOT" ) )
+				{
+					url.map( "snapshot" at _ + "content/repositories/snapshots" )
+				}
+				else
+				{
+					url.map( "release" at _ + "service/local/staging/deploy/maven2" )
+				}
+			} ),
+			scmInfo := Some(
+				ScmInfo(
+					url( "https://github.com/taig/toolbelt" ),
+					"scm:git:git://github.com/taig/toolbelt.git",
+					Some( "scm:git:git@github.com:taig/toolbelt.git" )
+				)
+			),
+			startYear := Some( 2014 )
+		)
+
 }
