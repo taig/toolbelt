@@ -14,7 +14,7 @@ extends	android.AutoBuild
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
-				"io.taig.android" %% "parcelable" % "1.2.6"
+				"io.taig.android" %% "parcelable" % "1.2.6" intransitive()
 			),
 			name := "Toolbelt",
 			organization := "io.taig.android",
