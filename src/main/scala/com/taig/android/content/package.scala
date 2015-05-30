@@ -38,7 +38,7 @@ package object content
 		def startActivity[A: ClassTag]: Unit = context.startActivity( Intent[A]( context, classTag[A] ) )
 	}
 
-	implicit class RichFragment( fragment: android.support.v4.app.Fragment )
+	implicit class RichFragment( fragment: android.app.Fragment )
 	{
 		/**
 		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]

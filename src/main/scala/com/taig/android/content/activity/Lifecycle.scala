@@ -6,9 +6,6 @@ import android.content.res.Configuration
 import android.content.{Context, Intent}
 import android.graphics.{Bitmap, Canvas}
 import android.os.Bundle
-import android.support.v4
-import android.support.v4.{app => support}
-import android.support.v7.view
 import android.util.AttributeSet
 import android.view.ActionMode.Callback
 import android.view.ContextMenu.ContextMenuInfo
@@ -40,13 +37,6 @@ extends	Activity
 		super.onPostCreate( state )
 
 		Log.d( s"onPostCreate( $state )" )
-	}
-
-	override def supportInvalidateOptionsMenu(): Unit =
-	{
-		Log.d( s"supportInvalidateOptionsMenu()" )
-
-		super.supportInvalidateOptionsMenu()
 	}
 
 	override def onConfigurationChanged( configuration: Configuration ): Unit =
@@ -91,20 +81,6 @@ extends	Activity
 		super.onTitleChanged( title, color )
 	}
 
-	override def onSupportActionModeStarted( mode: view.ActionMode ): Unit =
-	{
-		Log.d( s"onSupportActionModeStarted( $mode )")
-
-		super.onSupportActionModeStarted( mode )
-	}
-
-	override def onSupportActionModeFinished( mode: view.ActionMode ): Unit =
-	{
-		Log.d( s"onSupportActionModeFinished( $mode )")
-
-		super.onSupportActionModeFinished( mode )
-	}
-
 	override def onCreatePanelMenu( id: Int, menu: Menu ) =
 	{
 		Log.d( s"onCreatePanelMenu( $id, $menu )")
@@ -133,39 +109,11 @@ extends	Activity
 		super.onMenuOpened( id, menu )
 	}
 
-	override def onPrepareOptionsPanel( view: View, menu: Menu ) =
-	{
-		Log.d( s"onPrepareOptionsPanel( $view, $menu )")
-
-		super.onPrepareOptionsPanel( view, menu )
-	}
-
 	override def onBackPressed(): Unit =
 	{
 		Log.d( s"onBackPressed()")
 
 		super.onBackPressed()
-	}
-
-	override def onCreateSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder ): Unit =
-	{
-		Log.d( s"onCreateSupportNavigateUpTaskStack( $builder )")
-
-		super.onCreateSupportNavigateUpTaskStack( builder )
-	}
-
-	override def onPrepareSupportNavigateUpTaskStack( builder: v4.app.TaskStackBuilder ): Unit =
-	{
-		Log.d( s"onPrepareSupportNavigateUpTaskStack( $builder )")
-
-		super.onPrepareSupportNavigateUpTaskStack( builder )
-	}
-
-	override def onSupportNavigateUp() =
-	{
-		Log.d( s"onSupportNavigateUp()")
-
-		super.onSupportNavigateUp()
 	}
 
 	override def onKeyShortcut( key: Int, event: KeyEvent ) =
@@ -180,13 +128,6 @@ extends	Activity
 		Log.d( s"onKeyDown( $key, $event )")
 
 		super.onKeyDown( key, event )
-	}
-
-	override def onSupportContentChanged(): Unit =
-	{
-		Log.d( s"onSupportContentChanged()")
-
-		super.onSupportContentChanged()
 	}
 
 	override def onCreateView( name: String, context: Context, attributes: AttributeSet ) =
@@ -231,13 +172,6 @@ extends	Activity
 		super.onResume()
 	}
 
-	override def onResumeFragments(): Unit =
-	{
-		Log.d( s"onResumeFragments()")
-
-		super.onResumeFragments()
-	}
-
 	override def onSaveInstanceState( state: Bundle ): Unit =
 	{
 		Log.d( s"onSaveInstanceState( $state )")
@@ -252,14 +186,7 @@ extends	Activity
 		super.onStart()
 	}
 
-	override def onRetainCustomNonConfigurationInstance() =
-	{
-		Log.d( s"onRetainCustomNonConfigurationInstance()")
-
-		super.onRetainCustomNonConfigurationInstance()
-	}
-
-	override def onAttachFragment( fragment: support.Fragment ): Unit =
+	override def onAttachFragment( fragment: android.app.Fragment ): Unit =
 	{
 		Log.d( s"onAttachFragment( $fragment )")
 

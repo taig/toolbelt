@@ -3,18 +3,13 @@ package com.taig.android
 import android.app.{TimePickerDialog, SearchManager}
 import android.content.{DialogInterface, SharedPreferences}
 import android.preference.Preference
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.{ActionMenuView, Toolbar}
 import android.view.{KeyEvent, MenuItem, View, ViewTreeObserver}
 import android.widget.{TimePicker, AdapterView, CompoundButton, TextView}
 
+import scala.language.implicitConversions
+
 package object conversion
 {
-	implicit def `Function1 -> Boolean -> ActionMenuView.OnMenuItemClickListener`( f: ( MenuItem ) => Boolean ) = new ActionMenuView.OnMenuItemClickListener
-	{
-		override def onMenuItemClick( item: MenuItem ) = f( item )
-	}
-	
 	implicit def `Function0 -> Unit -> AdapterView.OnItemClickListener`( f: => Unit ) = new AdapterView.OnItemClickListener
 	{
 		override def onItemClick( parent: AdapterView[_], view: View, position: Int, id: Long ) = f
@@ -176,11 +171,6 @@ package object conversion
 		}
 	}
 
-	implicit def `Function1 -> Unit -> Toolbar.OnMenuItemClickListener`( f: MenuItem => Boolean ) = new Toolbar.OnMenuItemClickListener
-	{
-		override def onMenuItemClick( item: MenuItem ) = f( item )
-	}
-
 	implicit def `Function0 -> Unit -> View.OnClickListener`( f: => Unit ) = new View.OnClickListener
 	{
 		override def onClick( view: View ) = f
@@ -220,15 +210,6 @@ package object conversion
 	implicit def `Function1 -> Boolean -> View.OnLongClickListener`( f: View => Boolean ) = new View.OnLongClickListener
 	{
 		override def onLongClick( view: View ) = f( view )
-	}
-
-	implicit def `Function1 -> Unit -> ViewPager.OnPageChangeListener#onPageSelected`( f: Int => Unit ) = new ViewPager.OnPageChangeListener
-	{
-		override def onPageScrolled( position: Int, positionOffset: Float, positionOffsetPixels: Int ) {}
-
-		override def onPageScrollStateChanged( state: Int ) {}
-
-		override def onPageSelected( position: Int ) = f( position )
 	}
 
 	implicit def `Function0 -> Unit -> ViewTreeObserver.OnDrawListener`( f: => Unit ) = new ViewTreeObserver.OnDrawListener()

@@ -2,7 +2,6 @@ package com.taig.android.content.activity
 
 import java.lang.reflect.InvocationTargetException
 
-import android.support.v4.{app => support}
 import com.taig.android.content
 import com.taig.android.content.Activity
 import com.taig.android.content.activity.Fragment.Property
@@ -23,16 +22,16 @@ object Fragment
 	trait	Property
 	extends	content.Property[Fragment]
 	{
-		def all: Seq[Class[_ <: support.Fragment]]
+		def all: Seq[Class[_ <: android.app.Fragment]]
 
 		/**
 		 * Get the Fragment that is currently considered as the Activity's main element
 		 *
 		 * @return Active Fragment
 		 */
-		def getActive(): support.Fragment
+		def getActive(): android.app.Fragment
 
-		def instantiate[F <: support.Fragment]( fragment: Class[F] ) =
+		def instantiate[F <: android.app.Fragment]( fragment: Class[F] ) =
 		{
 			try
 			{

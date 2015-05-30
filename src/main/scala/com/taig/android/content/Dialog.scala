@@ -2,10 +2,9 @@ package com.taig.android.content
 
 import android.app
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 
 trait	Dialog
-extends	DialogFragment
+extends	android.app.DialogFragment
 with	Fragment
 {
 	override final def onCreateDialog( state: Bundle ) =
@@ -16,14 +15,4 @@ with	Fragment
 	}
 
 	def onCreateDialog( state: Option[Bundle] ): app.Dialog = new app.Dialog( getActivity, getTheme )
-
-	override def onDestroyView()
-	{
-		if( getDialog != null && getRetainInstance )
-		{
-			getDialog.setDismissMessage( null )
-		}
-
-		super.onDestroyView()
-	}
 }

@@ -2,14 +2,19 @@ package com.taig.android.concurrent
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{CanAwait, ExecutionContext, TimeoutException}
+import scala.language.reflectiveCalls
 import scala.reflect.ClassTag
 import scala.util.Try
 
-class Future[T] private( future: scala.concurrent.Future[T] )( implicit executor: ExecutionContext = Executor.Pool ) extends scala.concurrent.Future[T]
+class	Future[T] private( future: scala.concurrent.Future[T] )( implicit executor: ExecutionContext = Executor.Pool )
+extends	scala.concurrent.Future[T]
 {
 	private def this( body: => T )( implicit executor: ExecutionContext ) = this( scala.concurrent.Future( body ) )
 
-	override def onComplete[U]( f: ( Try[T] ) => U )( implicit executor: ExecutionContext = Executor.Ui ) = future.onComplete( f )
+	override def onComplete[U]( f: ( Try[T] ) => U )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		future.onComplete( f )
+	}
 
 	override def isCompleted = future.isCompleted
 
@@ -26,27 +31,54 @@ class Future[T] private( future: scala.concurrent.Future[T] )( implicit executor
 		this
 	}
 
-	override def onSuccess[U]( pf: PartialFunction[T, U] )( implicit executor: ExecutionContext = Executor.Ui ) = future.onSuccess( pf )
+	override def onSuccess[U]( pf: PartialFunction[T, U] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		future.onSuccess( pf )
+	}
 
-	override def onFailure[U]( pf: PartialFunction[Throwable, U] )( implicit executor: ExecutionContext = Executor.Ui ) = future.onFailure( pf )
+	override def onFailure[U]( pf: PartialFunction[Throwable, U] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		future.onFailure( pf )
+	}
 
 	override def failed = new Future( future.failed )
 
 	override def foreach[U]( f: ( T ) => U )( implicit executor: ExecutionContext = Executor.Ui ) = future.foreach( f )
 
-	override def transform[S]( s: ( T ) => S, f: ( Throwable ) => Throwable )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.transform( s, f ) )
+	override def transform[S]( s: ( T ) => S, f: ( Throwable ) => Throwable )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.transform( s, f ) )
+	}
 
-	override def map[S]( f: ( T ) => S )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.map( f ) )
+	override def map[S]( f: ( T ) => S )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.map( f ) )
+	}
 
-	override def flatMap[S]( f: ( T ) => concurrent.Future[S] )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.flatMap( f ) )
+	override def flatMap[S]( f: ( T ) => concurrent.Future[S] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.flatMap( f ) )
+	}
 
-	override def filter( p: ( T ) => Boolean )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.filter( p ) )
+	override def filter( p: ( T ) => Boolean )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.filter( p ) )
+	}
 
-	override def collect[S]( pf: PartialFunction[T, S] )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.collect( pf ) )
+	override def collect[S]( pf: PartialFunction[T, S] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.collect( pf ) )
+	}
 
-	override def recover[U >: T]( pf: PartialFunction[Throwable, U] )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.recover( pf ) )
+	override def recover[U >: T]( pf: PartialFunction[Throwable, U] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.recover( pf ) )
+	}
 
-	override def recoverWith[U >: T]( pf: PartialFunction[Throwable, concurrent.Future[U]] )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.recoverWith( pf ) )
+	override def recoverWith[U >: T]( pf: PartialFunction[Throwable, concurrent.Future[U]] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.recoverWith( pf ) )
+	}
 
 	override def zip[U]( that: concurrent.Future[U] ) = new Future( future.zip( that ) )
 
@@ -54,7 +86,10 @@ class Future[T] private( future: scala.concurrent.Future[T] )( implicit executor
 
 	override def mapTo[S]( implicit tag: ClassTag[S] ) = new Future( future.mapTo )
 
-	override def andThen[U]( pf: PartialFunction[Try[T], U] )( implicit executor: ExecutionContext = Executor.Ui ) = new Future( future.andThen( pf ) )
+	override def andThen[U]( pf: PartialFunction[Try[T], U] )( implicit executor: ExecutionContext = Executor.Ui ) =
+	{
+		new Future( future.andThen( pf ) )
+	}
 }
 
 object Future

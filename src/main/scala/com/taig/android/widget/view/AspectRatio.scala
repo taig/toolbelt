@@ -8,6 +8,8 @@ import com.taig.android.util.Companion
 import com.taig.android.widget.Widget
 import com.taig.android.widget.view.AspectRatio.Dominance
 
+import scala.language.reflectiveCalls
+
 /**
  * ImageView extension that allows to specify fixed aspect ratios to the view
  * 

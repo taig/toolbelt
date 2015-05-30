@@ -1,62 +1,10 @@
 package com.taig.android
 
-import android.support.v4.internal.view.SupportMenuItem._
-import android.support.v7.internal.view.menu.MenuItemImpl
-import android.view.{Menu, MenuItem, View, ViewGroup}
+import android.view.{View, ViewGroup}
 import android.widget.ViewSwitcher
 
 package object widget
 {
-	implicit class RichMenu( menu: Menu )
-	{
-		def add( item: MenuItem ): MenuItem =
-		{
-			val `new` = menu.add( item.getGroupId, item.getItemId, item.getOrder, item.getTitle )
-			`new`.setAlphabeticShortcut( item.getAlphabeticShortcut )
-			`new`.setCheckable( item.isCheckable )
-			`new`.setChecked( item.isChecked )
-			`new`.setEnabled( item.isEnabled )
-			`new`.setIcon( item.getIcon )
-			`new`.setIntent( item.getIntent )
-			`new`.setNumericShortcut( item.getNumericShortcut )
-			`new`.setTitleCondensed( item.getTitleCondensed )
-			`new`.setVisible( item.isVisible )
-
-			item match
-			{
-				case item: MenuItemImpl =>
-				{
-					`new`.setShowAsActionFlags(
-						( if( item.requestsActionButton() ) SHOW_AS_ACTION_IF_ROOM else 0 ) |
-						( if( item.requiresActionButton() ) SHOW_AS_ACTION_ALWAYS else 0 ) |
-						( if( item.showsTextAsAction() ) SHOW_AS_ACTION_WITH_TEXT else 0 )
-					)
-				}
-				case _ => // Nothing to do here
-			}
-
-			`new`
-		}
-	}
-
-	implicit class RichMenuItem( item: MenuItem )
-	{
-		/**
-		 * Adjusts icon transparency according to enabled state
-		 *
-		 * By default, Android only changes the label's opacity and prevents any click interaction with the button.
-		 * This method triggers the default [[MenuItem#setEnabled()]] method and also adjusts the icon's opacity.
-		 *
-		 * @param enabled <code>true</code> to enable the MenuItem, <code>false</code> to disable
-		 */
-		def setEnabledWithIconState( enabled: Boolean )
-		{
-			Option( item.getIcon ).foreach( _.setAlpha( if( enabled ) 255 else 50 ) )
-
-			item.setEnabled( enabled )
-		}
-	}
-
 	implicit class RichView( view: View )
 	{
 		/**

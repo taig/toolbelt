@@ -2,6 +2,8 @@ package com.taig.android
 
 import java.net.URLEncoder
 
+import scala.language.implicitConversions
+
 package object util
 {
 	implicit class RichBoolean( boolean: Boolean )

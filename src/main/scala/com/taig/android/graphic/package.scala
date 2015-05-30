@@ -4,6 +4,9 @@ import com.taig.android.graphic.alignable.Value._
 import com.taig.android.graphic.alignable._
 import com.taig.android.graphic.positionable.Position
 
+import scala.language.reflectiveCalls
+import scala.language.implicitConversions
+
 package object graphic
 {
 	implicit class RichDimension( dimensioned: { def getWidth(): Int; def getHeight(): Int } )

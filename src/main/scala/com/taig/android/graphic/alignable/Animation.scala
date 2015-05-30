@@ -2,8 +2,9 @@ package com.taig.android.graphic.alignable
 
 import com.taig.android.graphic._
 import com.taig.android.graphic.positionable.Position
-import io.taig.android.parcelable.annotation.Parcelable
+import io.taig.android.Parcelable
 
+import scala.language.reflectiveCalls
 import scala.math._
 
 @Parcelable

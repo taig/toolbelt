@@ -1,7 +1,8 @@
 package com.taig.android
 
-import android.os.{Parcelable, Bundle, Parcel}
+import android.os.{Bundle, Parcel, Parcelable}
 
+import scala.language.implicitConversions
 import scala.reflect.ClassTag
 
 package object serialization

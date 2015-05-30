@@ -1,18 +1,14 @@
 package com.taig.android.content
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
 import android.view.{LayoutInflater, View, ViewGroup}
 import com.taig.android.content
 
 trait	Fragment
-extends	android.support.v4.app.Fragment
+extends	android.app.Fragment
 with	Contextual
 {
-	// Manually store context, as it is mysteriously getting lost otherwise
-	implicit override def context = Option( activity ).getOrElse( getActivity )
-
-	private var activity: FragmentActivity = null
+	implicit override def context = getActivity
 
 	override final def onCreate( state: Bundle )
 	{
@@ -32,17 +28,6 @@ with	Contextual
 
 	def onActivityCreated( state: Option[Bundle] ) {}
 
-	override def onAttach( activity: android.app.Activity )
-	{
-		super.onAttach( activity )
-
-		this.activity = activity match
-		{
-			case activity: FragmentActivity => activity
-			case _ => null
-		}
-	}
-
 	override final def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) =
 	{
 		onCreateView( inflater, Option( container ), Option( state ) )
@@ -58,13 +43,6 @@ with	Contextual
 	}
 
 	def onViewCreated( view: View, state: Option[Bundle] ) {}
-
-	override def onDetach()
-	{
-		super.onDetach()
-
-		this.activity = null
-	}
 }
 
 object Fragment

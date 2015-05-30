@@ -6,6 +6,7 @@ import android.os.{AsyncTask, Handler, Looper}
 import com.taig.android.conversion._
 
 import scala.concurrent.ExecutionContext
+import scala.language.reflectiveCalls
 
 package object concurrent
 {

@@ -6,7 +6,9 @@ import android.graphics._
 import android.view.View
 import com.taig.android.R
 import com.taig.android.util.Companion
-import com.taig.android.widget.{Widget, Image}
+import com.taig.android.widget.Widget
+
+import scala.language.reflectiveCalls
 
 /**
  * View extension that allows to apply a radius
@@ -16,22 +18,20 @@ extends	View
 with	Widget
 {
 	private val radius = new
-		{
-			var enabled = true
+	{
+		var enabled = true
 
-			var value = 0f
-		}
+		var value = 0f
+	}
 
 	private val rectangle = new RectF( )
 
 	private val paint = new
-		{
-			val image = new Paint
-			{setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) )}
+	{
+		val image = new Paint{ setXfermode( new PorterDuffXfermode( Mode.SRC_IN ) ) }
 
-			val shape = new Paint( Paint.ANTI_ALIAS_FLAG )
-			{setXfermode( new PorterDuffXfermode( Mode.SRC ) )}
-		}
+		val shape = new Paint( Paint.ANTI_ALIAS_FLAG ){ setXfermode( new PorterDuffXfermode( Mode.SRC ) ) }
+	}
 
 	initialize( R.styleable.Widget_Image_Radius, ( array: TypedArray ) =>
 	{

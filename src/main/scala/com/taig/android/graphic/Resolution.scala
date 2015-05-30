@@ -1,8 +1,9 @@
 package com.taig.android.graphic
 
-import io.taig.android.parcelable.annotation.Parcelable
+import io.taig.android.Parcelable
 
 import scala.math._
+import scala.language.reflectiveCalls
 
 @Parcelable
 case class	Resolution( width: Int, height: Int ) 
