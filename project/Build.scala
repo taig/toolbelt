@@ -24,7 +24,9 @@ extends	android.AutoBuild
 			scalacOptions ++= Seq( "-deprecation", "-feature" ),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
-			version := "0.4.0-SNAPSHOT",
+			version := "0.4.0-SNAPSHOT"
+		)
+		.settings(
 			minSdkVersion in Android := "11",
 			platformTarget in Android := "android-22",
 			targetSdkVersion in Android := "22"
@@ -74,5 +76,4 @@ extends	android.AutoBuild
 			),
 			startYear := Some( 2014 )
 		)
-
 }
