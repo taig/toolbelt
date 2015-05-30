@@ -13,7 +13,7 @@ extends	android.AutoBuild
 			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
-				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
+				"com.caverock" % "androidsvg" % "1.2.2-beta-1" intransitive(),
 				"io.taig.android" %% "parcelable" % "1.2.6" intransitive()
 			),
 			name := "Toolbelt",
