@@ -4,7 +4,7 @@ import android.util.Log
 import io.taig.android.graphic._
 import io.taig.android.graphic.alignable.Value._
 import io.taig.android.graphic.positionable.Position
-import io.taig.android.parcelable.annotation.Parcelable
+import io.taig.android.Parcelable
 
 import scala.math._
 

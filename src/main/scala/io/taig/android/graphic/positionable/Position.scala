@@ -1,7 +1,7 @@
 package io.taig.android.graphic.positionable
 
 import io.taig.android.graphic.Positionable
-import io.taig.android.parcelable.annotation.Parcelable
+import io.taig.android.Parcelable
 
 @Parcelable
 case class	Position( var x: Int, var y: Int )

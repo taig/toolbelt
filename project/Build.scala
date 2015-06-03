@@ -12,14 +12,15 @@ extends	android.AutoBuild
 		.settings(
 			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
 			libraryDependencies ++= Seq(
-				compilerPlugin( "org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full ),
-				"com.caverock" % "androidsvg" % "1.2.2-beta-1" intransitive(),
-				"io.taig.android" %% "parcelable" % "1.2.6" intransitive()
+				compilerPlugin( "org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full ),
+				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
+				"io.taig.android" %% "parcelable" % "2.1.1-SNAPSHOT"
 			),
 			name := "Toolbelt",
 			organization := "io.taig.android",
 			publishArtifact in ( Compile, packageDoc ) := false,
 			publishArtifact in ( Compile, packageSrc ) := true,
+			resolvers += Resolver.sonatypeRepo( "snapshots" ),
 			scalaVersion := "2.11.6",
 			scalacOptions ++= Seq( "-deprecation", "-feature" ),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
