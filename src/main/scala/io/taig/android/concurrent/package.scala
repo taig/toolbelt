@@ -3,7 +3,6 @@ package io.taig.android
 import java.util.concurrent.Executor
 
 import android.os.{AsyncTask, Handler, Looper}
-import io.taig.android.conversion._
 
 import scala.concurrent.ExecutionContext
 import scala.language.reflectiveCalls

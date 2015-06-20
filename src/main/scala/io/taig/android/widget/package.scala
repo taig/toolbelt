@@ -1,5 +1,7 @@
 package io.taig.android
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.view.{View, ViewGroup}
 import android.widget.ViewSwitcher
 
@@ -7,11 +9,6 @@ package object widget
 {
 	implicit class RichView( view: View )
 	{
-		/**
-		 * Convenience wrapper for findViewById( id ).asInstanceOf[V]
-		 */
-		def find[V <: View]( id: Int ) = view.findViewById( id ).asInstanceOf[V]
-
 		def getPadding() = Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
 		def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
@@ -45,6 +42,7 @@ package object widget
 		/**
 		 * @see [[android.view.ViewTreeObserver#addOnWindowFocusChangeListener]]
 		 */
+		@TargetApi( 18 )
 		def addOnWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) = o.addOnWindowFocusChangeListener( listener )
 
 		/**
@@ -54,6 +52,7 @@ package object widget
 		 * @see removeOnWindowFocusChangeListener
 		 * @see [[io.taig.android.conversion.`Function1 -> Unit -> ViewTreeObserver.OnWindowFocusChangeListener`()]]
 		 */
+		@TargetApi( 18 )
 		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener )
 		{
 			addOnWindowFocusChangeListener( new OnWindowFocusChangeListener
@@ -69,6 +68,7 @@ package object widget
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnWindowFocusChangeListener]]
 		 */
+		@TargetApi( 18 )
 		def removeOnWindowFocusChangeListener( listener: OnWindowFocusChangeListener ) = o.removeOnWindowFocusChangeListener( listener )
 
 		/**
@@ -129,7 +129,7 @@ package object widget
 		 */
 		def removeOnGlobalLayoutListener( listener: OnGlobalLayoutListener ) =
 		{
-			if( android.os.Build.VERSION.SDK_INT < 16 )
+			if( Build.VERSION.SDK_INT < 16 )
 			{
 				o.removeGlobalOnLayoutListener( listener )
 			}
@@ -171,6 +171,7 @@ package object widget
 		/**
 		 * @see [[android.view.ViewTreeObserver#addOnDrawListener]]
 		 */
+		@TargetApi( 16 )
 		def addOnDrawListener( listener: OnDrawListener ) = o.addOnDrawListener( listener )
 
 		/**
@@ -180,6 +181,7 @@ package object widget
 		 * @see removeOnDrawListener
 		 * @see [[io.taig.android.conversion.`Function0 -> Unit -> ViewTreeObserver.OnDrawListener`()]]
 		 */
+		@TargetApi( 16 )
 		def setOnNextDrawListener( listener: OnDrawListener )
 		{
 			addOnDrawListener( new OnDrawListener
@@ -195,6 +197,7 @@ package object widget
 		/**
 		 * @see [[android.view.ViewTreeObserver#removeOnDrawListener]]
 		 */
+		@TargetApi( 16 )
 		def removeOnDrawListener( listener: OnDrawListener ) = o.removeOnDrawListener( listener )
 
 		/**

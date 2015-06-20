@@ -1,9 +1,9 @@
 package io.taig.android.content
 
-import android.content.{BroadcastReceiver, Context}
+import android.content.Context
 
-trait	Receiver
-extends BroadcastReceiver
+trait	BroadcastReceiver
+extends android.content.BroadcastReceiver
 {
 	override final def onReceive( context: Context, intent: android.content.Intent ) = onReceive( intent )( context )
 

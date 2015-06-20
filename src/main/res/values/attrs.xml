@@ -8,31 +8,4 @@
 
 	</declare-styleable>
 
-	<declare-styleable name="Widget.Image.AspectRatio">
-
-		<attr name="dominance">
-
-			<enum name="auto"
-				  value="0" />
-
-			<enum name="width"
-				  value="1" />
-
-			<enum name="height"
-				  value="2" />
-
-		</attr>
-
-		<attr format="float|boolean"
-			  name="ratio" />
-
-	</declare-styleable>
-
-	<declare-styleable name="Widget.Image.Radius">
-
-		<attr format="dimension|boolean"
-			  name="radius" />
-
-	</declare-styleable>
-
 </resources>

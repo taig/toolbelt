@@ -44,21 +44,3 @@ with	Contextual
 
 	def onViewCreated( view: View, state: Option[Bundle] ) {}
 }
-
-object Fragment
-{
-	/**
-	 * Flag a Fragment as Creditor of an Activity
-	 * 
-	 * If a Fragment is flagged with this trait, its hosting Activity has to implement the Contract C.
-	 * 
-	 * @tparam C The Contract that is implemented by the Activity
-	 */
-	trait	Creditor[+C <: Contract]
-	extends	content.Creditor[C]
-	{
-		this: Fragment =>
-
-		override def debtor = getActivity.asInstanceOf[C]
-	}
-}

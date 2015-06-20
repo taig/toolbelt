@@ -3,7 +3,6 @@ import sbt.Keys._
 import android.Keys._
 import android.Plugin._
 import xerial.sbt.Sonatype._
-import xerial.sbt.Sonatype.SonatypeKeys._
 
 object	Build
 extends	android.AutoBuild
@@ -39,7 +38,8 @@ extends	android.AutoBuild
 		.settings(
 			minSdkVersion in Android := "11",
 			platformTarget in Android := "android-22",
-			targetSdkVersion in Android := "22"
+			targetSdkVersion in Android := "22",
+			typedResources in Android := false
 		)
 		.settings(
 			description := "Essential helpers for Scala on Android",
