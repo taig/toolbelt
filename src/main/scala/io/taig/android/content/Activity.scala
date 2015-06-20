@@ -45,7 +45,7 @@ with	Contextual
 	 * @return <code>true</code> if [[onWindowFocusChanged( hasFocus = false )]] has ever been triggered,
 	 *         <code>false</code> otherwise
 	 */
-	def hasLostFocused: Boolean = lostFocus
+	def hasLostFocus: Boolean = lostFocus
 
 	override protected final def onCreate( state: Bundle )
 	{
