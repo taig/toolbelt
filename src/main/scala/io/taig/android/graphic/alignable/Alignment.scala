@@ -12,7 +12,7 @@ import scala.math._
 case class	Alignment( top: Value = Auto, right: Value = Auto, bottom: Value = Auto, left: Value = Auto )
 extends		Alignable
 {
-	override def resolve( resolution: Resolution, target: Resolution ) =
+	override def resolve( resolution: Dimension, target: Dimension ) =
 	{
 		def resolve( a: Value, b: Value, resolution: Int, target: Int ) = ( a, b ) match
 		{
@@ -29,7 +29,7 @@ extends		Alignable
 		)
 	}
 
-	override def clip( resolution: Resolution, target: Resolution ) =
+	override def clip( resolution: Dimension, target: Dimension ) =
 	{
 		val position = resolve( resolution, target )
 
@@ -37,7 +37,7 @@ extends		Alignable
 
 		Area(
 			position.map( ( a: Int, b: Int ) => ( -min( a, 0 ), -min( b, 0 ) ) ),
-			Resolution(
+			Dimension(
 				min( target.width + min( position.x, 0 ), resolution.width ),
 				min( target.height + min( position.y, 0 ), resolution.height )
 			)

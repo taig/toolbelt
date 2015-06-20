@@ -10,12 +10,12 @@ import scala.math._
 @Parcelable
 case class Animation( start: Alignment, end: Alignment ) extends Alignable
 {
-	override def resolve( resolution: Resolution, target: Resolution ) =
+	override def resolve( resolution: Dimension, target: Dimension ) =
 	{
 		positionable.Animation( start.resolve( resolution, target ), end.resolve( resolution, target ) )
 	}
 
-	override def clip( resolution: Resolution, target: Resolution ) =
+	override def clip( resolution: Dimension, target: Dimension ) =
 	{
 		val position = new
 		{
@@ -26,7 +26,7 @@ case class Animation( start: Alignment, end: Alignment ) extends Alignable
 
 		Area(
 			position.start,
-			Resolution(
+			Dimension(
 				min( target.width + ( position.end.x - position.start.x ), resolution.width ),
 				min( target.height + ( position.end.y - position.start.y ), resolution.height )
 			)

@@ -4,16 +4,11 @@ import java.io.{ByteArrayOutputStream, File}
 
 import android.graphics.Bitmap
 import android.util.Base64
-import io.taig.android.graphic.Resolution
-
-import scala.util.Try
 
 package object file
 {
 	implicit class RichBitmap( bitmap: Bitmap )
 	{
-		def getResolution() = Resolution( bitmap.getWidth, bitmap.getHeight )
-
 		def toBase64(): String =
 		{
 			val stream = new ByteArrayOutputStream()
@@ -48,9 +43,5 @@ package object file
 
 			deleteRecursively( file )
 		}
-
-		def isImage() = toImage().isSuccess
-
-		def toImage() = Try( new Image( file ) )
 	}
 }

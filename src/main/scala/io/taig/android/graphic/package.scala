@@ -10,17 +10,17 @@ package object graphic
 {
 	implicit class RichDimension( dimensioned: { def getWidth(): Int; def getHeight(): Int } )
 	{
-		def getResolution = Resolution( dimensioned.getWidth(), dimensioned.getHeight() )
+		def getResolution = Dimension( dimensioned.getWidth(), dimensioned.getHeight() )
 	}
 
 	implicit class RichIntrinsicDimension( dimensioned: { def getIntrinsicWidth(): Int; def getIntrinsicHeight(): Int } )
 	{
-		def getResolution = Resolution( dimensioned.getIntrinsicWidth(), dimensioned.getIntrinsicHeight() )
+		def getResolution = Dimension( dimensioned.getIntrinsicWidth(), dimensioned.getIntrinsicHeight() )
 	}
 
 	implicit class RichInt( a: Int )
 	{
-		def x( b: Int ) = Resolution( a, b )
+		def x( b: Int ) = Dimension( a, b )
 	}
 
 	implicit def `Color -> Int`( color: graphic.Color ): Int = color.color
@@ -41,7 +41,7 @@ package object graphic
 
 	implicit def `Tuple2 -> Position`( coordinates: ( Int, Int ) ): Position = Position( coordinates._1, coordinates._2 )
 
-	implicit def `Tuple2 -> Resolution`( resolution: ( Int, Int ) ): Resolution = Resolution( resolution._1, resolution._2 )
+	implicit def `Tuple2 -> Resolution`( resolution: ( Int, Int ) ): Dimension = Dimension( resolution._1, resolution._2 )
 
 	implicit def `Value -> Alignment`( value: alignable.Value ): Alignment = Alignment( value, value, value, value )
 }

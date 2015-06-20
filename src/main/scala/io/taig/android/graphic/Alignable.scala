@@ -5,7 +5,7 @@ import io.taig.android.Parcelable
 @Parcelable
 trait Alignable
 {
-	def resolve( resolution: Resolution, target: Resolution ): Positionable
+	def resolve( resolution: Dimension, target: Dimension ): Positionable
 
-	def clip( resolution: Resolution, target: Resolution ): Area
+	def clip( resolution: Dimension, target: Dimension ): Area
 }

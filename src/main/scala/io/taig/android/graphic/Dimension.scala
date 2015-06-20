@@ -6,10 +6,10 @@ import scala.math._
 import scala.language.reflectiveCalls
 
 @Parcelable
-case class	Resolution( width: Int, height: Int ) 
+case class	Dimension( width: Int, height: Int ) 
 extends		Pair.Numeric
 {
-	override type S = Resolution
+	override type S = Dimension
 
 	override def _1 = width
 
@@ -29,14 +29,14 @@ extends		Pair.Numeric
 	 * 
 	 * @return ( width to target width, height to target height )
 	 */
-	def getRatioTo( target: Resolution ) = ( target.width / width.toFloat, target.height / height.toFloat )
+	def getRatioTo( target: Dimension ) = ( target.width / width.toFloat, target.height / height.toFloat )
 
 	/**
 	 * Down- or upscale this Resolution until one of it's dimensions matches the target
 	 * 
 	 * @param target The target resolution
 	 */
-	def scaleTo( target: Resolution ) = this *
+	def scaleTo( target: Dimension ) = this *
 	{
 		lazy val ratio = getRatioTo( target )
 
@@ -62,20 +62,20 @@ extends		Pair.Numeric
 		}
 	}
 
-	def >( resolution: Resolution ) = width > resolution.width && height > resolution.height
+	def >( resolution: Dimension ) = width > resolution.width && height > resolution.height
 
-	def >=( resolution: Resolution ) = width >= resolution.width && height >= resolution.height
+	def >=( resolution: Dimension ) = width >= resolution.width && height >= resolution.height
 
-	def <( resolution: Resolution ) = width < resolution.width && height < resolution.height
+	def <( resolution: Dimension ) = width < resolution.width && height < resolution.height
 
-	def <=( resolution: Resolution ) = width <= resolution.width && height <= resolution.height
+	def <=( resolution: Dimension ) = width <= resolution.width && height <= resolution.height
 
 	override def toString = s"$width x $height"
 }
 
-object Resolution
+object Dimension
 {
-	def apply( dimensioned: { def getWidth(): Int; def getHeight(): Int } ): Resolution =
+	def apply( dimensioned: { def getWidth(): Int; def getHeight(): Int } ): Dimension =
 	{
 		apply( dimensioned.getWidth(), dimensioned.getHeight() )
 	}

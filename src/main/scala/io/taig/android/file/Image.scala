@@ -36,16 +36,16 @@ class Image private( stream: => InputStream )
 			stream.close()
 		}
 
-		Resolution( options.outWidth, options.outHeight )
+		Dimension( options.outWidth, options.outHeight )
 	}
 
 	require( resolution.width > -1 && resolution.height > -1, "Not a valid image file" )
 
 	def decode(): Bitmap = decode( getDefaultOptions )
 
-	def decode( target: Resolution ): Bitmap = decode( target, getDefaultOptions )
+	def decode( target: Dimension ): Bitmap = decode( target, getDefaultOptions )
 
-	def decode( target: Resolution, options: Options ): Bitmap =
+	def decode( target: Dimension, options: Options ): Bitmap =
 	{
 		require( target > ( 0 x 0 ), s"Target resolution ($target) must be > 0 x 0" )
 		val ( x, y ) = resolution.getRatioTo( target )
