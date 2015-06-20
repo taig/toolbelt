@@ -10,7 +10,7 @@ object Toast
 	{
 		android.Toast.makeText( context, message, duration )
 	}
-	
+
 	def apply( message: CharSequence )( implicit context: Context ): android.Toast = apply( message, LENGTH_LONG )
 
 	def apply( message: Int, duration: Int )( implicit context: Context ): android.Toast =

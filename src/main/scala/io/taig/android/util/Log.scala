@@ -28,5 +28,6 @@ object Log
 
 	def wtf( message: Any, error: Throwable )( implicit tag: Tag ) = android.Log.wtf( tag.name, message.toString, error )
 
-	case class Tag( name: String )
+	case class	Tag( name: String )
+	extends		AnyVal
 }

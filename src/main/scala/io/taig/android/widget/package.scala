@@ -52,7 +52,7 @@ package object widget
 		 *
 		 * @see addOnWindowFocusChangeListener
 		 * @see removeOnWindowFocusChangeListener
-		 * @see [[file.taig.android.conversion.`Function1 -> Unit -> ViewTreeObserver.OnWindowFocusChangeListener`()]]
+		 * @see [[io.taig.android.conversion.`Function1 -> Unit -> ViewTreeObserver.OnWindowFocusChangeListener`()]]
 		 */
 		def setOnNextWindowFocusChangeListener( listener: OnWindowFocusChangeListener )
 		{
@@ -81,7 +81,7 @@ package object widget
 		 *
 		 * @see addOnGlobalFocusChangeListener
 		 * @see removeOnGlobalFocusChangeListener
-		 * @see [[file.taig.android.conversion.`Function2 -> Unit -> ViewTreeObserver.OnGlobalFocusChangeListener`()]]
+		 * @see [[io.taig.android.conversion.`Function2 -> Unit -> ViewTreeObserver.OnGlobalFocusChangeListener`()]]
 		 */
 		def setOnNextGlobalFocusChangeListener( listener: OnGlobalFocusChangeListener )
 		{

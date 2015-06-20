@@ -12,8 +12,7 @@ import android.view.ContextMenu.ContextMenuInfo
 import android.view.WindowManager.LayoutParams
 import android.view._
 import io.taig.android.content.Activity
-import io.taig.android.content.activity.Lifecycle.Tag
-import io.taig.android.util.{Companion, Log}
+import io.taig.android.util.Log
 
 trait	Lifecycle
 extends	Activity
@@ -445,6 +444,3 @@ extends	Activity
 		super.onActionModeFinished( mode )
 	}
 }
-
-object	Lifecycle
-extends	Companion

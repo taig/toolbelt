@@ -16,7 +16,6 @@ import io.taig.android.R
  */
 class	Image( val attributes: AttributeSet = null, val style: Int = 0 )( implicit context: Context )
 extends	ImageView( context, attributes, style )
-with	Widget.Styleable
 {
 	def this( context: Context, attributes: AttributeSet, style: Int ) = this( attributes, style )( context )
 
@@ -24,20 +23,18 @@ with	Widget.Styleable
 
 	def this( context: Context ) = this()( context )
 
-	initialize( R.styleable.Widget_Image, ( array: TypedArray ) =>
 	{
+		val array = context.obtainStyledAttributes( this.attributes, R.styleable.Widget_Image )
+
 		val source = array.getResourceId( R.styleable.Widget_Image_android_src, -1 )
 
 		if( source > -1 )
 		{
 			setImageResource( source )
 		}
-	} )
 
-	/**
-	 * A minor hack to make [[setMeasuredDimension()]] available to public
-	 */
-	def setMeasuredDimensions( width: Int, height: Int ) = super.setMeasuredDimension( width, height )
+		array.recycle()
+	}
 
 	override def setImageResource( resId: Int )
 	{
