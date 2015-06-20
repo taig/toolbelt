@@ -10,11 +10,16 @@ extends	android.AutoBuild
 {
 	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar ++ sonatypeSettings )
 		.settings(
-			javacOptions ++= Seq( "-source", "1.7", "-target", "1.7" ),
-			libraryDependencies ++= Seq(
-				compilerPlugin( "org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full ),
-				"com.caverock" % "androidsvg" % "1.2.2-beta-1",
-				"io.taig.android" %% "parcelable" % "2.1.1"
+			javacOptions ++= (
+				"-source" :: "1.7" ::
+				"-target" :: "1.7" ::
+				Nil
+			),
+			libraryDependencies ++= (
+				compilerPlugin( "org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full ) ::
+				"com.caverock" % "androidsvg" % "1.2.2-beta-1" ::
+				"io.taig.android" %% "parcelable" % "2.2.0" ::
+				Nil
 			),
 			name := "Toolbelt",
 			organization := "io.taig.android",
@@ -22,7 +27,11 @@ extends	android.AutoBuild
 			publishArtifact in ( Compile, packageSrc ) := true,
 			resolvers += Resolver.sonatypeRepo( "snapshots" ),
 			scalaVersion := "2.11.6",
-			scalacOptions ++= Seq( "-deprecation", "-feature" ),
+			scalacOptions ++= (
+				"-deprecation" ::
+				"-feature" ::
+				Nil
+			),
 			// @see https://github.com/pfn/android-sdk-plugin/issues/88
 			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
 			version := "0.4.0-SNAPSHOT"
