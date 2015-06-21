@@ -16,6 +16,7 @@ extends	android.AutoBuild
 			),
 			libraryDependencies ++= (
 				compilerPlugin( "org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full ) ::
+				"com.android.support" % "support-v4" % "22.2.0" % "provided" ::
 				"com.caverock" % "androidsvg" % "1.2.2-beta-1" ::
 				"io.taig.android" %% "parcelable" % "2.2.0" ::
 				Nil
