@@ -32,11 +32,13 @@ trait ViewOps
 	/**
 	 * @see [[android.view.ViewTreeObserver#addOnWindowAttachListener]]
 	 */
+	@TargetApi( 18 )
 	def addOnWindowAttachListener( listener: OnWindowAttachListener ) = o.addOnWindowAttachListener( listener )
 
 	/**
 	 * @see [[android.view.ViewTreeObserver#removeOnWindowAttachListener]]
 	 */
+	@TargetApi( 18 )
 	def removeOnWindowAttachListener( listener: OnWindowAttachListener ) = o.removeOnWindowAttachListener( listener )
 
 	/**
