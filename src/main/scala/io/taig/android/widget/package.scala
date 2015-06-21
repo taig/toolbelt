@@ -259,7 +259,7 @@ package object widget
 		def removeOnTouchModeChangeListener( listener: OnTouchModeChangeListener ) = o.removeOnTouchModeChangeListener( listener )
 	}
 
-	implicit class RichViewGroup( view: ViewGroup )
+	implicit class RichViewGroup( viewGroup: ViewGroup )
 	{
 		/**
 		 * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
@@ -277,7 +277,30 @@ package object widget
 					}
 			}
 
-			discover( view )
+			discover( viewGroup )
+		}
+
+		/**
+		 * Add view as first child
+		 */
+		def prependView( view: View ) = viewGroup.addView( view, 0 )
+
+		/**
+		 * Add view as first child
+		 */
+		def prependView( view: View, parameters: ViewGroup.LayoutParams ) = viewGroup.addView( view, 0, parameters )
+
+		/**
+		 * Add view as last child
+		 */
+		def appendView( view: View ) = viewGroup.addView( view, viewGroup.getChildCount - 1 )
+
+		/**
+		 * Add view as last child
+		 */
+		def appendView( view: View, parameters: ViewGroup.LayoutParams ) =
+		{
+			viewGroup.addView( view, viewGroup.getChildCount - 1, parameters )
 		}
 	}
 
