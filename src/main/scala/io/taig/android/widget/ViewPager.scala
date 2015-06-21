@@ -7,12 +7,14 @@ import android.view.MotionEvent
 /**
  * Advanced [[android.support.v4.view.ViewPager]] that allows to toggle swiping
  */
-class	ViewPager( attributes: AttributeSet )( implicit context: Context )
+class	ViewPager( context: Context, attributes: AttributeSet )
 extends	android.support.v4.view.ViewPager( context, attributes )
 {
 	private var swipe = true
 
-	def this()( implicit context: Context ) = this( null )
+	def this( attributes: AttributeSet )( implicit context: Context ) = this( context, null )
+
+	def this()( implicit context: Context ) = this( context, null )
 
 	def setSwipeEnabled( enabled: Boolean ): Unit =
 	{
