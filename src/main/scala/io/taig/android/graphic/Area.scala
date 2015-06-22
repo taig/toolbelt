@@ -1,13 +1,24 @@
 package io.taig.android.graphic
 
-import io.taig.android.Parcelable
-import io.taig.android.graphic.positionable.Position
+import scala.math.Numeric.Implicits._
 
 /**
- * An area within a coordinate based element
- * 
- * @param position The Area's starting point
- * @param resolution The Area's size measured from the given position
+ * A dimension at a certain point
  */
-@Parcelable
-case class Area( position: Position, resolution: Dimension )
+case class Area[T: Numeric]( position: Point[T], dimension: Dimension[T] )
+{
+	/**
+	 * Calculate the distance of this Area to the Dimension's edges
+	 */
+	def distanceTo( dimension: Dimension[T] ) =
+	{
+		Distance(
+			position.x,
+			position.y,
+			dimension.width - position.x + this.dimension.width,
+			dimension.height - position.y + this.dimension.height
+		)
+	}
+
+	override def toString = s"$dimension @ $position"
+}

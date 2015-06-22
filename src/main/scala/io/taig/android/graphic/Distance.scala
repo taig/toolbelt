@@ -1,8 +1,8 @@
-package io.taig.android.widget
+package io.taig.android.graphic
 
 import android.view.View._
 
-case class Padding( left: Int, top: Int, right: Int, bottom: Int )
+case class Distance[T: Numeric]( left: T, top: T, right: T, bottom: T )
 {
 	def start( direction: Int ) = direction match
 	{
@@ -15,4 +15,6 @@ case class Padding( left: Int, top: Int, right: Int, bottom: Int )
 		case LAYOUT_DIRECTION_LTR => right
 		case LAYOUT_DIRECTION_RTL => left
 	}
+
+	override def toString = s"left: $left, top: $top, right: $right, bottom: $bottom"
 }

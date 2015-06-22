@@ -1,52 +1,46 @@
 package io.taig.android.graphic
 
-import io.taig.android.Parcelable
+import scala.math.Numeric.Implicits._
+import scala.math.Ordering.Implicits._
 
-@Parcelable
-trait	Pair[T]
-extends	Product2[T, T]
+abstract class	Pair[T: Numeric]( val _1: T, val _2: T )
+extends			Product2[T, T]
 {
 	type S <: Pair[T]
 
-	def swap = map( ( a: T, b: T ) => ( b, a ) )
+	protected def apply( _1: T, _2: T ): S
 
-	def map( f: ( T, T ) => ( T, T ) ): S
+	def swap = apply( _2, _1 )
 
 	def toSeq = Seq( _1, _2 )
 
 	def toTuple = ( _1, _2 )
-}
 
-object Pair
-{
-	@Parcelable
-	trait	Numeric
-	extends	Pair[Int]
-	{
-		override type S <: Numeric
+	def +( rhs: T ): S = apply( _1 + rhs, _2 + rhs )
 
-		def +( a: Int ): S = this + ( a, a )
+	def +( rhs: Pair[T] ): S = apply( _1 + rhs._1, _2 + rhs._2 )
 
-		def +( t: ( Int, Int ) ): S = this + ( t._1, t._2 )
+	def -( rhs: T ): S = apply( _1 - rhs, _2 - rhs )
 
-		def +( a: Int, b: Int ): S = map( ( x: Int, y: Int ) => ( x + a, y + b ) )
+	def -( rhs: Pair[T] ): S = apply( _1 - rhs._1, _2 - rhs._2 )
 
-		def -( a: Int ): S = this - ( a, a )
+	def *( rhs: T ): S = apply( _1 * rhs, _2 * rhs )
 
-		def -( t: ( Int, Int ) ): S = this - ( t._1, t._2 )
+	def *( rhs: Pair[T] ): S = apply( _1 * rhs._1, _2 * rhs._2 )
 
-		def -( a: Int, b: Int ): S = map( ( x: Int, y: Int ) => ( x - a, y - b ) )
+	def >( rhs: T ): Boolean = _1 > rhs && _2 > rhs
 
-		def *( a: Float ): S = this * ( a, a )
+	def >( rhs: Pair[T] ): Boolean = _1 > rhs._1 && _2 > rhs._2
 
-		def *( t: ( Float, Float ) ): S = this * ( t._1, t._2 )
+	def >=( rhs: T ): Boolean = _1 >= rhs && _2 >= rhs
 
-		def *( a: Float, b: Float ): S = map( ( x: Int, y: Int ) => ( ( x * a ).toInt, ( y * b ).toInt ) )
+	def >=( rhs: Pair[T] ): Boolean = _1 >= rhs._1 && _2 >= rhs._2
 
-		def /( a: Float ): S = this / ( a, a )
+	def <( rhs: T ): Boolean = _1 < rhs && _2 < rhs
 
-		def /( t: ( Float, Float ) ): S = this / ( t._1, t._2 )
+	def <( rhs: Pair[T] ): Boolean = _1 < rhs._1 && _2 < rhs._2
 
-		def /( a: Float, b: Float ): S = map( ( x: Int, y: Int ) => ( ( x / a ).toInt, ( y / b ).toInt ) )
-	}
+	def <=( rhs: T ): Boolean = _1 <= rhs && _2 <= rhs
+
+	def <=( rhs: Pair[T] ): Boolean = _1 <= rhs._1 && _2 <= rhs._2
 }

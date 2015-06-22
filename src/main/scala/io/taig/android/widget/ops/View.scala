@@ -2,20 +2,19 @@ package io.taig.android.widget.ops
 
 import android.annotation.TargetApi
 import android.os.Build
-import io.taig.android.widget
-import io.taig.android.widget.Padding
+import io.taig.android.graphic.Distance
 
 trait View
 {
 	def view: android.view.View
 
-	def getPadding() = Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
+	def getPadding() = Distance( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
 	def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
 
 	def setPadding( vertical: Int, horizontal: Int ) = view.setPadding( horizontal, vertical, horizontal, vertical )
 
-	def setPadding( padding: widget.Padding ) = view.setPadding( padding.left, padding.top, padding.right, padding.bottom )
+	def setPadding( padding: Distance[Int] ) = view.setPadding( padding.left, padding.top, padding.right, padding.bottom )
 
 	def setPaddingBottom( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
 

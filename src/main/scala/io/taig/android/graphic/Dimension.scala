@@ -1,82 +1,44 @@
 package io.taig.android.graphic
 
-import io.taig.android.Parcelable
+import android.annotation.TargetApi
 
-import scala.math._
 import scala.language.reflectiveCalls
+import scala.reflect.ClassTag
 
-@Parcelable
-case class	Dimension( width: Int, height: Int ) 
-extends		Pair.Numeric
+/**
+ * A simple dimension with width and height
+ */
+case class	Dimension[T: Numeric]( width: T, height: T ) 
+extends		Pair[T]( width, height )
 {
-	override type S = Dimension
+	override type S = Dimension[T]
 
-	override def _1 = width
-
-	override def _2 = height
-
-	override def map( f: ( Int, Int ) => ( Int, Int ) ) = f( width, height )
-
-	/**
-	 * Aspect ration of this Resolution
-	 * 
-	 * @return ( with to height, height to width )
-	 */
-	def getAspectRatio() = ( width / height.toFloat, height / width.toFloat )
-
-	/**
-	 * Compare with and height of this Resolution with the target
-	 * 
-	 * @return ( width to target width, height to target height )
-	 */
-	def getRatioTo( target: Dimension ) = ( target.width / width.toFloat, target.height / height.toFloat )
-
-	/**
-	 * Down- or upscale this Resolution until one of it's dimensions matches the target
-	 * 
-	 * @param target The target resolution
-	 */
-	def scaleTo( target: Dimension ) = this *
-	{
-		lazy val ratio = getRatioTo( target )
-
-		if( this > target )
-		{
-			max( ratio._1, ratio._2 )
-		}
-		else if( this < target )
-		{
-			min( ratio._1, ratio._2 )
-		}
-		else if( width > target.width )
-		{
-			ratio._1
-		}
-		else if( height > target.height )
-		{
-			ratio._2
-		}
-		else
-		{
-			1
-		}
-	}
-
-	def >( resolution: Dimension ) = width > resolution.width && height > resolution.height
-
-	def >=( resolution: Dimension ) = width >= resolution.width && height >= resolution.height
-
-	def <( resolution: Dimension ) = width < resolution.width && height < resolution.height
-
-	def <=( resolution: Dimension ) = width <= resolution.width && height <= resolution.height
+	override protected def apply( width: T, height: T ) = Dimension[T]( width, height )
 
 	override def toString = s"$width x $height"
 }
 
 object Dimension
 {
-	def apply( dimensioned: { def getWidth(): Int; def getHeight(): Int } ): Dimension =
+	def apply[T: Numeric]( array: Array[T] ): Dimension[T] =
 	{
-		apply( dimensioned.getWidth(), dimensioned.getHeight() )
+		require( array.length == 2 )
+
+		Dimension( array( 0 ), array( 1 ) )
+	}
+
+	def apply[T: Numeric: ClassTag]( f: Array[T] => Unit ): Dimension[T] =
+	{
+		val array = new Array[T]( 2 )
+		f( array )
+		Dimension( array )
+	}
+
+	@TargetApi( 13 )
+	def apply( f: android.graphics.Point => Unit ): Dimension[Int] =
+	{
+		val point = new android.graphics.Point
+		f( point )
+		Dimension( point.x, point.y )
 	}
 }
