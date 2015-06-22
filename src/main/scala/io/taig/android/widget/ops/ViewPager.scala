@@ -1,6 +1,6 @@
-package io.taig.android.widget
+package io.taig.android.widget.ops
 
-trait ViewPagerOps
+trait ViewPager
 {
 	def viewPager: android.support.v4.view.ViewPager
 

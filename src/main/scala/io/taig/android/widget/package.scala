@@ -6,14 +6,14 @@ import android.widget.ViewSwitcher
 package object widget
 {
 	implicit class	RichView( val view: View )
-	extends			ViewOps
+	extends			ops.View
 
 	implicit class	RichViewGroup( val viewGroup: ViewGroup )
-	extends			ViewGroupOps
+	extends			ops.ViewGroup
 
 	implicit class	RichViewPagerGroup( val viewPager: android.support.v4.view.ViewPager )
-	extends			ViewPagerOps
+	extends			ops.ViewPager
 
 	implicit class	RichViewSwitcher( val viewSwitcher: ViewSwitcher )
-	extends			ViewSwitcherOps
+	extends			ops.ViewSwitcher
 }

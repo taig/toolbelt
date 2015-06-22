@@ -1,13 +1,13 @@
-package io.taig.android.widget
+package io.taig.android.widget.ops
 
 import android.annotation.TargetApi
 import android.os.Build
-import android.view.View
 import io.taig.android.widget
+import io.taig.android.widget.Padding
 
-trait ViewOps
+trait View
 {
-	def view: View
+	def view: android.view.View
 
 	def getPadding() = Padding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
@@ -89,7 +89,7 @@ trait ViewOps
 	{
 		addOnGlobalFocusChangeListener( new OnGlobalFocusChangeListener
 		{
-			override def onGlobalFocusChanged( oldFocus: View, newFocus: View )
+			override def onGlobalFocusChanged( oldFocus: android.view.View, newFocus: android.view.View )
 			{
 				removeOnGlobalFocusChangeListener( this )
 				listener.onGlobalFocusChanged( oldFocus, newFocus )
