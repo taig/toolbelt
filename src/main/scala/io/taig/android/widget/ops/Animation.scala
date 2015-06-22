@@ -27,38 +27,36 @@ trait Animation
 
 	def slideIn( from: Direction, duration: Duration = 350 milliseconds, delay: Duration = Zero ) =
 	{
-		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
-		val position = getAndStorePosition
-		val dimension = view.dimension
-
-		val transition = from match
+		val animation = ( window: Dimension[Int], area: Area[Int] ) => from match
 		{
-			case Left => new TranslateAnimation( -( position + dimension ).x, 0, 0, 0 )
-			case Top => new TranslateAnimation( 0, 0, -( position + dimension ).y, 0 )
-			case Right => new TranslateAnimation( -( position - window ).x, 0, 0, 0 )
-			case Bottom => new TranslateAnimation( 0, 0, -( position - window ).y, 0 )
+			case Left => new TranslateAnimation( area.edge( Right ).distanceTo( window ).left, 0, 0, 0 )
+			case Top => new TranslateAnimation( 0, 0, area.edge( Bottom ).distanceTo( window ).top, 0 )
+			case Right => new TranslateAnimation( area.edge( Left ).distanceTo( window ).right, 0, 0, 0 )
+			case Bottom => new TranslateAnimation( 0, 0, area.edge( Top ).distanceTo( window ).bottom, 0 )
 		}
 
-		transition.setStartOffset( delay.toMillis )
-		transition.setDuration( duration.toMillis )
-		transition.setFillAfter( true )
-
-		view.startAnimation( transition )
+		animate( animation, duration, delay )
 	}
 
 	def slideOut( to: Direction, duration: Duration = 350 milliseconds, delay: Duration = Zero ) =
 	{
-		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
-		val position = getAndStorePosition
-		val dimension = view.dimension
-
-		val transition = to match
+		val animation = ( window: Dimension[Int], area: Area[Int] ) => to match
 		{
-			case Left => new TranslateAnimation( 0, -( position + dimension ).x, 0, 0 )
-			case Top => new TranslateAnimation( 0, 0, 0, -( position + dimension ).y )
-			case Right => new TranslateAnimation( 0, -( position - window ).x, 0, 0 )
-			case Bottom => new TranslateAnimation( 0, 0, 0, -( position - window ).y )
+			case Left => new TranslateAnimation( 0, area.edge( Right ).distanceTo( window ).left, 0, 0 )
+			case Top => new TranslateAnimation( 0, 0, 0, area.edge( Bottom ).distanceTo( window ).top )
+			case Right => new TranslateAnimation( 0, area.edge( Left ).distanceTo( window ).right, 0, 0 )
+			case Bottom => new TranslateAnimation( 0, 0, 0, area.edge( Top ).distanceTo( window ).bottom )
 		}
+
+		animate( animation, duration, delay )
+	}
+
+	private def animate( animation: ( Dimension[Int], Area[Int] ) => TranslateAnimation, duration: Duration, delay: Duration ): Unit =
+	{
+		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
+		val area = Area( getAndStorePosition, view.dimension )
+
+		val transition = animation( window, area )
 
 		transition.setStartOffset( delay.toMillis )
 		transition.setDuration( duration.toMillis )
