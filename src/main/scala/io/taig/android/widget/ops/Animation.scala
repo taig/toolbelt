@@ -21,9 +21,10 @@ trait Animation
 		position
 	}
 
-	private def getPosition = Option( view.getTag( R.id.view_initial_position ).asInstanceOf[Point[Int]] )
-
-	private def getAndStorePosition = getPosition.getOrElse( storePosition() )
+	private def getOrStorePosition =
+	{
+		Option( view.getTag( R.id.view_initial_position ).asInstanceOf[Point[Int]] ).getOrElse( storePosition() )
+	}
 
 	def slideIn( from: Direction, duration: Duration = 350 milliseconds, delay: Duration = Zero ) =
 	{
@@ -54,7 +55,7 @@ trait Animation
 	private def animate( animation: ( Dimension[Int], Area[Int] ) => TranslateAnimation, duration: Duration, delay: Duration ): Unit =
 	{
 		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
-		val area = Area( getAndStorePosition, view.dimension )
+		val area = Area( getOrStorePosition, view.dimension )
 
 		val transition = animation( window, area )
 
