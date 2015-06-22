@@ -16,6 +16,8 @@ extends			Product2[T, T]
 
 	def toTuple = ( _1, _2 )
 
+	def unary_- = apply( -_1, -_2 )
+
 	def +( rhs: T ): S = apply( _1 + rhs, _2 + rhs )
 
 	def +( rhs: Pair[T] ): S = apply( _1 + rhs._1, _2 + rhs._2 )

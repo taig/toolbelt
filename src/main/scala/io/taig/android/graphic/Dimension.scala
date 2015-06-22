@@ -1,6 +1,10 @@
 package io.taig.android.graphic
 
-import android.annotation.TargetApi
+import android.annotation.{SuppressLint, TargetApi}
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import android.view.Display
+import io.taig.android.graphic._
 
 import scala.language.reflectiveCalls
 import scala.reflect.ClassTag
@@ -32,6 +36,19 @@ object Dimension
 		val array = new Array[T]( 2 )
 		f( array )
 		Dimension( array )
+	}
+
+	@SuppressLint( Array( "NewApi" ) )
+	def apply( display: Display ): Dimension[Int] =
+	{
+		if( SDK_INT >= 13 )
+		{
+			Dimension( display.getSize _ )
+		}
+		else
+		{
+			display.dimension
+		}
 	}
 
 	@TargetApi( 13 )

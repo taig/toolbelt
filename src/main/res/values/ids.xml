@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<!-- Used to attach a tag to a view to store its initial position for animation -->
+
+	<item name="view_initial_position" type="id" />
+
+</resources>

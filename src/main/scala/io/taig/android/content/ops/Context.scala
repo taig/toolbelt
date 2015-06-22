@@ -3,7 +3,7 @@ package io.taig.android.content.ops
 import android.app.AlarmManager
 import android.content.Context._
 import android.os.PowerManager
-import android.view.LayoutInflater
+import android.view.{WindowManager, LayoutInflater}
 import io.taig.android.content
 
 import scala.reflect._
@@ -17,6 +17,8 @@ trait Context
 	def PowerService = context.getSystemService( POWER_SERVICE ).asInstanceOf[PowerManager]
 
 	def LayoutInflater = context.getSystemService( LAYOUT_INFLATER_SERVICE ).asInstanceOf[LayoutInflater]
+
+	def WindowManager = context.getSystemService( WINDOW_SERVICE ).asInstanceOf[WindowManager]
 
 	def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 

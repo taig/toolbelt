@@ -1,28 +1,35 @@
 package io.taig.android.widget.ops
 
 import android.annotation.TargetApi
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import io.taig.android.graphic.Direction._
 import io.taig.android.graphic.Distance
 
 trait View
 {
 	def view: android.view.View
 
-	def getPadding() = Distance( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
+	def getPadding = Distance( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
 
+	/**
+	 * Apply same padding to all Directions
+	 */
 	def setPadding( padding: Int ) = view.setPadding( padding, padding, padding, padding )
 
+	/**
+	 * Apply vertical and horizontal padding
+	 */
 	def setPadding( vertical: Int, horizontal: Int ) = view.setPadding( horizontal, vertical, horizontal, vertical )
 
 	def setPadding( padding: Distance[Int] ) = view.setPadding( padding.left, padding.top, padding.right, padding.bottom )
 
-	def setPaddingBottom( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
-
-	def setPaddingLeft( padding: Int ) = view.setPadding( padding, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
-
-	def setPaddingRight( padding: Int ) = view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
-
-	def setPaddingTop( padding: Int ) = view.setPadding( view.getPaddingLeft, padding, view.getPaddingRight, view.getPaddingBottom )
+	def setPadding( direction: Direction, padding: Int ) = direction match
+	{
+		case Left => view.setPadding( padding, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
+		case Top => view.setPadding( view.getPaddingLeft, padding, view.getPaddingRight, view.getPaddingBottom )
+		case Right => view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
+		case Bottom => view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
+	}
 
 	import android.view.ViewTreeObserver._
 
@@ -130,7 +137,7 @@ trait View
 	 */
 	def removeOnGlobalLayoutListener( listener: OnGlobalLayoutListener ) =
 	{
-		if( Build.VERSION.SDK_INT < 16 )
+		if( SDK_INT < 16 )
 		{
 			o.removeGlobalOnLayoutListener( listener )
 		}

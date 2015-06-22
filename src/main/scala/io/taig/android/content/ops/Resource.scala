@@ -1,6 +1,6 @@
 package io.taig.android.content.ops
 
-import android.annotation.TargetApi
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -41,7 +41,7 @@ object Resource
 		}
 	}
 
-	@TargetApi( LOLLIPOP )
+	@SuppressLint( Array( "NewApi" ) )
 	implicit val drawable = new ResourceResolver[Drawable]
 	{
 		override def apply( resource: Int )( implicit context: android.content.Context ) =

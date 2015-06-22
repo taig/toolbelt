@@ -7,6 +7,7 @@ package object widget
 {
 	implicit class	RichView( val view: View )
 	extends			ops.View
+	with			ops.Animation
 
 	implicit class	RichViewGroup( val viewGroup: ViewGroup )
 	extends			ops.ViewGroup

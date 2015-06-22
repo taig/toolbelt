@@ -7,19 +7,19 @@ package object graphic
 	implicit class	RichDimension[T: Integral]( val dimension: Dimension[T] )
 	extends			ops.Dimension[T]
 
-	implicit class RichDimensioned[T: Numeric]( dimensioned: { def getWidth: T; def getHeight: T } )
+	implicit class RichDimensioned[T: Numeric]( dimensioned: { def getWidth(): T; def getHeight(): T } )
 	{
-		def dimension = Dimension( dimensioned.getWidth, dimensioned.getHeight )
+		def dimension = Dimension( dimensioned.getWidth(), dimensioned.getHeight() )
 	}
 
-	implicit class RichIntrinsicDimensioned[T: Numeric]( dimensioned: { def getIntrinsicWidth: T; def getIntrinsicHeight: T } )
+	implicit class RichIntrinsicDimensioned[T: Numeric]( dimensioned: { def getIntrinsicWidth(): T; def getIntrinsicHeight(): T } )
 	{
-		def dimension = Dimension( dimensioned.getIntrinsicWidth, dimensioned.getIntrinsicHeight )
+		def dimension = Dimension( dimensioned.getIntrinsicWidth(), dimensioned.getIntrinsicHeight() )
 	}
 
-	implicit class RichPointed[T: Numeric]( pointed: { def getX: Int; def getY: Int } )
+	implicit class RichPointed[T: Numeric]( pointed: { def getX(): Int; def getY(): Int } )
 	{
-		def position = Point( pointed.getX, pointed.getY )
+		def position = Point( pointed.getX(), pointed.getY() )
 	}
 
 	implicit class RichNumeric[T: Numeric]( a: T )
