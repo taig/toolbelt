@@ -6,6 +6,7 @@ import io.taig.android.content._
 import io.taig.android.graphic.Direction._
 import io.taig.android.graphic._
 
+import scala.concurrent.duration.Duration.Zero
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -24,7 +25,7 @@ trait Animation
 
 	private def getAndStorePosition = getPosition.getOrElse( storePosition() )
 
-	def slideIn( from: Direction, duration: Duration = 350 milliseconds, delay: Duration = 250 milliseconds ) =
+	def slideIn( from: Direction, duration: Duration = 350 milliseconds, delay: Duration = Zero ) =
 	{
 		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
 		val position = getAndStorePosition
@@ -45,7 +46,7 @@ trait Animation
 		view.startAnimation( transition )
 	}
 
-	def slideOut( to: Direction, duration: Duration = 350 milliseconds, delay: Duration = 250 milliseconds ) =
+	def slideOut( to: Direction, duration: Duration = 350 milliseconds, delay: Duration = Zero ) =
 	{
 		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
 		val position = getAndStorePosition
