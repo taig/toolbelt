@@ -2,7 +2,7 @@
 
 > A *Scala on Android* library providing essential helpers
 
-[![Build Status](https://travis-ci.org/Taig/Toolbelt.svg)](https://travis-ci.org/Taig/Toolbelt)
+[![Build Status](https://travis-ci.org/Taig/Toolbelt.svg?branch=develop-0.4.0)](https://travis-ci.org/Taig/Toolbelt)
 
 **Install**
 

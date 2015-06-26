@@ -10,4 +10,4 @@ android:
     - platform-tools
     - tools
 
-script: wget https://raw.github.com/paulp/sbt-extras/master/sbt && chmod u+x ./sbt && ./sbt package-local
+script: wget https://raw.github.com/paulp/sbt-extras/master/sbt && chmod u+x ./sbt && ./sbt publish-local
