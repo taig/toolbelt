@@ -2,7 +2,6 @@ package io.taig.android.content
 
 import android.os.Bundle
 import android.view.{LayoutInflater, View, ViewGroup}
-import io.taig.android.content
 
 trait	Fragment
 extends	android.app.Fragment
