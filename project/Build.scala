@@ -26,7 +26,7 @@ extends	android.AutoBuild
 			publishArtifact in ( Compile, packageDoc ) := false,
 			publishArtifact in ( Compile, packageSrc ) := true,
 			resolvers += Resolver.sonatypeRepo( "snapshots" ),
-			scalaVersion := "2.11.6",
+			scalaVersion := "2.11.7",
 			scalacOptions ++= (
 				"-deprecation" ::
 				"-feature" ::
