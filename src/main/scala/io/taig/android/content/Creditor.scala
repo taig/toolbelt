@@ -10,5 +10,5 @@ extends	Fragment
 	// implement an implicit classTag field in the children. This might work out in the future with trait parameters.
 	// Until then, please implement the fucking contract.
 
-	def debtor: C = getActivity.asInstanceOf[C]
+	def debtor: C = context.asInstanceOf[C]
 }

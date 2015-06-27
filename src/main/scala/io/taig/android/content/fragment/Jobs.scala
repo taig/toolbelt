@@ -20,7 +20,7 @@ extends	Fragment
 	 * 
 	 * Respects orientation changes and waits until the Fragment is ready for Ui operations
 	 */
-	val FragmentUi = ExecutionContext.fromExecutor( Executor )
+	val Job = ExecutionContext.fromExecutor( Executor )
 
 	private var ready = false
 
@@ -31,19 +31,25 @@ extends	Fragment
 		setRetainInstance( true )
 	}
 
-	override def onStart() = synchronized
+	override def onStart() =
 	{
 		super.onStart()
 
-		ready = true
-		Executor.workOff()
+		synchronized
+		{
+			ready = true
+			Executor.workOff()
+		}
 	}
 
-	override def onPause() = synchronized
+	override def onStop() =
 	{
-		super.onPause()
+		super.onStop()
 
-		ready = false
+		synchronized
+		{
+			ready = false
+		}
 	}
 
 	/**
