@@ -6,11 +6,11 @@ import android.os.Bundle
  * A Fragment may be a Creditor, forcing the hosting Activity to implement its Contract
  */
 trait	Creditor[+C]
-extends	android.app.Fragment
+extends	Fragment
 {
 	def debtor: C = getActivity.asInstanceOf[C]
 
-	override def onActivityCreated( state: Bundle ) =
+	override def onActivityCreated( state: Option[Bundle] ) =
 	{
 		super.onActivityCreated( state )
 
