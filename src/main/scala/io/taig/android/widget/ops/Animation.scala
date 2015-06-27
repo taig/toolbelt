@@ -1,7 +1,6 @@
 package io.taig.android.widget.ops
 
 import android.support.v4.view.{ViewCompat, ViewPropertyAnimatorCompat}
-import android.view.View.{INVISIBLE, VISIBLE}
 import io.taig.android.R
 import io.taig.android.content._
 import io.taig.android.graphic.Direction._
