@@ -11,16 +11,22 @@ object Executor
 	/**
 	 * Android's default asynchronous ExecutionContext
 	 */
-	implicit val Pool: ExecutionContextExecutor = ExecutionContext.fromExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+	implicit val Pool: ExecutionContextExecutor = ExecutionContext.fromExecutor(
+		AsyncTask.THREAD_POOL_EXECUTOR,
+		cause => Log.e( cause.getMessage, cause )( Log.Tag( Pool.getClass.getName ) )
+	)
 
 	/**
 	 * Ui-thread ExecutionContext
 	 */
-	val Ui = new ExecutionContext
+	val Ui: ExecutionContext = new ExecutionContext
 	{
 		private val handler = new Handler( Looper.getMainLooper )
 
-		override def reportFailure( cause: Throwable ) = Log.e( cause.getMessage, cause )
+		override def reportFailure( cause: Throwable ) =
+		{
+			Log.e( cause.getMessage, cause )( Log.Tag( Ui.getClass.getName ) )
+		}
 
 		override def execute( command: Runnable ) = handler.post( command )
 	}
