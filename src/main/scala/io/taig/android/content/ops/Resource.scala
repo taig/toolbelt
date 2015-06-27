@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
+import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.content.Contextual
 import io.taig.android.content.ops.Resource.ResourceResolver
 import io.taig.android.graphic.Color
@@ -41,19 +42,11 @@ object Resource
 		}
 	}
 
-	@SuppressLint( Array( "NewApi" ) )
 	implicit val drawable = new ResourceResolver[Drawable]
 	{
 		override def apply( resource: Int )( implicit context: android.content.Context ) =
 		{
-			if( SDK_INT >= LOLLIPOP )
-			{
-				context.getResources.getDrawable( resource, null )
-			}
-			else
-			{
-				context.getResources.getDrawable( resource )
-			}
+			ResourcesCompat.getDrawable( context, resource )
 		}
 	}
 
