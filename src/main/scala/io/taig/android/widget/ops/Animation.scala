@@ -16,7 +16,7 @@ trait Animation
 	/**
 	 * Places the view out of the window and starts a slide in animation
 	 */
-	def slideIn( from: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ) =
+	def slideIn( from: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ): ViewPropertyAnimatorCompat =
 	{
 		val animation = ( window: Dimension[Int], area: Area[Int] ) => from match
 		{
@@ -52,7 +52,7 @@ trait Animation
 	/**
 	 * Slides the view out of the window from its current position
 	 */
-	def slideOut( to: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ) =
+	def slideOut( to: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ): ViewPropertyAnimatorCompat =
 	{
 		val animation = ( window: Dimension[Int], area: Area[Int] ) => to match
 		{
@@ -65,7 +65,7 @@ trait Animation
 		animate( animation, duration, delay )
 	}
 
-	private def animate( animation: ( Dimension[Int], Area[Int] ) => ViewPropertyAnimatorCompat, duration: Duration, delay: Duration ): Unit =
+	private def animate( animation: ( Dimension[Int], Area[Int] ) => ViewPropertyAnimatorCompat, duration: Duration, delay: Duration ) =
 	{
 		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
 		val area = Area( Point( view.getLocationInWindow _ ), view.dimension )
