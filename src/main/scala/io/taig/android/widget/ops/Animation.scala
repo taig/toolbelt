@@ -1,7 +1,7 @@
 package io.taig.android.widget.ops
 
 import android.support.v4.view.{ViewCompat, ViewPropertyAnimatorCompat}
-import android.view.animation.{Interpolator, BounceInterpolator, LinearInterpolator}
+import android.view.animation.{Interpolator, LinearInterpolator}
 import io.taig.android.content._
 import io.taig.android.graphic.Direction._
 import io.taig.android.graphic._
@@ -80,7 +80,7 @@ trait Animation
 	/**
 	 * Sets the view dimensions to 0 width / height and pops back to its actual dimensions
 	 */
-	def popIn( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new BounceInterpolator() ): ViewPropertyAnimatorCompat =
+	def popIn( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		ViewCompat.setScaleX( view, 0 )
 		ViewCompat.setScaleY( view, 0 )
@@ -97,7 +97,7 @@ trait Animation
 	/**
 	 * Makes the view pop out from its actual dimensions to 0 width / height
 	 */
-	def popOut( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new BounceInterpolator() ): ViewPropertyAnimatorCompat =
+	def popOut( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		ViewCompat
 			.animate( view )
