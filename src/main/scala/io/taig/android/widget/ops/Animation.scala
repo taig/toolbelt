@@ -1,6 +1,7 @@
 package io.taig.android.widget.ops
 
 import android.support.v4.view.{ViewCompat, ViewPropertyAnimatorCompat}
+import android.view.animation.{Interpolator, BounceInterpolator, LinearInterpolator}
 import io.taig.android.content._
 import io.taig.android.graphic.Direction._
 import io.taig.android.graphic._
@@ -16,7 +17,7 @@ trait Animation
 	/**
 	 * Places the view out of the window and starts a slide in animation
 	 */
-	def slideIn( from: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ): ViewPropertyAnimatorCompat =
+	def slideIn( from: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		val animation = ( window: Dimension[Int], area: Area[Int] ) => from match
 		{
@@ -46,13 +47,13 @@ trait Animation
 			}
 		}
 
-		animate( animation, duration, delay )
+		slide( animation, duration, delay, interpolator )
 	}
 
 	/**
 	 * Slides the view out of the window from its current position
 	 */
-	def slideOut( to: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero ): ViewPropertyAnimatorCompat =
+	def slideOut( to: Direction, duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		val animation = ( window: Dimension[Int], area: Area[Int] ) => to match
 		{
@@ -62,16 +63,48 @@ trait Animation
 			case Bottom => ViewCompat.animate( view ).translationYBy( area.edge( Top ).distanceTo( window ).bottom )
 		}
 
-		animate( animation, duration, delay )
+		slide( animation, duration, delay, interpolator )
 	}
 
-	private def animate( animation: ( Dimension[Int], Area[Int] ) => ViewPropertyAnimatorCompat, duration: Duration, delay: Duration ) =
+	private def slide( animation: ( Dimension[Int], Area[Int] ) => ViewPropertyAnimatorCompat, duration: Duration, delay: Duration, interpolator: Interpolator ) =
 	{
 		val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
 		val area = Area( Point( view.getLocationInWindow _ ), view.dimension )
 
 		animation( window, area )
-			.setStartDelay( delay.toMillis )
 			.setDuration( duration.toMillis )
+			.setInterpolator( interpolator )
+			.setStartDelay( delay.toMillis )
+	}
+
+	/**
+	 * Sets the view dimensions to 0 width / height and pops back to its actual dimensions
+	 */
+	def popIn( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new BounceInterpolator() ): ViewPropertyAnimatorCompat =
+	{
+		ViewCompat.setScaleX( view, 0 )
+		ViewCompat.setScaleY( view, 0 )
+
+		ViewCompat
+			.animate( view )
+			.setDuration( duration.toMillis )
+			.setInterpolator( interpolator )
+			.setStartDelay( delay.toMillis )
+			.scaleX( 1 )
+			.scaleY( 1 )
+	}
+
+	/**
+	 * Makes the view pop out from its actual dimensions to 0 width / height
+	 */
+	def popOut( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new BounceInterpolator() ): ViewPropertyAnimatorCompat =
+	{
+		ViewCompat
+			.animate( view )
+			.setDuration( duration.toMillis )
+			.setInterpolator( interpolator )
+			.setStartDelay( delay.toMillis )
+			.scaleX( 0 )
+			.scaleY( 0 )
 	}
 }
