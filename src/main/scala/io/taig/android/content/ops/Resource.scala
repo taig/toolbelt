@@ -1,11 +1,8 @@
 package io.taig.android.content.ops
 
-import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.LOLLIPOP
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.content.Contextual
 import io.taig.android.content.ops.Resource.ResourceResolver
