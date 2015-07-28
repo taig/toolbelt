@@ -24,6 +24,8 @@ extends		Pair[T]( x, y )
 
 object Point
 {
+	val Zero = apply( 0, 0 )
+
 	def apply[T: Numeric]( array: Array[T] ): Point[T] =
 	{
 		require( array.length == 2 )
