@@ -80,7 +80,7 @@ trait Animation
 	/**
 	 * Sets the view dimensions to 0 width / height and pops back to its actual dimensions
 	 */
-	def popIn( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
+	def popIn( duration: Duration = 150 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		ViewCompat.setScaleX( view, 0 )
 		ViewCompat.setScaleY( view, 0 )
@@ -97,7 +97,7 @@ trait Animation
 	/**
 	 * Makes the view pop out from its actual dimensions to 0 width / height
 	 */
-	def popOut( duration: Duration = 250 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
+	def popOut( duration: Duration = 150 milliseconds, delay: Duration = Zero, interpolator: Interpolator = new LinearInterpolator() ): ViewPropertyAnimatorCompat =
 	{
 		ViewCompat
 			.animate( view )

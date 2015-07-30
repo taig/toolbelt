@@ -49,11 +49,11 @@ class Image private( stream: => InputStream )
 
 	def decode( target: Dimension[Int], matrix: Matrix ): Bitmap = decode( target, matrix, defaultOptions )
 
-	def decode( target: Dimension[Int], options: Options ): Bitmap = decode( target, null, options )
+	def decode( target: Dimension[Int], options: Options ): Bitmap = decode( target, null: Matrix, options )
 
 	def decode( target: Dimension[Int], matrix: Matrix, options: Options ): Bitmap =
 	{
-		require( target > ( 0 x 0 ), s"Target resolution ($target) must be > 0 x 0" )
+		require( target > ( 0 x 0 ), s"Target resolution ($target) must be > ${0 x 0}" )
 		val ( x, y ) = resolution.ratioTo( target )
 		decode( max( x, y ), options )
 	}
@@ -66,7 +66,7 @@ class Image private( stream: => InputStream )
 
 	def decode( scale: Float, matrix: Matrix ): Bitmap = decode( scale, matrix, defaultOptions )
 
-	def decode( scale: Float, options: Options ): Bitmap = decode( scale, Area( Point.Zero, resolution ), options )
+	def decode( scale: Float, options: Options ): Bitmap = decode( scale, null: Matrix, options)
 
 	def decode( scale: Float, matrix: Matrix, options: Options ): Bitmap =
 	{
@@ -110,6 +110,8 @@ class Image private( stream: => InputStream )
 				.getOrElse( 1 )
 		}
 
+		val stream = this.stream
+
 		try
 		{
 			val bitmap = BitmapFactory.decodeStream( this.stream, null, options )
@@ -152,7 +154,7 @@ class Image private( stream: => InputStream )
 		}
 		finally
 		{
-			this.stream.close()
+			stream.close()
 		}
 	}
 
