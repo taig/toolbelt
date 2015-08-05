@@ -10,8 +10,8 @@ package object content
 	implicit class	RichIntent( val intent: android.content.Intent )( implicit val context: Context )
 	extends			ops.Intent
 
-	implicit class	RichUnit( val unit: Float )( implicit val context: Context )
-	extends			ops.Unit
+	implicit class	RichUnit[T: Numeric]( unit: T )( implicit val context: Context )
+	extends			ops.Unit[T]( unit )
 
 	implicit class	RichResource( val resource: Int )( implicit val context: Context )
 	extends			ops.Resource
