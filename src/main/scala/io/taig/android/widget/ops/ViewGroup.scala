@@ -39,13 +39,13 @@ trait ViewGroup
 	/**
 	 * Add view as last child
 	 */
-	def appendView( view: android.view.View ) = viewGroup.addView( view, viewGroup.getChildCount - 1 )
+	def appendView( view: android.view.View ) = viewGroup.addView( view, viewGroup.getChildCount )
 
 	/**
 	 * Add view as last child
 	 */
 	def appendView( view: android.view.View, parameters: android.view.ViewGroup.LayoutParams ) =
 	{
-		viewGroup.addView( view, viewGroup.getChildCount - 1, parameters )
+		viewGroup.addView( view, viewGroup.getChildCount, parameters )
 	}
 }
