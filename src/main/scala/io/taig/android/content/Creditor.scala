@@ -1,22 +1,28 @@
 package io.taig.android.content
 
-import scala.reflect.ClassTag
+import scala.annotation.unchecked.uncheckedVariance
+import scala.reflect._
 
 /**
  * A Fragment may be a Creditor, forcing the hosting Activity to implement its contract
  */
-trait Creditor[C]
-        extends Fragment {
-    def tag: ClassTag[C]
-
+trait Creditor[+C] extends Fragment {
     private var activity: android.app.Activity = null
 
-    // It would be wise to check if the Activity implements C in onActivityCreated(), but that would enforce us to
-    // implement an implicit classTag field in the children. This might work out in the future with trait parameters.
-    // Until then, please implement the fucking contract.
+    def tag: ClassTag[C @uncheckedVariance]
 
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
+
+        try {
+            activity.getClass.getDeclaredMethod( tag.runtimeClass.getSimpleName )
+        }
+        catch {
+            case _: NoSuchMethodException ⇒
+                throw new IllegalStateException(
+                    s"Activity ${activity.getClass.getName} did not implement contract ${tag.runtimeClass.getName}"
+                )
+        }
 
         this.activity = activity
     }
@@ -27,11 +33,9 @@ trait Creditor[C]
         this.activity = null
     }
 
-    @deprecated( "Use ->> instead", "0.4.1" )
-    def debtor: C = activity.asInstanceOf[C]
-
     def ->> : C = {
-        val method = tag.runtimeClass.getDeclaredField( tag.runtimeClass.getSimpleName )
-        method.get( activity ).asInstanceOf[C]
+        val name = tag.runtimeClass.getSimpleName
+        val method = activity.getClass.getDeclaredMethod( name )
+        method.invoke( activity ).asInstanceOf[C]
     }
 }
