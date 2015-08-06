@@ -3,11 +3,13 @@ import sbt.Keys._
 import android.Keys._
 import android.Plugin._
 import xerial.sbt.Sonatype._
+import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform._
 
 object	Build
 extends	android.AutoBuild
 {
-	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar ++ sonatypeSettings )
+	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar ++ sonatypeSettings ++ scalariformSettings )
 		.settings(
 			javacOptions ++= (
 				"-source" :: "1.7" ::
@@ -87,5 +89,28 @@ extends	android.AutoBuild
 				)
 			),
 			startYear := Some( 2014 )
+		)
+		.settings(
+			ScalariformKeys.preferences := ScalariformKeys.preferences.value
+				.setPreference( AlignParameters, true )
+				.setPreference( AlignArguments, true )
+				.setPreference( AlignSingleLineCaseStatements, true )
+				.setPreference( CompactControlReadability, true )
+				.setPreference( CompactStringConcatenation, false )
+				.setPreference( DoubleIndentClassDeclaration, true )
+				.setPreference( FormatXml, false )
+				.setPreference( IndentLocalDefs, false )
+				.setPreference( IndentPackageBlocks, true )
+				.setPreference( IndentSpaces, 4 )
+				.setPreference( IndentWithTabs, false )
+				.setPreference( MultilineScaladocCommentsStartOnFirstLine, false )
+				.setPreference( PlaceScaladocAsterisksBeneathSecondAsterisk, false )
+				.setPreference( PreserveSpaceBeforeArguments, true )
+				.setPreference( RewriteArrowSymbols, true )
+				.setPreference( SpaceBeforeColon, false )
+				.setPreference( SpaceInsideBrackets, false )
+				.setPreference( SpaceInsideParentheses, true )
+				.setPreference( SpacesWithinPatternBinders, true )
+				.setPreference( SpacesAroundMultiImports, true )
 		)
 }
