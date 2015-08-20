@@ -39,8 +39,8 @@ extends	sbt.Build
 		)
 		.settings(
 			minSdkVersion in Android := "11",
-			platformTarget in Android := "android-22",
-			targetSdkVersion in Android := "22",
+			platformTarget in Android := "android-23",
+			targetSdkVersion in Android := "23",
 			typedResources in Android := false
 		)
 		.settings(
