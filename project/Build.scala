@@ -7,7 +7,7 @@ import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform._
 
 object	Build
-extends	android.AutoBuild
+extends	sbt.Build
 {
 	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar ++ sonatypeSettings ++ scalariformSettings )
 		.settings(
@@ -35,8 +35,6 @@ extends	android.AutoBuild
 				"-feature" ::
 				Nil
 			),
-			// @see https://github.com/pfn/android-sdk-plugin/issues/88
-			sourceGenerators in Compile <<= ( sourceGenerators in Compile ) ( generators => Seq( generators.last ) ),
 			version := "0.4.1-SNAPSHOT"
 		)
 		.settings(
