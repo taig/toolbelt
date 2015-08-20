@@ -20,49 +20,49 @@ object Resource {
         def apply( resource: Int )( implicit context: android.content.Context ): T
     }
 
-    implicit val boolean = new ResourceResolver[Boolean] {
+    implicit val `ResourceResolver[Boolean]` = new ResourceResolver[Boolean] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             context.getResources.getBoolean( resource )
         }
     }
 
-    implicit val color = new ResourceResolver[Color] {
+    implicit val `ResourceResolver[Color]` = new ResourceResolver[Color] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
-            context.getResources.getColor( resource )
+            context.getResources.getColor( resource, null )
         }
     }
 
-    implicit val drawable = new ResourceResolver[Drawable] {
+    implicit val `ResourceResolver[Drawable]` = new ResourceResolver[Drawable] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             ResourcesCompat.getDrawable( context, resource )
         }
     }
 
-    implicit val int = new ResourceResolver[Int] {
+    implicit val `ResourceResolver[Int]` = new ResourceResolver[Int] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             context.getResources.getInteger( resource )
         }
     }
 
-    implicit val intArray = new ResourceResolver[Array[Int]] {
+    implicit val `ResourceResolver[Array[Int]]` = new ResourceResolver[Array[Int]] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             context.getResources.getIntArray( resource )
         }
     }
 
-    implicit val string = new ResourceResolver[String] {
+    implicit val `ResourceResolver[String]` = new ResourceResolver[String] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             context.getResources.getString( resource )
         }
     }
 
-    implicit val stringArray = new ResourceResolver[Array[String]] {
+    implicit val `ResourceResolver[Array[String]]` = new ResourceResolver[Array[String]] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             context.getResources.getStringArray( resource )
         }
     }
 
-    implicit val uri = new ResourceResolver[Uri] {
+    implicit val `ResourceResolver[Uri]` = new ResourceResolver[Uri] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
             Uri.parse(
                 ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
