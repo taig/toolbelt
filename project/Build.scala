@@ -6,7 +6,7 @@ import android.Plugin._
 object	Build
 extends	sbt.Build
 {
-	lazy val main = Project( "toolbelt", file( "." ), settings = androidBuildAar )
+    val main = Project( "toolbelt", file( "." ) )
 		.settings(
 			javacOptions ++= (
 				"-source" :: "1.7" ::
@@ -33,11 +33,5 @@ extends	sbt.Build
 				Nil
 			),
 			version := "0.4.1-SNAPSHOT"
-		)
-		.settings(
-			minSdkVersion in Android := "11",
-			platformTarget in Android := "android-23",
-			targetSdkVersion in Android := "23",
-			typedResources in Android := false
 		)
 }
