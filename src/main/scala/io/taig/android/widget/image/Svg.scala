@@ -5,7 +5,7 @@ import android.util.{ AttributeSet, TypedValue }
 import android.view.View.LAYER_TYPE_SOFTWARE
 import android.widget.ImageView
 import com.caverock.androidsvg.SVG
-import io.taig.android.R
+import io.taig.android.toolbelt.R
 
 /**
  * An ImageView extension that adds support for SVG assets
