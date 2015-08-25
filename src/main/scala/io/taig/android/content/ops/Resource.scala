@@ -3,6 +3,7 @@ package io.taig.android.content.ops
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.content.Contextual
 import io.taig.android.content.ops.Resource.ResourceResolver
@@ -28,7 +29,12 @@ object Resource {
 
     implicit val `ResourceResolver[Color]` = new ResourceResolver[Color] {
         override def apply( resource: Int )( implicit context: android.content.Context ) = {
-            context.getResources.getColor( resource, null )
+            if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
+                context.getColor( resource )
+            }
+            else {
+                context.getResources.getColor( resource )
+            }
         }
     }
 
