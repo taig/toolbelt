@@ -9,5 +9,5 @@
 ````
 resolvers += Resolver.sonatypeRepo( "snapshots" )
 
-libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.0-SNAPSHOT"
+libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.2-SNAPSHOT"
 ````
