@@ -11,14 +11,6 @@ import scala.reflect._
 trait Context {
     def context: android.content.Context
 
-    def AlarmManger = context.getSystemService( ALARM_SERVICE ).asInstanceOf[AlarmManager]
-
-    def PowerService = context.getSystemService( POWER_SERVICE ).asInstanceOf[PowerManager]
-
-    def LayoutInflater = context.getSystemService( LAYOUT_INFLATER_SERVICE ).asInstanceOf[LayoutInflater]
-
-    def WindowManager = context.getSystemService( WINDOW_SERVICE ).asInstanceOf[WindowManager]
-
     def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 
     /**
