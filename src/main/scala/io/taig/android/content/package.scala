@@ -12,6 +12,9 @@ package object content {
     implicit class RichUnit[T: Numeric]( unit: T )( implicit val context: Context )
         extends ops.Unit[T]( unit )
 
+    implicit class RichService( val context: Context )
+        extends ops.Service
+
     implicit class RichResource( val resource: Int )( implicit val context: Context )
         extends ops.Resource
 }
