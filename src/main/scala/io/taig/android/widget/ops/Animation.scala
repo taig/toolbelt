@@ -1,6 +1,7 @@
 package io.taig.android.widget.ops
 
 import android.support.v4.view.{ ViewCompat, ViewPropertyAnimatorCompat }
+import android.view.WindowManager
 import android.view.animation.{ Interpolator, LinearInterpolator }
 import io.taig.android.content._
 import io.taig.android.graphic.Direction._
@@ -54,7 +55,7 @@ trait Animation {
     }
 
     private def slide( animation: ( Dimension[Int], Area[Int] ) ⇒ ViewPropertyAnimatorCompat, duration: Duration, delay: Duration, interpolator: Interpolator ) = {
-        val window = Dimension( view.getContext.WindowManager.getDefaultDisplay )
+        val window = Dimension( view.getContext.service[WindowManager].getDefaultDisplay )
         val area = Area( Point( view.getLocationInWindow _ ), view.dimension )
 
         animation( window, area )
