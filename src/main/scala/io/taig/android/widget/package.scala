@@ -1,10 +1,11 @@
 package io.taig.android
 
-import android.view.{ ViewPropertyAnimator, View, ViewGroup }
+import android.support.v4.view.ViewPropertyAnimatorCompat
+import android.view.{ View, ViewGroup }
 import android.widget.ViewSwitcher
 
 package object widget {
-    implicit class RichAnimation( animation: ViewPropertyAnimator )
+    implicit class RichAnimation( animation: ViewPropertyAnimatorCompat )
         extends ops.Animation( animation )
 
     implicit class RichView( val view: View )
