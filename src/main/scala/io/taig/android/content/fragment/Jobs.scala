@@ -56,8 +56,7 @@ trait Jobs
      */
     def attempt( job: ⇒ Unit ) = synchronized( if ( ready ) Ui( job ) )
 
-    private object Executor
-            extends java.util.concurrent.Executor {
+    private object Executor extends java.util.concurrent.Executor {
         val queue = mutable.Queue.empty[() ⇒ Unit]
 
         /**
