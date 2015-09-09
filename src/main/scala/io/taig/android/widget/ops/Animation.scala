@@ -2,10 +2,20 @@ package io.taig.android.widget.ops
 
 import android.view.ViewPropertyAnimator
 
-trait Animation {
-    def view: android.view.View
+abstract class Animation( animation: ViewPropertyAnimator ) {
+    def popIn(): ViewPropertyAnimator = {
+        animation
+            .setDuration( 150 )
+            .rotation( 0 )
+            .scaleX( 1 )
+            .scaleY( 1 )
+    }
 
-    def popIn(): ViewPropertyAnimator = view.animate().scaleX( 1 ).scaleY( 1 ).setDuration( 150 )
-
-    def popOut(): ViewPropertyAnimator = view.animate().scaleX( 0 ).scaleY( 0 ).setDuration( 150 )
+    def popOut(): ViewPropertyAnimator = {
+        animation
+            .setDuration( 150 )
+            .rotation( -35 )
+            .scaleX( 0 )
+            .scaleY( 0 )
+    }
 }
