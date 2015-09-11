@@ -9,12 +9,14 @@ libraryDependencies ++=
     "com.android.support" % "support-v13" % "23.0.1" ::
     "com.caverock" % "androidsvg" % "1.2.2-beta-1" ::
     "com.wnafee" % "vector-compat" % "1.0.5" ::
-    "io.taig.android" %% "parcelable" % "2.3.0" ::
+    "io.taig.android" %% "parcelable" % "2.4.0-SNAPSHOT" ::
     Nil
 
 name := "Toolbelt"
 
 organization := "io.taig.android"
+
+resolvers += Resolver.sonatypeRepo( "snapshots" )
 
 scalaVersion := "2.11.7"
 
