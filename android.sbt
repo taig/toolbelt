@@ -1,6 +1,6 @@
 androidBuildAar
 
-minSdkVersion in Android := "11"
+minSdkVersion in Android := "13"
 
 platformTarget in Android := "android-23"
 
