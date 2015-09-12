@@ -3,6 +3,7 @@ package io.taig.android.content.fragment
 import android.os.Bundle
 import io.taig.android.concurrent.Executor.Ui
 import io.taig.android.content.Fragment
+import io.taig.android.util.Log
 
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext
@@ -12,8 +13,7 @@ import scala.concurrent.ExecutionContext
  *
  * All jobs will be automatically executed on the Ui thread
  */
-trait Jobs
-        extends Fragment {
+trait Jobs extends Fragment {
     /**
      * Execution context for Fragment Ui operations
      *
@@ -43,6 +43,14 @@ trait Jobs
 
         synchronized {
             ready = false
+        }
+    }
+
+    override def onDestroy() = {
+        super.onDestroy()
+
+        synchronized {
+            Executor.queue.clear()
         }
     }
 

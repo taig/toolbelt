@@ -5,6 +5,9 @@ import android.os.Parcelable
 import android.support.v13.app.FragmentCompat
 import android.view.{ View, ViewGroup }
 
+/**
+ * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragemnts
+ */
 abstract class PagerAdapter( manager: FragmentManager ) extends android.support.v4.view.PagerAdapter {
     private var transaction: Option[FragmentTransaction] = None
 
