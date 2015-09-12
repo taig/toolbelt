@@ -2,10 +2,15 @@ package io.taig.android.content
 
 import java.lang.reflect.InvocationTargetException
 
+import android.os.Bundle
+import android.view.View
+
+import scala.language.postfixOps
+
 /**
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
  */
-trait Creditor[+C] extends Fragment {
+trait Creditor[+C <: Contract] extends Fragment {
     private val name = getClass.getSimpleName
 
     private var target: Any = null
@@ -24,6 +29,30 @@ trait Creditor[+C] extends Fragment {
                 )
         }
 
+    }
+
+    override def onViewCreated( view: View, state: Option[Bundle] ) = {
+        super.onViewCreated( view, state )
+
+        ->> onViewCreated
+    }
+
+    override def onStart() = {
+        super.onStart()
+
+        ->> onStart
+    }
+
+    override def onResume() = {
+        super.onResume()
+
+        ->> onResume
+    }
+
+    override def onStop() = {
+        super.onStop()
+
+        ->> onStop
     }
 
     override def onDetach() = {
