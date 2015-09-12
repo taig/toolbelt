@@ -1,24 +1,26 @@
 package io.taig.android.content
 
+import java.lang.reflect.InvocationTargetException
+
 /**
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
  */
 trait Creditor[+C] extends Fragment {
-    private var activity: android.app.Activity = null
-
     private val name = getClass.getSimpleName
+
+    private var target: Any = null
 
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
         try {
-            activity.getClass.getDeclaredMethod( name )
-            this.activity = activity
+            val method = activity.getClass.getDeclaredMethod( name )
+            target = method.invoke( activity )
         }
         catch {
-            case _: NoSuchMethodException ⇒
+            case _: NoSuchMethodException | _: IllegalAccessException | _: IllegalArgumentException | _: InvocationTargetException ⇒
                 throw new IllegalStateException(
-                    s"Activity ${activity.getClass.getName} did not implement contract $name"
+                    s"Activity ${activity.getClass.getName} did not properly implement contract $name"
                 )
         }
 
@@ -27,11 +29,8 @@ trait Creditor[+C] extends Fragment {
     override def onDetach() = {
         super.onDetach()
 
-        this.activity = null
+        this.target = null
     }
 
-    def ->> : C = {
-        val method = activity.getClass.getDeclaredMethod( name )
-        method.invoke( activity ).asInstanceOf[C]
-    }
+    def ->> : C = target.asInstanceOf[C]
 }
