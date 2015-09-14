@@ -2,10 +2,7 @@ package io.taig.android.content.ops
 
 import io.taig.android.content.Contextual
 
-trait Intent
-        extends Contextual {
-    def intent: android.content.Intent
-
+abstract class Intent( intent: android.content.Intent ) extends Contextual {
     /**
      * Check if there is an activity available to handle this intent
      *

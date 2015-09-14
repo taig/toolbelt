@@ -1,16 +1,11 @@
 package io.taig.android.content.ops
 
-import android.app.AlarmManager
-import android.content.Context._
-import android.os.PowerManager
-import android.view.{ WindowManager, LayoutInflater }
+import _root_.io.taig.android.content.Contextual
 import io.taig.android.content
 
 import scala.reflect._
 
-trait Context {
-    def context: android.content.Context
-
+trait Context extends Contextual {
     def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 
     /**

@@ -17,9 +17,7 @@ import io.taig.android.content.Contextual
 import io.taig.android.content.ops.Service.ServiceResolver
 import android.content.Context._
 
-trait Service {
-    def context: android.content.Context
-
+trait Service extends Contextual {
     def service[T: ServiceResolver]: T = implicitly[ServiceResolver[T]].resolve( context )
 }
 
