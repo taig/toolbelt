@@ -1,11 +1,13 @@
 package io.taig.android.content.operation
 
+import android.content
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.support.annotation._
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.compatibility
-import io.taig.android.content.{ Quantity, Contextual }
+import io.taig.android.content.{ Dimension, Quantity, Contextual }
 import io.taig.android.content.operation.Resource.ResourceResolver
 import io.taig.android.graphic.Color
 
@@ -22,26 +24,38 @@ object Resource {
         def resolve( resource: A, arguments: Seq[Any] )( implicit context: android.content.Context ): B
     }
 
+    implicit val `ResourceResolver[Dimension, Float]` = new ResourceResolver[Dimension, Float] {
+        override def resolve( resource: Dimension, arguments: Seq[Any] )( implicit context: content.Context ) = {
+            context.getResources.getDimension( resource.value )
+        }
+    }
+
+    implicit val `ResourceResolver[Dimension, Int]` = new ResourceResolver[Dimension, Int] {
+        override def resolve( resource: Dimension, arguments: Seq[Any] )( implicit context: content.Context ) = {
+            context.getResources.getDimensionPixelSize( resource.value )
+        }
+    }
+
     implicit val `ResourceResolver[Int, Boolean]` = new ResourceResolver[Int, Boolean] {
-        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+        override def resolve( @BoolRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             context.getResources.getBoolean( resource )
         }
     }
 
     implicit val `ResourceResolver[Int, Color]` = new ResourceResolver[Int, Color] {
-        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+        override def resolve( @ColorRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             compatibility.Resources.getColor( context.getResources, resource )
         }
     }
 
     implicit val `ResourceResolver[Int, Drawable]` = new ResourceResolver[Int, Drawable] {
-        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+        override def resolve( @DrawableRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             ResourcesCompat.getDrawable( context, resource )
         }
     }
 
     implicit val `ResourceResolver[Int, Int]` = new ResourceResolver[Int, Int] {
-        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+        override def resolve( @IntegerRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             context.getResources.getInteger( resource )
         }
     }
@@ -53,7 +67,7 @@ object Resource {
     }
 
     implicit val `ResourceResolver[Int, String]` = new ResourceResolver[Int, String] {
-        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+        override def resolve( @StringRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             context.getResources.getString( resource, arguments.map( _.asInstanceOf[AnyRef] ): _* )
         }
     }

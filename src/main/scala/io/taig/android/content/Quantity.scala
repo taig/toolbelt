@@ -1,8 +1,8 @@
 package io.taig.android.content
 
-import android.content.Context
+import android.support.annotation.PluralsRes
 
 /**
  * Helper class to create Android quantity Strings
  */
-case class Quantity( message: Int, count: Int )
+case class Quantity( @PluralsRes message: Int, count: Int )
