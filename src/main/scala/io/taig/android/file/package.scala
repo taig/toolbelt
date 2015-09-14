@@ -13,8 +13,7 @@ package object file {
             try {
                 bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream )
                 Base64.encodeToString( stream.toByteArray, Base64.DEFAULT )
-            }
-            finally {
+            } finally {
                 stream.close()
             }
         }
@@ -25,8 +24,7 @@ package object file {
             def deleteRecursively( file: File ): Unit = {
                 if ( file.isDirectory ) {
                     file.listFiles().foreach( deleteRecursively )
-                }
-                else {
+                } else {
                     file.delete()
                 }
             }

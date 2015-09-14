@@ -21,8 +21,7 @@ trait Creditor[+C <: Contract] extends Fragment {
         try {
             val method = activity.getClass.getDeclaredMethod( name )
             target = method.invoke( activity )
-        }
-        catch {
+        } catch {
             case _: NoSuchMethodException | _: IllegalAccessException | _: IllegalArgumentException | _: InvocationTargetException ⇒
                 throw new IllegalStateException(
                     s"Activity ${activity.getClass.getName} did not properly implement contract $name"

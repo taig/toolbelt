@@ -38,8 +38,7 @@ object Dimension {
     def apply( display: Display ): Dimension[Int] = {
         if ( SDK_INT >= 13 ) {
             Dimension( display.getSize _ )
-        }
-        else {
+        } else {
             display.dimension
         }
     }

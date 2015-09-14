@@ -128,8 +128,7 @@ trait View {
         {
             if ( SDK_INT < 16 ) {
                 o.removeGlobalOnLayoutListener( listener )
-            }
-            else {
+            } else {
                 o.removeOnGlobalLayoutListener( listener )
             }
         }

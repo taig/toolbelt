@@ -77,8 +77,7 @@ trait Jobs extends Fragment {
         def runOrQueue( job: ⇒ Unit ) = Jobs.this.synchronized {
             if ( ready ) {
                 Ui( job )
-            }
-            else {
+            } else {
                 queue.enqueue( () ⇒ job )
             }
         }

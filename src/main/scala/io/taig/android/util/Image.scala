@@ -26,8 +26,7 @@ class Image private ( stream: ⇒ InputStream ) {
 
         try {
             BitmapFactory.decodeStream( stream, null, options )
-        }
-        finally {
+        } finally {
             stream.close()
         }
 
@@ -126,16 +125,13 @@ class Image private ( stream: ⇒ InputStream ) {
                         },
                         false
                     )
-                }
-                finally {
+                } finally {
                     bitmap.recycle()
                 }
-            }
-            else {
+            } else {
                 bitmap
             }
-        }
-        finally {
+        } finally {
             stream.close()
         }
     }

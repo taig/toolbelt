@@ -36,8 +36,7 @@ trait Svg
             // Make sure hardware rendering is disabled
             setLayerType( LAYER_TYPE_SOFTWARE, null )
             setImageDrawable( new PictureDrawable( SVG.getFromResource( getResources, resId ).renderToPicture() ) )
-        }
-        else {
+        } else {
             super.setImageResource( resId )
         }
     }

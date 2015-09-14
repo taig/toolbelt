@@ -38,17 +38,13 @@ abstract class Dimension[T: Integral] {
 
         val x = if ( dimension > target ) {
             max( ratio._1, ratio._2 )
-        }
-        else if ( dimension < target ) {
+        } else if ( dimension < target ) {
             min( ratio._1, ratio._2 )
-        }
-        else if ( dimension.width > target.width ) {
+        } else if ( dimension.width > target.width ) {
             ratio._1
-        }
-        else if ( dimension.height > target.height ) {
+        } else if ( dimension.height > target.height ) {
             ratio._2
-        }
-        else {
+        } else {
             0
         }
 

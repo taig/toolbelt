@@ -1,14 +1,13 @@
 package io.taig.android.content.operation
 
-import android.content
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.annotation._
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.compatibility
-import io.taig.android.content.{ Dimension, Quantity, Contextual }
 import io.taig.android.content.operation.Resource.ResourceResolver
+import io.taig.android.content.{ Contextual, Quantity }
 import io.taig.android.graphic.Color
 
 abstract class Resource[A]( resource: A ) extends Contextual {
@@ -22,18 +21,6 @@ abstract class Resource[A]( resource: A ) extends Contextual {
 object Resource {
     trait ResourceResolver[A, B] {
         def resolve( resource: A, arguments: Seq[Any] )( implicit context: android.content.Context ): B
-    }
-
-    implicit val `ResourceResolver[Dimension, Float]` = new ResourceResolver[Dimension, Float] {
-        override def resolve( resource: Dimension, arguments: Seq[Any] )( implicit context: content.Context ) = {
-            context.getResources.getDimension( resource.value )
-        }
-    }
-
-    implicit val `ResourceResolver[Dimension, Int]` = new ResourceResolver[Dimension, Int] {
-        override def resolve( resource: Dimension, arguments: Seq[Any] )( implicit context: content.Context ) = {
-            context.getResources.getDimensionPixelSize( resource.value )
-        }
     }
 
     implicit val `ResourceResolver[Int, Boolean]` = new ResourceResolver[Int, Boolean] {
@@ -55,8 +42,12 @@ object Resource {
     }
 
     implicit val `ResourceResolver[Int, Int]` = new ResourceResolver[Int, Int] {
-        override def resolve( @IntegerRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
-            context.getResources.getInteger( resource )
+        override def resolve( @AnyRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+            context.getResources.getResourceTypeName( resource ) match {
+                case "integer" ⇒ context.getResources.getInteger( resource )
+                case "dimen"   ⇒ context.getResources.getDimensionPixelSize( resource )
+                case name      ⇒ sys.error( s"Invalid resource type $name given to resolve an Int" )
+            }
         }
     }
 
@@ -69,6 +60,12 @@ object Resource {
     implicit val `ResourceResolver[Int, String]` = new ResourceResolver[Int, String] {
         override def resolve( @StringRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
             context.getResources.getString( resource, arguments.map( _.asInstanceOf[AnyRef] ): _* )
+        }
+    }
+
+    implicit val `ResourceResolver[Int, Float]` = new ResourceResolver[Int, Float] {
+        override def resolve( @DimenRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
+            context.getResources.getDimension( resource )
         }
     }
 
