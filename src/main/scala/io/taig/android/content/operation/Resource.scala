@@ -1,18 +1,20 @@
-package io.taig.android.content.ops
+package io.taig.android.content.operation
 
 import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.compatibility
-import io.taig.android.content.{Quantity, Contextual}
-import io.taig.android.content.ops.Resource.ResourceResolver
+import io.taig.android.content.{ Quantity, Contextual }
+import io.taig.android.content.operation.Resource.ResourceResolver
 import io.taig.android.graphic.Color
 
 abstract class Resource[A]( resource: A ) extends Contextual {
-    def as[B: ResourceResolver]: B = implicitly[ResourceResolver[A, B]].resolve( resource, Seq.empty )
+    def as[B]( implicit resolver: ResourceResolver[A, B] ): B = resolver.resolve( resource, Seq.empty )
 
-    def as[B: ResourceResolver]( arguments: Any* ): B = implicitly[ResourceResolver[A, B]].resolve( resource, arguments )
+    def as[B]( arguments: Any* )( implicit resolver: ResourceResolver[A, B] ): B = {
+        resolver.resolve( resource, arguments )
+    }
 }
 
 object Resource {
@@ -75,7 +77,11 @@ object Resource {
 
     implicit val `ResourceResolver[Quantity, String]` = new ResourceResolver[Quantity, String] {
         override def resolve( quantity: Quantity, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
-            context.getResources.getQuantityString( quantity.message, quantity.count, arguments: _* )
+            context.getResources.getQuantityString(
+                quantity.message,
+                quantity.count,
+                arguments.map( _.asInstanceOf[AnyRef] ): _*
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package io.taig.android.content.ops
+package io.taig.android.content.operation
 
 import _root_.io.taig.android.content.Contextual
 import io.taig.android.content

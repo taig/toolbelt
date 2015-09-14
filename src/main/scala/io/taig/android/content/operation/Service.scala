@@ -1,4 +1,4 @@
-package io.taig.android.content.ops
+package io.taig.android.content.operation
 
 import android.app._
 import android.app.job.JobScheduler
@@ -14,7 +14,7 @@ import android.telephony.{ TelephonyManager, SubscriptionManager, CarrierConfigM
 import android.view.inputmethod.InputMethodManager
 import android.view.{ WindowManager, LayoutInflater }
 import io.taig.android.content.Contextual
-import io.taig.android.content.ops.Service.ServiceResolver
+import io.taig.android.content.operation.Service.ServiceResolver
 import android.content.Context._
 
 trait Service extends Contextual {
