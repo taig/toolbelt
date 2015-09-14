@@ -12,5 +12,6 @@ package object content {
 
     implicit class RichService( val context: Context ) extends operation.Service
 
-    implicit class RichResource( resource: Int )( implicit val context: Context ) extends operation.Resource( resource )
+    implicit class RichResource[T]( resource: T )( implicit val context: Context )
+        extends operation.Resource[T]( resource )
 }
