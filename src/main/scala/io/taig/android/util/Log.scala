@@ -3,6 +3,8 @@ package io.taig.android.util
 import android.util.Log.getStackTraceString
 import android.{ util ⇒ android }
 
+import scala.reflect._
+
 object Log {
     def d( message: Any )( implicit tag: Tag ) = print( message, android.Log.d( tag.name, _ ) )
 
@@ -36,6 +38,9 @@ object Log {
         ( message + "\n" + getStackTraceString( throwable ) ).grouped( 1000 ).foreach( log )
     }
 
-    case class Tag( name: String )
-        extends AnyVal
+    case class Tag( name: String ) extends AnyVal
+    
+    object Tag {
+        def apply[T: ClassTag]: Tag = Tag( classTag[T].runtimeClass.getName )
+    }
 }
