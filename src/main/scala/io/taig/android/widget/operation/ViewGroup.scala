@@ -6,12 +6,12 @@ abstract class ViewGroup( viewGroup: android.view.ViewGroup ) {
      * particular order
      */
     def children = {
-        def discover( view: android.view.ViewGroup ): Seq[android.view.View] = {
-            ( 0 to view.getChildCount - 1 )
-                .map( view.getChildAt ) match {
-                    case group: android.view.ViewGroup ⇒ group +: discover( group )
-                    case _                             ⇒ Seq( view )
-                }
+        def discover( view: android.view.View ): Seq[android.view.View] = view match {
+            case viewGroup: android.view.ViewGroup ⇒
+                ( 0 to viewGroup.getChildCount - 1 )
+                    .map( viewGroup.getChildAt )
+                    .flatMap( discover ) :+ view
+            case _ ⇒ Seq( view )
         }
 
         discover( viewGroup )
