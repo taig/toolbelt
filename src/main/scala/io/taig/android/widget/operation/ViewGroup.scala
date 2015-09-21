@@ -1,8 +1,6 @@
 package io.taig.android.widget.operation
 
-trait ViewGroup {
-    def viewGroup: android.view.ViewGroup
-
+abstract class ViewGroup( viewGroup: android.view.ViewGroup ) {
     /**
      * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
      * particular order

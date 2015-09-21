@@ -6,12 +6,14 @@ import android.view.View
 import android.view.View.{ GONE, VISIBLE }
 
 trait Emptyable extends RecyclerView {
-    protected var empty: Option[View] = None
+    private var empty: Option[View] = None
 
-    def setEmptyView( view: View ) = {
+    def setEmptyView( view: View ): Unit = {
         empty = Option( view )
         update()
     }
+
+    def getEmptyView = empty.orNull
 
     override def setAdapter( adapter: Adapter[_ <: ViewHolder] ): Unit = {
         // Unregister observer from previous adapter
