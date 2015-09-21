@@ -24,4 +24,13 @@ abstract class View( view: android.view.View ) {
         case Right  ⇒ view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
         case Bottom ⇒ view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
     }
+
+    def next(): Option[android.view.View] = view match {
+        case viewGroup: android.view.ViewGroup if viewGroup.getChildCount > 0 ⇒ Some( viewGroup.getChildAt( 0 ) )
+        case view ⇒ view.getParent match {
+            case viewGroup: android.view.ViewGroup ⇒
+                Option( viewGroup.getChildAt( viewGroup.indexOfChild( view ) + 1 ) )
+            case _ ⇒ None
+        }
+    }
 }

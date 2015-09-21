@@ -1,6 +1,8 @@
 package io.taig.android.widget.operation
 
-abstract class ViewGroup( viewGroup: android.view.ViewGroup ) {
+import io.taig.android.widget._
+
+abstract class ViewGroup( viewGroup: android.view.ViewGroup ) extends Iterable[android.view.View] {
     /**
      * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
      * particular order
@@ -8,13 +10,22 @@ abstract class ViewGroup( viewGroup: android.view.ViewGroup ) {
     def children = {
         def discover( view: android.view.View ): Seq[android.view.View] = view match {
             case viewGroup: android.view.ViewGroup ⇒
-                ( 0 to viewGroup.getChildCount - 1 )
-                    .map( viewGroup.getChildAt )
-                    .flatMap( discover ) :+ view
+                ( 0 to viewGroup.getChildCount - 1 ).map( viewGroup.getChildAt ).flatMap( discover ) :+ view
             case _ ⇒ Seq( view )
         }
 
         discover( viewGroup )
+    }
+
+    override def iterator = new Iterator[android.view.View] {
+        var current: android.view.View = viewGroup
+
+        override def hasNext = current.next().isDefined
+
+        override def next() = {
+            current = current.next().orNull
+            current
+        }
     }
 
     /**
