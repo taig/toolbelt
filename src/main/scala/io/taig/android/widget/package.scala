@@ -6,17 +6,17 @@ import android.widget.ViewSwitcher
 
 package object widget {
     implicit class RichAnimation( animation: ViewPropertyAnimatorCompat )
-        extends ops.Animation( animation )
+        extends operation.Animation( animation )
 
-    implicit class RichView( val view: View )
-        extends ops.View
+    implicit class RichView( view: View )
+        extends operation.View( view )
 
     implicit class RichViewGroup( val viewGroup: ViewGroup )
-        extends ops.ViewGroup
+        extends operation.ViewGroup
 
     implicit class RichViewPagerGroup( val viewPager: android.support.v4.view.ViewPager )
-        extends ops.ViewPager
+        extends operation.ViewPager
 
     implicit class RichViewSwitcher( val viewSwitcher: ViewSwitcher )
-        extends ops.ViewSwitcher
+        extends operation.ViewSwitcher
 }

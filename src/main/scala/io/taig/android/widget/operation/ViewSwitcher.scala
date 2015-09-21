@@ -1,4 +1,4 @@
-package io.taig.android.widget.ops
+package io.taig.android.widget.operation
 
 trait ViewSwitcher {
     def viewSwitcher: android.widget.ViewSwitcher

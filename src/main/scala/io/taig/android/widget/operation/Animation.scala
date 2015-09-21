@@ -1,4 +1,4 @@
-package io.taig.android.widget.ops
+package io.taig.android.widget.operation
 
 import android.support.v4.view.ViewPropertyAnimatorCompat
 
