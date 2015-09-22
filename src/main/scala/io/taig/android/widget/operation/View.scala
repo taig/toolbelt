@@ -33,4 +33,19 @@ abstract class View( view: android.view.View ) {
             case _ ⇒ None
         }
     }
+
+    /**
+     * Wrap this view with the given view, and also rewire the parent (if present)
+     */
+    def wrap[V <: android.view.ViewGroup]( viewGroup: V ): V = {
+        view.getParent match {
+            case parent: android.view.ViewGroup ⇒
+                parent.removeView( view )
+                parent.addView( viewGroup, view.getLayoutParams )
+            case _ ⇒ //
+        }
+
+        viewGroup.addView( view )
+        viewGroup
+    }
 }
