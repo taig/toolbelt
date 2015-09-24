@@ -26,10 +26,10 @@ object Log {
 
     def w( message: Any, error: Throwable )( implicit tag: Tag ) = print( message, error, android.Log.w( tag.name, _ ) )
 
-    def wtf( message: Any )( implicit tag: Tag ) = print( message, android.Log.wtf( tag.name, _ ) )
+    def wtf( message: Any ) = print( message, android.Log.wtf( "WTF", _ ) )
 
-    def wtf( message: Any, error: Throwable )( implicit tag: Tag ) = {
-        print( message, android.Log.wtf( tag.name, _, error ) )
+    def wtf( message: Any, error: Throwable ) = {
+        print( message, android.Log.wtf( "WTF", _, error ) )
     }
 
     private def print( message: Any, log: String ⇒ Unit ) = message.toString.grouped( 1000 ).foreach( log )
