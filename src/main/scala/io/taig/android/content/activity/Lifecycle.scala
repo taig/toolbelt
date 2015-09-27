@@ -110,12 +110,6 @@ trait Lifecycle extends Activity {
         super.onKeyDown( key, event )
     }
 
-    override def onCreateView( name: String, context: Context, attributes: AttributeSet ) = {
-        Log.d( s"onCreateView( $name, $context, $attributes )" )
-
-        super.onCreateView( name, context, attributes )
-    }
-
     override def onActivityResult( request: Int, result: Int, data: Intent ): Unit = {
         Log.d( s"onActivityResult( $request, $result, $data )" )
 
@@ -342,12 +336,6 @@ trait Lifecycle extends Activity {
         Log.d( s"onChildTitleChanged( $child, $title )" )
 
         super.onChildTitleChanged( child, title )
-    }
-
-    override def onCreateView( parent: View, name: String, context: Context, attributes: AttributeSet ) = {
-        Log.d( s"onCreateView( $parent, $name, $context, $attributes )" )
-
-        super.onCreateView( parent, name, context, attributes )
     }
 
     override def onVisibleBehindCanceled(): Unit = {
