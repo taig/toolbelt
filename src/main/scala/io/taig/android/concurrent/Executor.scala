@@ -16,6 +16,14 @@ object Executor {
     )
 
     /**
+     * Single thread execution context
+     */
+    val Single: ExecutionContext = ExecutionContext.fromExecutor(
+        AsyncTask.SERIAL_EXECUTOR,
+        cause ⇒ Log.e( cause.getMessage, cause )( Log.Tag( Single.getClass.getName ) )
+    )
+
+    /**
      * Ui-thread ExecutionContext
      */
     val Ui: ExecutionContext = new ExecutionContext {
