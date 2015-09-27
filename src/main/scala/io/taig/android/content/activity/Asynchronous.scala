@@ -31,8 +31,8 @@ trait Asynchronous extends Activity {
         def ui[U]( f: ( Asynchronous.this.type, T ) ⇒ U ): Unit = {
             future.foreach( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
         }
-        
-        def ui0[U]( f: Asynchronous.this.type => U ): Unit = ui( ( activity, _ ) => f( activity ) )
+
+        def ui0[U]( f: Asynchronous.this.type ⇒ U ): Unit = ui( ( activity, _ ) ⇒ f( activity ) )
     }
 
     override def onCreate( state: Option[Bundle] ) = {

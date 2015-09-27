@@ -1,4 +1,6 @@
-package io.taig.android
+package io.taig.android.extension
+
+import io.taig.android.concurrent.operation
 
 import scala.concurrent.Future
 
