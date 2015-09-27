@@ -8,6 +8,7 @@ import io.taig.android.util.Log
 
 import scala.collection.mutable
 import scala.concurrent.{ ExecutionContextExecutor, Future }
+import scala.util.Try
 
 /**
  * A helper trait that mixes an enriched Future API into an Activity
@@ -28,11 +29,11 @@ trait Asynchronous extends Activity {
      * Enrich the Future API by a method to interact with the Activity code
      */
     implicit class AsynchronousFuture[T]( future: Future[T] ) {
-        def ui[U]( f: ( Asynchronous.this.type, T ) ⇒ U ): Unit = {
-            future.foreach( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
+        def ui[U]( f: ( Asynchronous.this.type, Try[T] ) ⇒ U ): Unit = {
+            future.onComplete( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
         }
 
-        def ui0[U]( f: Asynchronous.this.type ⇒ U ): Unit = ui( ( activity, _ ) ⇒ f( activity ) )
+        def ui0[U]( f: Try[T] ⇒ U ): Unit = ui( ( _, t ) ⇒ f( t ) )
     }
 
     override def onCreate( state: Option[Bundle] ) = {

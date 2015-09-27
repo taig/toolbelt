@@ -5,6 +5,7 @@ import io.taig.android.concurrent.Executor.Ui
 
 import scala.collection.mutable
 import scala.concurrent.{ Future, ExecutionContext }
+import scala.util.Try
 
 /**
  * A job queue that schedules its jobs for when the fragment is safe to use for Ui or transaction changes
@@ -20,9 +21,7 @@ trait Jobs extends Fragment {
     val Job = ExecutionContext.fromExecutor( Executor )
 
     implicit class JobsFuture[T]( future: Future[T] ) {
-        def ui[U]( f: T ⇒ U ) = future.foreach( f )( Job )
-
-        def ui0[U]( f: ⇒ U ) = ui( _ ⇒ f )
+        def ui[U]( f: Try[T] ⇒ U ) = future.onComplete( f )( Job )
     }
 
     private var ready = false
