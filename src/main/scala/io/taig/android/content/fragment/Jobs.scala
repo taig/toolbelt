@@ -19,10 +19,8 @@ trait Jobs extends Fragment {
      */
     val Job = ExecutionContext.fromExecutor( Executor )
 
-    implicit class RichFuture[T]( future: Future[T] ) {
-        def ui[U]( f: T ⇒ U ) = {
-            future.foreach( f )( Job )
-        }
+    implicit class JobsFuture[T]( future: Future[T] ) {
+        def ui[U]( f: T ⇒ U ) = future.foreach( f )( Job )
 
         def ui0[U]( f: ⇒ U ) = ui( _ ⇒ f )
     }

@@ -8,7 +8,7 @@ import io.taig.android.util.Log.Tag
 import scala.language.implicitConversions
 
 package object util {
-    implicit class RichString( string: String ) {
+    implicit class ToolbeltString( string: String ) {
         def encode( charset: String = "UTF-8" ) = URLEncoder.encode( string, charset )
     }
 

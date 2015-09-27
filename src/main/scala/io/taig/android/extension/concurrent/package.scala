@@ -5,5 +5,5 @@ import io.taig.android.concurrent.operation
 import scala.concurrent.Future
 
 package object concurrent {
-    implicit class RichFuture[T]( future: Future[T] ) extends operation.Future[T]( future )
+    implicit class ToolbeltFuture[T]( future: Future[T] ) extends operation.Future[T]( future )
 }

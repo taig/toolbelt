@@ -27,7 +27,7 @@ trait Asynchronous extends Activity {
     /**
      * Enrich the Future API by a method to interact with the Activity code
      */
-    implicit class RichFuture[T]( future: Future[T] ) {
+    implicit class AsynchronousFuture[T]( future: Future[T] ) {
         def ui[U]( f: ( Asynchronous.this.type, T ) ⇒ U ): Unit = {
             future.foreach( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
         }
