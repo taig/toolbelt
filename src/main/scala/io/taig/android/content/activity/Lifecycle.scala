@@ -11,11 +11,9 @@ import android.view.ActionMode.Callback
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.WindowManager.LayoutParams
 import android.view._
-import io.taig.android.content.Activity
 import io.taig.android.util.Log
 
-trait Lifecycle
-        extends Activity {
+trait Lifecycle extends Activity {
     override def onCreate( state: Option[Bundle] ): Unit = {
         Log.d( s"onCreate( $state )" )
 

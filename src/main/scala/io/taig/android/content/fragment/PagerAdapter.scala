@@ -1,12 +1,12 @@
 package io.taig.android.content.fragment
 
-import android.app.{ Fragment, FragmentManager, FragmentTransaction }
+import android.app.{ FragmentManager, FragmentTransaction }
 import android.os.Parcelable
 import android.support.v13.app.FragmentCompat
 import android.view.{ View, ViewGroup }
 
 /**
- * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragemnts
+ * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragments
  */
 abstract class PagerAdapter( manager: FragmentManager ) extends android.support.v4.view.PagerAdapter {
     private var transaction: Option[FragmentTransaction] = None
@@ -21,9 +21,9 @@ abstract class PagerAdapter( manager: FragmentManager ) extends android.support.
             transaction
     }
 
-    def create( position: Int ): Fragment
+    def create( position: Int ): android.app.Fragment
 
-    def get( position: Int ): Fragment = manager.findFragmentByTag( identifier( position ) )
+    def get( position: Int ): android.app.Fragment = manager.findFragmentByTag( identifier( position ) )
 
     override def instantiateItem( container: ViewGroup, position: Int ) = {
         val tag = identifier( position )

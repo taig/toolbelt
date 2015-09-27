@@ -1,4 +1,4 @@
-package io.taig.android.graphic.ops
+package io.taig.android.graphic.operation
 
 import scala.math.Integral.Implicits._
 import scala.math.Ordering.Implicits._

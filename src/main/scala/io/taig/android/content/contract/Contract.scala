@@ -1,4 +1,4 @@
-package io.taig.android.content
+package io.taig.android.content.contract
 
 abstract class Contract( implicit val context: android.app.Activity ) {
     def onViewCreated(): Unit = {}

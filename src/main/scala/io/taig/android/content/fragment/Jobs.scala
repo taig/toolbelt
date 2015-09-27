@@ -2,8 +2,6 @@ package io.taig.android.content.fragment
 
 import android.os.Bundle
 import io.taig.android.concurrent.Executor.Ui
-import io.taig.android.content.Fragment
-import io.taig.android.util.Log
 
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext

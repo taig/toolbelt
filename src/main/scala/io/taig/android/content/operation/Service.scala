@@ -3,21 +3,20 @@ package io.taig.android.content.operation
 import android.app._
 import android.app.job.JobScheduler
 import android.app.usage.NetworkStatsManager
+import android.content.Context._
 import android.hardware.SensorManager
 import android.location.LocationManager
 import android.media.{ AudioManager, MediaRouter }
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.storage.StorageManager
-import android.os.{ PowerManager, Vibrator, BatteryManager }
-import android.telephony.{ TelephonyManager, SubscriptionManager, CarrierConfigManager }
+import android.os.{ BatteryManager, PowerManager, Vibrator }
+import android.telephony.{ CarrierConfigManager, SubscriptionManager, TelephonyManager }
 import android.view.inputmethod.InputMethodManager
-import android.view.{ WindowManager, LayoutInflater }
-import io.taig.android.content.Contextual
+import android.view.{ LayoutInflater, WindowManager }
 import io.taig.android.content.operation.Service.ServiceResolver
-import android.content.Context._
 
-trait Service extends Contextual {
+abstract class Service( context: android.content.Context ) {
     def service[T: ServiceResolver]: T = implicitly[ServiceResolver[T]].resolve( context )
 }
 

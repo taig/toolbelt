@@ -7,6 +7,7 @@ import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.Options
 import android.graphics.{ Bitmap, BitmapFactory, Matrix }
 import android.net.Uri
+import io.taig.android.extension.graphic._
 import io.taig.android.graphic._
 
 import scala.math._

@@ -1,4 +1,6 @@
-package io.taig.android.content
+package io.taig.android.content.application
+
+import io.taig.android.content.Contextual
 
 trait Application
         extends android.app.Application

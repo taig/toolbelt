@@ -1,9 +1,10 @@
-package io.taig.android.content
+package io.taig.android.content.contract
 
 import java.lang.reflect.InvocationTargetException
 
 import android.os.Bundle
 import android.view.View
+import io.taig.android.content.fragment.Fragment
 
 import scala.language.postfixOps
 

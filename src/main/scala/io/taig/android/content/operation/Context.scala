@@ -1,11 +1,10 @@
 package io.taig.android.content.operation
 
-import _root_.io.taig.android.content.Contextual
 import io.taig.android.content
 
-import scala.reflect._
+import scala.reflect.{ ClassTag, classTag }
 
-trait Context extends Contextual {
+abstract class Context( val context: android.content.Context ) {
     def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
 
     /**

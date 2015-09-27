@@ -1,10 +1,9 @@
 package io.taig.android.graphic
 
 import android.annotation.{ SuppressLint, TargetApi }
-import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.view.Display
-import io.taig.android.graphic._
+import io.taig.android.extension.graphic._
 
 import scala.language.reflectiveCalls
 import scala.reflect.ClassTag

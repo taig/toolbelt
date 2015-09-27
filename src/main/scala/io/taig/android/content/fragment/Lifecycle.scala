@@ -6,10 +6,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.{ AttributeSet, Log }
 import android.view._
-import io.taig.android.content.Fragment
 
-trait Lifecycle
-        extends Fragment {
+trait Lifecycle extends Fragment {
     override def onAttach( activity: Activity ) {
         Log.d( getClass.getName, s"onAttach( $activity )" )
 

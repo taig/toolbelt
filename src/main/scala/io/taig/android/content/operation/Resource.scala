@@ -6,6 +6,7 @@ import android.net.Uri
 import android.support.annotation._
 import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.compatibility
+import io.taig.android.extension.graphic._
 import io.taig.android.content.operation.Resource.ResourceResolver
 import io.taig.android.content.{ Contextual, Quantity }
 import io.taig.android.graphic.Color
