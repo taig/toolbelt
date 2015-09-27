@@ -4,7 +4,7 @@ import android.os.Bundle
 import io.taig.android.concurrent.Executor.Ui
 
 import scala.collection.mutable
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{Future, ExecutionContext}
 
 /**
  * A job queue that schedules its jobs for when the fragment is safe to use for Ui or transaction changes
@@ -18,6 +18,14 @@ trait Jobs extends Fragment {
      * Respects orientation changes and waits until the Fragment is ready for Ui operations
      */
     val Job = ExecutionContext.fromExecutor( Executor )
+    
+    implicit class RichFuture[T]( future: Future[T] ) {
+        def ui[U]( f: T => U ) = {
+            future.foreach( f )( Job )
+        }
+
+        def ui0[U]( f: => U ) = ui( _ => f )
+    }
 
     private var ready = false
 

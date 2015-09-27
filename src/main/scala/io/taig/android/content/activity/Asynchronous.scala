@@ -2,7 +2,7 @@ package io.taig.android.content.activity
 
 import android.os.Bundle
 import io.taig.android.concurrent.Executor._
-import io.taig.android.content.activity.Concurrency.Name
+import io.taig.android.content.activity.Asynchronous.Name
 import io.taig.android.content.fragment.Fragment
 import io.taig.android.util.Log
 
@@ -21,16 +21,18 @@ import scala.concurrent.{ ExecutionContextExecutor, Future }
  *     .ui( ( activity, result ) ⇒ activity.myTextView.setText( result.toString ) )
  * }}}
  */
-trait Concurrency extends Activity {
-    private var helper: Concurrency.Helper = null
+trait Asynchronous extends Activity {
+    private var helper: Asynchronous.Helper = null
 
     /**
      * Enrich the Future API by a method to interact with the Activity code
      */
     implicit class RichFuture[T]( future: Future[T] ) {
-        def ui( f: ( Concurrency.this.type, T ) ⇒ Unit ): Unit = {
-            future.foreach( t ⇒ f( helper.activity.asInstanceOf[Concurrency.this.type], t ) )( helper.Executor )
+        def ui[U]( f: ( Asynchronous.this.type, T ) ⇒ U ): Unit = {
+            future.foreach( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
         }
+        
+        def ui0[U]( f: Asynchronous.this.type => U ): Unit = ui( ( activity, _ ) => f( activity ) )
     }
 
     override def onCreate( state: Option[Bundle] ) = {
@@ -40,9 +42,9 @@ trait Concurrency extends Activity {
         helper = Option {
             getFragmentManager
                 .findFragmentByTag( Name )
-                .asInstanceOf[Concurrency.Helper]
+                .asInstanceOf[Asynchronous.Helper]
         }.getOrElse {
-            val executor = Concurrency.Helper()
+            val executor = Asynchronous.Helper()
 
             getFragmentManager
                 .beginTransaction()
@@ -54,8 +56,8 @@ trait Concurrency extends Activity {
     }
 }
 
-object Concurrency {
-    private val Name = classOf[Concurrency].getName + ".executor"
+object Asynchronous {
+    private val Name = classOf[Asynchronous].getName + ".executor"
 
     /**
      * Provides an ExecutionContext for an Asynchronous activity
