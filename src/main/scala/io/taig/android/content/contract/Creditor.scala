@@ -19,16 +19,38 @@ trait Creditor[+C <: Contract] extends Fragment {
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
-        try {
-            val method = activity.getClass.getDeclaredMethod( name )
-            target = method.invoke( activity )
-        } catch {
-            case _: NoSuchMethodException | _: IllegalAccessException | _: IllegalArgumentException | _: InvocationTargetException ⇒
-                throw new IllegalStateException(
-                    s"Activity ${activity.getClass.getName} did not properly implement contract $name"
-                )
+        val path = {
+            val debtor = activity.getClass.getName
+            val base = debtor.substring( 0, debtor.lastIndexOf( "." ) )
+            val creditor = getClass.getName
+            val nested = creditor.substring( 0, creditor.lastIndexOf( "." ) )
+
+            val path = if ( nested.startsWith( base ) && base != nested ) {
+                nested.substring( base.length + 1 ).split( "\\." )
+            } else {
+                Array.empty[String]
+            }
+
+            "Contract" +: path :+ getClass.getSimpleName
         }
 
+        try {
+            target = path.foldLeft[Any]( activity ) {
+                case ( obj, name ) ⇒
+                    val method = obj.getClass.getDeclaredMethod( name )
+                    method.setAccessible( true )
+                    method.invoke( obj )
+            }.asInstanceOf[C]
+        } catch {
+            case _: NoSuchMethodException |
+                _: IllegalAccessException |
+                _: IllegalArgumentException |
+                _: InvocationTargetException |
+                _: ClassCastException ⇒
+                throw new IllegalStateException(
+                    s"Activity ${activity.getClass.getName} did not properly implement contract ${path.mkString( "." )}"
+                )
+        }
     }
 
     override def onViewCreated( view: View, state: Option[Bundle] ) = {
