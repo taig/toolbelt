@@ -12,30 +12,42 @@ import scala.language.postfixOps
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
  */
 trait Creditor[+C <: Contract] extends Fragment {
-    private val name = getClass.getSimpleName
-
     private var target: Any = null
+
+    /**
+     * Identifier that is expected to host the contract implementation in the debtor Activity
+     * 
+     * E.g. <code>"fragment.problem.Request"</code> forces the Activity to implement:
+     * {{{
+     * object Contract {
+     *     object fragment {
+     *         object problem {
+     *             object Request extends C { ... }
+     *         }
+     *     }
+     * }
+     * }}}
+     */
+    def contract: String = {
+        val debtor = context.getClass.getName
+        val base = debtor.substring( 0, debtor.lastIndexOf( "." ) )
+        val creditor = getClass.getName
+        val nested = creditor.substring( 0, creditor.lastIndexOf( "." ) )
+
+        val path: Option[String] = if ( nested.startsWith( base ) && base != nested ) {
+            Some( nested.substring( base.length + 1 ) )
+        } else {
+            None
+        }
+
+        s"Contract.${path.map( _ + "." ).getOrElse( "" )}${getClass.getSimpleName}"
+    }
 
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
-        val path = {
-            val debtor = activity.getClass.getName
-            val base = debtor.substring( 0, debtor.lastIndexOf( "." ) )
-            val creditor = getClass.getName
-            val nested = creditor.substring( 0, creditor.lastIndexOf( "." ) )
-
-            val path = if ( nested.startsWith( base ) && base != nested ) {
-                nested.substring( base.length + 1 ).split( "\\." )
-            } else {
-                Array.empty[String]
-            }
-
-            "Contract" +: path :+ getClass.getSimpleName
-        }
-
         try {
-            target = path.foldLeft[Any]( activity ) {
+            target = contract.split( "\\." ).foldLeft[Any]( activity ) {
                 case ( obj, name ) ⇒
                     val method = obj.getClass.getDeclaredMethod( name )
                     method.setAccessible( true )
@@ -48,7 +60,7 @@ trait Creditor[+C <: Contract] extends Fragment {
                 _: InvocationTargetException |
                 _: ClassCastException ⇒
                 throw new IllegalStateException(
-                    s"Activity ${activity.getClass.getName} did not properly implement contract ${path.mkString( "." )}"
+                    s"Activity ${activity.getClass.getName} did not properly implement contract $contract"
                 )
         }
     }
