@@ -16,7 +16,7 @@ trait Creditor[+C <: Contract] extends Fragment {
 
     /**
      * Identifier that is expected to host the contract implementation in the debtor Activity
-     * 
+     *
      * E.g. <code>"fragment.problem.Request"</code> forces the Activity to implement:
      * {{{
      * object Contract {
@@ -40,14 +40,16 @@ trait Creditor[+C <: Contract] extends Fragment {
             None
         }
 
-        s"Contract.${path.map( _ + "." ).getOrElse( "" )}${getClass.getSimpleName}"
+        s"${path.map( _ + "." ).getOrElse( "" )}${getClass.getSimpleName}"
     }
 
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
+        
+        val namespace = "Contract." + contract
 
         try {
-            target = contract.split( "\\." ).foldLeft[Any]( activity ) {
+            target = namespace.split( "\\." ).foldLeft[Any]( activity ) {
                 case ( obj, name ) ⇒
                     val method = obj.getClass.getDeclaredMethod( name )
                     method.setAccessible( true )
@@ -60,7 +62,7 @@ trait Creditor[+C <: Contract] extends Fragment {
                 _: InvocationTargetException |
                 _: ClassCastException ⇒
                 throw new IllegalStateException(
-                    s"Activity ${activity.getClass.getName} did not properly implement contract $contract"
+                    s"Activity ${activity.getClass.getName} did not properly implement contract $namespace"
                 )
         }
     }
