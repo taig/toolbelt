@@ -7,6 +7,8 @@ import android.{ content ⇒ android }
 import scala.reflect.ClassTag
 
 object Intent {
+    def apply(): android.Intent = new android.Intent()
+
     def apply( intent: android.Intent ): android.Intent = new android.Intent( intent )
 
     def apply( action: String ): android.Intent = new android.Intent( action )

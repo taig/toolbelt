@@ -45,7 +45,7 @@ trait Creditor[+C <: Contract] extends Fragment {
 
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
-        
+
         val namespace = "Contract." + contract
 
         try {
