@@ -69,25 +69,25 @@ trait Creditor[+C <: Contract] extends Fragment {
     override def onViewCreated( view: View, state: Option[Bundle] ) = {
         super.onViewCreated( view, state )
 
-        ->?{ _.onViewCreated }
+        ->?( _.onViewCreated )
     }
 
     override def onStart() = {
         super.onStart()
 
-        ->?{ _.onStart }
+        ->?( _.onStart )
     }
 
     override def onResume() = {
         super.onResume()
 
-        ->?{ _.onResume }
+        ->?( _.onResume )
     }
 
     override def onStop() = {
         super.onStop()
 
-        ->?{ _.onStop }
+        ->?( _.onStop )
     }
 
     override def onDetach() = {
@@ -104,5 +104,5 @@ trait Creditor[+C <: Contract] extends Fragment {
             )
     }
 
-    def ->?[U]( f: C ⇒ U ): Unit = target.foreach( creditor ⇒ f( creditor.asInstanceOf[C] ) )
+    def ->?[U]( f: C ⇒ U ): Unit = target.map( _.asInstanceOf[C] ).foreach( f )
 }
