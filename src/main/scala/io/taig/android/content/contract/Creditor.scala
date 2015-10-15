@@ -12,7 +12,7 @@ import scala.language.postfixOps
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
  */
 trait Creditor[+C <: Contract] extends Fragment {
-    private var target: Any = null
+    private var target: Option[Any] = None
 
     /**
      * Identifier that is expected to host the contract implementation in the debtor Activity
@@ -43,52 +43,51 @@ trait Creditor[+C <: Contract] extends Fragment {
         s"${path.map( _ + "." ).getOrElse( "" )}${getClass.getSimpleName}"
     }
 
+    private def namespace = "Contract." + contract
+
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
-        val namespace = "Contract." + contract
-
-        try {
-            target = namespace.split( "\\." ).foldLeft[Any]( activity ) {
-                case ( obj, name ) ⇒
-                    val method = obj.getClass.getDeclaredMethod( name )
-                    method.setAccessible( true )
-                    method.invoke( obj )
-            }.asInstanceOf[C]
+        target = try {
+            Some {
+                namespace.split( "\\." ).foldLeft[Any]( activity ) {
+                    case ( obj, name ) ⇒
+                        val method = obj.getClass.getDeclaredMethod( name )
+                        method.setAccessible( true )
+                        method.invoke( obj )
+                }.asInstanceOf[C]
+            }
         } catch {
             case _: NoSuchMethodException |
                 _: IllegalAccessException |
                 _: IllegalArgumentException |
                 _: InvocationTargetException |
-                _: ClassCastException ⇒
-                throw new IllegalStateException(
-                    s"Activity ${activity.getClass.getName} did not properly implement contract $namespace"
-                )
+                _: ClassCastException ⇒ None
         }
     }
 
     override def onViewCreated( view: View, state: Option[Bundle] ) = {
         super.onViewCreated( view, state )
 
-        ->> onViewCreated
+        ->?{ _.onViewCreated }
     }
 
     override def onStart() = {
         super.onStart()
 
-        ->> onStart
+        ->?{ _.onStart }
     }
 
     override def onResume() = {
         super.onResume()
 
-        ->> onResume
+        ->?{ _.onResume }
     }
 
     override def onStop() = {
         super.onStop()
 
-        ->> onStop
+        ->?{ _.onStop }
     }
 
     override def onDetach() = {
@@ -97,5 +96,13 @@ trait Creditor[+C <: Contract] extends Fragment {
         this.target = null
     }
 
-    def ->> : C = target.asInstanceOf[C]
+    def ->>[U]( f: C ⇒ U ): Unit = target match {
+        case Some( creditor ) ⇒ f( creditor.asInstanceOf[C] )
+        case None ⇒
+            throw new IllegalStateException(
+                s"Activity ${getActivity.getClass.getName} did not properly implement contract $namespace"
+            )
+    }
+
+    def ->?[U]( f: C ⇒ U ): Unit = target.foreach( creditor ⇒ f( creditor.asInstanceOf[C] ) )
 }
