@@ -49,7 +49,7 @@ class Image private ( stream: ⇒ InputStream ) {
     def decode( target: Dimension[Int], matrix: Matrix, options: Options ): Bitmap = {
         require( target > ( 0 x 0 ), s"Target resolution ($target) must be > ${0 x 0}" )
         val ( x, y ) = resolution.ratioTo( target )
-        decode( max( x, y ), options )
+        decode( max( x, y ), matrix, options )
     }
 
     def decode( options: Options ): Bitmap = decode( 1f, options )
