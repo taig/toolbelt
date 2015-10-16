@@ -1,12 +1,12 @@
 package io.taig.android.content.contract
 
-import java.lang.reflect.InvocationTargetException
-
 import android.os.Bundle
 import android.view.View
 import io.taig.android.content.fragment.Fragment
+import io.taig.android.extension.util._
 
 import scala.language.postfixOps
+import scala.util.{ Success, Try }
 
 /**
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
@@ -43,66 +43,76 @@ trait Creditor[+C <: Contract] extends Fragment {
         s"${path.map( _ + "." ).getOrElse( "" )}${getClass.getSimpleName}"
     }
 
-    private def namespace = "Contract." + contract
-
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
-        target = try {
-            Some {
-                namespace.split( "\\." ).foldLeft[Any]( activity ) {
-                    case ( obj, name ) ⇒
-                        val method = obj.getClass.getDeclaredMethod( name )
-                        method.setAccessible( true )
-                        method.invoke( obj )
-                }.asInstanceOf[C]
+        target = {
+            val namespace = contract.split( "\\." )
+
+            val targets = activity
+                .getClass
+                .getDeclaredMethods
+                .filter( _.getName.endsWith( "Contract" ) )
+                .map( method ⇒ {
+                    method.setAccessible( true )
+                    method.invoke( activity )
+                } )
+                .map( contract ⇒ Try {
+                    namespace.foldLeft( contract ) {
+                        case ( contract, name ) ⇒
+                            val method = contract.getClass.getDeclaredMethod( name )
+                            method.setAccessible( true )
+                            method.invoke( contract )
+                    }
+                } )
+                .collect{ case Success( target ) ⇒ target }
+
+            targets match {
+                case _ if targets.size == 1 ⇒ Some( targets.head )
+                case _ if targets.isEmpty   ⇒ None
+                case _ ⇒ throw new IllegalStateException(
+                    s"There are multiple valid contract implementations for $namespace in " +
+                        activity.getClass.parents().map( _.getName ).mkString( ", " )
+                )
             }
-        } catch {
-            case _: NoSuchMethodException |
-                _: IllegalAccessException |
-                _: IllegalArgumentException |
-                _: InvocationTargetException |
-                _: ClassCastException ⇒ None
         }
     }
 
     override def onViewCreated( view: View, state: Option[Bundle] ) = {
         super.onViewCreated( view, state )
 
-        ->?( _.onViewCreated )
+        ->? foreach ( _.onViewCreated )
     }
 
     override def onStart() = {
         super.onStart()
 
-        ->?( _.onStart )
+        ->? foreach ( _.onStart )
     }
 
     override def onResume() = {
         super.onResume()
 
-        ->?( _.onResume )
+        ->? foreach ( _.onResume )
     }
 
     override def onStop() = {
         super.onStop()
 
-        ->?( _.onStop )
+        ->? foreach ( _.onStop )
     }
 
     override def onDetach() = {
         super.onDetach()
 
-        this.target = null
+        target = None
     }
 
-    def ->>[U]( f: C ⇒ U ): Unit = target match {
-        case Some( creditor ) ⇒ f( creditor.asInstanceOf[C] )
-        case None ⇒
-            throw new IllegalStateException(
-                s"Activity ${getActivity.getClass.getName} did not properly implement contract $namespace"
-            )
+    def ->> : C = ->? getOrElse {
+        throw new IllegalStateException(
+            s"Activity ${context.getClass.getName} did not properly implement contract Contract.$contract"
+        )
     }
 
-    def ->?[U]( f: C ⇒ U ): Unit = target.map( _.asInstanceOf[C] ).foreach( f )
+    def ->? : Option[C] = target.map( _.asInstanceOf[C] )
 }

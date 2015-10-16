@@ -12,6 +12,8 @@ import scala.language.implicitConversions
 package object util {
     implicit class ToolbeltBundle( bundle: Bundle ) extends operation.Bundle( bundle )
 
+    implicit class ToolbeltClass( `class`: Class[_] ) extends operation.Class( `class` )
+
     implicit class ToolbeltString( string: String ) {
         def encode( charset: String = "UTF-8" ) = URLEncoder.encode( string, charset )
     }
