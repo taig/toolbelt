@@ -54,7 +54,7 @@ class Image private ( stream: ⇒ InputStream ) {
 
     def decode( options: Options ): Bitmap = decode( 1f, options )
 
-    def decode( matrix: Matrix, options: Options ): Bitmap = decode( 1f, options )
+    def decode( matrix: Matrix, options: Options ): Bitmap = decode( 1, matrix, options )
 
     def decode( scale: Float ): Bitmap = decode( scale, defaultOptions )
 
@@ -121,7 +121,7 @@ class Image private ( stream: ⇒ InputStream ) {
                         {
                             val m = Option( matrix ).getOrElse( new Matrix )
                             // TODO check if the given matrix already has a scaling defined
-                            m.setScale( options.inSampleSize * scale, options.inSampleSize * scale )
+                            m.postScale( options.inSampleSize * scale, options.inSampleSize * scale )
                             m
                         },
                         false
