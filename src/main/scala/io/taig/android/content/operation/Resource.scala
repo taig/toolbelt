@@ -4,7 +4,6 @@ import android.content.ContentResolver
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.annotation._
-import com.wnafee.vector.compat.ResourcesCompat
 import io.taig.android.compatibility
 import io.taig.android.extension.graphic._
 import io.taig.android.content.operation.Resource.ResourceResolver
@@ -38,7 +37,7 @@ object Resource {
 
     implicit val `ResourceResolver[Int, Drawable]` = new ResourceResolver[Int, Drawable] {
         override def resolve( @DrawableRes resource: Int, arguments: Seq[Any] )( implicit context: android.content.Context ) = {
-            ResourcesCompat.getDrawable( context, resource )
+            compatibility.Resources.getDrawable( context.getResources, resource )
         }
     }
 

@@ -9,8 +9,6 @@ libraryDependencies ++=
     "com.android.support" % "recyclerview-v7" % "23.1.0" ::
     "com.android.support" % "support-v4" % "23.1.0" ::
     "com.android.support" % "support-v13" % "23.1.0" ::
-    "com.caverock" % "androidsvg" % "1.2.2-beta-1" ::
-    "com.wnafee" % "vector-compat" % "1.0.5" ::
     "io.taig.android" %% "parcelable" % "2.4.0" ::
     Nil
 
