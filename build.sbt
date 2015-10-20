@@ -25,4 +25,4 @@ scalacOptions ++=
       "-feature" ::
       Nil
 
-version := "0.4.11-SNAPSHOT"
+version := "0.4.0"
