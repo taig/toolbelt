@@ -2,6 +2,8 @@ package io.taig.android.widget.operation
 
 import io.taig.android.graphic.Direction._
 import io.taig.android.graphic.Distance
+import io.taig.android.extension.widget._
+import io.taig.android.util.Log
 
 abstract class View( view: android.view.View ) {
     def getPadding = Distance( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
@@ -23,6 +25,30 @@ abstract class View( view: android.view.View ) {
         case Top    ⇒ view.setPadding( view.getPaddingLeft, padding, view.getPaddingRight, view.getPaddingBottom )
         case Right  ⇒ view.setPadding( view.getPaddingLeft, view.getPaddingTop, padding, view.getPaddingBottom )
         case Bottom ⇒ view.setPadding( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, padding )
+    }
+
+    def getBottomTo( parent: android.view.View ): Int = view.getParent match {
+        case `parent`                        ⇒ view.getBottom
+        case intermediate: android.view.View ⇒ view.getBottom + intermediate.getBottomTo( parent )
+        case _                               ⇒ sys.error( "Can't resolve relative bottom" )
+    }
+
+    def getLeftTo( parent: android.view.View ): Int = view.getParent match {
+        case `parent`                        ⇒ view.getLeft
+        case intermediate: android.view.View ⇒ view.getLeft + intermediate.getLeftTo( parent )
+        case _                               ⇒ sys.error( "Can't resolve relative left" )
+    }
+
+    def getRightTo( parent: android.view.View ): Int = view.getParent match {
+        case `parent`                        ⇒ view.getRight
+        case intermediate: android.view.View ⇒ view.getRight + intermediate.getRightTo( parent )
+        case _                               ⇒ sys.error( "Can't resolve relative right" )
+    }
+
+    def getTopTo( parent: android.view.View ): Int = view.getParent match {
+        case `parent`                        ⇒ view.getTop
+        case intermediate: android.view.View ⇒ view.getTop + intermediate.getTopTo( parent )
+        case _                               ⇒ sys.error( "Can't resolve relative top" )
     }
 
     def next(): Option[android.view.View] = view match {

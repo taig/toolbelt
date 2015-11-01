@@ -21,8 +21,8 @@ resolvers += Resolver.sonatypeRepo( "snapshots" )
 scalaVersion := "2.11.7"
 
 scalacOptions ++=
-      "-deprecation" ::
-      "-feature" ::
-      Nil
+    "-deprecation" ::
+    "-feature" ::
+    Nil
 
-version := "0.4.0"
+version := "0.4.1-SNAPSHOT"
