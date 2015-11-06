@@ -1,14 +1,16 @@
+val id = "toolbelt"
+
 description := "Essential helpers for Scala on Android"
 
-homepage := Some( url( "https://github.com/taig/toolbelt" ) )
+homepage := Some( url( s"https://github.com/taig/$id" ) )
 
-licenses := Seq( "MIT" -> url( "https://raw.githubusercontent.com/taig/toolbelt/master/LICENSE" ) )
+licenses := Seq( "MIT" -> url( s"https://raw.githubusercontent.com/taig/$id/master/LICENSE" ) )
 
 organizationHomepage := Some( url( "http://taig.io" ) )
 
 pomExtra := {
     <issueManagement>
-        <url>https://github.com/taig/toolbelt/issues</url>
+        <url>https://github.com/taig/{id}/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
     <developers>
@@ -40,9 +42,9 @@ publishTo <<= version ( version => {
 
 scmInfo := Some(
     ScmInfo(
-        url( "https://github.com/taig/toolbelt" ),
-        "scm:git:git://github.com/taig/toolbelt.git",
-        Some( "scm:git:git@github.com:taig/toolbelt.git" )
+        url( s"https://github.com/taig/$id" ),
+        s"scm:git:git://github.com/taig/$id.git",
+        Some( s"scm:git:git@github.com:taig/$id.git" )
     )
 )
 

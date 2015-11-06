@@ -38,7 +38,10 @@ trait Task[T]
     }
 
     def done( value: T ) = {
-        ->>.onSuccess.applyOrElse[T, Unit]( value, result ⇒ fail( exception.UnexpectedResult( result ) ) )
+        ->>.onSuccess.applyOrElse[T, Unit](
+            value,
+            result ⇒ fail( exception.UnexpectedResult( "Contract.onSuccess could not handle result", result ) )
+        )
     }
 
     def fail( exception: Throwable ): Unit = ->> onFailure exception
