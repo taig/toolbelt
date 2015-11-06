@@ -27,7 +27,7 @@ object Service {
 
     implicit val `ServiceResolver[ActivityManager]` = new ServiceResolver[ActivityManager] {
         override def resolve( context: android.content.Context ) = {
-            context.getSystemService( ACCOUNT_SERVICE ).asInstanceOf[ActivityManager]
+            context.getSystemService( ACTIVITY_SERVICE ).asInstanceOf[ActivityManager]
         }
     }
 
