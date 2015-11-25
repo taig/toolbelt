@@ -1,14 +1,19 @@
 package io.taig.android.content.operation
 
+import android.content
 import android.content.ContentResolver
-import android.graphics.drawable.Drawable
+import android.graphics.{ Canvas, BitmapFactory, Bitmap }
+import android.graphics.drawable.{ VectorDrawable, BitmapDrawable, Drawable }
 import android.net.Uri
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation._
 import io.taig.android.compatibility
 import io.taig.android.extension.graphic._
 import io.taig.android.content.operation.Resource.ResourceResolver
 import io.taig.android.content.{ Contextual, Quantity }
 import io.taig.android.graphic.Color
+import io.taig.android.extension.content._
 
 abstract class Resource[A]( resource: A ) extends Contextual {
     def as[B]( implicit resolver: ResourceResolver[A, B] ): B = resolver.resolve( resource, Seq.empty )
@@ -93,6 +98,29 @@ object Resource {
                 quantity.count,
                 arguments.map( _.asInstanceOf[AnyRef] ): _*
             )
+        }
+    }
+
+    implicit val `ResourceResolver[Int, Bitmap]` = new ResourceResolver[Int, Bitmap] {
+        override def resolve( @DrawableRes resource: Int, arguments: Seq[Any] )( implicit context: content.Context ) = {
+            if ( SDK_INT >= LOLLIPOP ) {
+                resource.as[Drawable] match {
+                    case bitmap: BitmapDrawable ⇒ bitmap.getBitmap
+                    case vector: VectorDrawable ⇒
+                        vector.setBounds( 0, 0, vector.getIntrinsicWidth, vector.getIntrinsicHeight )
+                        val bitmap = Bitmap.createBitmap(
+                            vector.getIntrinsicWidth,
+                            vector.getIntrinsicHeight,
+                            Bitmap.Config.ARGB_8888
+                        )
+
+                        val canvas = new Canvas( bitmap )
+                        vector.draw( canvas )
+                        bitmap
+                }
+            } else {
+                BitmapFactory.decodeResource( context.getResources, resource )
+            }
         }
     }
 }
