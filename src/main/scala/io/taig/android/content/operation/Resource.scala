@@ -33,6 +33,12 @@ object Resource {
         }
     }
 
+    implicit val `ResourceResolver[Int, CharSequence]` = new ResourceResolver[Int, CharSequence] {
+        override def resolve( @StringRes resource: Int, arguments: Seq[Any] )( implicit context: AContext ) = {
+            context.getResources.getText( resource )
+        }
+    }
+
     implicit val `ResourceResolver[Int, Color]` = new ResourceResolver[Int, Color] {
         override def resolve( @ColorRes resource: Int, arguments: Seq[Any] )( implicit context: AContext ) = {
             compatibility.Resources.getColor( context.getResources, resource )
@@ -70,6 +76,12 @@ object Resource {
     implicit val `ResourceResolver[Int, Float]` = new ResourceResolver[Int, Float] {
         override def resolve( @DimenRes resource: Int, arguments: Seq[Any] )( implicit context: AContext ) = {
             context.getResources.getDimension( resource )
+        }
+    }
+
+    implicit val `ResourceResolver[Int, Array[CharSequence]]` = new ResourceResolver[Int, Array[CharSequence]] {
+        override def resolve( resource: Int, arguments: Seq[Any] )( implicit context: AContext ) = {
+            context.getResources.getTextArray( resource )
         }
     }
 
