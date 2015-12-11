@@ -1,18 +1,7 @@
-package com.taig.android
+package io.taig.android
 
-import java.net.URLEncoder
+import scala.reflect._
 
-package object util
-{
-	implicit class RichBoolean( boolean: Boolean )
-	{
-		def asOption[A]( a: => A ): Option[A] = if( boolean ) Option( a ) else None
-	}
-
-	implicit class RichString( string: String )
-	{
-		def encode( charset: String = "UTF-8" ) = URLEncoder.encode( string, charset )
-	}
-
-	implicit def `String -> Log.Tag`( string: String ): Log.Tag = Log.Tag( string )
+package object util {
+    def identify[T: ClassTag]: Int = classTag[T].runtimeClass.getName.hashCode
 }
