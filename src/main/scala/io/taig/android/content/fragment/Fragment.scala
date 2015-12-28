@@ -29,7 +29,9 @@ trait Fragment
         onCreateView( inflater, Option( container ), Option( state ) )
     }
 
-    def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ): View = null
+    def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ): View = {
+        super.onCreateView( inflater, container.orNull, state.orNull )
+    }
 
     override final def onViewCreated( view: View, state: Bundle ) {
         super.onViewCreated( view, state )
