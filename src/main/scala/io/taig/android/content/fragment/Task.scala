@@ -38,13 +38,15 @@ trait Task[T]
     }
 
     def done( value: T ) = {
-        ->>.onSuccess.applyOrElse[T, Unit](
-            value,
-            result ⇒ fail( exception.UnexpectedResult( "Contract.onSuccess could not handle result", result ) )
-        )
+        ->> {
+            _.onSuccess.applyOrElse[T, Unit](
+                value,
+                result ⇒ fail( exception.UnexpectedResult( "Contract.onSuccess could not handle result", result ) )
+            )
+        }
     }
 
-    def fail( exception: Throwable ): Unit = ->> onFailure exception
+    def fail( exception: Throwable ): Unit = ->>( _.onFailure( exception ) )
 
     def always( result: Try[T] ): Unit = getFragmentManager.beginTransaction().remove( this ).commit()
 }
