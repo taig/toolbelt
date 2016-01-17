@@ -58,7 +58,7 @@ trait Asynchronous extends Activity {
 }
 
 object Asynchronous {
-    private val Name = classOf[Asynchronous].getName + ".executor"
+    private val Name = classOf[Asynchronous].getCanonicalName + ".executor"
 
     /**
      * Provides an ExecutionContext for an Asynchronous activity

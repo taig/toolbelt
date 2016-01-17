@@ -1,3 +1,5 @@
+androidBuildAar
+
 javacOptions ++=
     "-source" :: "1.7" ::
     "-target" :: "1.7" ::
@@ -10,13 +12,15 @@ libraryDependencies ++=
     "com.android.support" % "support-v13" % "23.1.1" ::
     Nil
 
+minSdkVersion := "13"
+
 name := "Toolbelt"
 
 organization := "io.taig.android"
 
-publishArtifact in (Compile, packageDoc) := false
+platformTarget := "android-23"
 
-resolvers += Resolver.sonatypeRepo( "snapshots" )
+publishArtifact in ( Compile, packageDoc ) := false
 
 scalaVersion := "2.11.7"
 
@@ -25,4 +29,8 @@ scalacOptions ++=
     "-feature" ::
     Nil
 
-version := "0.4.4-SNAPSHOT"
+targetSdkVersion := "23"
+
+typedResources := false
+
+version := "0.4.3"
