@@ -1,5 +1,7 @@
 package io.taig.android.content.activity
 
+import android.annotation.TargetApi
+import android.os.Build.VERSION_CODES.M
 import android.os.Bundle
 import io.taig.android.concurrent.Executor._
 import io.taig.android.content.activity.Asynchronous.Name
@@ -63,6 +65,7 @@ object Asynchronous {
     /**
      * Provides an ExecutionContext for an Asynchronous activity
      */
+    @TargetApi( M )
     class Helper extends Fragment {
         private var ready = false
 
