@@ -10,32 +10,34 @@ trait Fragment
     implicit override def context = getActivity
 
     override final def onCreate( state: Bundle ) = {
-        super.onCreate( state )
-
         onCreate( Option( state ) )
     }
 
-    def onCreate( state: Option[Bundle] ): Unit = {}
+    def onCreate( state: Option[Bundle] ): Unit = super.onCreate( state.orNull )
 
     override final def onActivityCreated( state: Bundle ) = {
-        super.onActivityCreated( state )
-
         onActivityCreated( Option( state ) )
     }
 
-    def onActivityCreated( state: Option[Bundle] ): Unit = {}
+    def onActivityCreated( state: Option[Bundle] ): Unit = super.onActivityCreated( state.orNull )
 
     override final def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) = {
         onCreateView( inflater, Option( container ), Option( state ) )
     }
 
-    def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ): View = null
-
-    override final def onViewCreated( view: View, state: Bundle ) {
-        super.onViewCreated( view, state )
-
-        onViewCreated( view, Option( state ) )
+    def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ): View = {
+        super.onCreateView( inflater, container.orNull, state.orNull )
     }
 
-    def onViewCreated( view: View, state: Option[Bundle] ): Unit = {}
+    override final def onViewCreated( view: View, state: Bundle ) = onViewCreated( view, Option( state ) )
+
+    def onViewCreated( view: View, state: Option[Bundle] ): Unit = super.onViewCreated( view, state.orNull )
+
+    override final def onRequestPermissionsResult( request: Int, permissions: Array[String], results: Array[Int] ): Unit = {
+        onRequestPermissionsResult( request, permissions.toList, results.toList )
+    }
+
+    def onRequestPermissionsResult( request: Int, permissions: List[String], results: List[Int] ): Unit = {
+        super.onRequestPermissionsResult( request, permissions.toArray, results.toArray )
+    }
 }

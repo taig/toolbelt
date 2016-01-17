@@ -1,3 +1,5 @@
+androidBuildAar
+
 javacOptions ++=
     "-source" :: "1.7" ::
     "-target" :: "1.7" ::
@@ -5,18 +7,20 @@ javacOptions ++=
     Nil
 
 libraryDependencies ++=
-    compilerPlugin( "org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full ) ::
     "com.android.support" % "recyclerview-v7" % "23.1.1" ::
     "com.android.support" % "support-v4" % "23.1.1" ::
     "com.android.support" % "support-v13" % "23.1.1" ::
-    "io.taig.android" %% "parcelable" % "2.4.1" ::
     Nil
+
+minSdkVersion := "13"
 
 name := "Toolbelt"
 
 organization := "io.taig.android"
 
-resolvers += Resolver.sonatypeRepo( "snapshots" )
+platformTarget := "android-23"
+
+publishArtifact in ( Compile, packageDoc ) := false
 
 scalaVersion := "2.11.7"
 
@@ -25,4 +29,8 @@ scalacOptions ++=
     "-feature" ::
     Nil
 
-version := "0.4.2"
+targetSdkVersion := "23"
+
+typedResources := false
+
+version := "0.4.3"

@@ -12,7 +12,7 @@ import scala.util.{ Success, Try }
  * A Fragment may be a Creditor, loosely forcing the hosting Activity to implement its contract
  */
 trait Creditor[+C <: Contract] extends Fragment {
-    private var target: Option[Any] = None
+    private var targets = Seq.empty[Any]
 
     /**
      * Identifier that is expected to host the contract implementation in the debtor Activity
@@ -46,73 +46,70 @@ trait Creditor[+C <: Contract] extends Fragment {
     override def onAttach( activity: android.app.Activity ) = {
         super.onAttach( activity )
 
-        target = {
+        targets = {
             val namespace = contract.split( "\\." )
 
-            val targets = activity
+            activity
                 .getClass
                 .getDeclaredMethods
                 .filter( _.getName.endsWith( "Contract" ) )
-                .map( method ⇒ {
+                .map { method ⇒
                     method.setAccessible( true )
                     method.invoke( activity )
-                } )
-                .map( contract ⇒ Try {
-                    namespace.foldLeft( contract ) {
-                        case ( contract, name ) ⇒
-                            val method = contract.getClass.getDeclaredMethod( name )
-                            method.setAccessible( true )
-                            method.invoke( contract )
+                }
+                .map { contract ⇒
+                    Try {
+                        namespace.foldLeft( contract ) {
+                            case ( contract, name ) ⇒
+                                val method = contract.getClass.getDeclaredMethod( name )
+                                method.setAccessible( true )
+                                method.invoke( contract )
+                        }
                     }
-                } )
+                }
                 .collect{ case Success( target ) ⇒ target }
-
-            targets match {
-                case _ if targets.size == 1 ⇒ Some( targets.head )
-                case _ if targets.isEmpty   ⇒ None
-                case _ ⇒ throw new IllegalStateException(
-                    s"There are multiple valid contract implementations for $namespace in " +
-                        activity.getClass.parents().map( _.getName ).mkString( ", " )
-                )
-            }
         }
     }
 
     override def onViewCreated( view: View, state: Option[Bundle] ) = {
         super.onViewCreated( view, state )
 
-        ->? foreach ( _.onViewCreated )
+        ->? { _ onViewCreated }
     }
 
     override def onStart() = {
         super.onStart()
 
-        ->? foreach ( _.onStart )
+        ->? { _.onStart }
     }
 
     override def onResume() = {
         super.onResume()
 
-        ->? foreach ( _.onResume )
+        ->? { _.onResume }
     }
 
     override def onStop() = {
         super.onStop()
 
-        ->? foreach ( _.onStop )
+        ->? { _.onStop }
     }
 
     override def onDetach() = {
         super.onDetach()
 
-        target = None
+        targets = Seq.empty
     }
 
-    def ->> : C = ->? getOrElse {
-        throw new IllegalStateException(
-            s"Activity ${context.getClass.getName} did not properly implement contract Contract.$contract"
-        )
+    def ->>( f: C ⇒ Any ): Unit = {
+        if ( targets.isEmpty ) {
+            throw new IllegalStateException(
+                s"Activity ${context.getClass.getName} did not properly implement contract Contract.$contract"
+            )
+        }
+
+        ->?( f )
     }
 
-    def ->? : Option[C] = target.map( _.asInstanceOf[C] )
+    def ->?( f: C ⇒ Any ): Unit = targets.foreach( target ⇒ f( target.asInstanceOf[C] ) )
 }

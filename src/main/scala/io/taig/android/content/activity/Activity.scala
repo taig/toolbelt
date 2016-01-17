@@ -47,21 +47,17 @@ trait Activity
      */
     def hasLostFocus: Boolean = lostFocus
 
-    override final def onCreate( state: Bundle ) = {
-        super.onCreate( state )
-
-        onCreate( Option( state ) )
-    }
+    override final def onCreate( state: Bundle ) = onCreate( Option( state ) )
 
     protected def onCreate( state: Option[Bundle] ): Unit = {
+        super.onCreate( state.orNull )
+
         initial = state.isEmpty
     }
 
-    override final def onPostCreate( state: Bundle ) = {
-        super.onPostCreate( state )
+    override final def onPostCreate( state: Bundle ) = onPostCreate( Option( state ) )
 
-        onPostCreate( Option( state ) )
-    }
+    protected def onPostCreate( state: Option[Bundle] ): Unit = super.onPostCreate( state.orNull )
 
     override def onWindowFocusChanged( hasFocus: Boolean ) = {
         super.onWindowFocusChanged( hasFocus )
@@ -83,5 +79,11 @@ trait Activity
         stopped = true
     }
 
-    protected def onPostCreate( state: Option[Bundle] ): Unit = {}
+    override final def onRequestPermissionsResult( request: Int, permissions: Array[String], results: Array[Int] ): Unit = {
+        onRequestPermissionsResult( request, permissions.toList, results.toList )
+    }
+
+    def onRequestPermissionsResult( request: Int, permissions: List[String], results: List[Int] ): Unit = {
+        super.onRequestPermissionsResult( request, permissions.toArray, results.toArray )
+    }
 }
