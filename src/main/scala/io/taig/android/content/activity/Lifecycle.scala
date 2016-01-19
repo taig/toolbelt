@@ -2,11 +2,10 @@ package io.taig.android.content.activity
 
 import android.app
 import android.app.TaskStackBuilder
+import android.content.Intent
 import android.content.res.Configuration
-import android.content.{ Context, Intent }
 import android.graphics.{ Bitmap, Canvas }
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.ActionMode.Callback
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.WindowManager.LayoutParams
