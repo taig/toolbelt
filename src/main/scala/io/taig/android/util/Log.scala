@@ -41,6 +41,6 @@ object Log {
     case class Tag( name: String ) extends AnyVal
 
     object Tag {
-        def apply[T: ClassTag]: Tag = Tag( classTag[T].runtimeClass.getName )
+        def apply[T: ClassTag]: Tag = Tag( classTag[T].runtimeClass.getCanonicalName )
     }
 }
