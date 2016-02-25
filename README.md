@@ -6,8 +6,6 @@
 
 **Install**
 
-````
-resolvers += Resolver.sonatypeRepo( "snapshots" )
-
-libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.2"
+````scala
+libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.4"
 ````
