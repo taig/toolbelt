@@ -32,12 +32,4 @@ trait Fragment
     override final def onViewCreated( view: View, state: Bundle ) = onViewCreated( view, Option( state ) )
 
     def onViewCreated( view: View, state: Option[Bundle] ): Unit = super.onViewCreated( view, state.orNull )
-
-    override final def onRequestPermissionsResult( request: Int, permissions: Array[String], results: Array[Int] ): Unit = {
-        onRequestPermissionsResult( request, permissions.toList, results.toList )
-    }
-
-    def onRequestPermissionsResult( request: Int, permissions: List[String], results: List[Int] ): Unit = {
-        super.onRequestPermissionsResult( request, permissions.toArray, results.toArray )
-    }
 }
