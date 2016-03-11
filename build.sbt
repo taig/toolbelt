@@ -24,7 +24,7 @@ platformTarget := "android-23"
 
 publishArtifact in ( Compile, packageDoc ) := false
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 scalacOptions ++=
     "-deprecation" ::
