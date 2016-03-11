@@ -7,5 +7,5 @@
 **Install**
 
 ````scala
-libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.4"
+libraryDependencies += "io.taig.android" %% "toolbelt" % "0.4.5"
 ````
