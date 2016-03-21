@@ -1,11 +1,30 @@
 package io.taig.android.content.operation
 
+import java.io.File
+
 import io.taig.android.content
 
 import scala.reflect.{ ClassTag, classTag }
 
 abstract class Context( val context: android.content.Context ) {
-    def getExternalOrInternalCacheDir = Option( context.getExternalCacheDir ).getOrElse( context.getCacheDir )
+    private def checkAndCreateDirectory( directory: File ): Option[File] = {
+        if ( !directory.exists() && !directory.mkdirs() ) {
+            None
+        } else {
+            Some( directory )
+        }
+    }
+
+    def getExternalOrInternalCacheDir: File = {
+        Option( context.getCacheDir )
+            .flatMap( checkAndCreateDirectory )
+            .getOrElse( throw new IllegalStateException( "No cache directory available" ) )
+
+        //        Option( context.getExternalCacheDir )
+        //            .flatMap( checkAndCreateDirectory )
+        //            .orElse( checkAndCreateDirectory( context.getCacheDir ) )
+        //            .getOrElse( throw new IllegalStateException( "No cache directory available" ) )
+    }
 
     /**
      * Get the app's default PackageInfo
