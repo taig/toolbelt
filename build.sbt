@@ -9,9 +9,9 @@ javacOptions ++=
     Nil
 
 libraryDependencies ++=
-    "com.android.support" % "recyclerview-v7" % "23.4.0" ::
-    "com.android.support" % "support-v4" % "23.4.0" ::
-    "com.android.support" % "support-v13" % "23.4.0" ::
+    "com.android.support" % "recyclerview-v7" % "24.0.0" ::
+    "com.android.support" % "support-v4" % "24.0.0" ::
+    "com.android.support" % "support-v13" % "24.0.0" ::
     Nil
 
 minSdkVersion := "13"
