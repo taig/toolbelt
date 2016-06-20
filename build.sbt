@@ -35,4 +35,4 @@ targetSdkVersion := "23"
 
 typedResources := false
 
-version := "0.4.8"
+version := "0.4.9"
