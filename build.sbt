@@ -35,5 +35,3 @@ scalacOptions ++=
 targetSdkVersion := "23"
 
 typedResources := false
-
-version := "0.4.10"
