@@ -15,13 +15,13 @@ object Intent {
 
     def apply( action: String, uri: Uri ): android.Intent = new android.Intent( action, uri )
 
-    def apply( `class`: Class[_] )( implicit context: Context ): android.Intent = new android.Intent( context, `class` )
+    def apply( `class`: Class[_] )( implicit c: Context ): android.Intent = new android.Intent( c, `class` )
 
-    def apply[T]( implicit context: Context, tag: ClassTag[T] ): android.Intent = {
-        new android.Intent( context, implicitly[ClassTag[T]].runtimeClass )
+    def apply[T]( implicit c: Context, tag: ClassTag[T] ): android.Intent = {
+        new android.Intent( c, implicitly[ClassTag[T]].runtimeClass )
     }
 
-    def apply( action: String, uri: Uri, `class`: Class[_] )( implicit context: Context ): android.Intent = {
-        new android.Intent( action, uri, context, `class` )
+    def apply( action: String, uri: Uri, `class`: Class[_] )( implicit c: Context ): android.Intent = {
+        new android.Intent( action, uri, c, `class` )
     }
 }

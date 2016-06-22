@@ -14,7 +14,10 @@ trait Task[T]
         extends Fragment
         with Jobs
         with Creditor[contract.Task[T]] {
-    implicit def `( Future[T] ) => Future[Unit] => Future[T]`( future: Future[T] )( implicit context: ExecutionContext ): Future[Unit] ⇒ Future[T] = {
+    implicit def `( Future[T] ) => Future[Unit] => Future[T]`( future: Future[T] )(
+        implicit
+        ec: ExecutionContext
+    ): Future[Unit] ⇒ Future[T] = {
         _.flatMap0( future )
     }
 

@@ -11,9 +11,9 @@ class ViewPager( context: Context, attributes: AttributeSet )
         extends android.support.v4.view.ViewPager( context, attributes ) {
     private var swipe = true
 
-    def this( attributes: AttributeSet )( implicit context: Context ) = this( context, null )
+    def this( attributes: AttributeSet )( implicit c: Context ) = this( c, null )
 
-    def this()( implicit context: Context ) = this( context, null )
+    def this()( implicit c: Context ) = this( c, null )
 
     def setSwipeEnabled( enabled: Boolean ): Unit = {
         swipe = enabled
