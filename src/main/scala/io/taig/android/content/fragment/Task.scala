@@ -4,7 +4,6 @@ import android.os.Bundle
 import io.taig.android.content._
 import io.taig.android._
 import io.taig.android.content.contract.Creditor
-import io.taig.android.extension.concurrent._
 
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.language.{ existentials, implicitConversions, postfixOps }
@@ -18,7 +17,7 @@ trait Task[T]
         implicit
         ec: ExecutionContext
     ): Future[Unit] ⇒ Future[T] = {
-        _.flatMap0( future )
+        _.flatMap( _ ⇒ future )
     }
 
     def before = Future.successful( {} )
