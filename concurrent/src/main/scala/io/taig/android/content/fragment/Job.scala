@@ -2,15 +2,14 @@ package io.taig.android.content.fragment
 
 import android.os.Bundle
 import io.taig.android._
+import io.taig.android.concurrent.Executor.Pool
 import io.taig.android.content._
 import io.taig.android.content.contract.Creditor
 import monix.eval.Task
-import monix.execution.Scheduler
 
-import scala.language.{ existentials, implicitConversions, postfixOps }
 import scala.util.{ Failure, Success, Try }
 
-abstract class Job[T]( implicit s: Scheduler )
+trait Job[T]
         extends Fragment
         with Asynchronous
         with Creditor[contract.Task[T]] {
