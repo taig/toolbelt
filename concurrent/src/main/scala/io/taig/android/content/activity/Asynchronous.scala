@@ -11,18 +11,6 @@ import io.taig.android.util.Log
 import scala.collection.mutable
 import scala.concurrent.{ ExecutionContextExecutor, Future }
 
-/**
- * A helper trait that mixes an enriched Future API into an Activity
- *
- * This way it's possible to make fluent use of the Scala Future API.
- *
- * {{{
- * Future( "asdf" )
- *     .map( _ ⇒ Thread.sleep( 3000 ) )
- *     .map( _ ⇒ 1000 )
- *     .ui( ( activity, result ) ⇒ activity.myTextView.setText( result.toString ) )
- * }}}
- */
 trait Asynchronous extends Activity { self ⇒
     private lazy val helper: Asynchronous.Helper = {
         Option {

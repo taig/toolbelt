@@ -8,11 +8,6 @@ import io.taig.android.util.Log
 import scala.collection.mutable
 import scala.concurrent.{ ExecutionContext, Future }
 
-/**
- * A job queue that schedules its jobs for when the fragment is safe to use for Ui or transaction changes
- *
- * All jobs will be automatically executed on the Ui thread
- */
 trait Asynchronous extends Fragment { self ⇒
     implicit class AsynchronousFuture[T]( future: Future[T] ) {
         def ui: AsyncApi[T, self.type] = {
