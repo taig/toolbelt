@@ -5,25 +5,20 @@ import io.taig.android._
 import io.taig.android.content._
 import io.taig.android.content.contract.Creditor
 import monix.eval.Task
+import monix.execution.Scheduler
 
 import scala.language.{ existentials, implicitConversions, postfixOps }
 import scala.util.{ Failure, Success, Try }
 
-trait Job[T]
+abstract class Job[T]( implicit s: Scheduler )
         extends Fragment
         with Asynchronous
         with Creditor[contract.Task[T]] {
-    implicit def `( Task[T] ) => Task[Unit] => Task[T]`( task: Task[T] ): Task[Unit] ⇒ Task[T] = {
-        _.flatMap( _ ⇒ task )
-    }
-
     def before: Task[Unit] = Task.unit
 
-    def task: Task[Unit] ⇒ Task[T]
+    def task: Task[T]
 
-    final lazy val job = task( before )
-
-    implicit def scheduler = concurrent.Executor.Pool
+    def job: Task[T] = before.flatMap( _ ⇒ task )
 
     override def onCreate( state: Option[Bundle] ): Unit = {
         super.onCreate( state )

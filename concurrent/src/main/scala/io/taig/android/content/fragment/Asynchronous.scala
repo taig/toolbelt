@@ -1,23 +1,17 @@
 package io.taig.android.content.fragment
 
+import android.app.FragmentManager
 import android.os.Bundle
 import io.taig.android.concurrent.Executor.Ui
 import io.taig.android.content.AsyncApi
 import io.taig.android.util.Log
 
 import scala.collection.mutable
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor, Future }
 
 trait Asynchronous extends Fragment { self ⇒
-    implicit class AsynchronousFuture[T]( future: Future[T] ) {
-        def ui: AsyncApi[T, self.type] = {
-            if ( getRetainInstance ) {
-                new AsyncApi[T, self.type]( future, self )( executor )
-            } else {
-                // TODO Use helper fragment approach
-                ???
-            }
-        }
+    implicit protected class AsynchronousFuture[T]( future: Future[T] ) {
+        def ui: AsyncApi[T, self.type] = new AsyncApi[T, self.type]( future, self )( executor )
     }
 
     private var ready = false
@@ -25,7 +19,7 @@ trait Asynchronous extends Fragment { self ⇒
     override def onCreate( state: Option[Bundle] ) = {
         super.onCreate( state )
 
-        // TODO Might work without retaining as well?
+        // TODO make this work without retaining as well!
         setRetainInstance( true )
     }
 
@@ -86,6 +80,94 @@ trait Asynchronous extends Fragment { self ⇒
 
         override def reportFailure( exception: Throwable ) = {
             Log.e( "Asynchronous Fragment computation failed", exception )
+        }
+    }
+}
+
+object Asynchronous {
+    private[android] class Helper extends Fragment {
+        private var ready = false
+
+        var activity: android.app.Activity = null
+
+        override def onCreate( state: Option[Bundle] ) = {
+            super.onCreate( state )
+
+            setRetainInstance( true )
+        }
+
+        override def onAttach( activity: android.app.Activity ) = {
+            super.onAttach( activity )
+
+            this.activity = activity
+        }
+
+        override def onActivityCreated( state: Option[Bundle] ) = {
+            super.onActivityCreated( state )
+
+            synchronized {
+                ready = true
+                executor.workOff()
+            }
+        }
+
+        override def onDetach() = {
+            synchronized {
+                ready = false
+                this.activity = null
+            }
+
+            super.onDetach()
+
+        }
+
+        override def onDestroy() = {
+            synchronized {
+                executor.queue.clear()
+            }
+
+            super.onDestroy()
+        }
+
+        object executor extends ExecutionContextExecutor {
+            val queue = mutable.Queue.empty[() ⇒ Unit]
+
+            def workOff(): Unit = synchronized {
+                queue.dequeueAll( _ ⇒ true ).foreach( job ⇒ Ui( job() ) )
+            }
+
+            def runOrQueue( job: ⇒ Unit ) = synchronized {
+                if ( ready ) {
+                    Ui( job )
+                } else {
+                    queue.enqueue( () ⇒ job )
+                }
+            }
+
+            override def execute( command: Runnable ) = runOrQueue( command.run() )
+
+            override def reportFailure( cause: Throwable ) = {
+                Log.e( "Asynchronous executor error", cause )( Log.Tag[Helper] )
+            }
+        }
+    }
+
+    private[android] object Helper {
+        def findOrCreate( manager: FragmentManager ) = {
+            Option {
+                manager
+                    .findFragmentByTag( classOf[Helper].getCanonicalName )
+                    .asInstanceOf[Helper]
+            } getOrElse {
+                val helper = new Helper()
+
+                manager
+                    .beginTransaction()
+                    .add( helper, classOf[Helper].getCanonicalName )
+                    .commit()
+
+                helper
+            }
         }
     }
 }
