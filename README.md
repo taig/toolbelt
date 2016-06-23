@@ -5,7 +5,7 @@
 
 > A *Scala on Android* library providing essential helpers
 
-**Install**
+## Install
 
 ````scala
 libraryDependencies +=
