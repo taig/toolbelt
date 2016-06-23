@@ -2,6 +2,6 @@
 
 <manifest package="io.taig.android.toolbelt">
 
-	<application />
+    <application />
 
 </manifest>

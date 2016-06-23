@@ -4,13 +4,12 @@ import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.M
 import android.os.Bundle
 import io.taig.android.concurrent.Executor._
-import io.taig.android.content.activity.Asynchronous.Name
+import io.taig.android.content.AsyncApi
 import io.taig.android.content.fragment.Fragment
 import io.taig.android.util.Log
 
 import scala.collection.mutable
 import scala.concurrent.{ ExecutionContextExecutor, Future }
-import scala.util.Try
 
 /**
  * A helper trait that mixes an enriched Future API into an Activity
@@ -24,44 +23,34 @@ import scala.util.Try
  *     .ui( ( activity, result ) ⇒ activity.myTextView.setText( result.toString ) )
  * }}}
  */
-trait Asynchronous extends Activity {
-    private var helper: Asynchronous.Helper = null
-
-    /**
-     * Enrich the Future API by a method to interact with the Activity code
-     */
-    implicit class AsynchronousFuture[T]( future: Future[T] ) {
-        def ui[U]( f: ( Asynchronous.this.type, Try[T] ) ⇒ U ): Unit = {
-            future.onComplete( t ⇒ f( helper.activity.asInstanceOf[Asynchronous.this.type], t ) )( helper.Executor )
-        }
-
-        def ui0[U]( f: Try[T] ⇒ U ): Unit = ui( ( _, t ) ⇒ f( t ) )
-    }
-
-    override def onCreate( state: Option[Bundle] ) = {
-        super.onCreate( state )
-
-        // Create or load executor helper fragment
-        helper = Option {
+trait Asynchronous extends Activity { self ⇒
+    private lazy val helper: Asynchronous.Helper = {
+        Option {
             getFragmentManager
-                .findFragmentByTag( Name )
+                .findFragmentByTag( classOf[Asynchronous.Helper].getCanonicalName )
                 .asInstanceOf[Asynchronous.Helper]
-        }.getOrElse {
-            val executor = Asynchronous.Helper()
+        } getOrElse {
+            val helper = Asynchronous.Helper()
 
             getFragmentManager
                 .beginTransaction()
-                .add( executor, Name )
+                .add( helper, classOf[Asynchronous.Helper].getCanonicalName )
                 .commit()
 
-            executor
+            helper
         }
+    }
+
+    implicit class AsynchronousFuture[T]( future: Future[T] ) {
+        def ui: AsyncApi[T, self.type] = new AsyncApi[T, self.type](
+            future,
+            // TODO not sure if this cast is actually legal
+            helper.activity.asInstanceOf[self.type]
+        )( helper.executor )
     }
 }
 
 object Asynchronous {
-    private val Name = classOf[Asynchronous].getCanonicalName + ".executor"
-
     /**
      * Provides an ExecutionContext for an Asynchronous activity
      */
@@ -88,7 +77,7 @@ object Asynchronous {
 
             synchronized {
                 ready = true
-                Executor.workOff()
+                executor.workOff()
             }
         }
 
@@ -104,13 +93,13 @@ object Asynchronous {
 
         override def onDestroy() = {
             synchronized {
-                Executor.queue.clear()
+                executor.queue.clear()
             }
 
             super.onDestroy()
         }
 
-        object Executor extends ExecutionContextExecutor {
+        object executor extends ExecutionContextExecutor {
             val queue = mutable.Queue.empty[() ⇒ Unit]
 
             def workOff(): Unit = synchronized {
@@ -128,7 +117,7 @@ object Asynchronous {
             override def execute( command: Runnable ) = runOrQueue( command.run() )
 
             override def reportFailure( cause: Throwable ) = {
-                Log.e( "Asynchronous Executor error", cause )( Log.Tag[Helper] )
+                Log.e( "Asynchronous executor error", cause )( Log.Tag[Helper] )
             }
         }
     }
