@@ -4,22 +4,22 @@ import android.os.Bundle
 import io.taig.android._
 import io.taig.android.content._
 import io.taig.android.content.contract.Creditor
-import monix.eval.{ Task ⇒ MTask }
+import monix.eval.Task
 
 import scala.language.{ existentials, implicitConversions, postfixOps }
 import scala.util.{ Failure, Success, Try }
 
-trait Task[T]
+trait Job[T]
         extends Fragment
         with Asynchronous
         with Creditor[contract.Task[T]] {
-    implicit def `( Task[T] ) => Task[Unit] => Task[T]`( task: MTask[T] ): MTask[Unit] ⇒ MTask[T] = {
+    implicit def `( Task[T] ) => Task[Unit] => Task[T]`( task: Task[T] ): Task[Unit] ⇒ Task[T] = {
         _.flatMap( _ ⇒ task )
     }
 
-    def before: MTask[Unit] = MTask.unit
+    def before: Task[Unit] = Task.unit
 
-    def task: MTask[Unit] ⇒ MTask[T]
+    def task: Task[Unit] ⇒ Task[T]
 
     final lazy val job = task( before )
 
