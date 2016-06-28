@@ -1,7 +1,7 @@
 package io.taig.android.content
 
 import android.content.Context
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 
 trait Contextual {
     implicit def context: Context

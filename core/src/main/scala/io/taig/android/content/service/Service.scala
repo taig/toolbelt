@@ -4,7 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import io.taig.android.content.Contextual
 import io.taig.android.extension.content._
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 
 import scala.reflect._
 

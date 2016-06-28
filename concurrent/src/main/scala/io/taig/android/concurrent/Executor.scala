@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import android.os.{ AsyncTask, Handler, Looper }
 import io.taig.android._
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 import monix.execution.schedulers.ExecutionModel.SynchronousExecution
 import monix.execution.{ Cancelable, Scheduler }
 

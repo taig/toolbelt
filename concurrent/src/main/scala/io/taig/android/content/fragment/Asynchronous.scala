@@ -4,7 +4,7 @@ import android.app.FragmentManager
 import android.os.Bundle
 import io.taig.android.concurrent.Executor.Ui
 import io.taig.android.content.AsyncApi
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 
 import scala.collection.mutable
 import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor, Future }
@@ -79,7 +79,7 @@ trait Asynchronous extends Fragment { self ⇒
         override def execute( command: Runnable ) = runOrQueue( command.run() )
 
         override def reportFailure( exception: Throwable ) = {
-            Log.e( "Asynchronous Fragment computation failed", exception )
+            //            Log.e( "Asynchronous Fragment computation failed", exception )
         }
     }
 }
@@ -147,7 +147,7 @@ object Asynchronous {
             override def execute( command: Runnable ) = runOrQueue( command.run() )
 
             override def reportFailure( cause: Throwable ) = {
-                Log.e( "Asynchronous executor error", cause )( Log.Tag[Helper] )
+                //                Log.e( "Asynchronous executor error", cause )( Log.Tag[Helper] )
             }
         }
     }

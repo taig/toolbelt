@@ -10,7 +10,7 @@ import android.view.ActionMode.Callback
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.WindowManager.LayoutParams
 import android.view._
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 
 trait Lifecycle extends Activity {
     override def onCreate( state: Option[Bundle] ): Unit = {

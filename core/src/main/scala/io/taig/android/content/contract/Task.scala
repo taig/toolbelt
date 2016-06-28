@@ -1,6 +1,6 @@
 package io.taig.android.content.contract
 
-import io.taig.android.util.Log
+import io.taig.android.log.Log
 
 import scala.language.implicitConversions
 
