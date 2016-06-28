@@ -1,7 +1,10 @@
 lazy val toolbelt = project.in( file( "." ) )
     .settings( Settings.common: _* )
     .settings(
-        name := "Toolbelt"
+        name := "Toolbelt",
+        publish := (),
+        publishArtifact := false,
+        publishLocal := ()
     )
     .aggregate( log, core, concurrent )
 
@@ -9,8 +12,7 @@ lazy val log = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
 
 lazy val core = project
-    .androidBuildWith( log )
-    .settings( Settings.common ++ Settings.android: _* )
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
     .settings(
         libraryDependencies ++=
             "com.android.support" % "recyclerview-v7" % "24.0.0" ::
@@ -18,12 +20,13 @@ lazy val core = project
             "com.android.support" % "support-v13" % "24.0.0" ::
             Nil
     )
+    .dependsOn( log )
 
 lazy val concurrent = project
-    .androidBuildWith( core )
-    .settings( Settings.common ++ Settings.android: _* )
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
     .settings(
         libraryDependencies ++=
             "io.monix" %% "monix" % "2.0-RC7" ::
             Nil
     )
+    .dependsOn( core )
