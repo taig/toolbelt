@@ -4,6 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import io.taig.android.content.Contextual
 import io.taig.android.extension.content._
+import io.taig.android.util.Log
 
 import scala.reflect._
 
@@ -15,6 +16,8 @@ trait Service
 
 object Service {
     abstract class Companion[S <: android.app.Service: ClassTag] {
+        implicit val tag: Log.Tag = Log.Tag[S]
+
         def isRunning( implicit c: Context ): Boolean = {
             import collection.JavaConversions._
 
