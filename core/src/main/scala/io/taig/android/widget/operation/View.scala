@@ -3,7 +3,6 @@ package io.taig.android.widget.operation
 import io.taig.android.graphic.Direction._
 import io.taig.android.graphic.Distance
 import io.taig.android.extension.widget._
-import io.taig.android.util.Log
 
 abstract class View( view: android.view.View ) {
     def getPadding = Distance( view.getPaddingLeft, view.getPaddingTop, view.getPaddingRight, view.getPaddingBottom )
