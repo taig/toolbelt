@@ -1,11 +1,9 @@
 lazy val toolbelt = project.in( file( "." ) )
-    .settings( Settings.common: _* )
+    .settings( Settings.common )
     .settings(
-        name := "Toolbelt",
-        publish := (),
-        publishArtifact := false,
-        publishLocal := ()
+        name := "Toolbelt"
     )
+    .dependsOn( log, intent, core, concurrent )
     .aggregate( log, intent, core, concurrent )
 
 lazy val log = project
