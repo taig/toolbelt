@@ -3,8 +3,8 @@ lazy val toolbelt = project.in( file( "." ) )
     .settings(
         name := "Toolbelt"
     )
-    .dependsOn( log, intent, core, concurrent )
-    .aggregate( log, intent, core, concurrent )
+    .dependsOn( log, intent, core, concurrent, functional )
+    .aggregate( log, intent, core, concurrent, functional )
 
 lazy val log = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
@@ -31,3 +31,13 @@ lazy val concurrent = project
             Nil
     )
     .dependsOn( core )
+
+lazy val functional = project
+    .settings( Settings.common )
+    .settings(
+        libraryDependencies ++=
+            "org.typelevel" %% "cats-core" % "0.6.0" ::
+            "org.typelevel" %% "cats-macros" % "0.6.0" ::
+            "org.typelevel" %% "cats-kernel" % "0.6.0" ::
+            Nil
+    )
