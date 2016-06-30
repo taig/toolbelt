@@ -27,7 +27,7 @@ lazy val concurrent = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
     .settings(
         libraryDependencies ++=
-            "io.monix" %% "monix" % "2.0-RC8" ::
+            "io.monix" %% "monix-eval" % "2.0-RC8" ::
             Nil
     )
     .dependsOn( core )
