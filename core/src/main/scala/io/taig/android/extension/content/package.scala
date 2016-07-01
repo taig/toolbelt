@@ -4,8 +4,6 @@ import android.content.Context
 import io.taig.android.content.operation
 
 package object content {
-    implicit class ToolbeltContext( context: Context ) extends operation.Context( context )
-
     implicit class ToolbeltResource[T]( resource: T )( implicit val context: Context )
         extends operation.Resource[T]( resource )
 

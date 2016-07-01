@@ -1,6 +1,6 @@
 package io.taig.android.content.operation
 
-import io.taig.android.content.Contextual
+import io.taig.android.context.Contextual
 import scala.math.Numeric.Implicits._
 
 abstract class Unit[T: Numeric]( unit: T ) extends Contextual {

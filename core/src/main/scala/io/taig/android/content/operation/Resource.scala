@@ -2,14 +2,13 @@ package io.taig.android.content.operation
 
 import android.content.{ ContentResolver, Context ⇒ AContext }
 import android.graphics.drawable._
-import android.graphics.{ Bitmap, BitmapFactory, Canvas }
+import android.graphics.{ Bitmap, Canvas }
 import android.net.Uri
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation._
 import io.taig.android.compatibility
+import io.taig.android.content.Quantity
 import io.taig.android.content.operation.Resource.ResourceResolver
-import io.taig.android.content.{ Contextual, Quantity }
+import io.taig.android.context.Contextual
 import io.taig.android.extension.content._
 import io.taig.android.extension.graphic._
 import io.taig.android.graphic.Color

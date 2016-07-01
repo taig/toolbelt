@@ -1,7 +1,7 @@
 package io.taig.android.content.activity
 
 import android.os.Bundle
-import io.taig.android.content.Contextual
+import io.taig.android.context.Contextual
 
 trait Activity
         extends android.app.Activity

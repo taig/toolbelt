@@ -1,4 +1,4 @@
-package io.taig.android.content
+package io.taig.android.context
 
 import android.content.Context
 import io.taig.android.log.Log

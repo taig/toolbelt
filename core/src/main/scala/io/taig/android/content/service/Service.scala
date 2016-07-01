@@ -2,7 +2,7 @@ package io.taig.android.content.service
 
 import android.app.ActivityManager
 import android.content.Context
-import io.taig.android.content.Contextual
+import io.taig.android.context.Contextual
 import io.taig.android.extension.content._
 import io.taig.android.log.Log
 
