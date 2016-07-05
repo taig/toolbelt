@@ -17,7 +17,8 @@ object Settings {
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
             Nil,
-        name := s"Toolbelt ${name.value.capitalize}",
+        name := name.value.capitalize,
+        normalizedName := s"toolbelt-${normalizedName.value}",
         organization := "io.taig.android",
         scalacOptions ++=
             "-deprecation" ::
