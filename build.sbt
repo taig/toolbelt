@@ -3,8 +3,17 @@ lazy val toolbelt = project.in( file( "." ) )
     .settings(
         name := "Toolbelt"
     )
-    .dependsOn( context, log, intent, core, concurrent, functional )
-    .aggregate( context, log, intent, core, concurrent, functional )
+    .dependsOn( compatibility, context, log, intent, core, concurrent, functional )
+    .aggregate( compatibility, context, log, intent, core, concurrent, functional )
+
+lazy val compatibility = project
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
+    .settings(
+        autoScalaLibrary := false,
+        libraryDependencies ++=
+            "com.android.support" % "support-v4" % "24.0.0" ::
+            Nil
+    )
 
 lazy val log = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
@@ -25,7 +34,7 @@ lazy val core = project
             "com.android.support" % "support-v13" % "24.0.0" ::
             Nil
     )
-    .dependsOn( log, intent, context )
+    .dependsOn( compatibility, log, intent, context )
 
 lazy val concurrent = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android: _* )
