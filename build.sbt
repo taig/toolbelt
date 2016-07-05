@@ -1,5 +1,5 @@
 lazy val toolbelt = project.in( file( "." ) )
-    .settings( Settings.common )
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         name := "Toolbelt"
     )
