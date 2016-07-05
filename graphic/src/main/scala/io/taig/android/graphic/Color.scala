@@ -2,8 +2,7 @@ package io.taig.android.graphic
 
 import android.graphics.Color._
 
-case class Color( color: Int )
-        extends AnyVal {
+case class Color( color: Int ) extends AnyVal {
     def darken( amount: Float ) = {
         val hsv = new Array[Float]( 3 )
         colorToHSV( color, hsv )
@@ -37,5 +36,5 @@ object Color {
 
     val Yellow = Color( YELLOW )
 
-    def apply( color: String ): Color = Color( parseColor( color ) )
+    def parse( color: String ): Color = Color( parseColor( color ) )
 }

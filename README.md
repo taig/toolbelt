@@ -28,8 +28,7 @@ libraryDependencies += "io.taig.android" %% "toolbelt" % "0.5.0-SNAPSHOT"
 ````
 
 ````
-io.taig.android:toolbelt_2.11:0.5.0-SNAPSHOT [S]
-  +-io.taig.android:system-service_2.11:0.5.0-SNAPSHOT [S]
+io.taig.android:toolbelt-toolbelt_2.11:0.5.0-SNAPSHOT [S]
   +-io.taig.android:toolbelt-app_2.11:0.5.0-SNAPSHOT [S]
   | +-com.android.support:support-v13:24.0.0
   | | +-com.android.support:support-v4:24.0.0
@@ -38,11 +37,11 @@ io.taig.android:toolbelt_2.11:0.5.0-SNAPSHOT [S]
   | +-com.android.support:support-v4:24.0.0
   | | +-com.android.support:support-annotations:24.0.0
   | | 
-  | +-io.taig.android:system-service_2.11:0.5.0-SNAPSHOT [S]
   | +-io.taig.android:toolbelt-context_2.11:0.5.0-SNAPSHOT [S]
   | | +-io.taig.android:toolbelt-log_2.11:0.5.0-SNAPSHOT [S]
   | | 
   | +-io.taig.android:toolbelt-log_2.11:0.5.0-SNAPSHOT [S]
+  | +-io.taig.android:toolbelt-system-service_2.11:0.5.0-SNAPSHOT [S]
   | 
   +-io.taig.android:toolbelt-compatibility:0.5.0-SNAPSHOT
   | +-com.android.support:support-v4:24.0.0
@@ -63,11 +62,11 @@ io.taig.android:toolbelt_2.11:0.5.0-SNAPSHOT [S]
   | | +-com.android.support:support-v4:24.0.0
   | | | +-com.android.support:support-annotations:24.0.0
   | | | 
-  | | +-io.taig.android:system-service_2.11:0.5.0-SNAPSHOT [S]
   | | +-io.taig.android:toolbelt-context_2.11:0.5.0-SNAPSHOT [S]
   | | | +-io.taig.android:toolbelt-log_2.11:0.5.0-SNAPSHOT [S]
   | | | 
   | | +-io.taig.android:toolbelt-log_2.11:0.5.0-SNAPSHOT [S]
+  | | +-io.taig.android:toolbelt-system-service_2.11:0.5.0-SNAPSHOT [S]
   | | 
   | +-io.taig.android:toolbelt-util_2.11:0.5.0-SNAPSHOT [S]
   | 
@@ -111,6 +110,7 @@ io.taig.android:toolbelt_2.11:0.5.0-SNAPSHOT [S]
   | |   
   | +-io.taig.android:toolbelt-graphic_2.11:0.5.0-SNAPSHOT [S]
   | 
+  +-io.taig.android:toolbelt-system-service_2.11:0.5.0-SNAPSHOT [S]
   +-io.taig.android:toolbelt-unit_2.11:0.5.0-SNAPSHOT [S]
   +-io.taig.android:toolbelt-util_2.11:0.5.0-SNAPSHOT [S]
   +-io.taig.android:toolbelt-widget_2.11:0.5.0-SNAPSHOT [S]
