@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 import android.os.{ AsyncTask, Handler, Looper }
 import io.taig.android._
 import io.taig.android.log.Log
+import io.taig.android.util._
 import monix.execution.schedulers.ExecutionModel.SynchronousExecution
 import monix.execution.{ Cancelable, Scheduler }
 
@@ -96,9 +97,9 @@ object Executor {
     /**
      * Run on the Ui-Thread
      */
-    def Ui( body: ⇒ Unit ): Unit = Ui.execute( body )
+    def Ui( body: ⇒ Unit ): Unit = Ui.execute( () ⇒ body )
 
-    def Ui( body: ⇒ Unit, delay: Long ): Unit = Ui.scheduleOnce( delay, TimeUnit.MILLISECONDS, body )
+    def Ui( body: ⇒ Unit, delay: Long ): Unit = Ui.scheduleOnce( delay, TimeUnit.MILLISECONDS, () ⇒ body )
 
     private def report( exception: Throwable, tag: Log.Tag ): Unit = {
         Log.e( "Failure during asynchronous operation", exception )( tag )

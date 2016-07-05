@@ -31,4 +31,16 @@ object Settings {
         publishLocal := (),
         publishArtifact := false
     )
+    
+    object dependency {
+        val androidSupport = "24.0.0"
+        
+        val androidSupportRecycler = "com.android.support" % "recyclerview-v7" % androidSupport
+        
+        val androidSupportV4 = "com.android.support" % "support-v4" % androidSupport
+        
+        val androidSupportV13 = "com.android.support" % "support-v13" % androidSupport
+        
+        val cats = "0.6.0"
+    }
 }
