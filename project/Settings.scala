@@ -6,8 +6,8 @@ import sbt._
 object Settings {
     val android = Def.settings(
         minSdkVersion := "13",
-        platformTarget := "android-23",
-        targetSdkVersion := "23",
+        platformTarget := "android-24",
+        targetSdkVersion := "24",
         typedResources := false
     )
 
