@@ -1,6 +1,20 @@
 # Changelog
 
-## 0.5.1 ##
+## 0.5.3-SNAPSHOT
+
+ * Added compat.Configuration.locale
+
+## 0.5.2
+
+_2016-07-13_
+
+ * Add compat.Html.fromHtml
+ * Set platform and build target to 24
+ * Upgrade to sbt-scalariform 1.7.0
+ * Upgrade to sbt-sonatype 1.1.0
+ * Upgrade to sbt-android 1.6.7
+
+## 0.5.1
 
 _2016-07-11_
 
