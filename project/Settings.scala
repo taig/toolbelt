@@ -42,6 +42,6 @@ object Settings {
         
         val androidSupportV13 = "com.android.support" % "support-v13" % androidSupport
         
-        val cats = "0.6.0"
+        val cats = "0.6.1"
     }
 }
