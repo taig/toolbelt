@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.5.3-SNAPSHOT
+## 0.5.3
+
+_2016-07-25_
 
  * Added compat.Configuration.locale
 
