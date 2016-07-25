@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.4
+
+_2016-07-25_
+
+ * Move `app.contract.Task` to `concurrent.app.contract.Job`
+
 ## 0.5.3
 
 _2016-07-25_
