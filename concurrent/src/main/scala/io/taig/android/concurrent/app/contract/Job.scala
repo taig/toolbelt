@@ -1,10 +1,11 @@
-package io.taig.android.app.contract
+package io.taig.android.concurrent.app.contract
 
+import io.taig.android.app.contract.Contract
 import io.taig.android.log.Log
 
 import scala.language.implicitConversions
 
-trait Task[T] extends Contract {
+trait Job[T] extends Contract {
     protected implicit def `=> PartialFunction[T, Unit]`[U]( f: ⇒ U ): PartialFunction[T, Unit] = { case _ ⇒ f }
 
     /**
@@ -23,6 +24,6 @@ trait Task[T] extends Contract {
      * Make sure to call super.onFailure when overriding this method
      */
     def onFailure( exception: Throwable ): Unit = exception match {
-        case _ ⇒ Log.e( "Task failed", exception )( Log.Tag( context.getClass.getName ) )
+        case _ ⇒ Log.e( "Job failed", exception )( Log.Tag( context.getClass.getName ) )
     }
 }

@@ -1,10 +1,10 @@
 package io.taig.android.concurrent.app.fragment
 
 import android.os.Bundle
-import io.taig.android.app._
 import io.taig.android.app.contract.Creditor
 import io.taig.android.app.fragment.Fragment
 import io.taig.android.concurrent.Executor.Pool
+import io.taig.android.concurrent.app.contract
 import io.taig.android.concurrent.exception
 import monix.eval.Task
 
@@ -13,7 +13,7 @@ import scala.util.{ Failure, Success, Try }
 trait Job[T]
         extends Fragment
         with Asynchronous
-        with Creditor[contract.Task[T]] {
+        with Creditor[contract.Job[T]] {
     def before: Task[Unit] = Task.unit
 
     def task: Task[T]
