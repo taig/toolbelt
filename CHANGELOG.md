@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.5
+
+_2016-07-26_
+
+ * Fix error in functional.flatMap (causing double executions)
+ * Upgrade to sbt 0.13.12
+ * Upgrade to sbt-android 1.6.9
+ * Upgrade to cats 0.6.1
+
 ## 0.5.4
 
 _2016-07-25_
