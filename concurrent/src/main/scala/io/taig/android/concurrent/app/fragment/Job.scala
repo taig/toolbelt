@@ -1,11 +1,12 @@
 package io.taig.android.concurrent.app.fragment
 
 import android.os.Bundle
+import android.util.Log
 import io.taig.android.app.contract.Creditor
 import io.taig.android.app.fragment.Fragment
 import io.taig.android.concurrent.Executor.Pool
 import io.taig.android.concurrent.app.contract
-import io.taig.android.concurrent.exception
+import io.taig.android.concurrent.{ Executor, exception }
 import monix.eval.Task
 
 import scala.util.{ Failure, Success, Try }
@@ -23,14 +24,21 @@ trait Job[T]
     override def onCreate( state: Option[Bundle] ): Unit = {
         super.onCreate( state )
 
-        job.runAsync.ui.onComplete {
-            case ( task, result @ Success( value ) ) ⇒
-                task.done( value )
-                task.always( result )
-            case ( task, result @ Failure( exception ) ) ⇒
-                task.fail( exception )
-                task.always( result )
-        }
+        Log.wtf( "WTF", "About to run job ... or am I?" )
+
+        job.runAsync
+        //        job.runAsync.ui.onComplete {
+        //            case ( task, result @ Success( value ) ) ⇒
+        //                Log.wtf( "WTF", "Job succeeded" )
+        //                //                task.done( value )
+        //                //                task.always( result )
+        //                Log.wtf( "WTF", "All callbacks handled. Goodybe" )
+        //            case ( task, result @ Failure( exception ) ) ⇒
+        //                Log.wtf( "WTF", "Job failed" )
+        //                //                task.fail( exception )
+        //                //                task.always( result )
+        //                Log.wtf( "WTF", "All callbacks handled. Goodybe" )
+        //        }
     }
 
     def done( value: T ) = ->> {

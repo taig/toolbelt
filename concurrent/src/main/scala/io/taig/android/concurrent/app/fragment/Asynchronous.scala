@@ -29,6 +29,7 @@ trait Asynchronous extends Fragment { self ⇒
 
         synchronized {
             ready = true
+            Log.wtf( "About to work stuff off" )
             executor.workOff()
         }
     }
@@ -52,7 +53,10 @@ trait Asynchronous extends Fragment { self ⇒
     /**
      * Do it now or as soon as the Fragment is (re-) starting
      */
-    def schedule( job: ⇒ Unit ) = executor.runOrQueue( job )
+    def schedule( job: ⇒ Unit ) = {
+        executor.runOrQueue( job )
+        Log.wtf( "Scheduling a job..." )
+    }
 
     /**
      * Do it now or not at all
@@ -66,13 +70,16 @@ trait Asynchronous extends Fragment { self ⇒
          * Execute all queued jobs
          */
         def workOff(): Unit = Asynchronous.this.synchronized {
+            Log.wtf( "Working off the queue..." )
             queue.dequeueAll( _ ⇒ true ).foreach( job ⇒ Ui( job() ) )
         }
 
         def runOrQueue( job: ⇒ Unit ) = Asynchronous.this.synchronized {
             if ( ready ) {
+                Log.wtf( "Running on ui thread now!" )
                 Ui( job )
             } else {
+                Log.wtf( "Enqueing for later..." )
                 queue.enqueue( () ⇒ job )
             }
         }
