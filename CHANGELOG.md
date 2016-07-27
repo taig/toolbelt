@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.6
+
+_2016_07-27_
+
+ * Upgrade to Android support library 24.1.1
+
 ## 0.5.5
 
 _2016-07-26_
