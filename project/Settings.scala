@@ -32,16 +32,22 @@ object Settings {
         publishLocal := (),
         publishArtifact := false
     )
-    
+
     object dependency {
         val androidSupport = "24.1.1"
-        
+
         val androidSupportRecycler = "com.android.support" % "recyclerview-v7" % androidSupport
-        
+
         val androidSupportV4 = "com.android.support" % "support-v4" % androidSupport
-        
+
         val androidSupportV13 = "com.android.support" % "support-v13" % androidSupport
-        
+
         val cats = "0.6.1"
+
+        val monix = "2.0-RC9"
+
+        val monixEval = "io.monix" %% "monix-eval" % monix
+
+        val monixReactive = "io.monix" %% "monix-reactive" % monix
     }
 }

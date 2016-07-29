@@ -4,8 +4,8 @@ lazy val toolbelt = project.in( file( "." ) )
         name := "Toolbelt",
         normalizedName := "toolbelt"
     )
-    .dependsOn( compatibility, functional, graphic, intent, log, systemService, unit, util, context, widget, concurrent, resource, app )
-    .aggregate( compatibility, functional, graphic, intent, log, systemService, unit, util, context, widget, concurrent, resource, app )
+    .dependsOn( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
+    .aggregate( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
 
 lazy val compatibility = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
@@ -20,10 +20,10 @@ lazy val functional = project
     .settings( Settings.common )
     .settings(
         libraryDependencies ++=
-        "org.typelevel" %% "cats-core" % Settings.dependency.cats ::
-        "org.typelevel" %% "cats-macros" % Settings.dependency.cats ::
-        "org.typelevel" %% "cats-kernel" % Settings.dependency.cats ::
-        Nil
+            "org.typelevel" %% "cats-core" % Settings.dependency.cats ::
+            "org.typelevel" %% "cats-macros" % Settings.dependency.cats ::
+            "org.typelevel" %% "cats-kernel" % Settings.dependency.cats ::
+            Nil
     )
 
 lazy val graphic = project
@@ -38,7 +38,7 @@ lazy val log = project
 lazy val systemService = project.in( file( "system-service" ) )
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
-        name := "System Service"
+        name := "system-service"
     )
 
 lazy val unit = project
@@ -49,6 +49,17 @@ lazy val util = project
 
 lazy val context = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .dependsOn( log )
+
+lazy val playServices = project.in( file( "play-services" ) )
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .settings(
+        libraryDependencies ++=
+            "com.google.android.gms" % "play-services-location" % "9.2.1" ::
+            Settings.dependency.monixReactive ::
+            Nil,
+        name := "play-services"
+    )
     .dependsOn( log )
 
 lazy val widget = project
@@ -65,7 +76,7 @@ lazy val concurrent = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-        "io.monix" %% "monix-eval" % "2.0-RC8" ::
+        Settings.dependency.monixEval ::
         Nil
     )
     .dependsOn( app, util )
