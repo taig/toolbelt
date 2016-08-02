@@ -12,8 +12,8 @@ lazy val compatibility = project
     .settings(
         autoScalaLibrary := false,
         libraryDependencies ++=
-        Settings.dependency.androidSupportV4 ::
-        Nil
+            Settings.dependency.androidSupportV4 ::
+            Nil
     )
 
 lazy val functional = project
@@ -76,8 +76,8 @@ lazy val concurrent = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-        Settings.dependency.monixEval ::
-        Nil
+            Settings.dependency.monixEval ::
+            Nil
     )
     .dependsOn( app, util )
 
