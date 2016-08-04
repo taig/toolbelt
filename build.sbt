@@ -55,7 +55,7 @@ lazy val playServices = project.in( file( "play-services" ) )
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.google.android.gms" % "play-services-location" % "9.2.1" ::
+            "com.google.android.gms" % "play-services-location" % "9.4.0" ::
             Settings.dependency.monixReactive ::
             Nil,
         name := "play-services"
