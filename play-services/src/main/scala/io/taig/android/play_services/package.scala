@@ -15,8 +15,15 @@ package object play_services {
         sealed trait Event
 
         object Event {
-            final case class Connected( client: GoogleApiClient, bundle: Bundle ) extends Event
-            final case class Suspended( client: GoogleApiClient, cause: Int ) extends Event
+            final case class Connected(
+                client: GoogleApiClient,
+                bundle: Bundle
+            ) extends Event
+
+            final case class Suspended(
+                client: GoogleApiClient,
+                cause:  Int
+            ) extends Event
         }
     }
 }
