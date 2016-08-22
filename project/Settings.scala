@@ -43,7 +43,7 @@ object Settings {
 
         val cats = "0.6.1"
 
-        val monix = "2.0-RC9"
+        val monix = "2.0-RC11"
 
         val monixEval = "io.monix" %% "monix-eval" % monix
 
