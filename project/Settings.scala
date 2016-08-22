@@ -17,7 +17,6 @@ object Settings {
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
             Nil,
-        name := name.value.capitalize,
         normalizedName := s"toolbelt-${normalizedName.value}",
         organization := "io.taig.android",
         scalacOptions ++=
@@ -34,7 +33,7 @@ object Settings {
     )
 
     object dependency {
-        val androidSupport = "24.1.1"
+        val androidSupport = "24.2.0"
 
         val androidSupportRecycler = "com.android.support" % "recyclerview-v7" % androidSupport
 

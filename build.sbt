@@ -1,8 +1,8 @@
 lazy val toolbelt = project.in( file( "." ) )
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
-        name := "Toolbelt",
-        normalizedName := "toolbelt"
+        name := "toolbelt",
+        normalizedName := name.value
     )
     .dependsOn( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
     .aggregate( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
