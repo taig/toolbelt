@@ -47,6 +47,15 @@ lazy val unit = project
 lazy val util = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
 
+lazy val monix = project
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .settings(
+        libraryDependencies ++=
+            Settings.dependency.monixEval ::
+            Settings.dependency.monixReactive ::
+            Nil
+    )
+
 lazy val context = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .dependsOn( log )
