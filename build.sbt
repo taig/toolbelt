@@ -4,8 +4,8 @@ lazy val toolbelt = project.in( file( "." ) )
         name := "toolbelt",
         normalizedName := name.value
     )
-    .dependsOn( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
-    .aggregate( compatibility, functional, graphic, intent, log, playServices, systemService, unit, util, context, widget, concurrent, resource, app )
+    .dependsOn( compatibility, functional, graphic, intent, log, systemService, unit, util, context, monix, widget, concurrent, resource, app )
+    .aggregate( compatibility, functional, graphic, intent, log, systemService, unit, util, context, monix, widget, concurrent, resource, app )
 
 lazy val compatibility = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
@@ -47,27 +47,19 @@ lazy val unit = project
 lazy val util = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
 
-lazy val monix = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
-    .settings(
-        libraryDependencies ++=
-            Settings.dependency.monixEval ::
-            Settings.dependency.monixReactive ::
-            Nil
-    )
-
 lazy val context = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .dependsOn( log )
 
-lazy val playServices = project.in( file( "play-services" ) )
+lazy val monix = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.google.android.gms" % "play-services-location" % "9.4.0" ::
+            Settings.dependency.playServicesBase % "optional" ::
+            Settings.dependency.playServicesLocation % "optional" ::
+            Settings.dependency.monixEval ::
             Settings.dependency.monixReactive ::
-            Nil,
-        name := "play-services"
+            Nil
     )
     .dependsOn( log )
 

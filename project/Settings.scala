@@ -48,5 +48,11 @@ object Settings {
         val monixEval = "io.monix" %% "monix-eval" % monix
 
         val monixReactive = "io.monix" %% "monix-reactive" % monix
+        
+        val playServices = "9.4.0"
+
+        val playServicesBase = "com.google.android.gms" % "play-services-base" % playServices
+
+        val playServicesLocation = "com.google.android.gms" % "play-services-location" % playServices
     }
 }

@@ -9,7 +9,7 @@ trait implicits
     with graphic.implicits
     with intent.implicits
     with log.implicits
-    with play_services.implicits
+    with monix.implicits
     with resource.implicits
     with system_service.implicits
     with unit.implicits

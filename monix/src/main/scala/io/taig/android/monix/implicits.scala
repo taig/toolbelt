@@ -1,4 +1,4 @@
-package io.taig.android.play_services
+package io.taig.android.monix
 
 trait implicits extends syntax.all
 
