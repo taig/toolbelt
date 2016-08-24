@@ -20,8 +20,8 @@ trait observable {
 
     implicit def monixObservableGoogleApiClientEvent(
         observable: Observable[GoogleApiClientEvent]
-    ): operation.observable[GoogleApiClientEvent] = {
-        new operation.observable[GoogleApiClientEvent]( observable )
+    ): operation.observableGoogleApiClientEvent = {
+        new operation.observableGoogleApiClientEvent( observable )
     }
 }
 
