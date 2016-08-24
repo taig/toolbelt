@@ -59,10 +59,12 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
                 pending.setResultCallback( resultCallback )
 
                 Cancelable { () ⇒
-                    LocationServices.FusedLocationApi.removeLocationUpdates(
-                        client,
-                        listener
-                    )
+                    if ( client.isConnected ) {
+                        LocationServices.FusedLocationApi.removeLocationUpdates(
+                            client,
+                            listener
+                        )
+                    }
 
                     client.disconnect()
                 }
