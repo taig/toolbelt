@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.8
+
+_2016_09-02_
+
+ * Upgrade to monix 2.0.0
+ * Upgrade to sbt-android 1.6.16
+
 ## 0.5.7
 
 _2016_08-22_
@@ -8,7 +15,7 @@ _2016_08-22_
  * Upgrade to sbt-android 1.6.13
  * Upgrade to play-services 9.4.0
  * Upgrade to Android support library 24.2.0
- * Upgrade to minx 2.0-RC11
+ * Upgrade to monix 2.0-RC11
  * Upgrade to cats 0.7.0
  * Fix flawed `implicits` object in widget module
 
