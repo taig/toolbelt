@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.9
+
+_2016_09-06_
+
+ * Add new compat method Settings.canDrawOverlays
+
 ## 0.5.8
 
 _2016_09-02_
