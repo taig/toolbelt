@@ -85,15 +85,20 @@ object observable {
         def fromGoogleApiClient(
             client:   GoogleApiClient,
             strategy: OverflowStrategy.Synchronous[GoogleApiClientEvent] = OverflowStrategy.Unbounded
+        )(
+            implicit
+            t: Log.Tag
         ): Observable[GoogleApiClientEvent] = {
             Observable.create[GoogleApiClientEvent]( strategy ) { downstream ⇒
                 client.registerConnectionCallbacks {
                     new ConnectionCallbacks {
                         override def onConnected( bundle: Bundle ) = {
+                            Log.d( "Connection to GoogleApiClient established" )
                             downstream.onNext( Connected( client, bundle ) )
                         }
 
                         override def onConnectionSuspended( cause: Int ) = {
+                            Log.d( "Connection to GoogleApiClient suspended" )
                             downstream.onNext( Suspended( client, cause ) )
                         }
                     }
@@ -108,9 +113,13 @@ object observable {
                     }
                 }
 
+                Log.d( "Connecting to GoogleApiClient ..." )
                 client.connect()
 
-                Cancelable( client.disconnect )
+                Cancelable { () ⇒
+                    Log.d( "Disconnecting from GoogleApiClient ..." )
+                    client.disconnect()
+                }
             }
         }
     }

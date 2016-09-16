@@ -11,7 +11,7 @@ object GoogleApiClientEvent {
     def unapply( event: GoogleApiClientEvent ): Option[GoogleApiClient] = {
         Some( event.client )
     }
-    
+
     final case class Connected(
         client: GoogleApiClient,
         bundle: Bundle
