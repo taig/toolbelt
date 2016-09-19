@@ -27,17 +27,14 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
         t: Log.Tag
     ): Observable[Location] = observable.flatMap {
         case Connected( client, _ ) ⇒
-            Log.d {
-                "Connecting GoogleApiClient succeeded, requesting " +
-                    "location updates"
-            }
-
             Observable.create( strategy ) { downstream ⇒
                 val listener = new LocationListener {
                     override def onLocationChanged( location: Location ) = {
                         downstream.onNext( location )
                     }
                 }
+
+                Log.d( "Adding registering for location updates" )
 
                 val pending = LocationServices.FusedLocationApi.requestLocationUpdates(
                     client,
@@ -46,7 +43,7 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
                     c.getMainLooper
                 )
 
-                val resultCallback = new ResultCallback[Status] {
+                val result = new ResultCallback[Status] {
                     override def onResult( status: Status ) = {
                         if ( !status.isSuccess ) {
                             downstream.onError {
@@ -56,27 +53,20 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
                     }
                 }
 
-                pending.setResultCallback( resultCallback )
+                pending.setResultCallback( result )
 
                 Cancelable { () ⇒
                     if ( client.isConnected ) {
+                        Log.d( "Removing registration for location updates" )
+
                         LocationServices.FusedLocationApi.removeLocationUpdates(
                             client,
                             listener
                         )
                     }
-
-                    client.disconnect()
                 }
             }
-
-        case Suspended( client, code ) ⇒
-            Log.d {
-                s"Connection to GoogleApiClient suspended ($code), " +
-                    "reconnecting"
-            }
-
-            Observable.empty[Location]
+        case Suspended( _, _ ) ⇒ Observable.empty[Location]
     }
 }
 
