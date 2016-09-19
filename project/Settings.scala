@@ -26,12 +26,6 @@ object Settings {
         scalaVersion := "2.11.8"
     )
 
-    val noPublish = Seq(
-        publish := (),
-        publishLocal := (),
-        publishArtifact := false
-    )
-
     object dependency {
         val androidSupport = "24.2.1"
 
