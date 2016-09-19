@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.10
+
+_2016_09-19_
+
+ * Improve monix module logging
+ * Upgrade to monix 2.0.1
+ * Upgrade to cats 0.7.2
+ * Upgrade to Android support library 24.2.1 
+
 ## 0.5.9
 
 _2016_09-06_
