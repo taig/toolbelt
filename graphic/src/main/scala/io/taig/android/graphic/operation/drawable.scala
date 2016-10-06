@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 final class drawable( drawable: Drawable )
 
 object drawable {
-    final class companion( drawable: Drawable.type ) {
+    trait companion {
         /**
          * Summon a Drawable from an xml attr definition (such as
          * `R.attr.selectableItemBackground`)

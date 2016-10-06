@@ -3,18 +3,12 @@ package io.taig.android.graphic.syntax
 import android.graphics.drawable.Drawable
 import io.taig.android.graphic.operation
 
-import scala.language.{ implicitConversions, reflectiveCalls }
+import scala.language.implicitConversions
 
 trait drawable {
-    implicit def drawableSyntax( drawable: Drawable ): operation.drawable = {
-        new operation.drawable( drawable )
-    }
-
-    implicit def drawableCompanionSyntax(
-        drawable: Drawable.type
-    ): operation.drawable.companion = {
-        new operation.drawable.companion( drawable )
-    }
+    implicit def graphicDrawableSyntax(
+        drawable: Drawable
+    ): operation.drawable = new operation.drawable( drawable )
 }
 
 object drawable extends drawable
