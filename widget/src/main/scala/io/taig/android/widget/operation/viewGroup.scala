@@ -2,20 +2,29 @@ package io.taig.android.widget.operation
 
 import android.view.{ View, ViewGroup }
 import io.taig.android.widget.syntax.view._
+import io.taig.android.widget.syntax.viewGroup._
 
 final class viewGroup( viewGroup: ViewGroup ) extends Iterable[View] {
     /**
      * Recursively discovers all children of this view and flattens them into a one dimensional collection in no
      * particular order
      */
-    def children = {
+    def childrenRecursive = {
         def discover( view: View ): Seq[View] = view match {
             case viewGroup: ViewGroup ⇒
-                ( 0 until viewGroup.getChildCount ).map( viewGroup.getChildAt ).flatMap( discover ) :+ view
+                viewGroup.children.flatMap( discover ) :+ view
             case _ ⇒ Seq( view )
         }
 
         discover( viewGroup )
+    }
+
+    /**
+     * Get a list of all direct child views
+     */
+    def children: Seq[View] = {
+        ( 0 until viewGroup.getChildCount )
+            .map( viewGroup.getChildAt )
     }
 
     override def iterator = new Iterator[View] {
