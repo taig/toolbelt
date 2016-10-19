@@ -1,5 +1,6 @@
 lazy val toolbelt = project.in( file( "." ) )
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         name := "toolbelt",
         normalizedName := name.value
