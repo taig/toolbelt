@@ -19,6 +19,7 @@ lazy val compatibility = project
 lazy val functional = project
     .settings( Settings.common )
     .settings(
+        exportJars := true,
         libraryDependencies ++=
             "org.typelevel" %% "cats-core" % Settings.dependency.cats ::
             "org.typelevel" %% "cats-macros" % Settings.dependency.cats ::
