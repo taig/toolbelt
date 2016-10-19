@@ -27,32 +27,40 @@ lazy val functional = project
     )
 
 lazy val graphic = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
 
 lazy val intent = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
 
 lazy val log = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
 
 lazy val systemService = project.in( file( "system-service" ) )
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         name := "system-service"
     )
 
 lazy val unit = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
 
 lazy val util = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
 
 lazy val context = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .dependsOn( log )
 
 lazy val monix = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             Settings.dependency.playServicesBase % "optional" ::
@@ -64,7 +72,8 @@ lazy val monix = project
     .dependsOn( log )
 
 lazy val widget = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             Settings.dependency.androidSupportRecycler ::
@@ -74,7 +83,8 @@ lazy val widget = project
     .dependsOn( graphic )
 
 lazy val concurrent = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             Settings.dependency.monixEval ::
@@ -83,7 +93,8 @@ lazy val concurrent = project
     .dependsOn( app, util )
 
 lazy val resource = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
         Settings.dependency.androidSupportV4 ::
@@ -92,7 +103,8 @@ lazy val resource = project
     .dependsOn( compatibility, graphic )
 
 lazy val app = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             Settings.dependency.androidSupportV4 ::
