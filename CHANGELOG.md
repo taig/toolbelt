@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.11
+
+_2016_10-19_
+
+ * Upgrade to sbt-android 1.7.0
+ * Upgrade to monix 2.0.4
+ * Distinguish between view.children & view.childrenRecusrive
+ * Add graphic/Drawable.fromAttribute enrichment
+
 ## 0.5.10
 
 _2016_09-19_
