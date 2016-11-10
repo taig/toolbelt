@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.12
+
+_2016_11-10_
+
+ * Upgrade to cats 0.8.1
+ * Upgrade to monix 2.1.0
+ * Upgrade to sbt 0.13.13
+ * Upgrade to sbt-android 1.7.1
+ * Upgrade to sbt-scalariform 1.7.1
+
 ## 0.5.11
 
 _2016_10-19_
