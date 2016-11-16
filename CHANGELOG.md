@@ -1,8 +1,15 @@
 # Changelog
 
+## 0.5.13
+
+_2016-11-16_
+
+ * Upgrade to Android support library 25.0.1
+ * Upgrade to play-services 9.8.0
+
 ## 0.5.12
 
-_2016_11-10_
+_2016-11-10_
 
  * Upgrade to cats 0.8.1
  * Upgrade to monix 2.1.0
@@ -12,7 +19,7 @@ _2016_11-10_
 
 ## 0.5.11
 
-_2016_10-19_
+_2016-10-19_
 
  * Upgrade to sbt-android 1.7.0
  * Upgrade to monix 2.0.4
@@ -21,29 +28,29 @@ _2016_10-19_
 
 ## 0.5.10
 
-_2016_09-19_
+_2016-09-19_
 
  * Improve monix module logging
  * Upgrade to monix 2.0.1
  * Upgrade to cats 0.7.2
- * Upgrade to Android support library 24.2.1 
+ * Upgrade to Android support library 24.2.1
 
 ## 0.5.9
 
-_2016_09-06_
+_2016-09-06_
 
  * Add new compat method Settings.canDrawOverlays
 
 ## 0.5.8
 
-_2016_09-02_
+_2016-09-02_
 
  * Upgrade to monix 2.0.0
  * Upgrade to sbt-android 1.6.16
 
 ## 0.5.7
 
-_2016_08-22_
+_2016-08-22_
 
  * New module: play-services
  * Upgrade to sbt-android 1.6.13
@@ -55,7 +62,7 @@ _2016_08-22_
 
 ## 0.5.6
 
-_2016_07-27_
+_2016-07-27_
 
  * Upgrade to Android support library 24.1.1
 
