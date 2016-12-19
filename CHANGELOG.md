@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.14
+
+_2016-11-19_
+
+ * Upgrade to Android support library 25.1.0
+ * Upgrade to play-services 10.0.1
+ * Upgrade to monix 2.1.1
+ * Upgrade to sbt-android 1.7.2
+
 ## 0.5.13
 
 _2016-11-16_
