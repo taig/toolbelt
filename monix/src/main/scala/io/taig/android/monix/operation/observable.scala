@@ -9,11 +9,11 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
 import com.google.android.gms.common.api.{ GoogleApiClient, ResultCallback, Status }
 import com.google.android.gms.location.{ LocationListener, LocationRequest, LocationServices }
-import io.taig.android.log.Log
 import io.taig.android.monix.GoogleApiClientEvent
 import io.taig.android.monix.GoogleApiClientEvent.{ Connected, Suspended }
 import monix.execution.Cancelable
 import monix.reactive.{ Observable, OverflowStrategy }
+import rx.RxReactiveStreams
 
 final class observable[+T]( observable: Observable[T] )
 
@@ -23,8 +23,7 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
         strategy: OverflowStrategy.Synchronous[Location] = OverflowStrategy.Unbounded
     )(
         implicit
-        c: Context,
-        t: Log.Tag
+        c: Context
     ): Observable[Location] = observable.flatMap {
         case Connected( client, _ ) ⇒
             Observable.create( strategy ) { downstream ⇒
@@ -33,8 +32,6 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
                         downstream.onNext( location )
                     }
                 }
-
-                Log.d( "Adding registering for location updates" )
 
                 val pending = LocationServices.FusedLocationApi.requestLocationUpdates(
                     client,
@@ -57,8 +54,6 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
 
                 Cancelable { () ⇒
                     if ( client.isConnected ) {
-                        Log.d( "Removing registration for location updates" )
-
                         LocationServices.FusedLocationApi.removeLocationUpdates(
                             client,
                             listener
@@ -72,23 +67,23 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
 
 object observable {
     final class companion( observable: Observable.type ) {
+        def fromRx[T]( observable: rx.Observable[T] ): Observable[T] = {
+            val publisher = RxReactiveStreams.toPublisher( observable )
+            Observable.fromReactivePublisher( publisher )
+        }
+
         def fromGoogleApiClient(
             client:   GoogleApiClient,
             strategy: OverflowStrategy.Synchronous[GoogleApiClientEvent] = OverflowStrategy.Unbounded
-        )(
-            implicit
-            t: Log.Tag
         ): Observable[GoogleApiClientEvent] = {
             Observable.create[GoogleApiClientEvent]( strategy ) { downstream ⇒
                 client.registerConnectionCallbacks {
                     new ConnectionCallbacks {
                         override def onConnected( bundle: Bundle ) = {
-                            Log.d( "Connection to GoogleApiClient established" )
                             downstream.onNext( Connected( client, bundle ) )
                         }
 
                         override def onConnectionSuspended( cause: Int ) = {
-                            Log.d( "Connection to GoogleApiClient suspended" )
                             downstream.onNext( Suspended( client, cause ) )
                         }
                     }
@@ -103,13 +98,9 @@ object observable {
                     }
                 }
 
-                Log.d( "Connecting to GoogleApiClient ..." )
                 client.connect()
 
-                Cancelable { () ⇒
-                    Log.d( "Disconnecting from GoogleApiClient ..." )
-                    client.disconnect()
-                }
+                Cancelable( client.disconnect )
             }
         }
     }

@@ -5,8 +5,8 @@ lazy val toolbelt = project.in( file( "." ) )
         name := "toolbelt",
         normalizedName := name.value
     )
-    .dependsOn( compatibility, functional, graphic, intent, log, systemService, unit, util, context, monix, widget, concurrent, resource, app )
-    .aggregate( compatibility, functional, graphic, intent, log, systemService, unit, util, context, monix, widget, concurrent, resource, app )
+    .dependsOn( compatibility, functional, graphic, intent, log, monix, systemService, unit, util, context, widget, concurrent, resource, app )
+    .aggregate( compatibility, functional, graphic, intent, log, monix, systemService, unit, util, context, widget, concurrent, resource, app )
 
 lazy val compatibility = project
     .enablePlugins( AndroidJar )
@@ -41,6 +41,20 @@ lazy val log = project
     .enablePlugins( AndroidJar )
     .settings( Settings.common ++ Settings.android )
 
+lazy val monix = project
+    .enablePlugins( AndroidJar )
+    .settings( Settings.common ++ Settings.android )
+    .settings(
+        libraryDependencies ++=
+        Settings.dependency.playServicesBase % "optional" ::
+        Settings.dependency.playServicesLocation % "optional" ::
+        Settings.dependency.monixEval ::
+        Settings.dependency.monixReactive ::
+        Settings.dependency.rxJava ::
+        Settings.dependency.rxJavaReactiveStream ::
+        Nil
+    )
+
 lazy val systemService = project.in( file( "system-service" ) )
     .enablePlugins( AndroidJar )
     .settings( Settings.common ++ Settings.android )
@@ -59,19 +73,6 @@ lazy val util = project
 lazy val context = project
     .enablePlugins( AndroidJar )
     .settings( Settings.common ++ Settings.android )
-    .dependsOn( log )
-
-lazy val monix = project
-    .enablePlugins( AndroidJar )
-    .settings( Settings.common ++ Settings.android )
-    .settings(
-        libraryDependencies ++=
-            Settings.dependency.playServicesBase % "optional" ::
-            Settings.dependency.playServicesLocation % "optional" ::
-            Settings.dependency.monixEval ::
-            Settings.dependency.monixReactive ::
-            Nil
-    )
     .dependsOn( log )
 
 lazy val widget = project
