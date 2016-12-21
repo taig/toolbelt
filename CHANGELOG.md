@@ -1,8 +1,16 @@
 # Changelog
 
+## 0.5.15
+
+_2016-12-21_
+
+ * Add monix `Observable.fromRx` enrichment
+ * Module monix no longer depends on module log
+ * Upgrade to monix 2.1.2
+
 ## 0.5.14
 
-_2016-11-19_
+_2016-12-19_
 
  * Upgrade to Android support library 25.1.0
  * Upgrade to play-services 10.0.1
