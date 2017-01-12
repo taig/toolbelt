@@ -46,14 +46,15 @@ lazy val monix = project
     .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-        Settings.dependency.playServicesBase % "optional" ::
-        Settings.dependency.playServicesLocation % "optional" ::
-        Settings.dependency.monixEval ::
-        Settings.dependency.monixReactive ::
-        Settings.dependency.rxJava ::
-        Settings.dependency.rxJavaReactiveStream ::
-        Nil
+            Settings.dependency.playServicesBase ::
+            Settings.dependency.playServicesLocation ::
+            Settings.dependency.monixEval ::
+            Settings.dependency.monixReactive ::
+            Settings.dependency.rxJava ::
+            Settings.dependency.rxJavaReactiveStream ::
+            Nil
     )
+    .dependsOn( app )
 
 lazy val systemService = project.in( file( "system-service" ) )
     .enablePlugins( AndroidJar )

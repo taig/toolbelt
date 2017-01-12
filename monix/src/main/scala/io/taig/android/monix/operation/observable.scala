@@ -1,7 +1,9 @@
 package io.taig.android.monix.operation
 
 import java.io.IOException
+import java.util.UUID
 
+import android.app.FragmentManager
 import android.content.Context
 import android.location.Location
 import android.os.Bundle
@@ -9,7 +11,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
 import com.google.android.gms.common.api.{ GoogleApiClient, ResultCallback, Status }
 import com.google.android.gms.location.{ LocationListener, LocationRequest, LocationServices }
-import io.taig.android.monix.GoogleApiClientEvent
+import io.taig.android.monix._
 import io.taig.android.monix.GoogleApiClientEvent.{ Connected, Suspended }
 import monix.execution.Cancelable
 import monix.reactive.{ Observable, OverflowStrategy }
@@ -101,6 +103,28 @@ object observable {
                 client.connect()
 
                 Cancelable( client.disconnect )
+            }
+        }
+
+        def fromReactiveDialogFragment( dialog: app.fragment.Reactive )(
+            manager:  FragmentManager,
+            tag:      Option[String]                                            = None,
+            strategy: OverflowStrategy.Synchronous[app.fragment.Reactive.Event] = OverflowStrategy.Unbounded
+        ): Observable[app.fragment.Reactive.Event] = {
+            Observable.create( strategy ) { downstream ⇒
+                val helper = app.fragment.Reactive.Helper(
+                    downstream,
+                    dialog,
+                    manager,
+                    tag.getOrElse( UUID.randomUUID().toString )
+                )
+
+                manager
+                    .beginTransaction()
+                    .add( helper, s"${helper.tag}-helper" )
+                    .commit()
+
+                Cancelable.empty
             }
         }
     }
