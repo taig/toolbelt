@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.16
+
+_2017-01-12_
+
+ * Experimental reactive Fragment for `monix.Observable`
+
 ## 0.5.15
 
 _2016-12-21_
