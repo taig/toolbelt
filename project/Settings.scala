@@ -35,7 +35,7 @@ object Settings {
 
         val androidSupportV13 = "com.android.support" % "support-v13" % androidSupport
 
-        val cats = "0.8.1"
+        val cats = "0.9.0"
 
         val monix = "2.2.0"
 
