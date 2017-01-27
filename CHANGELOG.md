@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.17
+
+_2017-01-27_
+
+ *  Upgrade to rxjava 1.2.5
+ *  Upgrade to sbt-android 1.7.3
+ *  Upgrade to cats 0.9.0
+ *  Upgrade to monix 2.2.0
+
 ## 0.5.16
 
 _2017-01-12_
