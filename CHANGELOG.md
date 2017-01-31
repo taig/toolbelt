@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.18
+
+_2017-01-31_
+
+ * Upgrade to monix 2.2.1
+ * Upgrade to sbt-android 1.7.4
+
 ## 0.5.17
 
 _2017-01-27_
