@@ -6,9 +6,8 @@ import android.os.{ Handler, Looper }
 import io.taig.android.concurrent.Executor
 import io.taig.android.log.Log
 import io.taig.android.util._
-import monix.execution.schedulers.ExecutionModel
-import monix.execution.schedulers.ExecutionModel.SynchronousExecution
-import monix.execution.{ Cancelable, Scheduler }
+import monix.execution.ExecutionModel.SynchronousExecution
+import monix.execution.{ Cancelable, ExecutionModel, Scheduler }
 
 class Ui extends Scheduler {
     val handler = new Handler( Looper.getMainLooper )
@@ -28,49 +27,80 @@ class Ui extends Scheduler {
         Cancelable.empty
     }
 
-    override def scheduleAtFixedRate( delay: Long, period: Long, unit: TimeUnit, runnable: Runnable ) = {
+    override def scheduleAtFixedRate(
+        delay:    Long,
+        period:   Long,
+        unit:     TimeUnit,
+        runnable: Runnable
+    ) = {
         val delayMillis = unit.toMillis( delay )
         val periodMillis = unit.toMillis( period )
 
         var active = true
 
         handler.postDelayed(
-            keepSchedulingAtFixedRate( runnable, periodMillis, active == false ),
+            keepSchedulingAtFixedRate(
+                runnable,
+                periodMillis,
+                () ⇒ active == false
+            ),
             delayMillis
         )
 
         Cancelable( () ⇒ active = false )
     }
 
-    def keepSchedulingAtFixedRate( runnable: Runnable, period: Long, isCanceled: ⇒ Boolean ): Runnable = () ⇒ {
-        if ( !isCanceled ) {
-            handler.postDelayed( keepSchedulingAtFixedRate( runnable, period, isCanceled ), period )
+    def keepSchedulingAtFixedRate(
+        runnable:   Runnable,
+        period:     Long,
+        isCanceled: () ⇒ Boolean
+    ): Runnable = () ⇒ {
+        if ( !isCanceled() ) {
+            handler.postDelayed(
+                keepSchedulingAtFixedRate( runnable, period, isCanceled ),
+                period
+            )
             runnable.run()
         }
     }
 
-    override def scheduleWithFixedDelay( delay: Long, period: Long, unit: TimeUnit, runnable: Runnable ) = {
+    override def scheduleWithFixedDelay(
+        delay:    Long,
+        period:   Long,
+        unit:     TimeUnit,
+        runnable: Runnable
+    ) = {
         val delayMillis = unit.toMillis( delay )
         val periodMillis = unit.toMillis( period )
 
         var active = true
 
         handler.postDelayed(
-            keepSchedulingWithFixedDelay( runnable, periodMillis, active == false ),
+            keepSchedulingWithFixedDelay(
+                runnable,
+                periodMillis,
+                () ⇒ active == false
+            ),
             delayMillis
         )
 
         Cancelable( () ⇒ active = false )
     }
 
-    def keepSchedulingWithFixedDelay( runnable: Runnable, period: Long, isCanceled: ⇒ Boolean ): Runnable = () ⇒ {
-        if ( !isCanceled ) {
+    def keepSchedulingWithFixedDelay(
+        runnable:   Runnable,
+        period:     Long,
+        isCanceled: () ⇒ Boolean
+    ): Runnable = () ⇒ {
+        if ( !isCanceled() ) {
             runnable.run()
-            handler.postDelayed( keepSchedulingWithFixedDelay( runnable, period, isCanceled ), period )
+            handler.postDelayed(
+                keepSchedulingWithFixedDelay( runnable, period, isCanceled ),
+                period
+            )
         }
     }
 
-    override def withExecutionModel( model: ExecutionModel ): Scheduler = {
+    override def withExecutionModel( model: ExecutionModel ): Scheduler =
         new Ui
-    }
 }
