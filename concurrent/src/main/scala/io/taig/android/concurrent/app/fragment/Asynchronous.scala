@@ -12,7 +12,8 @@ import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor, Future }
 
 trait Asynchronous extends Fragment { self ⇒
     implicit protected class AsynchronousFuture[T]( future: Future[T] ) {
-        def ui: AsyncApi[T, self.type] = new AsyncApi[T, self.type]( future, self )( executor )
+        def ui: AsyncApi[T, self.type] =
+            new AsyncApi[T, self.type]( future, self )( executor )
     }
 
     private var ready = false

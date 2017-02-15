@@ -79,7 +79,7 @@ object Reactive {
     sealed trait Event
 
     object Event {
-        case class Action( name: String ) extends Event
+        case class Action[T]( value: T ) extends Event
         case class ActivityCreated( state: Option[Bundle] ) extends Event
         case class Attach( activity: Activity ) extends Event
         case class Create( state: Option[Bundle] ) extends Event
