@@ -9,11 +9,13 @@ import android.location.Location
 import android.os.Bundle
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
-import com.google.android.gms.common.api.{ GoogleApiClient, ResultCallback, Status }
+import com.google.android.gms.common.api.{ GoogleApiClient, PendingResult, ResultCallback, Status }
 import com.google.android.gms.location.{ LocationListener, LocationRequest, LocationServices }
+import io.taig.android.log.Log
 import io.taig.android.monix._
 import io.taig.android.monix.GoogleApiClientEvent.{ Connected, Suspended }
 import monix.execution.Cancelable
+import monix.execution.cancelables.{ CompositeCancelable, MultiAssignmentCancelable }
 import monix.reactive.{ Observable, OverflowStrategy }
 import rx.RxReactiveStreams
 
@@ -25,45 +27,74 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
         strategy: OverflowStrategy.Synchronous[Location] = OverflowStrategy.Unbounded
     )(
         implicit
-        c: Context
-    ): Observable[Location] = observable.flatMap {
-        case Connected( client, _ ) ⇒
-            Observable.create( strategy ) { downstream ⇒
-                val listener = new LocationListener {
-                    override def onLocationChanged( location: Location ) = {
-                        downstream.onNext( location )
-                    }
-                }
+        c: Context,
+        t: Log.Tag
+    ): Observable[Location] = Observable.create[Location]( strategy ) { downstream ⇒
+        import downstream.scheduler
 
-                val pending = LocationServices.FusedLocationApi.requestLocationUpdates(
-                    client,
-                    request,
-                    listener,
-                    c.getMainLooper
-                )
+        val connection = MultiAssignmentCancelable()
+        val cancelable = CompositeCancelable( connection )
 
-                val result = new ResultCallback[Status] {
-                    override def onResult( status: Status ) = {
-                        if ( !status.isSuccess ) {
-                            downstream.onError {
-                                new IllegalStateException( status.getStatusMessage )
-                            }
-                        }
-                    }
-                }
+        val listener = new LocationListener {
+            override def onLocationChanged( location: Location ): Unit = {
+                Log.d( s"Received location update: $location" )
+                downstream.onNext( location )
+            }
+        }
 
-                pending.setResultCallback( result )
+        def subscribe( client: GoogleApiClient ): PendingResult[Status] = {
+            Log.d( "Subscribing to location updates" )
 
-                Cancelable { () ⇒
-                    if ( client.isConnected ) {
-                        LocationServices.FusedLocationApi.removeLocationUpdates(
-                            client,
-                            listener
-                        )
+            val pending = LocationServices.FusedLocationApi.requestLocationUpdates(
+                client,
+                request,
+                listener,
+                c.getMainLooper
+            )
+
+            val result = new ResultCallback[Status] {
+                override def onResult( status: Status ) = {
+                    if ( !status.isSuccess ) {
+                        val message = status.getStatusMessage
+                        val exception = new IllegalStateException( message )
+                        downstream.onError( exception )
                     }
                 }
             }
-        case Suspended( _, _ ) ⇒ Observable.empty[Location]
+
+            pending.setResultCallback( result )
+            pending
+        }
+
+        def unsubscribe( client: GoogleApiClient ): Unit = {
+            if ( client.isConnected ) {
+                Log.d( "Unsubscribing from location updates" )
+
+                LocationServices.FusedLocationApi.removeLocationUpdates(
+                    client,
+                    listener
+                )
+            } else {
+                Log.d {
+                    "Not unsubscribing from location updates, " +
+                        "because GoogleApiClient is not connected"
+                }
+            }
+        }
+
+        cancelable += observable.foreach {
+            case Connected( client, _ ) ⇒
+                val pending = subscribe( client )
+
+                connection := Cancelable { () ⇒
+                    pending.cancel()
+                    unsubscribe( client )
+                }
+            case Suspended( client, _ ) ⇒
+                connection := Cancelable( () ⇒ unsubscribe( client ) )
+        }
+
+        cancelable
     }
 }
 
@@ -77,15 +108,20 @@ object observable {
         def fromGoogleApiClient(
             client:   GoogleApiClient,
             strategy: OverflowStrategy.Synchronous[GoogleApiClientEvent] = OverflowStrategy.Unbounded
+        )(
+            implicit
+            t: Log.Tag
         ): Observable[GoogleApiClientEvent] = {
             Observable.create[GoogleApiClientEvent]( strategy ) { downstream ⇒
                 client.registerConnectionCallbacks {
                     new ConnectionCallbacks {
                         override def onConnected( bundle: Bundle ) = {
+                            Log.d( "Connection to GoogleApiClient established" )
                             downstream.onNext( Connected( client, bundle ) )
                         }
 
                         override def onConnectionSuspended( cause: Int ) = {
+                            Log.d( "Connection to GoogleApiClient suspended" )
                             downstream.onNext( Suspended( client, cause ) )
                         }
                     }
@@ -94,15 +130,28 @@ object observable {
                 client.registerConnectionFailedListener {
                     new OnConnectionFailedListener {
                         override def onConnectionFailed( result: ConnectionResult ) = {
-                            val message = s"${result.getErrorMessage} (${result.getErrorCode})"
-                            downstream.onError( new IOException( message ) )
+                            val message = result.getErrorMessage +
+                                s" (${result.getErrorCode})"
+                            val exception = new IOException( message )
+
+                            Log.d(
+                                "Connection to GoogleApiClient failed",
+                                exception
+                            )
+
+                            downstream.onError( exception )
                         }
                     }
                 }
 
+                Log.d( "Connecting to GoogleApiClient" )
+
                 client.connect()
 
-                Cancelable( client.disconnect )
+                Cancelable { () ⇒
+                    Log.d( "Disconnecting from GoogleApiClient" )
+                    client.disconnect()
+                }
             }
         }
 

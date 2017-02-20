@@ -54,7 +54,7 @@ lazy val monix = project
             Settings.dependency.rxJavaReactiveStream ::
             Nil
     )
-    .dependsOn( app )
+    .dependsOn( app, log )
 
 lazy val systemService = project.in( file( "system-service" ) )
     .enablePlugins( AndroidJar )
