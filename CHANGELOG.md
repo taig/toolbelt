@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.20
+
+_2017-02-20_
+
+ * Improve GoogleApiClient Observable resource management
+ * Upgrade to sbt-android 1.7.5
+
 ## 0.5.19
 
 _2017-02-15_
