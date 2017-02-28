@@ -16,7 +16,7 @@ object Executor {
     implicit val Pool: Scheduler = Scheduler {
         ExecutionContext.fromExecutor(
             AsyncTask.THREAD_POOL_EXECUTOR,
-            exception ⇒ report( exception, Log.Tag( Pool.getClass.getName ) )
+            report( _, Log.Tag( Pool.getClass.getName ) )
         )
     }
 
@@ -26,7 +26,7 @@ object Executor {
     val Single: Scheduler = Scheduler {
         ExecutionContext.fromExecutor(
             AsyncTask.SERIAL_EXECUTOR,
-            exception ⇒ report( exception, Log.Tag( Single.getClass.getName ) )
+            report( _, Log.Tag( Single.getClass.getName ) )
         )
     }
 

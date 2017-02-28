@@ -10,14 +10,16 @@ import android.os.Bundle
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
 import com.google.android.gms.common.api.{ GoogleApiClient, PendingResult, ResultCallback, Status }
-import com.google.android.gms.location.{ LocationListener, LocationRequest, LocationServices }
+import com.google.android.gms.location.{ ActivityRecognitionResult, LocationListener, LocationRequest, LocationServices }
 import io.taig.android.log.Log
-import io.taig.android.monix._
 import io.taig.android.monix.GoogleApiClientEvent.{ Connected, Suspended }
+import io.taig.android.monix._
 import monix.execution.Cancelable
 import monix.execution.cancelables.{ CompositeCancelable, MultiAssignmentCancelable }
 import monix.reactive.{ Observable, OverflowStrategy }
 import rx.RxReactiveStreams
+
+import scala.concurrent.duration._
 
 final class observable[+T]( observable: Observable[T] )
 
@@ -154,6 +156,19 @@ object observable {
                 }
             }
         }
+
+        def activityRecognition(
+            client:   GoogleApiClient,
+            interval: FiniteDuration                                          = 10.seconds,
+            strategy: OverflowStrategy.Synchronous[ActivityRecognitionResult] = OverflowStrategy.Unbounded
+        )(
+            implicit
+            c: Context,
+            t: Log.Tag
+        ): Observable[ActivityRecognitionResult] =
+            Observable.create( strategy ) {
+                ActivityRecognition( client, interval, _ )
+            }
 
         def fromReactiveDialogFragment( dialog: app.fragment.Reactive )(
             manager:  FragmentManager,

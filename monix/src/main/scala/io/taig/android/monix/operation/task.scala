@@ -9,7 +9,7 @@ final class task[+T]( task: Task[T] )
 object task {
     final class companion( task: Task.type ) {
         def fromPendingResult[R <: Result](
-            pending: PendingResult[R]
+            pending: ⇒ PendingResult[R]
         ): Task[R] = Task.create { ( _, callback ) ⇒
             pending.setResultCallback( new ResultCallback[R] {
                 override def onResult( result: R ) = {
