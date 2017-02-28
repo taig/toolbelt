@@ -3,7 +3,6 @@ package io.taig.android.monix
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.{ Context, Intent, IntentFilter }
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.ActivityRecognition.ActivityRecognitionApi
 import com.google.android.gms.location.ActivityRecognitionResult
 import io.taig.android.app.broadcast.Receiver

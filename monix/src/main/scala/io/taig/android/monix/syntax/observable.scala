@@ -1,6 +1,6 @@
 package io.taig.android.monix.syntax
 
-import io.taig.android.monix.{ GoogleApiClientEvent, operation }
+import io.taig.android.monix.{ GoogleApiClient, operation }
 import monix.reactive.Observable
 
 import scala.language.implicitConversions
@@ -19,7 +19,7 @@ trait observable {
     }
 
     implicit def monixObservableGoogleApiClientEvent(
-        observable: Observable[GoogleApiClientEvent]
+        observable: Observable[GoogleApiClient.Event]
     ): operation.observableGoogleApiClientEvent = {
         new operation.observableGoogleApiClientEvent( observable )
     }

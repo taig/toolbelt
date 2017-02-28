@@ -1,18 +1,15 @@
 package io.taig.android.monix.operation
 
-import java.io.IOException
 import java.util.UUID
 
 import android.app.FragmentManager
 import android.content.Context
 import android.location.Location
-import android.os.Bundle
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
-import com.google.android.gms.common.api.{ GoogleApiClient, PendingResult, ResultCallback, Status }
+import com.google.android.gms
+import com.google.android.gms.common.api.{ PendingResult, ResultCallback, Status }
 import com.google.android.gms.location.{ ActivityRecognitionResult, LocationListener, LocationRequest, LocationServices }
 import io.taig.android.log.Log
-import io.taig.android.monix.GoogleApiClientEvent.{ Connected, Suspended }
+import io.taig.android.monix.GoogleApiClient.Event.{ Connected, Suspended }
 import io.taig.android.monix._
 import monix.execution.Cancelable
 import monix.execution.cancelables.{ CompositeCancelable, MultiAssignmentCancelable }
@@ -23,7 +20,9 @@ import scala.concurrent.duration._
 
 final class observable[+T]( observable: Observable[T] )
 
-final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClientEvent] ) {
+final class observableGoogleApiClientEvent(
+        observable: Observable[GoogleApiClient.Event]
+) {
     def locationUpdates(
         request:  LocationRequest,
         strategy: OverflowStrategy.Synchronous[Location] = OverflowStrategy.Unbounded
@@ -44,7 +43,9 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
             }
         }
 
-        def subscribe( client: GoogleApiClient ): PendingResult[Status] = {
+        def subscribe(
+            client: gms.common.api.GoogleApiClient
+        ): PendingResult[Status] = {
             Log.d( "Subscribing to location updates" )
 
             val pending = LocationServices.FusedLocationApi.requestLocationUpdates(
@@ -68,7 +69,7 @@ final class observableGoogleApiClientEvent( observable: Observable[GoogleApiClie
             pending
         }
 
-        def unsubscribe( client: GoogleApiClient ): Unit = {
+        def unsubscribe( client: gms.common.api.GoogleApiClient ): Unit = {
             if ( client.isConnected ) {
                 Log.d( "Unsubscribing from location updates" )
 
@@ -109,56 +110,17 @@ object observable {
 
         def fromGoogleApiClient(
             client:   GoogleApiClient,
-            strategy: OverflowStrategy.Synchronous[GoogleApiClientEvent] = OverflowStrategy.Unbounded
+            strategy: OverflowStrategy.Synchronous[GoogleApiClient.Event] = OverflowStrategy.Unbounded
         )(
             implicit
             t: Log.Tag
-        ): Observable[GoogleApiClientEvent] = {
-            Observable.create[GoogleApiClientEvent]( strategy ) { downstream ⇒
-                client.registerConnectionCallbacks {
-                    new ConnectionCallbacks {
-                        override def onConnected( bundle: Bundle ) = {
-                            Log.d( "Connection to GoogleApiClient established" )
-                            downstream.onNext( Connected( client, bundle ) )
-                        }
-
-                        override def onConnectionSuspended( cause: Int ) = {
-                            Log.d( "Connection to GoogleApiClient suspended" )
-                            downstream.onNext( Suspended( client, cause ) )
-                        }
-                    }
-                }
-
-                client.registerConnectionFailedListener {
-                    new OnConnectionFailedListener {
-                        override def onConnectionFailed( result: ConnectionResult ) = {
-                            val message = result.getErrorMessage +
-                                s" (${result.getErrorCode})"
-                            val exception = new IOException( message )
-
-                            Log.d(
-                                "Connection to GoogleApiClient failed",
-                                exception
-                            )
-
-                            downstream.onError( exception )
-                        }
-                    }
-                }
-
-                Log.d( "Connecting to GoogleApiClient" )
-
-                client.connect()
-
-                Cancelable { () ⇒
-                    Log.d( "Disconnecting from GoogleApiClient" )
-                    client.disconnect()
-                }
+        ): Observable[GoogleApiClient.Event] =
+            Observable.create[GoogleApiClient.Event]( strategy ) {
+                GoogleApiClient( client, _ )
             }
-        }
 
         def activityRecognition(
-            client:   GoogleApiClient,
+            client:   gms.common.api.GoogleApiClient,
             interval: FiniteDuration                                          = 10.seconds,
             strategy: OverflowStrategy.Synchronous[ActivityRecognitionResult] = OverflowStrategy.Unbounded
         )(
