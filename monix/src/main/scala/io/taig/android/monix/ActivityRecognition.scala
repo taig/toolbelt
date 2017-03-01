@@ -28,7 +28,7 @@ object ActivityRecognition {
     ): Cancelable = {
         import subscriber.scheduler
 
-        class ActivityUpdate extends Receiver {
+        object ActivityUpdate extends Receiver {
             override def onReceive( intent: Intent )(
                 implicit
                 c: Context
@@ -40,8 +40,7 @@ object ActivityRecognition {
         }
 
         val filter = new IntentFilter( Filter )
-        val receiver = new ActivityUpdate
-        c.registerReceiver( receiver, filter )
+        c.registerReceiver( ActivityUpdate, filter )
 
         val intent = PendingIntent.getBroadcast(
             c,
@@ -67,7 +66,10 @@ object ActivityRecognition {
         Cancelable { () ⇒
             Log.d( "Unsubscribing from activity recognition updates" )
             pending.cancel()
-            ActivityRecognitionApi.removeActivityUpdates( client, intent )
+
+            if ( client.isConnected ) {
+                ActivityRecognitionApi.removeActivityUpdates( client, intent )
+            }
         }
     }
 }

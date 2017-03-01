@@ -149,10 +149,10 @@ object observable {
             manager:  FragmentManager,
             tag:      Option[String]                                            = None,
             strategy: OverflowStrategy.Synchronous[app.fragment.Reactive.Event] = OverflowStrategy.Unbounded
-        ): Observable[app.fragment.Reactive.Event] = {
-            Observable.create( strategy ) { downstream ⇒
+        ): Observable[app.fragment.Reactive.Event] =
+            Observable.create( strategy ) { scheduler ⇒
                 val helper = app.fragment.Reactive.Helper(
-                    downstream,
+                    scheduler,
                     dialog,
                     manager,
                     tag.getOrElse( UUID.randomUUID().toString )
@@ -165,6 +165,5 @@ object observable {
 
                 Cancelable.empty
             }
-        }
     }
 }

@@ -48,9 +48,13 @@ object LocationUpdates {
 
         Cancelable { () ⇒
             Log.d( "Unsubscribing from location updates" )
+
             result.cancel()
-            LocationServices.FusedLocationApi
-                .removeLocationUpdates( client, listener )
+
+            if ( client.isConnected ) {
+                LocationServices.FusedLocationApi
+                    .removeLocationUpdates( client, listener )
+            }
         }
     }
 }
