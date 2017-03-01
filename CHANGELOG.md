@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.21
+
+_2017-03-01_
+
+ * Upgrade to sbt-android 1.7.6
+ * Introduce streamlined `Observable.locationUpdate`
+
 ## 0.5.20
 
 _2017-02-20_
