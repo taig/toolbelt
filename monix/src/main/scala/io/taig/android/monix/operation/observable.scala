@@ -120,7 +120,7 @@ object observable {
             }
 
         def activityRecognition(
-            client:   gms.common.api.GoogleApiClient,
+            client:   GoogleApiClient,
             interval: FiniteDuration                                          = 10.seconds,
             strategy: OverflowStrategy.Synchronous[ActivityRecognitionResult] = OverflowStrategy.Unbounded
         )(
@@ -130,6 +130,19 @@ object observable {
         ): Observable[ActivityRecognitionResult] =
             Observable.create( strategy ) {
                 ActivityRecognition( client, interval, _ )
+            }
+
+        def locationUpdates(
+            client:   GoogleApiClient,
+            request:  LocationRequest,
+            strategy: OverflowStrategy.Synchronous[Location] = OverflowStrategy.Unbounded
+        )(
+            implicit
+            c: Context,
+            t: Log.Tag
+        ): Observable[Location] =
+            Observable.create( strategy ) {
+                LocationUpdates( client, request, _ )
             }
 
         def fromReactiveDialogFragment( dialog: app.fragment.Reactive )(

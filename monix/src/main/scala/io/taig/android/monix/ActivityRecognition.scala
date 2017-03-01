@@ -57,7 +57,7 @@ object ActivityRecognition {
 
         val pending = Task.fromPendingResult( result ).foreach { status ⇒
             if ( !status.isSuccess ) {
-                val message = "ActivityRecognition failed: " +
+                val message = "Activity recognition updates failed: " +
                     s"${status.getStatusMessage} (${status.getStatusCode})"
                 val exception = new IllegalStateException( message )
                 subscriber.onError( exception )
