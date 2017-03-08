@@ -6,10 +6,22 @@ import com.google.android.gms.location.{ LocationListener, LocationRequest, Loca
 import io.taig.android.log.Log
 import io.taig.android.monix.syntax.task._
 import monix.eval.Task
+import monix.execution.Ack.Stop
 import monix.execution.Cancelable
 import monix.reactive.observers.Subscriber
 
 object LocationUpdates {
+    def unsubscribe( client: GoogleApiClient, listener: LocationListener )(
+        implicit
+        t: Log.Tag
+    ): Unit =
+        if ( client.isConnected ) {
+            Log.d( "Unsubscribing from location updates" )
+
+            LocationServices.FusedLocationApi
+                .removeLocationUpdates( client, listener )
+        }
+
     def apply(
         client:     GoogleApiClient,
         request:    LocationRequest,
@@ -24,7 +36,10 @@ object LocationUpdates {
         val listener = new LocationListener {
             override def onLocationChanged( location: Location ): Unit = {
                 Log.d( s"Received location update: $location" )
-                subscriber.onNext( location )
+
+                if ( subscriber.onNext( location ) == Stop ) {
+                    unsubscribe( client, this )
+                }
             }
         }
 
@@ -47,14 +62,8 @@ object LocationUpdates {
         }
 
         Cancelable { () ⇒
-            Log.d( "Unsubscribing from location updates" )
-
             result.cancel()
-
-            if ( client.isConnected ) {
-                LocationServices.FusedLocationApi
-                    .removeLocationUpdates( client, listener )
-            }
+            unsubscribe( client, listener )
         }
     }
 }

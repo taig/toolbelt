@@ -16,7 +16,7 @@ import monix.reactive.observers.Subscriber
 import scala.concurrent.duration._
 
 object ActivityRecognition {
-    def disconnect( client: GoogleApiClient, intent: PendingIntent )(
+    def unsubscribe( client: GoogleApiClient, intent: PendingIntent )(
         implicit
         t: Log.Tag
     ): Unit =
@@ -41,7 +41,7 @@ object ActivityRecognition {
             Log.d( s"Received activity recognition update: $result" )
 
             if ( subscriber.onNext( result ) == Stop ) {
-                disconnect( client, pending )
+                unsubscribe( client, pending )
             }
         }
     }
@@ -86,7 +86,7 @@ object ActivityRecognition {
 
         Cancelable { () ⇒
             cancelable.cancel()
-            disconnect( client, intent )
+            unsubscribe( client, intent )
         }
     }
 }
