@@ -8,6 +8,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient.{ ConnectionCallbacks, OnConnectionFailedListener }
 import io.taig.android.log.Log
 import io.taig.android.monix.GoogleApiClient.Event.{ Connected, Suspended }
+import _root_.monix.execution.Ack.Stop
 import _root_.monix.execution.Cancelable
 import _root_.monix.reactive.observers.Subscriber
 
@@ -37,6 +38,15 @@ package object monix {
             ) extends Event
         }
 
+        def disconnect( client: GoogleApiClient )(
+            implicit
+            t: Log.Tag
+        ): Unit =
+            if ( client.isConnecting || client.isConnected ) {
+                Log.d( "Disconnecting from GoogleApiClient" )
+                client.disconnect()
+            }
+
         def apply(
             client:     gms.common.api.GoogleApiClient,
             subscriber: Subscriber.Sync[Event]
@@ -46,14 +56,22 @@ package object monix {
         ): Cancelable = {
             client.registerConnectionCallbacks {
                 new ConnectionCallbacks {
-                    override def onConnected( bundle: Bundle ) = {
+                    override def onConnected( bundle: Bundle ): Unit = {
                         Log.d( "Connection to GoogleApiClient established" )
-                        subscriber.onNext( Connected( client, bundle ) )
+
+                        val event = Connected( client, bundle )
+                        if ( subscriber.onNext( event ) == Stop ) {
+                            disconnect( client )
+                        }
                     }
 
-                    override def onConnectionSuspended( cause: Int ) = {
+                    override def onConnectionSuspended( cause: Int ): Unit = {
                         Log.d( "Connection to GoogleApiClient suspended" )
-                        subscriber.onNext( Suspended( client, cause ) )
+
+                        val event = Suspended( client, cause )
+                        if ( subscriber.onNext( event ) == Stop ) {
+                            disconnect( client )
+                        }
                     }
                 }
             }
@@ -80,8 +98,7 @@ package object monix {
             client.connect()
 
             Cancelable { () ⇒
-                Log.d( "Disconnecting from GoogleApiClient" )
-                client.disconnect()
+                disconnect( client )
             }
         }
     }
