@@ -9,13 +9,42 @@ import io.taig.android.app.broadcast.Receiver
 import io.taig.android.log.Log
 import io.taig.android.monix.syntax.task._
 import monix.eval.Task
+import monix.execution.Ack.Stop
 import monix.execution.Cancelable
 import monix.reactive.observers.Subscriber
 
 import scala.concurrent.duration._
 
 object ActivityRecognition {
-    val Filter = "io.taig.android.monix.ActivityUpdate"
+    def disconnect( client: GoogleApiClient, intent: PendingIntent )(
+        implicit
+        t: Log.Tag
+    ): Unit =
+        if ( client.isConnected ) {
+            Log.d( "Unsubscribing from activity recognition updates" )
+            ActivityRecognitionApi.removeActivityUpdates( client, intent )
+        }
+
+    class ActivityUpdate(
+            subscriber: Subscriber.Sync[ActivityRecognitionResult],
+            client:     GoogleApiClient,
+            pending:    PendingIntent
+    )(
+            implicit
+            t: Log.Tag
+    ) extends Receiver {
+        override def onReceive( intent: Intent )(
+            implicit
+            c: Context
+        ): Unit = {
+            val result = ActivityRecognitionResult.extractResult( intent )
+            Log.d( s"Received activity recognition update: $result" )
+
+            if ( subscriber.onNext( result ) == Stop ) {
+                disconnect( client, pending )
+            }
+        }
+    }
 
     def apply(
         client:     GoogleApiClient,
@@ -28,33 +57,25 @@ object ActivityRecognition {
     ): Cancelable = {
         import subscriber.scheduler
 
-        object ActivityUpdate extends Receiver {
-            override def onReceive( intent: Intent )(
-                implicit
-                c: Context
-            ): Unit = {
-                val result = ActivityRecognitionResult.extractResult( intent )
-                Log.d( s"Received activity recognition update: $result" )
-                subscriber.onNext( result )
-            }
-        }
-
-        val filter = new IntentFilter( Filter )
-        c.registerReceiver( ActivityUpdate, filter )
+        val id = "io.taig.android.monix.ActivityUpdate"
 
         val intent = PendingIntent.getBroadcast(
             c,
             8437,
-            new Intent( Filter ),
+            new Intent( id ),
             FLAG_UPDATE_CURRENT
         )
+
+        val receiver = new ActivityUpdate( subscriber, client, intent )
+        val filter = new IntentFilter( id )
+        c.registerReceiver( receiver, filter )
 
         Log.d( "Subscribing to activity recognition updates" )
 
         val result = ActivityRecognitionApi
             .requestActivityUpdates( client, interval.toSeconds, intent )
 
-        val pending = Task.fromPendingResult( result ).foreach { status ⇒
+        val cancelable = Task.fromPendingResult( result ).foreach { status ⇒
             if ( !status.isSuccess ) {
                 val message = "Activity recognition updates failed: " +
                     s"${status.getStatusMessage} (${status.getStatusCode})"
@@ -64,12 +85,8 @@ object ActivityRecognition {
         }
 
         Cancelable { () ⇒
-            Log.d( "Unsubscribing from activity recognition updates" )
-            pending.cancel()
-
-            if ( client.isConnected ) {
-                ActivityRecognitionApi.removeActivityUpdates( client, intent )
-            }
+            cancelable.cancel()
+            disconnect( client, intent )
         }
     }
 }
