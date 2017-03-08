@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.22
+
+_2017-03-08_
+
+ * Unsubscribe / disconnect from ActivityRecognition, Location updates and GoogleApiClient on Stop signal
+
 ## 0.5.21
 
 _2017-03-01_
