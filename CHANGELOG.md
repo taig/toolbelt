@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.23
+
+_2017-03-09_
+
+ * Add RxJava2 support (`Observavle.fromRx2()`)
+
 ## 0.5.22
 
 _2017-03-08_
