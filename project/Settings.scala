@@ -52,5 +52,7 @@ object Settings {
         val rxJava = "io.reactivex" % "rxjava" % "1.2.7"
 
         val rxJavaReactiveStream = "io.reactivex" % "rxjava-reactive-streams" % "1.2.1"
+
+        val rxJava2 = "io.reactivex.rxjava2" % "rxjava" % "2.0.7"
     }
 }

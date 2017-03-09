@@ -8,6 +8,7 @@ import android.location.Location
 import com.google.android.gms
 import com.google.android.gms.common.api.{ PendingResult, ResultCallback, Status }
 import com.google.android.gms.location.{ ActivityRecognitionResult, LocationListener, LocationRequest, LocationServices }
+import io.reactivex.BackpressureStrategy
 import io.taig.android.log.Log
 import io.taig.android.monix.GoogleApiClient.Event.{ Connected, Suspended }
 import io.taig.android.monix._
@@ -15,6 +16,7 @@ import monix.execution.Cancelable
 import monix.execution.cancelables.{ CompositeCancelable, MultiAssignmentCancelable }
 import monix.reactive.{ Observable, OverflowStrategy }
 import rx.RxReactiveStreams
+import io.{ reactivex ⇒ rx2 }
 
 import scala.concurrent.duration._
 
@@ -105,6 +107,14 @@ object observable {
     final class companion( observable: Observable.type ) {
         def fromRx[T]( observable: rx.Observable[T] ): Observable[T] = {
             val publisher = RxReactiveStreams.toPublisher( observable )
+            Observable.fromReactivePublisher( publisher )
+        }
+
+        def fromRx2[T](
+            observable: rx2.Observable[T],
+            strategy:   BackpressureStrategy = BackpressureStrategy.MISSING
+        ): Observable[T] = {
+            val publisher = observable.toFlowable( strategy )
             Observable.fromReactivePublisher( publisher )
         }
 

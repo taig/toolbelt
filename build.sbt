@@ -52,6 +52,7 @@ lazy val monix = project
             Settings.dependency.monixReactive ::
             Settings.dependency.rxJava ::
             Settings.dependency.rxJavaReactiveStream ::
+            Settings.dependency.rxJava2 ::
             Nil
     )
     .dependsOn( app, log )
