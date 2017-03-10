@@ -37,6 +37,12 @@ object Settings {
 
         val cats = "0.9.0"
 
+        val catsCore = "org.typelevel" %% "cats-core" % cats
+
+        val catsMacros = "org.typelevel" %% "cats-macros" % cats
+
+        val catsKernel = "org.typelevel" %% "cats-kernel" % cats
+
         val monix = "2.2.2"
 
         val monixEval = "io.monix" %% "monix-eval" % monix

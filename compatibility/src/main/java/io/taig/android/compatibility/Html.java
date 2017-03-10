@@ -14,6 +14,5 @@ public class Html {
         } else {
             return android.text.Html.fromHtml( source );
         }
-        
     }
 }

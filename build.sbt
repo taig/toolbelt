@@ -23,9 +23,9 @@ lazy val functional = project
     .settings(
         exportJars := true,
         libraryDependencies ++=
-            "org.typelevel" %% "cats-core" % Settings.dependency.cats ::
-            "org.typelevel" %% "cats-macros" % Settings.dependency.cats ::
-            "org.typelevel" %% "cats-kernel" % Settings.dependency.cats ::
+            Settings.dependency.catsCore ::
+            Settings.dependency.catsMacros ::
+            Settings.dependency.catsKernel ::
             Nil
     )
 

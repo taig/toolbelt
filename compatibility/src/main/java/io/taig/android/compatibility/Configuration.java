@@ -15,6 +15,5 @@ public class Configuration {
         } else {
             return context.getResources().getConfiguration().locale;
         }
-        
     }
 }
