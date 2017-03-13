@@ -9,482 +9,768 @@
 
 ```scala
 libraryDependencies ++=
-    "io.taig.android" %% "toolbelt-compatibility" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-functional" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-graphic" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-intent" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-log" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-system-service" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-unit" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-util" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-context" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-widget" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-concurrent" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-resource" % "0.5.23" ::
-    "io.taig.android" %% "toolbelt-app" % "0.5.23" ::
+    "io.taig.android" %% "toolbelt-compatibility" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-functional" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-graphic" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-intent" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-log" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-system-service" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-unit" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-util" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-context" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-widget" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-concurrent" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-resource" % "0.5.24" ::
+    "io.taig.android" %% "toolbelt-app" % "0.5.24" ::
     Nil
 
-libraryDependencies += "io.taig.android" %% "toolbelt" % "0.5.23"
+libraryDependencies += "io.taig.android" %% "toolbelt" % "0.5.24"
 ```
 
 ```
-io.taig.android:toolbelt_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-app_2.11:0.5.23 [S]
-  | +-com.android.support:support-v13:24.2.0
-  | | +-com.android.support:support-v4:24.2.0
-  | |   +-com.android.support:support-compat:24.2.0
-  | |   | +-com.android.support:support-annotations:24.2.0
+io.taig.android:toolbelt_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-app_2.11:0.5.24 [S]
+  | +-com.android.support:support-v13:25.2.0
+  | | +-com.android.support:support-annotations:25.2.0
+  | | +-com.android.support:support-v4:25.2.0
+  | |   +-com.android.support:support-compat:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
   | |   | 
-  | |   +-com.android.support:support-core-ui:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   |   +-com.android.support:support-annotations:24.2.0
+  | |   +-com.android.support:support-core-ui:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
   | |   |   
-  | |   +-com.android.support:support-core-utils:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   |   +-com.android.support:support-annotations:24.2.0
+  | |   +-com.android.support:support-core-utils:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
   | |   |   
-  | |   +-com.android.support:support-fragment:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   | | +-com.android.support:support-annotations:24.2.0
+  | |   +-com.android.support:support-fragment:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
   | |   | | 
-  | |   | +-com.android.support:support-core-ui:24.2.0
-  | |   | | +-com.android.support:support-compat:24.2.0
-  | |   | |   +-com.android.support:support-annotations:24.2.0
+  | |   | +-com.android.support:support-core-ui:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
+  | |   | | +-com.android.support:support-compat:25.2.0
+  | |   | |   +-com.android.support:support-annotations:25.2.0
   | |   | |   
-  | |   | +-com.android.support:support-core-utils:24.2.0
-  | |   | | +-com.android.support:support-compat:24.2.0
-  | |   | |   +-com.android.support:support-annotations:24.2.0
+  | |   | +-com.android.support:support-core-utils:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
+  | |   | | +-com.android.support:support-compat:25.2.0
+  | |   | |   +-com.android.support:support-annotations:25.2.0
   | |   | |   
-  | |   | +-com.android.support:support-media-compat:24.2.0
-  | |   |   +-com.android.support:support-compat:24.2.0
-  | |   |     +-com.android.support:support-annotations:24.2.0
+  | |   | +-com.android.support:support-media-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
+  | |   |   +-com.android.support:support-compat:25.2.0
+  | |   |     +-com.android.support:support-annotations:25.2.0
   | |   |     
-  | |   +-com.android.support:support-media-compat:24.2.0
-  | |     +-com.android.support:support-compat:24.2.0
-  | |       +-com.android.support:support-annotations:24.2.0
+  | |   +-com.android.support:support-media-compat:25.2.0
+  | |     +-com.android.support:support-annotations:25.2.0
+  | |     +-com.android.support:support-compat:25.2.0
+  | |       +-com.android.support:support-annotations:25.2.0
   | |       
-  | +-com.android.support:support-v4:24.2.0
-  | | +-com.android.support:support-compat:24.2.0
-  | | | +-com.android.support:support-annotations:24.2.0
+  | +-com.android.support:support-v4:25.2.0
+  | | +-com.android.support:support-compat:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
   | | | 
-  | | +-com.android.support:support-core-ui:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | |   +-com.android.support:support-annotations:24.2.0
+  | | +-com.android.support:support-core-ui:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
   | | |   
-  | | +-com.android.support:support-core-utils:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | |   +-com.android.support:support-annotations:24.2.0
+  | | +-com.android.support:support-core-utils:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
   | | |   
-  | | +-com.android.support:support-fragment:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | | | +-com.android.support:support-annotations:24.2.0
+  | | +-com.android.support:support-fragment:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
   | | | | 
-  | | | +-com.android.support:support-core-ui:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
+  | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
   | | | |   
-  | | | +-com.android.support:support-core-utils:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
+  | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
   | | | |   
-  | | | +-com.android.support:support-media-compat:24.2.0
-  | | |   +-com.android.support:support-compat:24.2.0
-  | | |     +-com.android.support:support-annotations:24.2.0
+  | | | +-com.android.support:support-media-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
   | | |     
-  | | +-com.android.support:support-media-compat:24.2.0
-  | |   +-com.android.support:support-compat:24.2.0
-  | |     +-com.android.support:support-annotations:24.2.0
+  | | +-com.android.support:support-media-compat:25.2.0
+  | |   +-com.android.support:support-annotations:25.2.0
+  | |   +-com.android.support:support-compat:25.2.0
+  | |     +-com.android.support:support-annotations:25.2.0
   | |     
-  | +-io.taig.android:toolbelt-context_2.11:0.5.23 [S]
-  | | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
+  | +-io.taig.android:toolbelt-context_2.11:0.5.24 [S]
+  | | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
   | | 
-  | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
-  | +-io.taig.android:toolbelt-system-service_2.11:0.5.23 [S]
+  | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  | +-io.taig.android:toolbelt-system-service_2.11:0.5.24 [S]
   | 
-  +-io.taig.android:toolbelt-compatibility:0.5.23
-  | +-com.android.support:support-v4:23.0.0 (evicted by: 24.2.0)
-  | +-com.android.support:support-v4:24.2.0
-  |   +-com.android.support:support-compat:24.2.0
-  |   | +-com.android.support:support-annotations:24.2.0
+  +-io.taig.android:toolbelt-compatibility:0.5.24
+  | +-com.android.support:support-v4:25.2.0
+  |   +-com.android.support:support-compat:25.2.0
+  |   | +-com.android.support:support-annotations:25.2.0
   |   | 
-  |   +-com.android.support:support-core-ui:24.2.0
-  |   | +-com.android.support:support-compat:24.2.0
-  |   |   +-com.android.support:support-annotations:24.2.0
+  |   +-com.android.support:support-core-ui:25.2.0
+  |   | +-com.android.support:support-annotations:25.2.0
+  |   | +-com.android.support:support-compat:25.2.0
+  |   |   +-com.android.support:support-annotations:25.2.0
   |   |   
-  |   +-com.android.support:support-core-utils:24.2.0
-  |   | +-com.android.support:support-compat:24.2.0
-  |   |   +-com.android.support:support-annotations:24.2.0
+  |   +-com.android.support:support-core-utils:25.2.0
+  |   | +-com.android.support:support-annotations:25.2.0
+  |   | +-com.android.support:support-compat:25.2.0
+  |   |   +-com.android.support:support-annotations:25.2.0
   |   |   
-  |   +-com.android.support:support-fragment:24.2.0
-  |   | +-com.android.support:support-compat:24.2.0
-  |   | | +-com.android.support:support-annotations:24.2.0
+  |   +-com.android.support:support-fragment:25.2.0
+  |   | +-com.android.support:support-compat:25.2.0
+  |   | | +-com.android.support:support-annotations:25.2.0
   |   | | 
-  |   | +-com.android.support:support-core-ui:24.2.0
-  |   | | +-com.android.support:support-compat:24.2.0
-  |   | |   +-com.android.support:support-annotations:24.2.0
+  |   | +-com.android.support:support-core-ui:25.2.0
+  |   | | +-com.android.support:support-annotations:25.2.0
+  |   | | +-com.android.support:support-compat:25.2.0
+  |   | |   +-com.android.support:support-annotations:25.2.0
   |   | |   
-  |   | +-com.android.support:support-core-utils:24.2.0
-  |   | | +-com.android.support:support-compat:24.2.0
-  |   | |   +-com.android.support:support-annotations:24.2.0
+  |   | +-com.android.support:support-core-utils:25.2.0
+  |   | | +-com.android.support:support-annotations:25.2.0
+  |   | | +-com.android.support:support-compat:25.2.0
+  |   | |   +-com.android.support:support-annotations:25.2.0
   |   | |   
-  |   | +-com.android.support:support-media-compat:24.2.0
-  |   |   +-com.android.support:support-compat:24.2.0
-  |   |     +-com.android.support:support-annotations:24.2.0
+  |   | +-com.android.support:support-media-compat:25.2.0
+  |   |   +-com.android.support:support-annotations:25.2.0
+  |   |   +-com.android.support:support-compat:25.2.0
+  |   |     +-com.android.support:support-annotations:25.2.0
   |   |     
-  |   +-com.android.support:support-media-compat:24.2.0
-  |     +-com.android.support:support-compat:24.2.0
-  |       +-com.android.support:support-annotations:24.2.0
+  |   +-com.android.support:support-media-compat:25.2.0
+  |     +-com.android.support:support-annotations:25.2.0
+  |     +-com.android.support:support-compat:25.2.0
+  |       +-com.android.support:support-annotations:25.2.0
   |       
-  +-io.taig.android:toolbelt-concurrent_2.11:0.5.23 [S]
-  | +-io.monix:monix-eval_2.11:2.0-RC11 [S]
-  | | +-io.monix:monix-execution_2.11:2.0-RC11 [S]
+  +-io.taig.android:toolbelt-concurrent_2.11:0.5.24 [S]
+  | +-io.monix:monix-eval_2.11:2.2.2 [S]
+  | | +-io.monix:monix-execution_2.11:2.2.2 [S]
   | | | +-org.reactivestreams:reactive-streams:1.0.0
   | | | 
-  | | +-io.monix:monix-types_2.11:2.0-RC11 [S]
-  | |   +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
-  | |     +-org.typelevel:macro-compat_2.11:1.1.1 [S]
-  | |     
-  | +-io.taig.android:toolbelt-app_2.11:0.5.23 [S]
-  | | +-com.android.support:support-v13:24.2.0
-  | | | +-com.android.support:support-v4:24.2.0
-  | | |   +-com.android.support:support-compat:24.2.0
-  | | |   | +-com.android.support:support-annotations:24.2.0
-  | | |   | 
-  | | |   +-com.android.support:support-core-ui:24.2.0
-  | | |   | +-com.android.support:support-compat:24.2.0
-  | | |   |   +-com.android.support:support-annotations:24.2.0
-  | | |   |   
-  | | |   +-com.android.support:support-core-utils:24.2.0
-  | | |   | +-com.android.support:support-compat:24.2.0
-  | | |   |   +-com.android.support:support-annotations:24.2.0
-  | | |   |   
-  | | |   +-com.android.support:support-fragment:24.2.0
-  | | |   | +-com.android.support:support-compat:24.2.0
-  | | |   | | +-com.android.support:support-annotations:24.2.0
-  | | |   | | 
-  | | |   | +-com.android.support:support-core-ui:24.2.0
-  | | |   | | +-com.android.support:support-compat:24.2.0
-  | | |   | |   +-com.android.support:support-annotations:24.2.0
-  | | |   | |   
-  | | |   | +-com.android.support:support-core-utils:24.2.0
-  | | |   | | +-com.android.support:support-compat:24.2.0
-  | | |   | |   +-com.android.support:support-annotations:24.2.0
-  | | |   | |   
-  | | |   | +-com.android.support:support-media-compat:24.2.0
-  | | |   |   +-com.android.support:support-compat:24.2.0
-  | | |   |     +-com.android.support:support-annotations:24.2.0
-  | | |   |     
-  | | |   +-com.android.support:support-media-compat:24.2.0
-  | | |     +-com.android.support:support-compat:24.2.0
-  | | |       +-com.android.support:support-annotations:24.2.0
-  | | |       
-  | | +-com.android.support:support-v4:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | | | +-com.android.support:support-annotations:24.2.0
-  | | | | 
-  | | | +-com.android.support:support-core-ui:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
-  | | | |   
-  | | | +-com.android.support:support-core-utils:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
-  | | | |   
-  | | | +-com.android.support:support-fragment:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | | | +-com.android.support:support-annotations:24.2.0
-  | | | | | 
-  | | | | +-com.android.support:support-core-ui:24.2.0
-  | | | | | +-com.android.support:support-compat:24.2.0
-  | | | | |   +-com.android.support:support-annotations:24.2.0
-  | | | | |   
-  | | | | +-com.android.support:support-core-utils:24.2.0
-  | | | | | +-com.android.support:support-compat:24.2.0
-  | | | | |   +-com.android.support:support-annotations:24.2.0
-  | | | | |   
-  | | | | +-com.android.support:support-media-compat:24.2.0
-  | | | |   +-com.android.support:support-compat:24.2.0
-  | | | |     +-com.android.support:support-annotations:24.2.0
-  | | | |     
-  | | | +-com.android.support:support-media-compat:24.2.0
-  | | |   +-com.android.support:support-compat:24.2.0
-  | | |     +-com.android.support:support-annotations:24.2.0
-  | | |     
-  | | +-io.taig.android:toolbelt-context_2.11:0.5.23 [S]
-  | | | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
-  | | | 
-  | | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
-  | | +-io.taig.android:toolbelt-system-service_2.11:0.5.23 [S]
+  | | +-io.monix:monix-types_2.11:2.2.2 [S]
   | | 
-  | +-io.taig.android:toolbelt-util_2.11:0.5.23 [S]
+  | +-io.taig.android:toolbelt-app_2.11:0.5.24 [S]
+  | | +-com.android.support:support-v13:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-v4:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | 
+  | | |   +-com.android.support:support-core-ui:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-core-utils:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-fragment:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | 
+  | | |   | +-com.android.support:support-core-ui:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-core-utils:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-media-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   +-com.android.support:support-compat:25.2.0
+  | | |   |     +-com.android.support:support-annotations:25.2.0
+  | | |   |     
+  | | |   +-com.android.support:support-media-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     +-com.android.support:support-compat:25.2.0
+  | | |       +-com.android.support:support-annotations:25.2.0
+  | | |       
+  | | +-com.android.support:support-v4:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | 
+  | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   
+  | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   
+  | | | +-com.android.support:support-fragment:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | 
+  | | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | +-com.android.support:support-compat:25.2.0
+  | | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | | |   
+  | | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | +-com.android.support:support-compat:25.2.0
+  | | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | | |   
+  | | | | +-com.android.support:support-media-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   +-com.android.support:support-compat:25.2.0
+  | | | |     +-com.android.support:support-annotations:25.2.0
+  | | | |     
+  | | | +-com.android.support:support-media-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     
+  | | +-io.taig.android:toolbelt-context_2.11:0.5.24 [S]
+  | | | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  | | | 
+  | | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  | | +-io.taig.android:toolbelt-system-service_2.11:0.5.24 [S]
+  | | 
+  | +-io.taig.android:toolbelt-util_2.11:0.5.24 [S]
   | 
-  +-io.taig.android:toolbelt-context_2.11:0.5.23 [S]
-  | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
+  +-io.taig.android:toolbelt-context_2.11:0.5.24 [S]
+  | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
   | 
-  +-io.taig.android:toolbelt-functional_2.11:0.5.23 [S]
-  | +-org.typelevel:cats-core_2.11:0.7.0 [S]
-  | | +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
+  +-io.taig.android:toolbelt-functional_2.11:0.5.24 [S]
+  | +-org.typelevel:cats-core_2.11:0.9.0 [S]
+  | | +-com.github.mpilquist:simulacrum_2.11:0.10.0 [S]
   | | | +-org.typelevel:macro-compat_2.11:1.1.1 [S]
   | | | 
-  | | +-org.typelevel:cats-kernel_2.11:0.7.0 [S]
-  | | +-org.typelevel:cats-macros_2.11:0.7.0 [S]
-  | | | +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
+  | | +-org.typelevel:cats-kernel_2.11:0.9.0 [S]
+  | | +-org.typelevel:cats-macros_2.11:0.9.0 [S]
+  | | | +-com.github.mpilquist:simulacrum_2.11:0.10.0 [S]
   | | | | +-org.typelevel:macro-compat_2.11:1.1.1 [S]
   | | | | 
-  | | | +-org.typelevel:machinist_2.11:0.4.1 [S]
+  | | | +-org.typelevel:machinist_2.11:0.6.1 [S]
   | | |   +-org.scala-lang:scala-reflect:2.11.8 [S]
   | | |   
-  | | +-org.typelevel:machinist_2.11:0.4.1 [S]
+  | | +-org.typelevel:machinist_2.11:0.6.1 [S]
   | |   +-org.scala-lang:scala-reflect:2.11.8 [S]
   | |   
-  | +-org.typelevel:cats-kernel_2.11:0.7.0 [S]
-  | +-org.typelevel:cats-macros_2.11:0.7.0 [S]
-  |   +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
+  | +-org.typelevel:cats-kernel_2.11:0.9.0 [S]
+  | +-org.typelevel:cats-macros_2.11:0.9.0 [S]
+  |   +-com.github.mpilquist:simulacrum_2.11:0.10.0 [S]
   |   | +-org.typelevel:macro-compat_2.11:1.1.1 [S]
   |   | 
-  |   +-org.typelevel:machinist_2.11:0.4.1 [S]
+  |   +-org.typelevel:machinist_2.11:0.6.1 [S]
   |     +-org.scala-lang:scala-reflect:2.11.8 [S]
   |     
-  +-io.taig.android:toolbelt-graphic_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-intent_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-play-services_2.11:0.5.23 [S]
-  | +-com.google.android.gms:play-services-location:9.4.0
-  | | +-com.google.android.gms:play-services-base:9.4.0
-  | | | +-com.google.android.gms:play-services-basement:9.4.0
-  | | | | +-com.android.support:support-v4:23.0.0 (evicted by: 24.2.0)
-  | | | | +-com.android.support:support-v4:24.2.0
-  | | | |   +-com.android.support:support-compat:24.2.0
-  | | | |   | +-com.android.support:support-annotations:24.2.0
+  +-io.taig.android:toolbelt-graphic_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-intent_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-monix_2.11:0.5.24 [S]
+  | +-com.google.android.gms:play-services-base:10.2.0
+  | | +-com.google.android.gms:play-services-basement:10.2.0
+  | | | +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | | | +-com.android.support:support-v4:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | 
+  | | |   +-com.android.support:support-core-ui:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-core-utils:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-fragment:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | 
+  | | |   | +-com.android.support:support-core-ui:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-core-utils:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-media-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   +-com.android.support:support-compat:25.2.0
+  | | |   |     +-com.android.support:support-annotations:25.2.0
+  | | |   |     
+  | | |   +-com.android.support:support-media-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     +-com.android.support:support-compat:25.2.0
+  | | |       +-com.android.support:support-annotations:25.2.0
+  | | |       
+  | | +-com.google.android.gms:play-services-tasks:10.2.0
+  | |   +-com.google.android.gms:play-services-basement:10.2.0
+  | |     +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | |     +-com.android.support:support-v4:25.2.0
+  | |       +-com.android.support:support-compat:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | 
+  | |       +-com.android.support:support-core-ui:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   
+  | |       +-com.android.support:support-core-utils:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   
+  | |       +-com.android.support:support-fragment:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | 
+  | |       | +-com.android.support:support-core-ui:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | +-com.android.support:support-compat:25.2.0
+  | |       | |   +-com.android.support:support-annotations:25.2.0
+  | |       | |   
+  | |       | +-com.android.support:support-core-utils:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | +-com.android.support:support-compat:25.2.0
+  | |       | |   +-com.android.support:support-annotations:25.2.0
+  | |       | |   
+  | |       | +-com.android.support:support-media-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   +-com.android.support:support-compat:25.2.0
+  | |       |     +-com.android.support:support-annotations:25.2.0
+  | |       |     
+  | |       +-com.android.support:support-media-compat:25.2.0
+  | |         +-com.android.support:support-annotations:25.2.0
+  | |         +-com.android.support:support-compat:25.2.0
+  | |           +-com.android.support:support-annotations:25.2.0
+  | |           
+  | +-com.google.android.gms:play-services-location:10.2.0
+  | | +-com.google.android.gms:play-services-base:10.2.0
+  | | | +-com.google.android.gms:play-services-basement:10.2.0
+  | | | | +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | | | | +-com.android.support:support-v4:25.2.0
+  | | | |   +-com.android.support:support-compat:25.2.0
+  | | | |   | +-com.android.support:support-annotations:25.2.0
   | | | |   | 
-  | | | |   +-com.android.support:support-core-ui:24.2.0
-  | | | |   | +-com.android.support:support-compat:24.2.0
-  | | | |   |   +-com.android.support:support-annotations:24.2.0
+  | | | |   +-com.android.support:support-core-ui:25.2.0
+  | | | |   | +-com.android.support:support-annotations:25.2.0
+  | | | |   | +-com.android.support:support-compat:25.2.0
+  | | | |   |   +-com.android.support:support-annotations:25.2.0
   | | | |   |   
-  | | | |   +-com.android.support:support-core-utils:24.2.0
-  | | | |   | +-com.android.support:support-compat:24.2.0
-  | | | |   |   +-com.android.support:support-annotations:24.2.0
+  | | | |   +-com.android.support:support-core-utils:25.2.0
+  | | | |   | +-com.android.support:support-annotations:25.2.0
+  | | | |   | +-com.android.support:support-compat:25.2.0
+  | | | |   |   +-com.android.support:support-annotations:25.2.0
   | | | |   |   
-  | | | |   +-com.android.support:support-fragment:24.2.0
-  | | | |   | +-com.android.support:support-compat:24.2.0
-  | | | |   | | +-com.android.support:support-annotations:24.2.0
+  | | | |   +-com.android.support:support-fragment:25.2.0
+  | | | |   | +-com.android.support:support-compat:25.2.0
+  | | | |   | | +-com.android.support:support-annotations:25.2.0
   | | | |   | | 
-  | | | |   | +-com.android.support:support-core-ui:24.2.0
-  | | | |   | | +-com.android.support:support-compat:24.2.0
-  | | | |   | |   +-com.android.support:support-annotations:24.2.0
+  | | | |   | +-com.android.support:support-core-ui:25.2.0
+  | | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | | |   | | +-com.android.support:support-compat:25.2.0
+  | | | |   | |   +-com.android.support:support-annotations:25.2.0
   | | | |   | |   
-  | | | |   | +-com.android.support:support-core-utils:24.2.0
-  | | | |   | | +-com.android.support:support-compat:24.2.0
-  | | | |   | |   +-com.android.support:support-annotations:24.2.0
+  | | | |   | +-com.android.support:support-core-utils:25.2.0
+  | | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | | |   | | +-com.android.support:support-compat:25.2.0
+  | | | |   | |   +-com.android.support:support-annotations:25.2.0
   | | | |   | |   
-  | | | |   | +-com.android.support:support-media-compat:24.2.0
-  | | | |   |   +-com.android.support:support-compat:24.2.0
-  | | | |   |     +-com.android.support:support-annotations:24.2.0
+  | | | |   | +-com.android.support:support-media-compat:25.2.0
+  | | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | | |   |   +-com.android.support:support-compat:25.2.0
+  | | | |   |     +-com.android.support:support-annotations:25.2.0
   | | | |   |     
-  | | | |   +-com.android.support:support-media-compat:24.2.0
-  | | | |     +-com.android.support:support-compat:24.2.0
-  | | | |       +-com.android.support:support-annotations:24.2.0
+  | | | |   +-com.android.support:support-media-compat:25.2.0
+  | | | |     +-com.android.support:support-annotations:25.2.0
+  | | | |     +-com.android.support:support-compat:25.2.0
+  | | | |       +-com.android.support:support-annotations:25.2.0
   | | | |       
-  | | | +-com.google.android.gms:play-services-tasks:9.4.0
-  | | |   +-com.google.android.gms:play-services-basement:9.4.0
-  | | |     +-com.android.support:support-v4:23.0.0 (evicted by: 24.2.0)
-  | | |     +-com.android.support:support-v4:24.2.0
-  | | |       +-com.android.support:support-compat:24.2.0
-  | | |       | +-com.android.support:support-annotations:24.2.0
+  | | | +-com.google.android.gms:play-services-tasks:10.2.0
+  | | |   +-com.google.android.gms:play-services-basement:10.2.0
+  | | |     +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | | |     +-com.android.support:support-v4:25.2.0
+  | | |       +-com.android.support:support-compat:25.2.0
+  | | |       | +-com.android.support:support-annotations:25.2.0
   | | |       | 
-  | | |       +-com.android.support:support-core-ui:24.2.0
-  | | |       | +-com.android.support:support-compat:24.2.0
-  | | |       |   +-com.android.support:support-annotations:24.2.0
+  | | |       +-com.android.support:support-core-ui:25.2.0
+  | | |       | +-com.android.support:support-annotations:25.2.0
+  | | |       | +-com.android.support:support-compat:25.2.0
+  | | |       |   +-com.android.support:support-annotations:25.2.0
   | | |       |   
-  | | |       +-com.android.support:support-core-utils:24.2.0
-  | | |       | +-com.android.support:support-compat:24.2.0
-  | | |       |   +-com.android.support:support-annotations:24.2.0
+  | | |       +-com.android.support:support-core-utils:25.2.0
+  | | |       | +-com.android.support:support-annotations:25.2.0
+  | | |       | +-com.android.support:support-compat:25.2.0
+  | | |       |   +-com.android.support:support-annotations:25.2.0
   | | |       |   
-  | | |       +-com.android.support:support-fragment:24.2.0
-  | | |       | +-com.android.support:support-compat:24.2.0
-  | | |       | | +-com.android.support:support-annotations:24.2.0
+  | | |       +-com.android.support:support-fragment:25.2.0
+  | | |       | +-com.android.support:support-compat:25.2.0
+  | | |       | | +-com.android.support:support-annotations:25.2.0
   | | |       | | 
-  | | |       | +-com.android.support:support-core-ui:24.2.0
-  | | |       | | +-com.android.support:support-compat:24.2.0
-  | | |       | |   +-com.android.support:support-annotations:24.2.0
+  | | |       | +-com.android.support:support-core-ui:25.2.0
+  | | |       | | +-com.android.support:support-annotations:25.2.0
+  | | |       | | +-com.android.support:support-compat:25.2.0
+  | | |       | |   +-com.android.support:support-annotations:25.2.0
   | | |       | |   
-  | | |       | +-com.android.support:support-core-utils:24.2.0
-  | | |       | | +-com.android.support:support-compat:24.2.0
-  | | |       | |   +-com.android.support:support-annotations:24.2.0
+  | | |       | +-com.android.support:support-core-utils:25.2.0
+  | | |       | | +-com.android.support:support-annotations:25.2.0
+  | | |       | | +-com.android.support:support-compat:25.2.0
+  | | |       | |   +-com.android.support:support-annotations:25.2.0
   | | |       | |   
-  | | |       | +-com.android.support:support-media-compat:24.2.0
-  | | |       |   +-com.android.support:support-compat:24.2.0
-  | | |       |     +-com.android.support:support-annotations:24.2.0
+  | | |       | +-com.android.support:support-media-compat:25.2.0
+  | | |       |   +-com.android.support:support-annotations:25.2.0
+  | | |       |   +-com.android.support:support-compat:25.2.0
+  | | |       |     +-com.android.support:support-annotations:25.2.0
   | | |       |     
-  | | |       +-com.android.support:support-media-compat:24.2.0
-  | | |         +-com.android.support:support-compat:24.2.0
-  | | |           +-com.android.support:support-annotations:24.2.0
+  | | |       +-com.android.support:support-media-compat:25.2.0
+  | | |         +-com.android.support:support-annotations:25.2.0
+  | | |         +-com.android.support:support-compat:25.2.0
+  | | |           +-com.android.support:support-annotations:25.2.0
   | | |           
-  | | +-com.google.android.gms:play-services-basement:9.4.0
-  | |   +-com.android.support:support-v4:23.0.0 (evicted by: 24.2.0)
-  | |   +-com.android.support:support-v4:24.2.0
-  | |     +-com.android.support:support-compat:24.2.0
-  | |     | +-com.android.support:support-annotations:24.2.0
-  | |     | 
-  | |     +-com.android.support:support-core-ui:24.2.0
-  | |     | +-com.android.support:support-compat:24.2.0
-  | |     |   +-com.android.support:support-annotations:24.2.0
-  | |     |   
-  | |     +-com.android.support:support-core-utils:24.2.0
-  | |     | +-com.android.support:support-compat:24.2.0
-  | |     |   +-com.android.support:support-annotations:24.2.0
-  | |     |   
-  | |     +-com.android.support:support-fragment:24.2.0
-  | |     | +-com.android.support:support-compat:24.2.0
-  | |     | | +-com.android.support:support-annotations:24.2.0
-  | |     | | 
-  | |     | +-com.android.support:support-core-ui:24.2.0
-  | |     | | +-com.android.support:support-compat:24.2.0
-  | |     | |   +-com.android.support:support-annotations:24.2.0
-  | |     | |   
-  | |     | +-com.android.support:support-core-utils:24.2.0
-  | |     | | +-com.android.support:support-compat:24.2.0
-  | |     | |   +-com.android.support:support-annotations:24.2.0
-  | |     | |   
-  | |     | +-com.android.support:support-media-compat:24.2.0
-  | |     |   +-com.android.support:support-compat:24.2.0
-  | |     |     +-com.android.support:support-annotations:24.2.0
-  | |     |     
-  | |     +-com.android.support:support-media-compat:24.2.0
-  | |       +-com.android.support:support-compat:24.2.0
-  | |         +-com.android.support:support-annotations:24.2.0
-  | |         
-  | +-io.monix:monix-reactive_2.11:2.0-RC11 [S]
-  | | +-io.monix:monix-eval_2.11:2.0-RC11 [S]
-  | | | +-io.monix:monix-execution_2.11:2.0-RC11 [S]
-  | | | | +-org.reactivestreams:reactive-streams:1.0.0
-  | | | | 
-  | | | +-io.monix:monix-types_2.11:2.0-RC11 [S]
-  | | |   +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
-  | | |     +-org.typelevel:macro-compat_2.11:1.1.1 [S]
-  | | |     
-  | | +-io.monix:monix-execution_2.11:2.0-RC11 [S]
+  | | +-com.google.android.gms:play-services-basement:10.2.0
+  | | | +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | | | +-com.android.support:support-v4:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | 
+  | | |   +-com.android.support:support-core-ui:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-core-utils:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-fragment:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | 
+  | | |   | +-com.android.support:support-core-ui:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-core-utils:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-media-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   +-com.android.support:support-compat:25.2.0
+  | | |   |     +-com.android.support:support-annotations:25.2.0
+  | | |   |     
+  | | |   +-com.android.support:support-media-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     +-com.android.support:support-compat:25.2.0
+  | | |       +-com.android.support:support-annotations:25.2.0
+  | | |       
+  | | +-com.google.android.gms:play-services-tasks:10.2.0
+  | |   +-com.google.android.gms:play-services-basement:10.2.0
+  | |     +-com.android.support:support-v4:24.0.0 (evicted by: 25.2.0)
+  | |     +-com.android.support:support-v4:25.2.0
+  | |       +-com.android.support:support-compat:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | 
+  | |       +-com.android.support:support-core-ui:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   
+  | |       +-com.android.support:support-core-utils:25.2.0
+  | |       | +-com.android.support:support-annotations:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   
+  | |       +-com.android.support:support-fragment:25.2.0
+  | |       | +-com.android.support:support-compat:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | 
+  | |       | +-com.android.support:support-core-ui:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | +-com.android.support:support-compat:25.2.0
+  | |       | |   +-com.android.support:support-annotations:25.2.0
+  | |       | |   
+  | |       | +-com.android.support:support-core-utils:25.2.0
+  | |       | | +-com.android.support:support-annotations:25.2.0
+  | |       | | +-com.android.support:support-compat:25.2.0
+  | |       | |   +-com.android.support:support-annotations:25.2.0
+  | |       | |   
+  | |       | +-com.android.support:support-media-compat:25.2.0
+  | |       |   +-com.android.support:support-annotations:25.2.0
+  | |       |   +-com.android.support:support-compat:25.2.0
+  | |       |     +-com.android.support:support-annotations:25.2.0
+  | |       |     
+  | |       +-com.android.support:support-media-compat:25.2.0
+  | |         +-com.android.support:support-annotations:25.2.0
+  | |         +-com.android.support:support-compat:25.2.0
+  | |           +-com.android.support:support-annotations:25.2.0
+  | |           
+  | +-io.monix:monix-eval_2.11:2.2.2 [S]
+  | | +-io.monix:monix-execution_2.11:2.2.2 [S]
   | | | +-org.reactivestreams:reactive-streams:1.0.0
   | | | 
-  | | +-io.monix:monix-types_2.11:2.0-RC11 [S]
-  | |   +-com.github.mpilquist:simulacrum_2.11:0.8.0 [S]
-  | |     +-org.typelevel:macro-compat_2.11:1.1.1 [S]
-  | |     
-  | +-io.taig.android:toolbelt-log_2.11:0.5.23 [S]
-  | 
-  +-io.taig.android:toolbelt-resource_2.11:0.5.23 [S]
-  | +-com.android.support:support-v4:24.2.0
-  | | +-com.android.support:support-compat:24.2.0
-  | | | +-com.android.support:support-annotations:24.2.0
-  | | | 
-  | | +-com.android.support:support-core-ui:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | |   +-com.android.support:support-annotations:24.2.0
-  | | |   
-  | | +-com.android.support:support-core-utils:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | |   +-com.android.support:support-annotations:24.2.0
-  | | |   
-  | | +-com.android.support:support-fragment:24.2.0
-  | | | +-com.android.support:support-compat:24.2.0
-  | | | | +-com.android.support:support-annotations:24.2.0
+  | | +-io.monix:monix-types_2.11:2.2.2 [S]
+  | | 
+  | +-io.monix:monix-reactive_2.11:2.2.2 [S]
+  | | +-io.monix:monix-eval_2.11:2.2.2 [S]
+  | | | +-io.monix:monix-execution_2.11:2.2.2 [S]
+  | | | | +-org.reactivestreams:reactive-streams:1.0.0
   | | | | 
-  | | | +-com.android.support:support-core-ui:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
+  | | | +-io.monix:monix-types_2.11:2.2.2 [S]
+  | | | 
+  | | +-io.monix:monix-execution_2.11:2.2.2 [S]
+  | | | +-org.reactivestreams:reactive-streams:1.0.0
+  | | | 
+  | | +-io.monix:monix-types_2.11:2.2.2 [S]
+  | | +-org.jctools:jctools-core:2.0
+  | | 
+  | +-io.reactivex.rxjava2:rxjava:2.0.7
+  | | +-org.reactivestreams:reactive-streams:1.0.0
+  | | 
+  | +-io.reactivex:rxjava-reactive-streams:1.2.1
+  | | +-io.reactivex:rxjava:1.2.2 (evicted by: 1.2.7)
+  | | +-io.reactivex:rxjava:1.2.7
+  | | +-org.reactivestreams:reactive-streams:1.0.0
+  | | 
+  | +-io.reactivex:rxjava:1.2.2 (evicted by: 1.2.7)
+  | +-io.reactivex:rxjava:1.2.7
+  | +-io.taig.android:toolbelt-app_2.11:0.5.24 [S]
+  | | +-com.android.support:support-v13:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-v4:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | 
+  | | |   +-com.android.support:support-core-ui:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-core-utils:25.2.0
+  | | |   | +-com.android.support:support-annotations:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   
+  | | |   +-com.android.support:support-fragment:25.2.0
+  | | |   | +-com.android.support:support-compat:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | 
+  | | |   | +-com.android.support:support-core-ui:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-core-utils:25.2.0
+  | | |   | | +-com.android.support:support-annotations:25.2.0
+  | | |   | | +-com.android.support:support-compat:25.2.0
+  | | |   | |   +-com.android.support:support-annotations:25.2.0
+  | | |   | |   
+  | | |   | +-com.android.support:support-media-compat:25.2.0
+  | | |   |   +-com.android.support:support-annotations:25.2.0
+  | | |   |   +-com.android.support:support-compat:25.2.0
+  | | |   |     +-com.android.support:support-annotations:25.2.0
+  | | |   |     
+  | | |   +-com.android.support:support-media-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     +-com.android.support:support-compat:25.2.0
+  | | |       +-com.android.support:support-annotations:25.2.0
+  | | |       
+  | | +-com.android.support:support-v4:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | 
+  | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
   | | | |   
-  | | | +-com.android.support:support-core-utils:24.2.0
-  | | | | +-com.android.support:support-compat:24.2.0
-  | | | |   +-com.android.support:support-annotations:24.2.0
+  | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
   | | | |   
-  | | | +-com.android.support:support-media-compat:24.2.0
-  | | |   +-com.android.support:support-compat:24.2.0
-  | | |     +-com.android.support:support-annotations:24.2.0
+  | | | +-com.android.support:support-fragment:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | 
+  | | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | +-com.android.support:support-compat:25.2.0
+  | | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | | |   
+  | | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | | +-com.android.support:support-compat:25.2.0
+  | | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | | |   
+  | | | | +-com.android.support:support-media-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   +-com.android.support:support-compat:25.2.0
+  | | | |     +-com.android.support:support-annotations:25.2.0
+  | | | |     
+  | | | +-com.android.support:support-media-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
   | | |     
-  | | +-com.android.support:support-media-compat:24.2.0
-  | |   +-com.android.support:support-compat:24.2.0
-  | |     +-com.android.support:support-annotations:24.2.0
-  | |     
-  | +-io.taig.android:toolbelt-compatibility:0.5.23
-  | | +-com.android.support:support-v4:23.0.0 (evicted by: 24.2.0)
-  | | +-com.android.support:support-v4:24.2.0
-  | |   +-com.android.support:support-compat:24.2.0
-  | |   | +-com.android.support:support-annotations:24.2.0
-  | |   | 
-  | |   +-com.android.support:support-core-ui:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   |   +-com.android.support:support-annotations:24.2.0
-  | |   |   
-  | |   +-com.android.support:support-core-utils:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   |   +-com.android.support:support-annotations:24.2.0
-  | |   |   
-  | |   +-com.android.support:support-fragment:24.2.0
-  | |   | +-com.android.support:support-compat:24.2.0
-  | |   | | +-com.android.support:support-annotations:24.2.0
-  | |   | | 
-  | |   | +-com.android.support:support-core-ui:24.2.0
-  | |   | | +-com.android.support:support-compat:24.2.0
-  | |   | |   +-com.android.support:support-annotations:24.2.0
-  | |   | |   
-  | |   | +-com.android.support:support-core-utils:24.2.0
-  | |   | | +-com.android.support:support-compat:24.2.0
-  | |   | |   +-com.android.support:support-annotations:24.2.0
-  | |   | |   
-  | |   | +-com.android.support:support-media-compat:24.2.0
-  | |   |   +-com.android.support:support-compat:24.2.0
-  | |   |     +-com.android.support:support-annotations:24.2.0
-  | |   |     
-  | |   +-com.android.support:support-media-compat:24.2.0
-  | |     +-com.android.support:support-compat:24.2.0
-  | |       +-com.android.support:support-annotations:24.2.0
-  | |       
-  | +-io.taig.android:toolbelt-graphic_2.11:0.5.23 [S]
+  | | +-io.taig.android:toolbelt-context_2.11:0.5.24 [S]
+  | | | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  | | | 
+  | | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
+  | | +-io.taig.android:toolbelt-system-service_2.11:0.5.24 [S]
+  | | 
+  | +-io.taig.android:toolbelt-log_2.11:0.5.24 [S]
   | 
-  +-io.taig.android:toolbelt-system-service_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-unit_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-util_2.11:0.5.23 [S]
-  +-io.taig.android:toolbelt-widget_2.11:0.5.23 [S]
-    +-com.android.support:recyclerview-v7:24.2.0
-    | +-com.android.support:support-annotations:24.2.0
-    | +-com.android.support:support-compat:24.2.0
-    | | +-com.android.support:support-annotations:24.2.0
+  +-io.taig.android:toolbelt-resource_2.11:0.5.24 [S]
+  | +-com.android.support:support-v4:25.2.0
+  | | +-com.android.support:support-compat:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | 
+  | | +-com.android.support:support-core-ui:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   
+  | | +-com.android.support:support-core-utils:25.2.0
+  | | | +-com.android.support:support-annotations:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   
+  | | +-com.android.support:support-fragment:25.2.0
+  | | | +-com.android.support:support-compat:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | 
+  | | | +-com.android.support:support-core-ui:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   
+  | | | +-com.android.support:support-core-utils:25.2.0
+  | | | | +-com.android.support:support-annotations:25.2.0
+  | | | | +-com.android.support:support-compat:25.2.0
+  | | | |   +-com.android.support:support-annotations:25.2.0
+  | | | |   
+  | | | +-com.android.support:support-media-compat:25.2.0
+  | | |   +-com.android.support:support-annotations:25.2.0
+  | | |   +-com.android.support:support-compat:25.2.0
+  | | |     +-com.android.support:support-annotations:25.2.0
+  | | |     
+  | | +-com.android.support:support-media-compat:25.2.0
+  | |   +-com.android.support:support-annotations:25.2.0
+  | |   +-com.android.support:support-compat:25.2.0
+  | |     +-com.android.support:support-annotations:25.2.0
+  | |     
+  | +-io.taig.android:toolbelt-compatibility:0.5.24
+  | | +-com.android.support:support-v4:25.2.0
+  | |   +-com.android.support:support-compat:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
+  | |   | 
+  | |   +-com.android.support:support-core-ui:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
+  | |   |   
+  | |   +-com.android.support:support-core-utils:25.2.0
+  | |   | +-com.android.support:support-annotations:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
+  | |   |   
+  | |   +-com.android.support:support-fragment:25.2.0
+  | |   | +-com.android.support:support-compat:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
+  | |   | | 
+  | |   | +-com.android.support:support-core-ui:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
+  | |   | | +-com.android.support:support-compat:25.2.0
+  | |   | |   +-com.android.support:support-annotations:25.2.0
+  | |   | |   
+  | |   | +-com.android.support:support-core-utils:25.2.0
+  | |   | | +-com.android.support:support-annotations:25.2.0
+  | |   | | +-com.android.support:support-compat:25.2.0
+  | |   | |   +-com.android.support:support-annotations:25.2.0
+  | |   | |   
+  | |   | +-com.android.support:support-media-compat:25.2.0
+  | |   |   +-com.android.support:support-annotations:25.2.0
+  | |   |   +-com.android.support:support-compat:25.2.0
+  | |   |     +-com.android.support:support-annotations:25.2.0
+  | |   |     
+  | |   +-com.android.support:support-media-compat:25.2.0
+  | |     +-com.android.support:support-annotations:25.2.0
+  | |     +-com.android.support:support-compat:25.2.0
+  | |       +-com.android.support:support-annotations:25.2.0
+  | |       
+  | +-io.taig.android:toolbelt-graphic_2.11:0.5.24 [S]
+  | 
+  +-io.taig.android:toolbelt-system-service_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-unit_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-util_2.11:0.5.24 [S]
+  +-io.taig.android:toolbelt-widget_2.11:0.5.24 [S]
+    +-com.android.support:recyclerview-v7:25.2.0
+    | +-com.android.support:support-annotations:25.2.0
+    | +-com.android.support:support-compat:25.2.0
+    | | +-com.android.support:support-annotations:25.2.0
     | | 
-    | +-com.android.support:support-core-ui:24.2.0
-    |   +-com.android.support:support-compat:24.2.0
-    |     +-com.android.support:support-annotations:24.2.0
+    | +-com.android.support:support-core-ui:25.2.0
+    |   +-com.android.support:support-annotations:25.2.0
+    |   +-com.android.support:support-compat:25.2.0
+    |     +-com.android.support:support-annotations:25.2.0
     |     
-    +-com.android.support:support-v4:24.2.0
-    | +-com.android.support:support-compat:24.2.0
-    | | +-com.android.support:support-annotations:24.2.0
+    +-com.android.support:support-v4:25.2.0
+    | +-com.android.support:support-compat:25.2.0
+    | | +-com.android.support:support-annotations:25.2.0
     | | 
-    | +-com.android.support:support-core-ui:24.2.0
-    | | +-com.android.support:support-compat:24.2.0
-    | |   +-com.android.support:support-annotations:24.2.0
+    | +-com.android.support:support-core-ui:25.2.0
+    | | +-com.android.support:support-annotations:25.2.0
+    | | +-com.android.support:support-compat:25.2.0
+    | |   +-com.android.support:support-annotations:25.2.0
     | |   
-    | +-com.android.support:support-core-utils:24.2.0
-    | | +-com.android.support:support-compat:24.2.0
-    | |   +-com.android.support:support-annotations:24.2.0
+    | +-com.android.support:support-core-utils:25.2.0
+    | | +-com.android.support:support-annotations:25.2.0
+    | | +-com.android.support:support-compat:25.2.0
+    | |   +-com.android.support:support-annotations:25.2.0
     | |   
-    | +-com.android.support:support-fragment:24.2.0
-    | | +-com.android.support:support-compat:24.2.0
-    | | | +-com.android.support:support-annotations:24.2.0
+    | +-com.android.support:support-fragment:25.2.0
+    | | +-com.android.support:support-compat:25.2.0
+    | | | +-com.android.support:support-annotations:25.2.0
     | | | 
-    | | +-com.android.support:support-core-ui:24.2.0
-    | | | +-com.android.support:support-compat:24.2.0
-    | | |   +-com.android.support:support-annotations:24.2.0
+    | | +-com.android.support:support-core-ui:25.2.0
+    | | | +-com.android.support:support-annotations:25.2.0
+    | | | +-com.android.support:support-compat:25.2.0
+    | | |   +-com.android.support:support-annotations:25.2.0
     | | |   
-    | | +-com.android.support:support-core-utils:24.2.0
-    | | | +-com.android.support:support-compat:24.2.0
-    | | |   +-com.android.support:support-annotations:24.2.0
+    | | +-com.android.support:support-core-utils:25.2.0
+    | | | +-com.android.support:support-annotations:25.2.0
+    | | | +-com.android.support:support-compat:25.2.0
+    | | |   +-com.android.support:support-annotations:25.2.0
     | | |   
-    | | +-com.android.support:support-media-compat:24.2.0
-    | |   +-com.android.support:support-compat:24.2.0
-    | |     +-com.android.support:support-annotations:24.2.0
+    | | +-com.android.support:support-media-compat:25.2.0
+    | |   +-com.android.support:support-annotations:25.2.0
+    | |   +-com.android.support:support-compat:25.2.0
+    | |     +-com.android.support:support-annotations:25.2.0
     | |     
-    | +-com.android.support:support-media-compat:24.2.0
-    |   +-com.android.support:support-compat:24.2.0
-    |     +-com.android.support:support-annotations:24.2.0
+    | +-com.android.support:support-media-compat:25.2.0
+    |   +-com.android.support:support-annotations:25.2.0
+    |   +-com.android.support:support-compat:25.2.0
+    |     +-com.android.support:support-annotations:25.2.0
     |     
-    +-io.taig.android:toolbelt-graphic_2.11:0.5.23 [S]
+    +-io.taig.android:toolbelt-graphic_2.11:0.5.24 [S]
 ```

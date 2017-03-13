@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.24
+
+_2017-03-13_
+
+ * Upgrade to google play services 10.2.0
+ * Upgrade to android support library 25.2.0 
+
 ## 0.5.23
 
 _2017-03-09_
