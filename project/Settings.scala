@@ -46,7 +46,7 @@ object Settings {
 
         val catsKernel = "org.typelevel" %% "cats-kernel" % cats
 
-        val monix = "2.2.2"
+        val monix = "2.3.0"
 
         val monixEval = "io.monix" %% "monix-eval" % monix
 
