@@ -29,11 +29,14 @@ object Settings {
     object dependency {
         val androidSupport = "25.2.0"
 
-        val androidSupportRecycler = "com.android.support" % "recyclerview-v7" % androidSupport
+        val androidSupportRecycler =
+            "com.android.support" % "recyclerview-v7" % androidSupport
 
-        val androidSupportV4 = "com.android.support" % "support-v4" % androidSupport
+        val androidSupportV4 =
+            "com.android.support" % "support-v4" % androidSupport
 
-        val androidSupportV13 = "com.android.support" % "support-v13" % androidSupport
+        val androidSupportV13 =
+            "com.android.support" % "support-v13" % androidSupport
 
         val cats = "0.9.0"
 
@@ -51,14 +54,17 @@ object Settings {
 
         val playServices = "10.2.0"
 
-        val playServicesBase = "com.google.android.gms" % "play-services-base" % playServices
+        val playServicesBase =
+            "com.google.android.gms" % "play-services-base" % playServices
 
-        val playServicesLocation = "com.google.android.gms" % "play-services-location" % playServices
+        val playServicesLocation =
+            "com.google.android.gms" % "play-services-location" % playServices
 
         val rxJava = "io.reactivex" % "rxjava" % "1.2.10"
 
-        val rxJavaReactiveStream = "io.reactivex" % "rxjava-reactive-streams" % "1.2.1"
+        val rxJavaReactiveStream =
+            "io.reactivex" % "rxjava-reactive-streams" % "1.2.1"
 
-        val rxJava2 = "io.reactivex.rxjava2" % "rxjava" % "2.0.9"
+        val rxJava2 = "io.reactivex.rxjava2" % "rxjava" % "2.1.0"
     }
 }
