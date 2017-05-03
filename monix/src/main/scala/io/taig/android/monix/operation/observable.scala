@@ -118,6 +118,18 @@ object observable {
             Observable.fromReactivePublisher( publisher )
         }
 
+        def fromEventSink[T]( sink: EventSink[T] ): Observable[T] = {
+            Observable.create( OverflowStrategy.Unbounded ) { subscriber ⇒
+                val listener: T ⇒ Unit = subscriber.onNext
+
+                sink.register( listener )
+
+                Cancelable { () ⇒
+                    sink.unregister( listener )
+                }
+            }
+        }
+
         def fromGoogleApiClient(
             client:   GoogleApiClient,
             strategy: OverflowStrategy.Synchronous[GoogleApiClient.Event] = OverflowStrategy.Unbounded
