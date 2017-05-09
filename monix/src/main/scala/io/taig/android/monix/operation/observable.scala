@@ -17,6 +17,7 @@ import monix.execution.cancelables.{ CompositeCancelable, MultiAssignmentCancela
 import monix.reactive.{ Observable, OverflowStrategy }
 import rx.RxReactiveStreams
 import io.{ reactivex ⇒ rx2 }
+import monix.execution.Ack.Stop
 
 import scala.concurrent.duration._
 
@@ -120,7 +121,11 @@ object observable {
 
         def fromEventSink[T]( sink: EventSink[T] ): Observable[T] = {
             Observable.create( OverflowStrategy.Unbounded ) { subscriber ⇒
-                val listener: T ⇒ Unit = subscriber.onNext
+                val listener: T ⇒ Unit = new ( T ⇒ Unit ) {
+                    override def apply( value: T ): Unit =
+                        if ( subscriber.onNext( value ) == Stop )
+                            sink.unregister( this )
+                }
 
                 sink.register( listener )
 

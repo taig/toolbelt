@@ -7,5 +7,5 @@ class EventSink[T] {
 
     def unregister( f: T ⇒ Unit ): Unit = listeners -= f
 
-    def notify( value: T ): Unit = listeners.foreach( _.apply( value ) )
+    def notify( event: T ): Unit = listeners.foreach( _.apply( event ) )
 }
