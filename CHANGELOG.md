@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.25
+
+ * Add Observable EventSink feature
+ * Upgrade to scala 2.11.11
+ * Upgrade to sbt 0.13.15
+ * Upgrade to sbt-android 1.7.7
+ * Upgrade to android-25
+ * Upgrade to android support library 25.3.1
+ * Upgrade to play-services 10.2.4
+ * Upgrade to monix 2.3.0
+ * Upgrade to rxjava 1.2.10
+ * Upgrade to rxjava2 2.1.0
+
 ## 0.5.24
 
 _2017-03-13_
