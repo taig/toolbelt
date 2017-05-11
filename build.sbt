@@ -94,6 +94,7 @@ lazy val concurrent = project
     .settings(
         libraryDependencies ++=
             Settings.dependency.monixEval ::
+            Settings.dependency.playServicesBase ::
             Nil
     )
     .dependsOn( app, util )
