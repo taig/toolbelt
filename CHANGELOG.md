@@ -1,6 +1,15 @@
 # Changelog
 
+## 0.5.26
+
+_2017-05-11_
+
+ * Replace custom Ui Executor with play services alternative (adds play-services dependency to `concurrent` module)
+ * Upgrade to rxjava 1.3.0
+
 ## 0.5.25
+
+_2017-05-09_
 
  * Add Observable EventSink feature
  * Upgrade to scala 2.11.11
