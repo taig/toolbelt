@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+
+_2017-06-20_
+
+ * Remove custom lifecycle methods (wrapping `Bundle` as `Option[Bundle]`) in `Activity` and `Fragment`
+
 ## 0.5.26
 
 _2017-05-11_
