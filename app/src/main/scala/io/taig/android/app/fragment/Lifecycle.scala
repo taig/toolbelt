@@ -14,25 +14,25 @@ trait Lifecycle extends Fragment {
         super.onAttach( activity )
     }
 
-    override def onCreate( state: Option[Bundle] ) {
+    override def onCreate( state: Bundle ) {
         Log.d( getClass.getName, s"onCreate( $state )" )
 
         super.onCreate( state )
     }
 
-    override def onCreateView( inflater: LayoutInflater, container: Option[ViewGroup], state: Option[Bundle] ) = {
+    override def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) = {
         Log.d( getClass.getName, s"onCreateView( $inflater, $container, $state )" )
 
         super.onCreateView( inflater, container, state )
     }
 
-    override def onViewCreated( view: View, state: Option[Bundle] ) {
+    override def onViewCreated( view: View, state: Bundle ) {
         Log.d( getClass.getName, s"onViewCreated( $view, $state )" )
 
         super.onViewCreated( view, state )
     }
 
-    override def onActivityCreated( state: Option[Bundle] ) {
+    override def onActivityCreated( state: Bundle ) {
         Log.d( getClass.getName, s"onActivityCreated( $state )" )
 
         super.onActivityCreated( state )

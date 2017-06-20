@@ -3,7 +3,6 @@ package io.taig.android.concurrent.app.activity
 import io.taig.android.app.activity.Activity
 import io.taig.android.concurrent.Executor._
 import io.taig.android.concurrent.app._
-import monix.execution.Scheduler
 
 import scala.concurrent.Future
 

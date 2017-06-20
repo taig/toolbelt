@@ -22,13 +22,13 @@ trait Reactive extends Fragment {
         trigger( Event.Attach( activity ) )
     }
 
-    override def onCreate( state: Option[Bundle] ): Unit = {
+    override def onCreate( state: Bundle ): Unit = {
         super.onCreate( state )
 
         trigger( Event.Create( state ) )
     }
 
-    override def onActivityCreated( state: Option[Bundle] ): Unit = {
+    override def onActivityCreated( state: Bundle ): Unit = {
         super.onActivityCreated( state )
 
         trigger( Event.ActivityCreated( state ) )
@@ -80,9 +80,9 @@ object Reactive {
 
     object Event {
         case class Action[T]( value: T ) extends Event
-        case class ActivityCreated( state: Option[Bundle] ) extends Event
+        case class ActivityCreated( state: Bundle ) extends Event
         case class Attach( activity: Activity ) extends Event
-        case class Create( state: Option[Bundle] ) extends Event
+        case class Create( state: Bundle ) extends Event
         case object Destroy extends Event
         case object Detach extends Event
         case object Pause extends Event
@@ -100,7 +100,7 @@ object Reactive {
 
         var tag: String = null
 
-        override def onCreate( state: Option[Bundle] ): Unit = {
+        override def onCreate( state: Bundle ): Unit = {
             super.onCreate( state )
 
             setRetainInstance( true )

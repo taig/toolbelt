@@ -20,7 +20,7 @@ trait Job[T]
 
     def job: Task[T] = before.flatMap( _ ⇒ task )
 
-    override def onCreate( state: Option[Bundle] ): Unit = {
+    override def onCreate( state: Bundle ): Unit = {
         super.onCreate( state )
 
         job.runAsync.ui.onComplete {
