@@ -13,7 +13,7 @@ import android.view._
 import io.taig.android.log.Log
 
 trait Lifecycle extends Activity {
-    override def onCreate( state: Option[Bundle] ): Unit = {
+    override def onCreate( state: Bundle ): Unit = {
         Log.d( s"onCreate( $state )" )
 
         super.onCreate( state )
@@ -25,7 +25,7 @@ trait Lifecycle extends Activity {
         super.onCreateOptionsMenu( menu )
     }
 
-    override protected def onPostCreate( state: Option[Bundle] ): Unit = {
+    override protected def onPostCreate( state: Bundle ): Unit = {
         super.onPostCreate( state )
 
         Log.d( s"onPostCreate( $state )" )

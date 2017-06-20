@@ -18,7 +18,7 @@ trait Asynchronous extends Fragment { self ⇒
 
     private var ready = false
 
-    override def onCreate( state: Option[Bundle] ) = {
+    override def onCreate( state: Bundle ) = {
         super.onCreate( state )
 
         // TODO make this work without retaining as well!
@@ -92,7 +92,7 @@ object Asynchronous {
 
         var activity: android.app.Activity = null
 
-        override def onCreate( state: Option[Bundle] ) = {
+        override def onCreate( state: Bundle ) = {
             super.onCreate( state )
 
             setRetainInstance( true )
@@ -104,7 +104,7 @@ object Asynchronous {
             this.activity = activity
         }
 
-        override def onActivityCreated( state: Option[Bundle] ) = {
+        override def onActivityCreated( state: Bundle ) = {
             super.onActivityCreated( state )
 
             synchronized {

@@ -70,7 +70,7 @@ trait Creditor[+C <: Contract] extends Fragment {
         }
     }
 
-    override def onViewCreated( view: View, state: Option[Bundle] ) = {
+    override def onViewCreated( view: View, state: Bundle ) = {
         super.onViewCreated( view, state )
 
         ->? { _ onViewCreated }
