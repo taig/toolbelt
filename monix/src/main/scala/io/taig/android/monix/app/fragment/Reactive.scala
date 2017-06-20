@@ -19,19 +19,19 @@ trait Reactive extends Fragment {
             .findFragmentByTag( s"$getTag-helper" )
             .asInstanceOf[Reactive.Helper]
 
-        trigger( Event.Attach( activity ) )
+        trigger( Event.Attach( Option( activity ) ) )
     }
 
     override def onCreate( state: Bundle ): Unit = {
         super.onCreate( state )
 
-        trigger( Event.Create( state ) )
+        trigger( Event.Create( Option( state ) ) )
     }
 
     override def onActivityCreated( state: Bundle ): Unit = {
         super.onActivityCreated( state )
 
-        trigger( Event.ActivityCreated( state ) )
+        trigger( Event.ActivityCreated( Option( state ) ) )
     }
 
     override def onStart(): Unit = {
@@ -80,9 +80,9 @@ object Reactive {
 
     object Event {
         case class Action[T]( value: T ) extends Event
-        case class ActivityCreated( state: Bundle ) extends Event
-        case class Attach( activity: Activity ) extends Event
-        case class Create( state: Bundle ) extends Event
+        case class ActivityCreated( state: Option[Bundle] ) extends Event
+        case class Attach( activity: Option[Activity] ) extends Event
+        case class Create( state: Option[Bundle] ) extends Event
         case object Destroy extends Event
         case object Detach extends Event
         case object Pause extends Event
