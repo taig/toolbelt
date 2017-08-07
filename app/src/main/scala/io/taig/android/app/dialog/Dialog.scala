@@ -5,7 +5,7 @@ import io.taig.android.app.fragment.Fragment
 trait Dialog
         extends android.app.DialogFragment
         with Fragment {
-    override def onDestroyView() = {
+    override def onDestroyView(): Unit = {
         if ( getDialog != null && getRetainInstance ) {
             getDialog.setDismissMessage( null )
         }
