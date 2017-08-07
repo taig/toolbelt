@@ -19,6 +19,7 @@ object Settings {
             Nil,
         normalizedName := s"toolbelt-${normalizedName.value}",
         organization := "io.taig.android",
+        resolvers += ( "Google Maven" at "https://maven.google.com" ),
         scalacOptions ++=
             "-deprecation" ::
             "-feature" ::
@@ -27,7 +28,7 @@ object Settings {
     )
 
     object dependency {
-        val androidSupport = "25.3.1"
+        val androidSupport = "26.0.0"
 
         val androidSupportRecycler =
             "com.android.support" % "recyclerview-v7" % androidSupport
