@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1
+
+ * Remove contract pattern helpers
+ * Upgrade to platform-target 26
+ * Upgrade to sbt-android 1.7.8
+ * Upgrade to android support library 26.0.0
+ * Upgrade to rxjava 2.1.2
+
 ## 0.6.0
 
 _2017-06-20_
