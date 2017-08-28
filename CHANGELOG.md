@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.2
+
+_2017-08-28_
+
+ *  Upgrade to support-library 26.0.1
+ *  Upgrade to play-services 11.2.0
+ *  Upgrade to sbt-android 1.7.9
+
 ## 0.6.1
 
  * Remove contract pattern helpers
