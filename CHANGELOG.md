@@ -10,6 +10,8 @@ _2017-08-28_
 
 ## 0.6.1
 
+_2017-08-07_
+
  * Remove contract pattern helpers
  * Upgrade to platform-target 26
  * Upgrade to sbt-android 1.7.8
