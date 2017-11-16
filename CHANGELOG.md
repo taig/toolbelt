@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3
+
+_2017-11-16_
+
+ * Upgrade to play-services 11.6.0
+
 ## 0.6.2
 
 _2017-08-28_

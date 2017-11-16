@@ -9,22 +9,22 @@
 
 ```scala
 libraryDependencies ++=
-    "io.taig.android" %% "toolbelt-compatibility" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-functional" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-graphic" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-intent" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-log" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-system-service" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-unit" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-util" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-context" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-widget" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-concurrent" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-resource" % "0.6.2" ::
-    "io.taig.android" %% "toolbelt-app" % "0.6.2" ::
+    "io.taig.android" %% "toolbelt-compatibility" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-functional" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-graphic" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-intent" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-log" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-system-service" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-unit" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-util" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-context" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-widget" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-concurrent" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-resource" % "0.6.3" ::
+    "io.taig.android" %% "toolbelt-app" % "0.6.3" ::
     Nil
 
-libraryDependencies += "io.taig.android" %% "toolbelt" % "0.6.2"
+libraryDependencies += "io.taig.android" %% "toolbelt" % "0.6.3"
 ```
 
 ```
