@@ -11,6 +11,7 @@ lazy val toolbelt = project
              graphic,
              intent,
              log,
+             mosby,
              monix,
              systemService,
              unit,
@@ -25,6 +26,7 @@ lazy val toolbelt = project
              graphic,
              intent,
              log,
+             mosby,
              monix,
              systemService,
              unit,
@@ -83,6 +85,16 @@ lazy val monix = project
         Nil
   )
   .dependsOn(app, log)
+
+lazy val mosby = project
+  .enablePlugins(AndroidJar)
+  .settings(Settings.common ++ Settings.android)
+  .settings(
+    libraryDependencies ++=
+      Settings.dependency.mosbyMvp ::
+        Settings.dependency.mosbyViewState ::
+        Nil
+  )
 
 lazy val systemService = project
   .in(file("system-service"))

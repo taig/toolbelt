@@ -46,6 +46,12 @@ object Settings {
         val catsMacros = "org.typelevel" %% "cats-macros" % cats
 
         val catsKernel = "org.typelevel" %% "cats-kernel" % cats
+        
+        val mosby = "3.1.0"
+
+        val mosbyMvp = "com.hannesdorfmann.mosby3" % "mvp" % "3.1.0"
+        
+        val mosbyViewState = "com.hannesdorfmann.mosby3" % "viewstate" % "3.1.0"
 
         val monix = "2.3.2"
 
