@@ -53,7 +53,7 @@ object Settings {
 
         val monixReactive = "io.monix" %% "monix-reactive" % monix
 
-        val playServices = "11.6.0"
+        val playServices = "11.6.2"
 
         val playServicesBase =
             "com.google.android.gms" % "play-services-base" % playServices
