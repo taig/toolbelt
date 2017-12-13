@@ -6,9 +6,10 @@ import io.taig.android.widget.operation
 import scala.language.implicitConversions
 
 trait animation {
-    implicit def animationSyntax( animation: ViewPropertyAnimatorCompat ): operation.animation = {
-        new operation.animation( animation )
-    }
+  implicit def animationSyntax(
+      animation: ViewPropertyAnimatorCompat): operation.animation = {
+    new operation.animation(animation)
+  }
 }
 
 object animation extends animation

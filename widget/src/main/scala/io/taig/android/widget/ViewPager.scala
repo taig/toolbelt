@@ -5,27 +5,27 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 /**
- * Advanced [[android.support.v4.view.ViewPager]] that allows to toggle swiping
- */
-class ViewPager( context: Context, attributes: AttributeSet )
-        extends android.support.v4.view.ViewPager( context, attributes ) {
-    private var swipe = true
+  * Advanced [[android.support.v4.view.ViewPager]] that allows to toggle swiping
+  */
+class ViewPager(context: Context, attributes: AttributeSet)
+    extends android.support.v4.view.ViewPager(context, attributes) {
+  private var swipe = true
 
-    def this( attributes: AttributeSet )( implicit c: Context ) = this( c, null )
+  def this(attributes: AttributeSet)(implicit c: Context) = this(c, null)
 
-    def this()( implicit c: Context ) = this( c, null )
+  def this()(implicit c: Context) = this(c, null)
 
-    def setSwipeEnabled( enabled: Boolean ): Unit = {
-        swipe = enabled
-    }
+  def setSwipeEnabled(enabled: Boolean): Unit = {
+    swipe = enabled
+  }
 
-    override def onInterceptTouchEvent( event: MotionEvent ) = swipe match {
-        case true  ⇒ super.onInterceptTouchEvent( event )
-        case false ⇒ false
-    }
+  override def onInterceptTouchEvent(event: MotionEvent) = swipe match {
+    case true ⇒ super.onInterceptTouchEvent(event)
+    case false ⇒ false
+  }
 
-    override def onTouchEvent( event: MotionEvent ) = swipe match {
-        case true  ⇒ super.onTouchEvent( event )
-        case false ⇒ false
-    }
+  override def onTouchEvent(event: MotionEvent) = swipe match {
+    case true ⇒ super.onTouchEvent(event)
+    case false ⇒ false
+  }
 }

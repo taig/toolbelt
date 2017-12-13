@@ -11,46 +11,47 @@ import monix.execution.Scheduler
 import scala.concurrent.ExecutionContext
 
 object Executor {
-    /**
-     * Pool thread Scheduler
-     */
-    implicit val Pool: Scheduler = Scheduler {
-        ExecutionContext.fromExecutor(
-            AsyncTask.THREAD_POOL_EXECUTOR,
-            report( _, Log.Tag( Pool.getClass.getCanonicalName ) )
-        )
-    }
 
-    /**
-     * Single thread Scheduler
-     */
-    val Single: Scheduler = Scheduler {
-        ExecutionContext.fromExecutor(
-            AsyncTask.SERIAL_EXECUTOR,
-            report( _, Log.Tag( Single.getClass.getCanonicalName ) )
-        )
-    }
+  /**
+    * Pool thread Scheduler
+    */
+  implicit val Pool: Scheduler = Scheduler {
+    ExecutionContext.fromExecutor(
+      AsyncTask.THREAD_POOL_EXECUTOR,
+      report(_, Log.Tag(Pool.getClass.getCanonicalName))
+    )
+  }
 
-    /**
-     * Ui thread Scheduler
-     */
-    val Ui: Scheduler = Scheduler {
-        ExecutionContext.fromExecutor(
-            TaskExecutors.MAIN_THREAD,
-            report( _, Log.Tag( Ui.getClass.getCanonicalName ) )
-        )
-    }
+  /**
+    * Single thread Scheduler
+    */
+  val Single: Scheduler = Scheduler {
+    ExecutionContext.fromExecutor(
+      AsyncTask.SERIAL_EXECUTOR,
+      report(_, Log.Tag(Single.getClass.getCanonicalName))
+    )
+  }
 
-    /**
-     * Run on the Ui-Thread
-     */
-    def Ui( body: ⇒ Unit ): Unit = Ui.execute( () ⇒ body )
+  /**
+    * Ui thread Scheduler
+    */
+  val Ui: Scheduler = Scheduler {
+    ExecutionContext.fromExecutor(
+      TaskExecutors.MAIN_THREAD,
+      report(_, Log.Tag(Ui.getClass.getCanonicalName))
+    )
+  }
 
-    def Ui( body: ⇒ Unit, delay: Long ): Unit = {
-        Ui.scheduleOnce( delay, TimeUnit.MILLISECONDS, () ⇒ body )
-    }
+  /**
+    * Run on the Ui-Thread
+    */
+  def Ui(body: ⇒ Unit): Unit = Ui.execute(() ⇒ body)
 
-    private[concurrent] def report( exception: Throwable, tag: Log.Tag ): Unit = {
-        Log.e( "Failure during asynchronous operation", exception )( tag )
-    }
+  def Ui(body: ⇒ Unit, delay: Long): Unit = {
+    Ui.scheduleOnce(delay, TimeUnit.MILLISECONDS, () ⇒ body)
+  }
+
+  private[concurrent] def report(exception: Throwable, tag: Log.Tag): Unit = {
+    Log.e("Failure during asynchronous operation", exception)(tag)
+  }
 }

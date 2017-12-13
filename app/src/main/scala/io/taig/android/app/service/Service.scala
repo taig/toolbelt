@@ -8,24 +8,22 @@ import io.taig.android.system_service.syntax.context._
 
 import scala.reflect._
 
-trait Service
-        extends android.app.Service
-        with Contextual {
-    override implicit def context: Context = getApplicationContext
+trait Service extends android.app.Service with Contextual {
+  override implicit def context: Context = getApplicationContext
 }
 
 object Service {
-    abstract class Companion[S <: android.app.Service: ClassTag] {
-        implicit val tag: Log.Tag = Log.Tag[S]
+  abstract class Companion[S <: android.app.Service: ClassTag] {
+    implicit val tag: Log.Tag = Log.Tag[S]
 
-        def isRunning( implicit c: Context ): Boolean = {
-            import collection.JavaConversions._
+    def isRunning(implicit c: Context): Boolean = {
+      import collection.JavaConversions._
 
-            val target = classTag[S].runtimeClass.getName
+      val target = classTag[S].runtimeClass.getName
 
-            c.service[ActivityManager]
-                .getRunningServices( Int.MaxValue )
-                .exists( _.service.getClassName == target )
-        }
+      c.service[ActivityManager]
+        .getRunningServices(Int.MaxValue)
+        .exists(_.service.getClassName == target)
     }
+  }
 }

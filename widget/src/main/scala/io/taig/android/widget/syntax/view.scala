@@ -6,9 +6,9 @@ import io.taig.android.widget.operation
 import scala.language.implicitConversions
 
 trait view {
-    implicit def viewSyntax( view: View ): operation.view = {
-        new operation.view( view )
-    }
+  implicit def viewSyntax(view: View): operation.view = {
+    new operation.view(view)
+  }
 }
 
 object view extends view

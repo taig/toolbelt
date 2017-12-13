@@ -6,9 +6,10 @@ import io.taig.android.system_service.operation
 import scala.language.implicitConversions
 
 trait context {
-    implicit def systemServiceContextSyntax( context: Context ): operation.context = {
-        new operation.context( context )
-    }
+  implicit def systemServiceContextSyntax(
+      context: Context): operation.context = {
+    new operation.context(context)
+  }
 }
 
 object context extends context

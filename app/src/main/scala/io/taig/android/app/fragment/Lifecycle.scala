@@ -4,139 +4,143 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.{ AttributeSet, Log }
+import android.util.{AttributeSet, Log}
 import android.view._
 
 trait Lifecycle extends Fragment {
-    override def onAttach( activity: Activity ) {
-        Log.d( getClass.getName, s"onAttach( $activity )" )
+  override def onAttach(activity: Activity) {
+    Log.d(getClass.getName, s"onAttach( $activity )")
 
-        super.onAttach( activity )
-    }
+    super.onAttach(activity)
+  }
 
-    override def onCreate( state: Bundle ) {
-        Log.d( getClass.getName, s"onCreate( $state )" )
+  override def onCreate(state: Bundle) {
+    Log.d(getClass.getName, s"onCreate( $state )")
 
-        super.onCreate( state )
-    }
+    super.onCreate(state)
+  }
 
-    override def onCreateView( inflater: LayoutInflater, container: ViewGroup, state: Bundle ) = {
-        Log.d( getClass.getName, s"onCreateView( $inflater, $container, $state )" )
+  override def onCreateView(inflater: LayoutInflater,
+                            container: ViewGroup,
+                            state: Bundle) = {
+    Log.d(getClass.getName, s"onCreateView( $inflater, $container, $state )")
 
-        super.onCreateView( inflater, container, state )
-    }
+    super.onCreateView(inflater, container, state)
+  }
 
-    override def onViewCreated( view: View, state: Bundle ) {
-        Log.d( getClass.getName, s"onViewCreated( $view, $state )" )
+  override def onViewCreated(view: View, state: Bundle) {
+    Log.d(getClass.getName, s"onViewCreated( $view, $state )")
 
-        super.onViewCreated( view, state )
-    }
+    super.onViewCreated(view, state)
+  }
 
-    override def onActivityCreated( state: Bundle ) {
-        Log.d( getClass.getName, s"onActivityCreated( $state )" )
+  override def onActivityCreated(state: Bundle) {
+    Log.d(getClass.getName, s"onActivityCreated( $state )")
 
-        super.onActivityCreated( state )
-    }
+    super.onActivityCreated(state)
+  }
 
-    override def onStart() {
-        Log.d( getClass.getName, s"onStart()" )
+  override def onStart() {
+    Log.d(getClass.getName, s"onStart()")
 
-        super.onStart()
-    }
+    super.onStart()
+  }
 
-    override def onResume() {
-        Log.d( getClass.getName, s"onResume()" )
+  override def onResume() {
+    Log.d(getClass.getName, s"onResume()")
 
-        super.onResume()
-    }
+    super.onResume()
+  }
 
-    override def onSaveInstanceState( state: Bundle ) {
-        Log.d( getClass.getName, s"onSaveInstanceState( $state )" )
+  override def onSaveInstanceState(state: Bundle) {
+    Log.d(getClass.getName, s"onSaveInstanceState( $state )")
 
-        super.onSaveInstanceState( state )
-    }
+    super.onSaveInstanceState(state)
+  }
 
-    override def onPause() {
-        Log.d( getClass.getName, s"onPause()" )
+  override def onPause() {
+    Log.d(getClass.getName, s"onPause()")
 
-        super.onPause()
-    }
+    super.onPause()
+  }
 
-    override def onStop() {
-        Log.d( getClass.getName, s"onStop()" )
+  override def onStop() {
+    Log.d(getClass.getName, s"onStop()")
 
-        super.onStop()
-    }
+    super.onStop()
+  }
 
-    override def onConfigurationChanged( configuration: Configuration ) {
-        Log.d( getClass.getName, s"onConfigurationChanged( $configuration )" )
+  override def onConfigurationChanged(configuration: Configuration) {
+    Log.d(getClass.getName, s"onConfigurationChanged( $configuration )")
 
-        super.onConfigurationChanged( configuration )
-    }
+    super.onConfigurationChanged(configuration)
+  }
 
-    override def onLowMemory() {
-        Log.d( getClass.getName, s"onLowMemory()" )
+  override def onLowMemory() {
+    Log.d(getClass.getName, s"onLowMemory()")
 
-        super.onLowMemory()
-    }
+    super.onLowMemory()
+  }
 
-    override def onDestroyView() {
-        Log.d( getClass.getName, s"onDestroyView()" )
+  override def onDestroyView() {
+    Log.d(getClass.getName, s"onDestroyView()")
 
-        super.onDestroyView()
-    }
+    super.onDestroyView()
+  }
 
-    override def onDestroy() {
-        Log.d( getClass.getName, s"onDestroy()" )
+  override def onDestroy() {
+    Log.d(getClass.getName, s"onDestroy()")
 
-        super.onDestroy()
-    }
+    super.onDestroy()
+  }
 
-    override def onDetach() {
-        Log.d( getClass.getName, s"onDetach()" )
+  override def onDetach() {
+    Log.d(getClass.getName, s"onDetach()")
 
-        super.onDetach()
-    }
+    super.onDetach()
+  }
 
-    override def onCreateOptionsMenu( menu: Menu, inflater: MenuInflater ) {
-        Log.d( getClass.getName, s"onCreateOptionsMenu( $menu, $inflater )" )
+  override def onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    Log.d(getClass.getName, s"onCreateOptionsMenu( $menu, $inflater )")
 
-        super.onCreateOptionsMenu( menu, inflater )
-    }
+    super.onCreateOptionsMenu(menu, inflater)
+  }
 
-    override def onPrepareOptionsMenu( menu: Menu ) {
-        Log.d( getClass.getName, s"onPrepareOptionsMenu( $menu )" )
+  override def onPrepareOptionsMenu(menu: Menu) {
+    Log.d(getClass.getName, s"onPrepareOptionsMenu( $menu )")
 
-        super.onPrepareOptionsMenu( menu )
-    }
+    super.onPrepareOptionsMenu(menu)
+  }
 
-    override def onDestroyOptionsMenu() {
-        Log.d( getClass.getName, s"onDestroyOptionsMenu()" )
+  override def onDestroyOptionsMenu() {
+    Log.d(getClass.getName, s"onDestroyOptionsMenu()")
 
-        super.onDestroyOptionsMenu()
-    }
+    super.onDestroyOptionsMenu()
+  }
 
-    override def onOptionsItemSelected( item: MenuItem ) = {
-        Log.d( getClass.getName, s"onOptionsItemSelected( $item )" )
+  override def onOptionsItemSelected(item: MenuItem) = {
+    Log.d(getClass.getName, s"onOptionsItemSelected( $item )")
 
-        super.onOptionsItemSelected( item )
-    }
+    super.onOptionsItemSelected(item)
+  }
 
-    override def onOptionsMenuClosed( menu: Menu ) {
-        Log.d( getClass.getName, s"onOptionsMenuClosed( $menu )" )
+  override def onOptionsMenuClosed(menu: Menu) {
+    Log.d(getClass.getName, s"onOptionsMenuClosed( $menu )")
 
-        super.onOptionsMenuClosed( menu )
-    }
+    super.onOptionsMenuClosed(menu)
+  }
 
-    override def onInflate( activity: Activity, attributes: AttributeSet, state: Bundle ) {
-        Log.d( getClass.getName, s"onInflate( $activity, $attributes, $state )" )
+  override def onInflate(activity: Activity,
+                         attributes: AttributeSet,
+                         state: Bundle) {
+    Log.d(getClass.getName, s"onInflate( $activity, $attributes, $state )")
 
-        super.onInflate( activity, attributes, state )
-    }
+    super.onInflate(activity, attributes, state)
+  }
 
-    override def onActivityResult( request: Int, result: Int, data: Intent ) {
-        Log.d( getClass.getName, s"onActivityResult( $request, $result, $data )" )
+  override def onActivityResult(request: Int, result: Int, data: Intent) {
+    Log.d(getClass.getName, s"onActivityResult( $request, $result, $data )")
 
-        super.onActivityResult( request, result, data )
-    }
+    super.onActivityResult(request, result, data)
+  }
 }
