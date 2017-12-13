@@ -24,7 +24,7 @@ object Settings {
             "-deprecation" ::
             "-feature" ::
             Nil,
-        scalaVersion := "2.11.11"
+        scalaVersion := "2.11.12"
     )
 
     object dependency {
