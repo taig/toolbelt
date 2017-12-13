@@ -28,7 +28,7 @@ object Settings {
     )
 
     object dependency {
-        val androidSupport = "26.0.1"
+        val androidSupport = "26.1.0"
 
         val androidSupportRecycler =
             "com.android.support" % "recyclerview-v7" % androidSupport
