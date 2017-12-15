@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.4
+
+_2017-12-15_
+
+ *  Add SimpleTextWatcher
+ *  Add mosby module
+ *  Introduce scalafmt
+ *  Upgrade to rxjava2 2.1.7
+ *  Upgrade to rxjava 1.3.4
+ *  Upgrade to scala 2.11.12
+ *  Upgrade to play-services 11.6.2
+ *  Upgrade to monix 2.3.2
+ *  Upgrade to support-library 26.1.0
+ *  Upgrade to sbt-android 1.7.10
+
 ## 0.6.3
 
 _2017-11-16_
