@@ -53,7 +53,7 @@ object Settings {
         
         val mosbyViewState = "com.hannesdorfmann.mosby3" % "viewstate" % "3.1.0"
 
-        val monix = "2.3.2"
+        val monix = "2.3.3"
 
         val monixEval = "io.monix" %% "monix-eval" % monix
 
