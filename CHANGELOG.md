@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.5
+
+_2018-01-24_
+
+ * Upgrade to rxjava 2.1.9
+ * Upgrade to monix 2.3.3
+ * Upgrade to sbt-scalafmt 1.15
+ * Upgrade to play-services 11.8.0
+
 ## 0.6.4
 
 _2017-12-15_
