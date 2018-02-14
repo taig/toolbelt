@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+_2018-02-14_
+
+ * Migrate to Fragment v4 (#5)
+
 ## 0.6.5
 
 _2018-01-24_
@@ -81,7 +87,7 @@ _2017-05-09_
 _2017-03-13_
 
  * Upgrade to google play services 10.2.0
- * Upgrade to android support library 25.2.0 
+ * Upgrade to android support library 25.2.0
 
 ## 0.5.23
 
