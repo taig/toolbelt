@@ -1,15 +1,14 @@
 package io.taig.android.app.fragment
 
-import android.app.{FragmentManager, FragmentTransaction}
 import android.os.Parcelable
-import android.support.v13.app.FragmentCompat
+import android.support.v4.app.{FragmentManager, FragmentTransaction}
 import android.view.{View, ViewGroup}
 
 /**
-  * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragments
-  */
+ * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragments
+ */
 abstract class PagerAdapter(manager: FragmentManager)
-    extends android.support.v4.view.PagerAdapter {
+  extends android.support.v4.view.PagerAdapter {
   private var transaction: Option[FragmentTransaction] = None
 
   private var primary: Fragment = null
@@ -22,9 +21,9 @@ abstract class PagerAdapter(manager: FragmentManager)
       transaction
   }
 
-  def create(position: Int): android.app.Fragment
+  def create(position: Int): android.support.v4.app.Fragment
 
-  def get(position: Int): android.app.Fragment =
+  def get(position: Int): android.support.v4.app.Fragment =
     manager.findFragmentByTag(identifier(position))
 
   override def instantiateItem(container: ViewGroup, position: Int) = {
@@ -41,7 +40,7 @@ abstract class PagerAdapter(manager: FragmentManager)
     }
 
     if (fragment != primary) {
-      FragmentCompat.setMenuVisibility(fragment, false)
+      fragment.setMenuVisibility(false)
     }
 
     fragment
@@ -60,11 +59,11 @@ abstract class PagerAdapter(manager: FragmentManager)
 
     if (fragment != primary) {
       if (primary != null) {
-        FragmentCompat.setMenuVisibility(primary, false)
+        primary.setMenuVisibility(false)
       }
 
       if (fragment != null) {
-        FragmentCompat.setMenuVisibility(fragment, true)
+        fragment.setMenuVisibility(true)
       }
 
       primary = fragment

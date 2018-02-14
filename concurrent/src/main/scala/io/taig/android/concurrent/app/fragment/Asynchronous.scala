@@ -1,7 +1,7 @@
 package io.taig.android.concurrent.app.fragment
 
-import android.app.FragmentManager
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import io.taig.android.app.fragment.Fragment
 import io.taig.android.concurrent.Executor.Ui
 import io.taig.android.concurrent.app.AsyncApi

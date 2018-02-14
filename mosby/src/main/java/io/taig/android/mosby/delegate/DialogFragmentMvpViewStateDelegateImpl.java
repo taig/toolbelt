@@ -1,16 +1,15 @@
 package io.taig.android.mosby.delegate;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.View;
 import com.hannesdorfmann.mosby3.PresenterManager;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
-import com.hannesdorfmann.mosby3.mvp.delegate.FragmentMvpDelegate;
+import com.hannesdorfmann.mosby3.mvp.delegate.FragmentMvpDelegateImpl;
 import com.hannesdorfmann.mosby3.mvp.delegate.MvpViewStateDelegateCallback;
 import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState;
 import com.hannesdorfmann.mosby3.mvp.viewstate.ViewState;
@@ -45,7 +44,7 @@ public class DialogFragmentMvpViewStateDelegateImpl<V extends MvpView, P extends
 
     protected static final String KEY_MOSBY_VIEW_ID = "com.hannesdorfmann.mosby3.fragment.mvp.id";
 
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     private static final String DEBUG_TAG = "FragmentMvpDelegateImpl";
     private MvpViewStateDelegateCallback<V, P, VS> delegateCallback;
     private boolean applyViewState = false;
@@ -191,7 +190,7 @@ public class DialogFragmentMvpViewStateDelegateImpl<V extends MvpView, P extends
 
         Activity activity = getActivity();
         boolean retainPresenterInstance =
-            FragmentMvpDelegateImpl.retainPresenterInstance(activity, fragment,
+            DialogFragmentMvpDelegateImpl.retainPresenterInstance(activity, fragment,
                 keepPresenterInstanceDuringScreenOrientationChanges, keepPresenterOnBackstack);
 
         P presenter = delegateCallback.getPresenter();
@@ -221,7 +220,7 @@ public class DialogFragmentMvpViewStateDelegateImpl<V extends MvpView, P extends
             }
         }
 
-        boolean keepInstance = FragmentMvpDelegateImpl.retainPresenterInstance(getActivity(), fragment,
+        boolean keepInstance = DialogFragmentMvpDelegateImpl.retainPresenterInstance(getActivity(), fragment,
             keepPresenterInstanceDuringScreenOrientationChanges, keepPresenterOnBackstack);
         VS viewState = delegateCallback.getViewState();
         if (viewState == null) {

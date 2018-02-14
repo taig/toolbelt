@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 trait Asynchronous extends Activity { self ⇒
   private lazy val helper =
-    fragment.Asynchronous.Helper.findOrCreate(getFragmentManager)
+    fragment.Asynchronous.Helper.findOrCreate(getSupportFragmentManager)
 
   implicit protected class AsynchronousFuture[T](future: Future[T]) {
     def ui: AsyncApi[T, self.type] =

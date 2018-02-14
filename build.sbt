@@ -154,6 +154,7 @@ lazy val app = project
   .settings(Settings.common ++ Settings.android)
   .settings(
     libraryDependencies ++=
+        Settings.dependency.androidSupportAppcompat ::
       Settings.dependency.androidSupportV4 ::
         Settings.dependency.androidSupportV13 ::
         Nil
