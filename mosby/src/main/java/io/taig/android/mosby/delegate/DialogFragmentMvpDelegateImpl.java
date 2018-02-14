@@ -17,10 +17,11 @@
 package io.taig.android.mosby.delegate;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.BackstackAccessor;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import com.hannesdorfmann.mosby3.PresenterManager;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
@@ -46,7 +47,7 @@ public class DialogFragmentMvpDelegateImpl<V extends MvpView, P extends MvpPrese
 
     protected static final String KEY_MOSBY_VIEW_ID = "com.hannesdorfmann.mosby3.fragment.mvp.id";
 
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     private static final String DEBUG_TAG = "FragmentMvpVSDelegate";
 
     private MvpDelegateCallback<V, P> delegateCallback;

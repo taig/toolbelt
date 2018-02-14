@@ -2,29 +2,21 @@ package io.taig.android.monix.operation
 
 import java.util.UUID
 
-import android.app.FragmentManager
 import android.content.Context
 import android.location.Location
+import android.support.v4.app.FragmentManager
 import com.google.android.gms
 import com.google.android.gms.common.api.{PendingResult, ResultCallback, Status}
-import com.google.android.gms.location.{
-  ActivityRecognitionResult,
-  LocationListener,
-  LocationRequest,
-  LocationServices
-}
+import com.google.android.gms.location.{ActivityRecognitionResult, LocationListener, LocationRequest, LocationServices}
 import io.reactivex.BackpressureStrategy
 import io.taig.android.log.Log
 import io.taig.android.monix.GoogleApiClient.Event.{Connected, Suspended}
 import io.taig.android.monix._
 import monix.execution.Cancelable
-import monix.execution.cancelables.{
-  CompositeCancelable,
-  MultiAssignmentCancelable
-}
+import monix.execution.cancelables.{CompositeCancelable, MultiAssignmentCancelable}
 import monix.reactive.{Observable, OverflowStrategy}
 import rx.RxReactiveStreams
-import io.{reactivex ⇒ rx2}
+import io.{reactivex => rx2}
 import monix.execution.Ack.Stop
 
 import scala.concurrent.duration._

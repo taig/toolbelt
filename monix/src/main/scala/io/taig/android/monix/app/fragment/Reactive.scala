@@ -1,7 +1,8 @@
 package io.taig.android.monix.app.fragment
 
-import android.app.{Activity, FragmentManager}
+import android.app.Activity
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import io.taig.android.app.fragment.Fragment
 import io.taig.android.monix.app.fragment.Reactive.Event
 import monix.reactive.observers.Subscriber
