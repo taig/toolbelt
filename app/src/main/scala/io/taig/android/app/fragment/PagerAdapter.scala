@@ -5,10 +5,10 @@ import android.support.v4.app.{FragmentManager, FragmentTransaction}
 import android.view.{View, ViewGroup}
 
 /**
- * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragments
- */
+  * An alternative FragmentPagerAdapter implementation, that allows to access the managed fragments
+  */
 abstract class PagerAdapter(manager: FragmentManager)
-  extends android.support.v4.view.PagerAdapter {
+    extends android.support.v4.view.PagerAdapter {
   private var transaction: Option[FragmentTransaction] = None
 
   private var primary: Fragment = null

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0
+
+_2018-04-24_
+
+ * Upgrade to rxjava2 2.1.12
+ * Upgrade to android platform 27
+ * Upgrade to play-services 15.0.0
+ * Upgrade to rxjava 1.3.8
+
 ## 0.7.0
 
 _2018-02-14_
