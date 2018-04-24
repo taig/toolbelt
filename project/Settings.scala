@@ -70,7 +70,7 @@ object Settings {
         val playServicesLocation =
             "com.google.android.gms" % "play-services-location" % playServices
 
-        val rxJava = "io.reactivex" % "rxjava" % "1.3.5"
+        val rxJava = "io.reactivex" % "rxjava" % "1.3.8"
 
         val rxJavaReactiveStream =
             "io.reactivex" % "rxjava-reactive-streams" % "1.2.1"
