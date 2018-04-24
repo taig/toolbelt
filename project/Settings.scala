@@ -6,8 +6,8 @@ import sbt._
 object Settings {
     val android = Def.settings(
         minSdkVersion := "13",
-        platformTarget := "android-26",
-        targetSdkVersion := "26",
+        platformTarget := "android-27",
+        targetSdkVersion := "27",
         typedResources := false
     )
 
@@ -28,7 +28,7 @@ object Settings {
     )
 
     object dependency {
-        val androidSupport = "26.1.0"
+        val androidSupport = "27.1.1"
 
         val androidSupportAppcompat =
             "com.android.support" % "appcompat-v7" % androidSupport
