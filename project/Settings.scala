@@ -42,7 +42,7 @@ object Settings {
         val androidSupportV13 =
             "com.android.support" % "support-v13" % androidSupport
 
-        val cats = "0.9.0"
+        val cats = "1.1.0"
 
         val catsCore = "org.typelevel" %% "cats-core" % cats
 
