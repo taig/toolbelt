@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1
+
+_2018-06-28_
+
+ * Upgrade to rxjava2 2.1.16
+ * Upgrade to play-services 15.0.1
+ * Upgrade to cats 1.1.0
+
 ## 0.8.0
 
 _2018-04-24_
